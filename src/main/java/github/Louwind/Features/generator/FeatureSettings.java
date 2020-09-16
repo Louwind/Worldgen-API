@@ -1,6 +1,5 @@
 package github.Louwind.Features.generator;
 
-import github.Louwind.Features.pool.StructureGeneratorPool;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
