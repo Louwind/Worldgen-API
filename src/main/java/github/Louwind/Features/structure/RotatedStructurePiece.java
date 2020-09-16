@@ -1,4 +1,4 @@
-package github.Louwind.Features;
+package github.Louwind.Features.structure;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.PoolStructurePiece;

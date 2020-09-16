@@ -2,36 +2,52 @@ package github.Louwind.Features.context.parameter;
 
 import github.Louwind.Features.context.FeatureContext;
 
-// TODO check types
-// TODO toString
+import java.util.NoSuchElementException;
+
 public class OptionalContextParameter<T> {
 
-	private T defaultValue;
-	private FeatureContextParameter<T> parameter;
+    public static final OptionalContextParameter<?> EMPTY = new OptionalContextParameter(null, null);
 
-	public OptionalContextParameter(FeatureContextParameter<T> parameter, T defaultValue) {
-		this.defaultValue = defaultValue;
-		this.parameter = parameter;
-	}
+    private FeatureContextParameter<T> parameter;
+    private T value;
 
-	public static <T> OptionalContextParameter<T> of(FeatureContextParameter<T> parameter) {
-		return new OptionalContextParameter<T>(parameter, null);
-	}
-	
-	public static <T> OptionalContextParameter<T> of(T defaultValue) {
-		return new OptionalContextParameter<T>(null, defaultValue);
-	}
-	
-	public static <T> OptionalContextParameter<T> empty() {
-		return new OptionalContextParameter<T>(null, null);
-	}
+    public OptionalContextParameter(FeatureContextParameter<T> parameter, T value) {
+        this.parameter = parameter;
+        this.value = value;
+    }
 
-	public T get(FeatureContext context) {
+    public static <T> OptionalContextParameter<T> empty() {
+        return (OptionalContextParameter<T>) EMPTY;
+    }
 
-		if (this.parameter == null)
-			return this.defaultValue;
-		
-		return context.get(this.parameter);
-	}
+    public static <T> OptionalContextParameter<T> of(FeatureContextParameter<T> parameter) {
+        return new OptionalContextParameter<T>(parameter, null);
+    }
 
+    public static <T> OptionalContextParameter<T> of(T value) {
+        return new OptionalContextParameter<T>(null, value);
+    }
+    public T get(FeatureContext context) {
+
+        if(this.parameter == null && this.value == null)
+            throw new NoSuchElementException("No parameter nor value present");
+
+        return this.parameter != null ? context.get(this.parameter) : this.value;
+    }
+
+    public boolean isPresent() {
+        return this.parameter != null || this.value != null;
+    }
+
+    @Override
+    public String toString() {
+
+        if(this.value != null)
+            return "OptionalContextParameter{value=" + this.value + "}";
+
+        if(this.parameter != null)
+            return "OptionalContextParameter{parameter=" + this.parameter + "}";
+
+        return "OptionalContextParameter.empty";
+    }
 }

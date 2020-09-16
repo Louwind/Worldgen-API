@@ -1,25 +1,38 @@
 package github.Louwind.Features.context.setter;
 
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.getter.StructureContextGetter;
+import github.Louwind.Features.context.FeatureContextBuilder;
+import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
-public class FeatureContextSetter {
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
-	protected final StructureContextGetter<Object>[] getters;
-	protected final FeatureContextParameter<Object> parameter;
+public class FeatureContextSetter<T> implements Consumer<FeatureContextBuilder> {
 
-	public FeatureContextSetter(FeatureContextParameter<Object> parameter, StructureContextGetter<Object>[] getters) {
-		this.getters = getters;
+	protected final List<FeatureContextGetter<T>> from;
+	protected final FeatureContextParameter<T> parameter;
+
+	public FeatureContextSetter(FeatureContextParameter<T> parameter, FeatureContextGetter<T>[] from) {
+		this.from = Arrays.asList(from);
 		this.parameter = parameter;
 	}
 
-	public void set(FeatureContext.Builder builder) {
-		FeatureContext context = builder.build();
+	@Override
+	public void accept(FeatureContextBuilder builder) {
 
-		for (StructureContextGetter<Object> getter : this.getters)
-			getter.get(this.parameter, builder);
+		for (FeatureContextGetter<T> from: this.from) {
+			FeatureContext context = builder.build();
+
+			if(from.test(context)) {
+				T t = from.apply(builder);
+
+				builder.put(this.parameter, t);
+			}
+
+		}
 
 	}
-	
+
 }

@@ -1,8 +1,8 @@
 package github.Louwind.Features.generator;
 
-import github.Louwind.Features.RotatedStructurePiece;
-import github.Louwind.Features.Settings;
+import github.Louwind.Features.structure.RotatedStructurePiece;
 import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.pool.IdentifiedPoolElement;
@@ -21,7 +21,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StructureGenerator {
+@Deprecated
+public class FeatureGenerator {
 
 	@Deprecated
 	protected final BlockBox box;
@@ -36,7 +37,7 @@ public class StructureGenerator {
 	@Deprecated
 	protected final int size;
 
-	public StructureGenerator(Settings settings) {
+	public FeatureGenerator(FeatureSettings settings) {
 		this.box = settings.getBox();
 		this.parent = settings.getParent();
 		this.pool = settings.getPool();
@@ -101,10 +102,10 @@ public class StructureGenerator {
 
 		if (this.parent != null) {
 			// TODO get parent
-			Optional<StructureGenerator> optional = Optional.empty();
+			Optional<FeatureGenerator> optional = Optional.empty();
 
 			if (optional.isPresent()) {
-				StructureGenerator parent = optional.get();
+				FeatureGenerator parent = optional.get();
 
 				return Stream.of(parent.getPools(), this.pools).flatMap(Stream::of).toArray(StructureGeneratorPool[]::new);
 			}
@@ -121,7 +122,7 @@ public class StructureGenerator {
 		return this.rotations;
 	}
 
-	public List<FeatureContextSetter> getSetters(FeatureContext.Builder builder) {
+	public List<FeatureContextSetter> getSetters(FeatureContextBuilder builder) {
 		return this.fromPools(StructureGeneratorPool::getSetters, StructurePoolEntry::getSetters, builder.build());
 	}
 

@@ -1,4 +1,4 @@
-package github.Louwind.Features;
+package github.Louwind.Features.generator;
 
 import github.Louwind.Features.pool.StructureGeneratorPool;
 import net.minecraft.structure.pool.StructurePool;
@@ -6,7 +6,8 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 
-public class Settings {
+@Deprecated
+public class FeatureSettings {
 
     private BlockBox box;
     private Identifier parent;
@@ -15,11 +16,12 @@ public class Settings {
     private BlockRotation[] rotations;
     private int size;
 
-    public Settings() {
+    public FeatureSettings() {
+        this.box = BlockBox.empty();
         // TODO Auto-generated constructor stub
     }
 
-    public Settings box(BlockBox box) {
+    public FeatureSettings box(BlockBox box) {
         this.box = box;
 
         return this;
@@ -49,31 +51,31 @@ public class Settings {
         return this.size;
     }
 
-    public Settings parent(Identifier parent) {
+    public FeatureSettings parent(Identifier parent) {
         this.parent = parent;
 
         return this;
     }
 
-    public Settings pool(StructurePool pool) {
+    public FeatureSettings pool(StructurePool pool) {
         this.pool = pool;
 
         return this;
     }
 
-    public Settings pools(StructureGeneratorPool[] pools) {
+    public FeatureSettings pools(StructureGeneratorPool[] pools) {
         this.pools = pools;
 
         return this;
     }
 
-    public Settings rotations(BlockRotation[] rotations) {
+    public FeatureSettings rotations(BlockRotation[] rotations) {
         this.rotations = rotations;
 
         return this;
     }
 
-    public Settings size(int size) {
+    public FeatureSettings size(int size) {
         this.size = size;
 
         return this;
