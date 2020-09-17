@@ -1,9 +1,11 @@
 package github.Louwind.Features.util;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
+import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
@@ -20,18 +22,21 @@ public class StructurePoolDeserializer implements JsonDeserializer<StructurePool
 
         Identifier name = FeaturesJsonHelper.getIdentifier(object, "name");
         Identifier terminators = FeaturesJsonHelper.getIdentifier(object, "terminators");
+        StructurePool.Projection projection = FeaturesJsonHelper.getProjection(object, "projection");
 
-        List<Pair<StructurePoolElement, Integer>> elements = StreamSupport
+        List list = StreamSupport
                 .stream(object.getAsJsonArray("elements").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(obj -> {
-                    StructurePoolElement poolElement = context.deserialize(obj, StructurePoolElement.class);
+                    String structure = JsonHelper.getString(obj, "structure");
                     int weight = JsonHelper.getInt(obj, "weight");
 
-                    return Pair.of(poolElement, weight);
+                    StructureProcessorList processors = FeaturesJsonHelper.getProcessors(obj, context, "processors");
+
+                    return Pair.of(StructurePoolElement.method_30426(structure, processors), weight);
                 }).collect(Collectors.toList());
 
-        return new StructurePool(name, terminators, elements);
+        return new StructurePool(name, terminators, ImmutableList.copyOf(list), projection);
     }
 
 }

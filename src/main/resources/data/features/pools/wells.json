@@ -1,0 +1,18 @@
+{
+  "name": "features:wells",
+  "terminators": "empty",
+  "projection": "rigid",
+  "elements": [
+    {
+      "structure": "features:wells/well_01",
+      "processors": [
+        {
+          "processor": "features:replace",
+          "block": "minecraft:oak_planks",
+          "replacement": "minecraft:spruce_planks"
+        }
+      ],
+      "weight": 1
+    }
+  ]
+}

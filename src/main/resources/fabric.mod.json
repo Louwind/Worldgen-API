@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "features",
   "version": "${version}",
 
   "name": "Features API",
@@ -14,7 +14,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/features/icon.png",
 
   "environment": "*",
   "entrypoints": {

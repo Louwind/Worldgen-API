@@ -11,7 +11,6 @@ public class FeatureSettings {
     private BlockBox box;
     private Identifier parent;
     private StructurePool pool;
-    private StructureGeneratorPool[] pools;
     private BlockRotation[] rotations;
     private int size;
 
@@ -38,10 +37,6 @@ public class FeatureSettings {
         return this.pool;
     }
 
-    public StructureGeneratorPool[] getPools() {
-        return this.pools;
-    }
-
     public BlockRotation[] getRotations() {
         return this.rotations;
     }
@@ -58,12 +53,6 @@ public class FeatureSettings {
 
     public FeatureSettings pool(StructurePool pool) {
         this.pool = pool;
-
-        return this;
-    }
-
-    public FeatureSettings pools(StructureGeneratorPool[] pools) {
-        this.pools = pools;
 
         return this;
     }
