@@ -34,11 +34,12 @@ public class FeaturesJsonHelper {
         return StructurePool.Projection.getById(id);
     }
 
-    public static StructureProcessorList getProcessors(JsonObject object, JsonDeserializationContext context, String name) {
-        StructureProcessor[] processors = JsonHelper.deserialize(object, name, new StructureProcessor[]{}, context, StructureProcessor[].class);
-        List<StructureProcessor> list = Arrays.asList(processors);
+    public static StructureProcessor[] getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessor[].class);
+    }
 
-        return new StructureProcessorList(list);
+    public static StructureProcessor[] getProcessors(JsonObject object, JsonDeserializationContext context, String name) {
+        return getProcessors(object, new StructureProcessor[]{}, context, name);
     }
 
 }
