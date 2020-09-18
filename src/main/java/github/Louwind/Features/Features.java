@@ -1,5 +1,7 @@
 package github.Louwind.Features;
 
+import github.Louwind.Features.impl.FeatureEntryTypes;
+import github.Louwind.Features.impl.FeaturePoolTypes;
 import github.Louwind.Features.impl.FeatureProcessorTypes;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -16,6 +18,8 @@ public class Features implements ModInitializer {
     public void onInitialize() {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_MANAGER);
 
+        Registry.register(FeaturesRegistry.FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntryTypes.ENTRY);
+        Registry.register(FeaturesRegistry.FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePoolTypes.POOL);
         Registry.register(FeaturesRegistry.FEATURE_PROCESSOR_TYPE, new Identifier("features:replace"), FeatureProcessorTypes.BLOCK_REPLACEMENT_PROCESSOR);
     }
 

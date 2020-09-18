@@ -22,7 +22,6 @@ public class FeatureGsons {
         return new GsonBuilder()
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
-
     }
 
 }
