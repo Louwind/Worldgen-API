@@ -8,7 +8,7 @@ import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.pool.FeaturePoolProperties;
+import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.JsonSerializer;
@@ -23,7 +23,7 @@ public class DefaultFeaturePool implements FeaturePool {
     protected final List<FeatureContextSetter> setters;
     protected final OptionalContextParameter<StructurePool> structurePool;
 
-    public DefaultFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeaturePoolProperties settings) {
+    public DefaultFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties settings) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
         this.setters = Arrays.asList(setters);
@@ -61,7 +61,7 @@ public class DefaultFeaturePool implements FeaturePool {
         public DefaultFeaturePool fromJson(JsonObject json, JsonDeserializationContext context) {
             // TODO FeaturesJsonHelper::getParameter
             StructurePool structurePool = FeaturesJsonHelper.getStructurePool(json, "pool");
-            FeaturePoolProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
+            FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
 
             FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "setters");
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
