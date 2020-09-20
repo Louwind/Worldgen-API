@@ -2,7 +2,7 @@ package github.Louwind.Features.impl.feature;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.impl.context.DefaultFeatureContext;
 import github.Louwind.Features.structure.RotatedStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
@@ -26,7 +26,7 @@ public class StructureGeneratorFeature<T extends DefaultFeatureGenerator, FC ext
 		this.generator = generator;
 	}
 
-	public FeatureContext getContext(StructureWorldAccess world, Random random, BlockPos pos) {
+	public DefaultFeatureContext getContext(StructureWorldAccess world, Random random, BlockPos pos) {
 		/*ServerWorld server = (ServerWorld) world;
 
 		StructurePool pool = this.generator.getPool();
@@ -47,7 +47,7 @@ public class StructureGeneratorFeature<T extends DefaultFeatureGenerator, FC ext
 		return null;
 	}
 
-	public List<StructurePiece> getPieces(ChunkGenerator generator, FeatureContext context, Random random) {
+	public List<StructurePiece> getPieces(ChunkGenerator generator, DefaultFeatureContext context, Random random) {
 		List<StructurePiece> pieces = Lists.newArrayList();
 
 		/*
@@ -69,7 +69,7 @@ public class StructureGeneratorFeature<T extends DefaultFeatureGenerator, FC ext
 	}
 	
 	
-	public StructurePool getPool(FeatureContext context, RotatedStructurePiece piece, Random random) {
+	public StructurePool getPool(DefaultFeatureContext context, RotatedStructurePiece piece, Random random) {
 		/*IdentifiedPoolElement poolElement = (IdentifiedPoolElement) piece.getPoolElement();
 		StructureGenerator structureGenerator = context.get(GENERATOR);
 
@@ -93,7 +93,7 @@ public class StructureGeneratorFeature<T extends DefaultFeatureGenerator, FC ext
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FC featureConfig) {
-		FeatureContext context = this.getContext(world, random, blockPos);
+		DefaultFeatureContext context = this.getContext(world, random, blockPos);
 		List<StructurePiece> pieces = this.getPieces(chunkGenerator, context, random);
 
 		/*

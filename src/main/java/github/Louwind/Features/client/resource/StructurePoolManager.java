@@ -1,4 +1,4 @@
-package github.Louwind.Features;
+package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

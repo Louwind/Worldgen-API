@@ -18,6 +18,10 @@ public class FeatureGsons {
         }).createGsonSerializer();
     }
 
+    public static GsonBuilder getFeatureGsonBuilder() {
+        return new GsonBuilder();
+    }
+
     public static GsonBuilder getProcessorGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())

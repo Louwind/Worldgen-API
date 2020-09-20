@@ -1,6 +1,6 @@
 package github.Louwind.Features.context.setter;
 
-import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.impl.context.DefaultFeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
@@ -23,7 +23,7 @@ public class FeatureContextSetter<T> implements Consumer<FeatureContextBuilder> 
 	public void accept(FeatureContextBuilder builder) {
 
 		for (FeatureContextGetter<T> from: this.from) {
-			FeatureContext context = builder.build();
+			DefaultFeatureContext context = builder.build();
 
 			if(from.test(context)) {
 				T t = from.apply(builder);

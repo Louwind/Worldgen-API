@@ -1,5 +1,6 @@
 package github.Louwind.Features;
 
+import github.Louwind.Features.client.resource.StructurePoolManager;
 import github.Louwind.Features.impl.FeatureEntryTypes;
 import github.Louwind.Features.impl.FeaturePoolTypes;
 import github.Louwind.Features.impl.FeatureProcessorTypes;

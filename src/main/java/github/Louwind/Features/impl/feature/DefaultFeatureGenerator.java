@@ -1,6 +1,6 @@
 package github.Louwind.Features.impl.feature;
 
-import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.impl.context.DefaultFeatureContext;
 import github.Louwind.Features.impl.entry.DefaultFeatureEntry;
 import github.Louwind.Features.impl.pool.DefaultFeaturePool;
 import github.Louwind.Features.impl.properties.DefaultFeatureProperties;
@@ -45,7 +45,7 @@ public class DefaultFeatureGenerator {
 //        return functions;
 //    }
 
-    protected Optional<DefaultFeatureEntry> getEntry(DefaultFeaturePool pool, FeatureContext context) {
+    protected Optional<DefaultFeatureEntry> getEntry(DefaultFeaturePool pool, DefaultFeatureContext context) {
 //        RotatedStructurePiece piece = context.get(PIECE);
 //        IdentifiedPoolElement poolElement = (IdentifiedPoolElement) piece.getPoolElement();
 

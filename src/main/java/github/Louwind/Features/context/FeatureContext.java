@@ -2,35 +2,29 @@ package github.Louwind.Features.context;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class FeatureContext {
+public interface FeatureContext extends FeatureContextAware {
 
-	public static final FeatureContext EMPTY = new FeatureContextBuilder().build();
+    Map<FeatureContextParameter<?>, Object> getParameters();
 
-	private final Map<FeatureContextParameter<?>, Object> parameters;
+    @SuppressWarnings("unchecked")
+    default <T> T get(FeatureContextParameter<T> parameter) {
+        Map<FeatureContextParameter<?>, Object> parameters = this.getParameters();
 
-	public FeatureContext(Map<FeatureContextParameter<?>, Object> parameters) {
-		this.parameters = new HashMap(parameters);
-	}
+        return (T) parameters.get(parameter);
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T> T get(FeatureContextParameter<T> parameter) {
-		return (T) this.parameters.get(parameter);
-	}
+    default boolean has(Set<FeatureContextParameter<?>> parameters) {
 
-	public boolean has(Set<FeatureContextParameter<?>> parameters) throws IllegalAccessException {
+        for (FeatureContextParameter<?> parameter : parameters) {
 
-		for (FeatureContextParameter<?> parameter: parameters) {
+            if (!this.getParameters().containsKey(parameter))
+                throw new IllegalArgumentException("The provided context doesn't have the required: " + parameter);
+        }
 
-			if (!this.parameters.containsKey(parameter))
-				throw new IllegalAccessException("The provided feature context doesn't have the required: " + parameter);
-
-		}
-
-		return true;
-	}
+        return true;
+    }
 
 }

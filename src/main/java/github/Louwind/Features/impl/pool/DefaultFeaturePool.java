@@ -21,12 +21,14 @@ public class DefaultFeaturePool implements FeaturePool {
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
     protected final List<FeatureContextSetter> setters;
+    protected final FeatureProperties properties;
     protected final OptionalContextParameter<StructurePool> structurePool;
 
-    public DefaultFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties settings) {
+    public DefaultFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
         this.setters = Arrays.asList(setters);
+        this.properties = properties;
         this.structurePool = structurePool;
     }
 
@@ -38,6 +40,11 @@ public class DefaultFeaturePool implements FeaturePool {
     @Override
     public List<FeatureFunction> getFunctions() {
         return this.functions;
+    }
+
+    @Override
+    public FeatureProperties getProperties() {
+        return this.properties;
     }
 
     @Override
