@@ -5,7 +5,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
+import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.FeatureEntryTypes;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
@@ -38,6 +40,11 @@ public class GenericFeatureEntry implements FeatureEntry {
 	@Override
 	public Identifier getStructureId() {
 		return this.structureId;
+	}
+
+	@Override
+	public FeatureEntryType getType() {
+		return FeatureEntryTypes.ENTRY;
 	}
 
 	public static class Serializer implements JsonSerializer<GenericFeatureEntry> {

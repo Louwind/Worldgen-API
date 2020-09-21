@@ -13,4 +13,6 @@ public interface FeatureProperties {
 
     int getSize();
 
+    FeaturePropertiesType getType();
+
 }

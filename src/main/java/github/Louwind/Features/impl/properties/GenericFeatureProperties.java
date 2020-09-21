@@ -3,7 +3,9 @@ package github.Louwind.Features.impl.properties;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import github.Louwind.Features.impl.FeaturePropertiesTypes;
 import github.Louwind.Features.properties.FeatureProperties;
+import github.Louwind.Features.properties.FeaturePropertiesType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
@@ -41,6 +43,11 @@ public class GenericFeatureProperties implements FeatureProperties {
     @Override
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public FeaturePropertiesType getType() {
+        return FeaturePropertiesTypes.PROPERTIES;
     }
 
     public static class Serializer implements JsonSerializer<GenericFeatureProperties> {

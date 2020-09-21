@@ -8,6 +8,8 @@ import java.util.Random;
 
 public interface FeatureGenerator {
 
+    FeatureGeneratorType getType();
+
     List<FeaturePool> getPools();
 
     FeatureProperties getProperties();

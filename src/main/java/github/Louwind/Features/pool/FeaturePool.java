@@ -21,4 +21,6 @@ public interface FeaturePool {
 
     OptionalContextParameter<StructurePool> getStructurePool();
 
+    FeaturePoolType getType();
+
 }

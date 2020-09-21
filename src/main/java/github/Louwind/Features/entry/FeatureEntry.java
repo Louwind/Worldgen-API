@@ -14,4 +14,6 @@ public interface FeatureEntry {
 
     Identifier getStructureId();
 
+    FeatureEntryType getType();
+
 }

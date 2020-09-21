@@ -7,7 +7,9 @@ import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.FeaturePoolTypes;
 import github.Louwind.Features.pool.FeaturePool;
+import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
@@ -55,6 +57,11 @@ public class GenericFeaturePool implements FeaturePool {
     @Override
     public OptionalContextParameter<StructurePool> getStructurePool() {
         return this.structurePool;
+    }
+
+    @Override
+    public FeaturePoolType getType() {
+        return FeaturePoolTypes.POOL;
     }
 
     public static class Serializer implements JsonSerializer<GenericFeaturePool> {

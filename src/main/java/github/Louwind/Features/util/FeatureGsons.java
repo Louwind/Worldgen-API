@@ -1,8 +1,16 @@
 package github.Louwind.Features.util;
 
 import com.google.gson.GsonBuilder;
+import github.Louwind.Features.condition.FeatureCondition;
+import github.Louwind.Features.context.getter.FeatureContextGetter;
+import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.entry.FeatureEntry;
+import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.mixin.StructureProcessorInvoker;
+import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.processor.FeatureProcessorType;
+import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -18,8 +26,40 @@ public class FeatureGsons {
         }).createGsonSerializer();
     }
 
+    private static Object createFeatureEntrySerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_ENTRY_TYPE, "type", "type", FeatureEntry::getType).createGsonSerializer();
+    }
+
+    private static Object createFeatureGeneratorSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_GENERATOR_TYPE, "type", "type", FeatureGenerator::getType).createGsonSerializer();
+    }
+
+    private static Object createFeatureConditionSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONDITION_TYPE, "condition", "condition", FeatureCondition::getType).createGsonSerializer();
+    }
+
+    private static Object createFeatureFunctionSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_FUNCTION_TYPE, "function", "function", FeatureFunction::getType).createGsonSerializer();
+    }
+
+    private static Object createFeaturePoolSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_TYPE, "type", "type", FeaturePool::getType).createGsonSerializer();
+    }
+
+    private static Object createFeaturePropertiesSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROPERTIES_TYPE, "properties", "properties", FeatureProperties::getType).createGsonSerializer();
+    }
+
     public static GsonBuilder getFeatureGsonBuilder() {
-        return new GsonBuilder();
+        return new GsonBuilder()
+                .registerTypeHierarchyAdapter(FeatureGenerator.class, FeatureGsons.createFeatureGeneratorSerializer())
+                .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
+                .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
+                .registerTypeHierarchyAdapter(FeatureProperties.class, FeatureGsons.createFeaturePropertiesSerializer())
+                .registerTypeHierarchyAdapter(FeatureContextSetter.class, null)
+                .registerTypeHierarchyAdapter(FeatureContextGetter.class, null)
+                .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
+                .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {

@@ -4,6 +4,8 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.generator.FeatureGenerator;
+import github.Louwind.Features.generator.FeatureGeneratorType;
+import github.Louwind.Features.impl.FeatureGenerators;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
@@ -20,6 +22,11 @@ public class GenericFeatureGenerator implements FeatureGenerator {
     public GenericFeatureGenerator(FeaturePool[] pools, FeatureProperties properties) {
         this.pools = Arrays.asList(pools);
         this.properties = properties;
+    }
+
+    @Override
+    public FeatureGeneratorType getType() {
+        return FeatureGenerators.GENERIC;
     }
 
     @Override

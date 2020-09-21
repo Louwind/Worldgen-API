@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
 
+@Deprecated
 public class FeatureContextSetter<T> implements BiPredicate<FeatureContextProvider, FeatureContextBuilder> {
 
     protected final List<FeatureContextGetter<T>> from;
