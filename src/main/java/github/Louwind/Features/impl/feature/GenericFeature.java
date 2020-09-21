@@ -11,12 +11,12 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 
 import java.util.Random;
 
-public class DefaultFeature<CT extends FeatureContextProvider, FC extends FeatureConfig> extends Feature<FC> {
+public class GenericFeature<CT extends FeatureContextProvider, FC extends FeatureConfig> extends Feature<FC> {
 
     protected final Identifier identifier;
     protected final CT contextProvider;
 
-    public DefaultFeature(Identifier identifier, CT contextProvider, Codec<FC> configCodec) {
+    public GenericFeature(Identifier identifier, CT contextProvider, Codec<FC> configCodec) {
         super(configCodec);
 
         this.identifier = identifier;

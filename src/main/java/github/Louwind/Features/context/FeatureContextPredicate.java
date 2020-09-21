@@ -1,28 +1,21 @@
 package github.Louwind.Features.context;
 
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.impl.context.DefaultFeatureContext;
-import org.apache.logging.log4j.LogManager;
+import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
-public interface FeatureContextPredicate extends FeatureContextAware, Predicate<DefaultFeatureContext> {
+public interface FeatureContextPredicate extends FeatureContextAware, Predicate<FeatureContext> {
 
     List<FeatureCondition> getConditions();
 
     @Override
-    default boolean test(DefaultFeatureContext context) {
+    default boolean test(FeatureContext context) {
+        Set<FeatureContextParameter<?>> parameters = this.getRequiredParameters();
 
-        try {
-            return this.hasRequiredParameters(context) && this.getConditions().stream().allMatch(condition -> condition.test(context));
-        } catch (IllegalAccessException e) {
-            String message = e.getMessage();
-
-            LogManager.getLogger().warn(message);
-        }
-
-        return false;
+        return parameters.stream().allMatch(context::has) && this.getConditions().stream().allMatch(condition -> condition.test(context));
     }
 
 }

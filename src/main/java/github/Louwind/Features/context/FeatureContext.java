@@ -2,29 +2,24 @@ package github.Louwind.Features.context;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-public interface FeatureContext extends FeatureContextAware {
+public class FeatureContext {
 
-    Map<FeatureContextParameter<?>, Object> getParameters();
+    private final Map<FeatureContextParameter<?>, Object> parameters;
 
-    @SuppressWarnings("unchecked")
-    default <T> T get(FeatureContextParameter<T> parameter) {
-        Map<FeatureContextParameter<?>, Object> parameters = this.getParameters();
-
-        return (T) parameters.get(parameter);
+    public FeatureContext(Map<FeatureContextParameter<?>, Object> parameters) {
+        this.parameters = new HashMap(parameters);
     }
 
-    default boolean has(Set<FeatureContextParameter<?>> parameters) {
+    @SuppressWarnings("unchecked")
+    public <T> T get(FeatureContextParameter<T> parameter) {
+        return (T) this.parameters.get(parameter);
+    }
 
-        for (FeatureContextParameter<?> parameter : parameters) {
-
-            if (!this.getParameters().containsKey(parameter))
-                throw new IllegalArgumentException("The provided context doesn't have the required: " + parameter);
-        }
-
-        return true;
+    public boolean has(FeatureContextParameter<?> parameter) {
+        return this.parameters.containsKey(parameter);
     }
 
 }

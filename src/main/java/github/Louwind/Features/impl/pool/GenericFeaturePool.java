@@ -16,7 +16,7 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultFeaturePool implements FeaturePool {
+public class GenericFeaturePool implements FeaturePool {
 
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
@@ -24,7 +24,7 @@ public class DefaultFeaturePool implements FeaturePool {
     protected final FeatureProperties properties;
     protected final OptionalContextParameter<StructurePool> structurePool;
 
-    public DefaultFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties) {
+    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
         this.setters = Arrays.asList(setters);
@@ -57,15 +57,15 @@ public class DefaultFeaturePool implements FeaturePool {
         return this.structurePool;
     }
 
-    public static class Serializer implements JsonSerializer<DefaultFeaturePool> {
+    public static class Serializer implements JsonSerializer<GenericFeaturePool> {
 
         @Override
-        public void toJson(JsonObject json, DefaultFeaturePool object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, GenericFeaturePool object, JsonSerializationContext context) {
             // TODO toJson
         }
 
         @Override
-        public DefaultFeaturePool fromJson(JsonObject json, JsonDeserializationContext context) {
+        public GenericFeaturePool fromJson(JsonObject json, JsonDeserializationContext context) {
             // TODO FeaturesJsonHelper::getParameter
             StructurePool structurePool = FeaturesJsonHelper.getStructurePool(json, "pool");
             FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
@@ -74,7 +74,7 @@ public class DefaultFeaturePool implements FeaturePool {
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
             FeatureEntry[] entries = FeaturesJsonHelper.getEntries(json, context, "entries");
 
-            return new DefaultFeaturePool(OptionalContextParameter.of(structurePool), setters, functions, entries, props);
+            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), setters, functions, entries, props);
         }
 
     }

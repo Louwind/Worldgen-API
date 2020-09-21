@@ -5,7 +5,8 @@ import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.properties.DefaultFeatureProperties;
+import github.Louwind.Features.impl.properties.GenericFeatureProperties;
+import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import net.minecraft.block.Block;
 import net.minecraft.structure.pool.StructurePool;
@@ -116,7 +117,11 @@ public class FeaturesJsonHelper {
     }
 
     public static FeatureProperties getPoolProperties(JsonObject object, JsonDeserializationContext context, String name) {
-        return (FeatureProperties) JsonHelper.deserialize(object, name, DefaultFeatureProperties.EMPTY, context, FeatureProperties[].class);
+        return (FeatureProperties) JsonHelper.deserialize(object, name, GenericFeatureProperties.EMPTY, context, FeatureProperties[].class);
+    }
+
+    public static FeaturePool[] getPools(JsonObject object, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, new FeaturePool[]{}, context, FeaturePool[].class);
     }
 
 }

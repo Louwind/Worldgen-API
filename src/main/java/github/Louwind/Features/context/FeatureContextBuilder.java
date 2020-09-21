@@ -2,43 +2,44 @@ package github.Louwind.Features.context;
 
 import com.google.common.collect.Maps;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.impl.context.DefaultFeatureContext;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FeatureContextBuilder {
 
-    private final Map<FeatureContextParameter<?>, Object> parameters;
-    private final FeatureContextProvider type;
+    protected final Map<FeatureContextParameter<?>, Object> parameters;
 
-    public FeatureContextBuilder(FeatureContextProvider type) {
+    public FeatureContextBuilder() {
         this.parameters = Maps.newIdentityHashMap();
-        this.type = type;
     }
 
-    public <T> FeatureContextBuilder put(FeatureContextParameter<T> key, T value) throws IllegalAccessException {
-        Set<FeatureContextParameter<?>> allowed = this.type.getAllowedParameters();
-        Set<FeatureContextParameter<?>> required = this.type.getRequiredParameters();
-
-        if(!allowed.contains(key))
-            throw new IllegalAccessException("The context parameter " + key + " isn't allowed in " + this.type + " context type");
-
-        if(!required.contains(key))
-            throw new IllegalAccessException("The context parameter " + key + " isn't required in " + this.type + " context type");
-
+    public <T> FeatureContextBuilder put(FeatureContextParameter<T> key, T value) {
         this.parameters.put(key, value);
 
         return this;
     }
 
-    public DefaultFeatureContext build() throws IllegalAccessException {
-        DefaultFeatureContext context = new DefaultFeatureContext(this.parameters);
+    public FeatureContext build(FeatureContextProvider provider) throws IllegalAccessException {
+        FeatureContext context = new FeatureContext(this.parameters);
 
-        if(this.type.hasRequiredParameters(context))
-            return context;
+        Set<FeatureContextParameter<?>> allowed = provider.getAllowedParameters();
+        Set<FeatureContextParameter<?>> required = provider.getRequiredParameters();
 
-        throw new IllegalAccessException("The context " + context + " doesn't have the require parameters of " + this.type + " context type");
+        Set<FeatureContextParameter<?>> all = Stream.concat(allowed.stream(), required.stream()).collect(Collectors.toSet());
+
+        if(!this.parameters.keySet().stream().allMatch(context::has))
+            throw new IllegalAccessException("The context " + context + " doesn't have the require parameters of " + provider + " context type");
+
+        for (FeatureContextParameter<?> parameter : this.parameters.keySet()) {
+
+            if(!all.contains(parameter))
+                throw new IllegalAccessException("The context parameter " + parameter + " isn't allowed in " + provider + " context type");
+        }
+
+        return context;
     }
 
 }

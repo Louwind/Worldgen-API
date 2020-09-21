@@ -1,6 +1,7 @@
 package github.Louwind.Features.generator;
 
 import github.Louwind.Features.pool.FeaturePool;
+import github.Louwind.Features.properties.FeatureProperties;
 
 import java.util.List;
 import java.util.Random;
@@ -8,6 +9,8 @@ import java.util.Random;
 public interface FeatureGenerator {
 
     List<FeaturePool> getPools();
+
+    FeatureProperties getProperties();
 
     default FeaturePool getRandomPool(Random random) {
         List<FeaturePool> pools = this.getPools();
