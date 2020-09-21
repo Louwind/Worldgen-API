@@ -8,7 +8,6 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.generator.FeatureGeneratorType;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.properties.FeaturePropertiesType;
