@@ -9,10 +9,9 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiPredicate;
+import java.util.function.BiFunction;
 
-@Deprecated
-public class FeatureContextSetter<T> implements BiPredicate<FeatureContextProvider, FeatureContextBuilder> {
+public class FeatureContextSetter<T> implements BiFunction<FeatureContextProvider, FeatureContextBuilder, T> {
 
     protected final List<FeatureContextGetter<T>> from;
     protected final FeatureContextParameter<T> parameter;
@@ -23,7 +22,7 @@ public class FeatureContextSetter<T> implements BiPredicate<FeatureContextProvid
     }
 
     @Override
-    public boolean test(FeatureContextProvider provider, FeatureContextBuilder builder) {
+    public T apply(FeatureContextProvider provider, FeatureContextBuilder builder) {
 
         for (FeatureContextGetter<T> from : this.from) {
 
@@ -33,9 +32,7 @@ public class FeatureContextSetter<T> implements BiPredicate<FeatureContextProvid
                 if (from.test(context)) {
                     T t = from.apply(builder);
 
-                    builder.put(this.parameter, t);
-
-                    return true;
+                    return (T) builder.put(this.parameter, t);
                 }
 
             } catch (IllegalAccessException e) {
@@ -46,7 +43,7 @@ public class FeatureContextSetter<T> implements BiPredicate<FeatureContextProvid
 
         }
 
-        return false;
+        return null;
     }
 
 }

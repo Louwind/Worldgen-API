@@ -1,13 +1,19 @@
 package github.Louwind.Features.util;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import github.Louwind.Features.condition.FeatureCondition;
+import github.Louwind.Features.context.getter.FeatureContextGetter;
+import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.properties.GenericFeatureProperties;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
+import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -78,8 +84,22 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getConditions(object, new FeatureCondition[]{}, context, name);
     }
 
+    public static FeatureContextParameter getContextParameter(JsonObject object, String name) {
+        Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
+
+        return FeaturesRegistry.FEATURE_CONTEXT_PARAMETER.get(id);
+    }
+
     public static FeatureEntry[] getEntries(JsonObject object, JsonDeserializationContext context, String name) {
         return JsonHelper.deserialize(object, name, new FeatureEntry[]{}, context, FeatureEntry[].class);
+    }
+
+    public static FeatureContextGetter[] getFrom(JsonObject object, FeatureContextGetter[] defaultValue, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, "from", defaultValue, context, FeatureContextGetter[].class);
+    }
+
+    public static FeatureContextGetter[] getFrom(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getFrom(object, new FeatureContextGetter[]{}, context, name);
     }
 
     public static FeatureFunction[] getFunction(JsonObject object, FeatureFunction[] defaultValue, JsonDeserializationContext context, String name) {

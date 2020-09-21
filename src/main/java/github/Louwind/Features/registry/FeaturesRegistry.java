@@ -20,7 +20,7 @@ public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureConditionType> FEATURE_CONDITION_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:condition")), Lifecycle.experimental());
 
-    public static final SimpleRegistry<FeatureContextGetterType<?>> FEATURE_CONTEXT_GETTER_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:getter")), Lifecycle.experimental());
+    public static final SimpleRegistry<FeatureContextGetterType> FEATURE_CONTEXT_GETTER_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:getter")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureContextParameter<?>> FEATURE_CONTEXT_PARAMETER = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:parameter")), Lifecycle.experimental());
 

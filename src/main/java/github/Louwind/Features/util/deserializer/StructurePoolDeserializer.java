@@ -1,8 +1,9 @@
-package github.Louwind.Features.util;
+package github.Louwind.Features.util.deserializer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
+import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.structure.processor.StructureProcessor;

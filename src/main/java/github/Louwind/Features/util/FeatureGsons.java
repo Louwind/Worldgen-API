@@ -12,6 +12,8 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
+import github.Louwind.Features.util.deserializer.FeatureContextSetterDeserializer;
+import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.util.JsonSerializing;
@@ -32,6 +34,10 @@ public class FeatureGsons {
 
     private static Object createFeatureGeneratorSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_GENERATOR_TYPE, "type", "type", FeatureGenerator::getType).createGsonSerializer();
+    }
+
+    private static Object createFeatureContextGetterSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_GETTER_TYPE, "type", "type", FeatureContextGetter::getType).createGsonSerializer();
     }
 
     private static Object createFeatureConditionSerializer() {
@@ -56,10 +62,10 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
                 .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeatureProperties.class, FeatureGsons.createFeaturePropertiesSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextSetter.class, null)
-                .registerTypeHierarchyAdapter(FeatureContextGetter.class, null)
+                .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
-                .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer());
+                .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
+                .registerTypeHierarchyAdapter(FeatureContextSetter.class, new FeatureContextSetterDeserializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {
