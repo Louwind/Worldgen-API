@@ -1,6 +1,7 @@
 package github.Louwind.Features.impl.context;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.FeatureContextProvider;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
@@ -21,7 +22,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, POS, RANDOM, SIZE, STRUCTURE_POOL, WORLD);
+        return ImmutableSet.of(BOX, PIECES, POS, RANDOM, SIZE, STRUCTURE_POOL, WORLD);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
         return new FeatureContextBuilder()
                 .put(BOX, box)
+                .put(PIECES, Lists.newArrayList())
                 .put(POS, pos)
                 .put(RANDOM, random)
                 .put(SIZE, size)

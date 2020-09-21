@@ -1,5 +1,6 @@
 package github.Louwind.Features.client.resource;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import github.Louwind.Features.generator.FeatureGenerator;
@@ -21,10 +22,10 @@ public class FeatureGeneratorManager extends JsonDataLoader implements SimpleRes
     private static final Gson GSON = FeatureGsons.getFeatureGsonBuilder().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private Map<Identifier, FeatureGenerator> features;
+    private final Map<Identifier, FeatureGenerator> features = Maps.newHashMap();
 
     public FeatureGeneratorManager() {
-        super(GSON, "feature_type");
+        super(GSON, "feature_types");
     }
 
     @Override
@@ -45,7 +46,7 @@ public class FeatureGeneratorManager extends JsonDataLoader implements SimpleRes
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("features:feature_type");
+        return new Identifier("features:feature_types");
     }
 
     @Override
