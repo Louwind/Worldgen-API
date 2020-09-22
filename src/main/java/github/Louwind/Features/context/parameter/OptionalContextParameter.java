@@ -36,6 +36,14 @@ public class OptionalContextParameter<T> {
         return this.parameter != null ? context.get(this.parameter) : this.value;
     }
 
+    public T get() {
+
+        if(this.value == null)
+            throw new NoSuchElementException("No parameter nor value present");
+
+        return this.value;
+    }
+
     public boolean isPresent() {
         return this.parameter != null || this.value != null;
     }

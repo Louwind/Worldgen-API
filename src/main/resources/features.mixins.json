@@ -4,6 +4,7 @@
   "package": "github.Louwind.Features.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "SinglePoolElementAccessor",
     "StructureProcessorInvoker"
   ],
   "client": [

@@ -11,6 +11,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.Set;
 public class FeatureContextParameters {
 
     public static final FeatureContextParameter<BlockBox> BOX = new FeatureContextParameter(new Identifier("features:box"));
+
+    public static final FeatureContextParameter<ChunkPos> CHUNK_POS = new FeatureContextParameter(new Identifier("features:chunk_pos"));
 
     @Deprecated
     public static final FeatureContextParameter<GenericFeatureGenerator> GENERATOR = new FeatureContextParameter(new Identifier("features:generator"));
@@ -33,8 +36,7 @@ public class FeatureContextParameters {
     @Deprecated
     public static final FeatureContextParameter<RotatedStructurePiece> PIECE = new FeatureContextParameter(new Identifier("features:piece"));
 
-    @Deprecated
-    public static final FeatureContextParameter<BlockRotation> PIECE_ROTATION = new FeatureContextParameter(new Identifier("features:rotation"));
+    public static final FeatureContextParameter<BlockRotation> ROTATION = new FeatureContextParameter(new Identifier("features:rotation"));
 
     @Deprecated
     public static final FeatureContextParameter<List<StructurePiece>> PIECES = new FeatureContextParameter(new Identifier("features:pieces"));
