@@ -5,6 +5,6 @@ import github.Louwind.Features.impl.context.GenericContextProvider;
 
 public class FeatureContextProviders {
 
-    public static final FeatureContextProvider PROVIDER = new GenericContextProvider();
+    public static final FeatureContextProvider GENERIC = new GenericContextProvider();
 
 }

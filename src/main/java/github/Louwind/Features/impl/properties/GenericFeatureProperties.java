@@ -17,22 +17,14 @@ import java.util.List;
 
 public class GenericFeatureProperties implements FeatureProperties {
 
-    public static final FeatureProperties EMPTY = new GenericFeatureProperties(BlockBox.empty(), new BlockRotation[]{}, 1);
+    public static final FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{}, 1);
 
-    private final BlockBox box;
     private final List<BlockRotation> rotations;
     private final int size;
 
-    public GenericFeatureProperties(BlockBox box, BlockRotation[] rotations, int size) {
+    public GenericFeatureProperties(BlockRotation[] rotations, int size) {
         this.rotations = Arrays.asList(rotations);
-
-        this.box = box;
         this.size = size;
-    }
-
-    @Override
-    public BlockBox getBox() {
-        return this.box;
     }
 
     @Override
@@ -59,12 +51,11 @@ public class GenericFeatureProperties implements FeatureProperties {
 
         @Override
         public GenericFeatureProperties fromJson(JsonObject json, JsonDeserializationContext context) {
+
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context,"rotations");
             int size = JsonHelper.getInt(json, "size");
 
-            BlockBox box = FeaturesJsonHelper.getBox(json, "box");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context,"rotations");
-
-            return new GenericFeatureProperties(box, rotations, size);
+            return new GenericFeatureProperties(rotations, size);
         }
 
     }

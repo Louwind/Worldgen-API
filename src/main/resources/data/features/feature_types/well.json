@@ -4,6 +4,12 @@
     {
       "type": "features:pool",
       "pool": "features:wells",
+      "properties": {
+        "type": "features:properties",
+        "box": [ 32, 16, 32 ],
+        "rotations": "all",
+        "size": 1
+      },
       "entries": [
         {
           "type": "features:entry",
@@ -12,7 +18,7 @@
             {
               "function": "features:offset",
               "offset": {
-                "down": 8
+                "down": 6
               }
             }
           ]

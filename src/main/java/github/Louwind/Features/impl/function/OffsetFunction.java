@@ -9,13 +9,12 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.FeatureContextParameters;
-import github.Louwind.Features.structure.RotatedStructurePiece;
 import github.Louwind.Features.util.FeaturesJsonHelper;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.Direction;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,7 @@ public class OffsetFunction implements FeatureFunction {
 	}
 
 	@Override
-	public RotatedStructurePiece apply(RotatedStructurePiece rotatedStructurePiece, FeatureContext context) {
+	public PoolStructurePiece apply(PoolStructurePiece rotatedStructurePiece, FeatureContext context) {
 		List<StructurePiece> pieces = context.get(FeatureContextParameters.PIECES);
 
 		for (StructurePiece piece : pieces) {

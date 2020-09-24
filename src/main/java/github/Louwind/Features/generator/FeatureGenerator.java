@@ -43,7 +43,7 @@ public interface FeatureGenerator {
     default <T> List<T> fromPools(FeaturePool pool, StructurePoolElement poolElement, Function<FeaturePool, List<T>> poolfunction, Function<FeatureEntry, List<T>> entryFunction) {
 
         List<FeaturePool> pools = this.getPools().stream()
-                .filter(featurePool -> featurePool.getStructurePool() == pool)
+                .filter(featurePool -> featurePool == pool)
                 .collect(Collectors.toList());
 
         List<T> list = pools.stream()

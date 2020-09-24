@@ -2,8 +2,8 @@ package github.Louwind.Features;
 
 import github.Louwind.Features.client.resource.FeatureGeneratorManager;
 import github.Louwind.Features.client.resource.StructurePoolManager;
-import github.Louwind.Features.generator.FeatureGeneratorType;
 import github.Louwind.Features.impl.*;
+import github.Louwind.Features.impl.init.FeaturesItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
@@ -19,10 +19,10 @@ public class Features implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_MANAGER);
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
 
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:provider"), FeatureContextProviders.PROVIDER);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:provider"), FeatureContextProviders.GENERIC);
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntryTypes.ENTRY);
         Registry.register(FEATURE_GENERATOR_TYPE, new Identifier("features:generic"), FeatureGenerators.GENERIC);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePoolTypes.POOL);
@@ -38,6 +38,8 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:offset"), FeatureFunctions.OFFSET);
+
+        Registry.register(Registry.ITEM, new Identifier("features:well_debug_stick"), FeaturesItems.WELL_DEBUG_STICK);
     }
 
 }

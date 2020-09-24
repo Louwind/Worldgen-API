@@ -11,7 +11,6 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
-import github.Louwind.Features.structure.RotatedStructurePiece;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
@@ -65,7 +64,7 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
         FeatureContextBuilder builder = this.contextProvider.getContext(pool, rotation, properties, world, random,  blockPos);
         List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, blockPos);
 
-        return pieces.stream().map(RotatedStructurePiece.class::cast).allMatch(piece -> {
+        return pieces.stream().map(PoolStructurePiece.class::cast).allMatch(piece -> {
             StructurePoolElement poolElement = piece.getPoolElement();
             List<FeatureContextSetter> setters = generator.getSetters(pool, poolElement);
 
@@ -96,15 +95,16 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
     protected List<StructurePiece> getPieces(FeaturePool pool, BlockRotation rotation, DynamicRegistryManager registryManager, StructureManager structureManager, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
         List<StructurePiece> pieces = Lists.newArrayList();
 
-        StructurePoolElement structurePoolElement = pool.getStructurePool().get().getRandomElement(random);
-        BlockBox box = structurePoolElement.getBoundingBox(structureManager, blockPos, rotation);
+        StructurePoolElement poolElement = pool.getStructurePool().get().getRandomElement(random);
 
+        int level = poolElement.getGroundLevelDelta();
         int size = pool.getProperties().getSize();
-        int groundLevel = structurePoolElement.getGroundLevelDelta();
 
-        PoolStructurePiece poolStructurePiece = new RotatedStructurePiece(structureManager, structurePoolElement, blockPos, groundLevel, rotation, box);
+        PoolStructurePiece piece = new PoolStructurePiece(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());
 
-        StructurePoolBasedGenerator.method_27230(registryManager, poolStructurePiece, size, RotatedStructurePiece::new, chunkGenerator, structureManager, pieces, random);
+        StructurePoolBasedGenerator.method_27230(registryManager, piece, size, PoolStructurePiece::new, chunkGenerator, structureManager, pieces, random);
+
+        pieces.add(piece);
 
         return pieces;
     }

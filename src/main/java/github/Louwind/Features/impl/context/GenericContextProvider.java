@@ -32,15 +32,13 @@ public class GenericContextProvider implements FeatureContextProvider {
     public FeatureContextBuilder getContext(FeaturePool pool, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos) {
         OptionalContextParameter<StructurePool> structurePool = pool.getStructurePool();
 
-        // TODO apply override
-        BlockBox box = properties.getBox();
-        int size = properties.getSize();
+        int size = pool.getProperties().getSize();
 
         Chunk chunk = world.getChunk(pos);
         ChunkPos chunkPos = chunk.getPos();
 
         return new FeatureContextBuilder()
-                .put(BOX, box)
+                .put(BOX, BlockBox.infinite())
                 .put(CHUNK_POS, chunkPos)
                 .put(PIECES, Lists.newArrayList())
                 .put(POS, pos)

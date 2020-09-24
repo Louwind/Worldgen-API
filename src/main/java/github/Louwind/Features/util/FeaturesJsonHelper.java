@@ -1,9 +1,6 @@
 package github.Louwind.Features.util;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
@@ -119,6 +116,27 @@ public class FeaturesJsonHelper {
     }
 
     public static BlockRotation[] getRotations(JsonObject object, JsonDeserializationContext context, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if (element.isJsonPrimitive()) {
+                JsonPrimitive primitive = element.getAsJsonPrimitive();
+
+                if (primitive.isString()) {
+                    String string = primitive.getAsString();
+
+                    if (string.equals("all"))
+                        return BlockRotation.values();
+
+                    BlockRotation rotation = BlockRotation.valueOf(string.toUpperCase());
+
+                    if(rotation != null)
+                        return new BlockRotation[] { rotation };
+                }
+            }
+        }
+
         return JsonHelper.deserialize(object, name, new BlockRotation[]{}, context, BlockRotation[].class);
     }
 
@@ -137,7 +155,7 @@ public class FeaturesJsonHelper {
     }
 
     public static FeatureProperties getPoolProperties(JsonObject object, JsonDeserializationContext context, String name) {
-        return (FeatureProperties) JsonHelper.deserialize(object, name, GenericFeatureProperties.EMPTY, context, FeatureProperties[].class);
+        return JsonHelper.deserialize(object, name, GenericFeatureProperties.EMPTY, context, FeatureProperties.class);
     }
 
     public static FeaturePool[] getPools(JsonObject object, JsonDeserializationContext context, String name) {

@@ -53,7 +53,7 @@ public class FeatureGsons {
     }
 
     private static Object createFeaturePropertiesSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROPERTIES_TYPE, "properties", "properties", FeatureProperties::getType).createGsonSerializer();
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROPERTIES_TYPE, "properties", "type", FeatureProperties::getType).createGsonSerializer();
     }
 
     public static GsonBuilder getFeatureGsonBuilder() {

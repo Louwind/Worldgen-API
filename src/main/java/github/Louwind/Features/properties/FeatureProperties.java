@@ -8,8 +8,6 @@ import java.util.Random;
 
 public interface FeatureProperties {
 
-    BlockBox getBox();
-
     List<BlockRotation> getRotations();
 
     default BlockRotation getRotations(Random random) {

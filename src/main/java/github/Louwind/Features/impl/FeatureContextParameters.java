@@ -3,7 +3,7 @@ package github.Louwind.Features.impl;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.feature.GenericFeatureGenerator;
-import github.Louwind.Features.structure.RotatedStructurePiece;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -34,7 +34,7 @@ public class FeatureContextParameters {
     public static final FeatureContextParameter<StructurePool> MAIN_POOL = new FeatureContextParameter(new Identifier("features:main_pool"));
 
     @Deprecated
-    public static final FeatureContextParameter<RotatedStructurePiece> PIECE = new FeatureContextParameter(new Identifier("features:piece"));
+    public static final FeatureContextParameter<PoolStructurePiece> PIECE = new FeatureContextParameter(new Identifier("features:piece"));
 
     public static final FeatureContextParameter<BlockRotation> ROTATION = new FeatureContextParameter(new Identifier("features:rotation"));
 
