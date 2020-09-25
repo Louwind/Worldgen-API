@@ -2,38 +2,43 @@ package github.Louwind.Features.impl.function;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
+import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.FeatureContextParameters;
+import github.Louwind.Features.impl.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.Direction;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 public class OffsetFunction implements FeatureFunction {
 
-	private final List<FeatureCondition> conditions;
-	private final Map<Direction, Integer> map;
+	protected List<FeatureCondition> conditions;
+	protected Map<Direction.Axis, OptionalContextParameter<Integer>> map;
 
-	public OffsetFunction(Map<Direction, Integer> map, FeatureCondition[] conditions) {
+	public OffsetFunction(Map<Direction.Axis, OptionalContextParameter<Integer>> map, FeatureCondition[] conditions) {
 		this.conditions = Arrays.asList(conditions);
 		this.map = map;
 	}
 
 	@Override
 	public FeatureFunctionType getType() {
-		return null;
+		return FeatureFunctions.OFFSET;
 	}
 
 	@Override
@@ -47,51 +52,21 @@ public class OffsetFunction implements FeatureFunction {
 	}
 
 	@Override
-	public PoolStructurePiece apply(PoolStructurePiece rotatedStructurePiece, FeatureContext context) {
+	public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
 		List<StructurePiece> pieces = context.get(FeatureContextParameters.PIECES);
 
-		for (StructurePiece piece : pieces) {
-			for (Entry<Direction, Integer> entry : map.entrySet()) {
-				int distance = entry.getValue();
-				Direction direction = entry.getKey();
+		OptionalContextParameter<Integer> parameterX = this.map.get(Direction.Axis.X);
+		OptionalContextParameter<Integer> parameterY = this.map.get(Direction.Axis.Y);
+		OptionalContextParameter<Integer> parameterZ = this.map.get(Direction.Axis.Z);
 
-				this.translate(piece, direction, distance);
-			}
-		}
+		int x = parameterX.isPresent() ? parameterX.get(context) : 0;
+		int y = parameterY.isPresent() ? parameterY.get(context) : 0;
+		int z = parameterZ.isPresent() ? parameterZ.get(context) : 0;
 
-		return rotatedStructurePiece;
-	}
-	
-	protected void translate(StructurePiece piece, Direction direction, int distance) {
-		
-		switch (direction) {
-		case DOWN:
-			piece.translate(0, -distance, 0);
+		for (StructurePiece piece : pieces)
+			piece.translate(x, y, z);
 
-			break;
-		case EAST:
-			piece.translate(distance, 0, 0);
-
-			break;
-		case NORTH:
-			piece.translate(0, 0, -distance);
-
-			break;
-		case SOUTH:
-			piece.translate(0, 0, distance);
-
-			break;
-		case UP:
-			piece.translate(0, distance, 0);
-
-			break;
-		case WEST:
-			piece.translate(-distance, 0, 0);
-
-			break;
-		default:
-			break;
-		}
+		return poolStructurePiece;
 	}
 
 	public static class Serializer implements JsonSerializer<OffsetFunction> {
@@ -106,8 +81,19 @@ public class OffsetFunction implements FeatureFunction {
 			JsonObject object = json.getAsJsonObject();
 
 			FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(object, context, "conditions");
+			JsonObject offset = JsonHelper.getObject(object, "offset");
 
-			return new OffsetFunction(Maps.newHashMap(), conditions);
+			Map<Direction.Axis, OptionalContextParameter<Integer>> map = Maps.newEnumMap(Direction.Axis.class);
+
+			OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalContextParameter(offset, "x", JsonElement::getAsInt);
+			OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalContextParameter(offset, "y", JsonElement::getAsInt);
+			OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalContextParameter(offset, "z", JsonElement::getAsInt);
+
+			map.put(Direction.Axis.X, x);
+			map.put(Direction.Axis.Y, y);
+			map.put(Direction.Axis.Z, z);
+
+			return new OffsetFunction(map, conditions);
 		}
 
 	}

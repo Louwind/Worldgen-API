@@ -4,6 +4,7 @@ import com.google.gson.*;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
+import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
@@ -22,6 +23,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -32,33 +34,6 @@ public class FeaturesJsonHelper {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
         return Registry.BLOCK.get(id);
-    }
-
-    public static BlockBox getBox(JsonObject object, String key) {
-        JsonArray array = JsonHelper.getArray(object, key);
-
-        List<Integer> box = StreamSupport.stream(array.spliterator(), false)
-                .mapToInt(JsonElement::getAsInt)
-                .boxed()
-                .collect(Collectors.toList());
-
-        int size = box.size();
-
-        if (size == 1) {
-            int dist = box.get(0);
-
-            return new BlockBox(-dist, -dist, -dist, dist, dist, dist);
-        }
-
-        if (size == 3) {
-            int dx = box.get(0);
-            int dy = box.get(1);
-            int dz = box.get(2);
-
-            return new BlockBox(-dx, -dy, -dz, dx, dy, dz);
-        }
-
-        return BlockBox.empty();
     }
 
     public static Identifier getIdentifier(JsonObject object, String name) {
@@ -85,6 +60,23 @@ public class FeaturesJsonHelper {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
         return FeaturesRegistry.FEATURE_CONTEXT_PARAMETER.get(id);
+    }
+
+    public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, Function<JsonElement, T> function) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonObject()) {
+                FeatureContextParameter<T> parameter = FeaturesJsonHelper.getContextParameter(element.getAsJsonObject(), "parameter");
+
+                return OptionalContextParameter.of(parameter);
+            }
+
+            return OptionalContextParameter.of(function.apply(element));
+        }
+
+        return OptionalContextParameter.empty();
     }
 
     public static FeatureEntry[] getEntries(JsonObject object, JsonDeserializationContext context, String name) {

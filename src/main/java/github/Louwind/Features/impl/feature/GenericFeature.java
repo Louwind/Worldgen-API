@@ -33,8 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import java.util.List;
 import java.util.Random;
 
-import static github.Louwind.Features.impl.FeatureContextParameters.BOX;
-import static github.Louwind.Features.impl.FeatureContextParameters.CHUNK_POS;
+import static github.Louwind.Features.impl.FeatureContextParameters.*;
 
 public class GenericFeature<CT extends FeatureContextProvider, FC extends FeatureConfig> extends Feature<FC> {
 
@@ -61,8 +60,8 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
         FeatureProperties properties = generator.getProperties();
         BlockRotation rotation = properties.getRotations(random);
 
-        FeatureContextBuilder builder = this.contextProvider.getContext(pool, rotation, properties, world, random,  blockPos);
         List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, blockPos);
+        FeatureContextBuilder builder = this.contextProvider.getContext(pool, pieces, rotation, properties, world, random,  blockPos);
 
         return pieces.stream().map(PoolStructurePiece.class::cast).allMatch(piece -> {
             StructurePoolElement poolElement = piece.getPoolElement();
@@ -96,13 +95,11 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
         List<StructurePiece> pieces = Lists.newArrayList();
 
         StructurePoolElement poolElement = pool.getStructurePool().get().getRandomElement(random);
-
-        int level = poolElement.getGroundLevelDelta();
-        int size = pool.getProperties().getSize();
+        int level = blockPos.getY();
 
         PoolStructurePiece piece = new PoolStructurePiece(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());
 
-        StructurePoolBasedGenerator.method_27230(registryManager, piece, size, PoolStructurePiece::new, chunkGenerator, structureManager, pieces, random);
+        StructurePoolBasedGenerator.method_27230(registryManager, piece, Integer.MAX_VALUE, PoolStructurePiece::new, chunkGenerator, structureManager, pieces, random);
 
         pieces.add(piece);
 

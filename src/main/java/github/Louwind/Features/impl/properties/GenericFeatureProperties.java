@@ -8,33 +8,24 @@ import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.properties.FeaturePropertiesType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.BlockBox;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class GenericFeatureProperties implements FeatureProperties {
 
-    public static final FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{}, 1);
+    public static final FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{});
 
     private final List<BlockRotation> rotations;
-    private final int size;
 
-    public GenericFeatureProperties(BlockRotation[] rotations, int size) {
+    public GenericFeatureProperties(BlockRotation[] rotations) {
         this.rotations = Arrays.asList(rotations);
-        this.size = size;
     }
 
     @Override
     public List<BlockRotation> getRotations() {
         return this.rotations;
-    }
-
-    @Override
-    public int getSize() {
-        return this.size;
     }
 
     @Override
@@ -51,11 +42,9 @@ public class GenericFeatureProperties implements FeatureProperties {
 
         @Override
         public GenericFeatureProperties fromJson(JsonObject json, JsonDeserializationContext context) {
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
 
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context,"rotations");
-            int size = JsonHelper.getInt(json, "size");
-
-            return new GenericFeatureProperties(rotations, size);
+            return new GenericFeatureProperties(rotations);
         }
 
     }

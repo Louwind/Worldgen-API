@@ -22,8 +22,6 @@ public interface FeatureProperties {
         return rotations.get(index);
     }
 
-    int getSize();
-
     FeaturePropertiesType getType();
 
 }
