@@ -3,8 +3,7 @@ package github.Louwind.Features.impl.properties;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import github.Louwind.Features.impl.FeaturePropertiesTypes;
-import github.Louwind.Features.properties.FeatureProperties;
+import github.Louwind.Features.impl.init.FeatureProperties;
 import github.Louwind.Features.properties.FeaturePropertiesType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.BlockRotation;
@@ -13,9 +12,9 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-public class GenericFeatureProperties implements FeatureProperties {
+public class GenericFeatureProperties implements github.Louwind.Features.properties.FeatureProperties {
 
-    public static final FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{});
+    public static final github.Louwind.Features.properties.FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{});
 
     private final List<BlockRotation> rotations;
 
@@ -30,7 +29,7 @@ public class GenericFeatureProperties implements FeatureProperties {
 
     @Override
     public FeaturePropertiesType getType() {
-        return FeaturePropertiesTypes.PROPERTIES;
+        return FeatureProperties.PROPERTIES;
     }
 
     public static class Serializer implements JsonSerializer<GenericFeatureProperties> {

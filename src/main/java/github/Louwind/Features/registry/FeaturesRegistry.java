@@ -5,6 +5,7 @@ import github.Louwind.Features.condition.FeatureConditionType;
 import github.Louwind.Features.context.FeatureContextProvider;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
+import github.Louwind.Features.context.setter.FeatureContextSetterType;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.generator.FeatureGeneratorType;
@@ -24,6 +25,8 @@ public class FeaturesRegistry {
     public static final SimpleRegistry<FeatureContextParameter<?>> FEATURE_CONTEXT_PARAMETER = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:parameter")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureContextProvider> FEATURE_CONTEXT_PROVIDER = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:provider")), Lifecycle.experimental());
+
+    public static final SimpleRegistry<FeatureContextSetterType> FEATURE_CONTEXT_SETTER_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:setter")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureEntryType> FEATURE_ENTRY_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:entries")), Lifecycle.experimental());
 

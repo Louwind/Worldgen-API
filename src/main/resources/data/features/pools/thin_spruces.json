@@ -1,0 +1,11 @@
+{
+  "name": "features:thin_spruces",
+  "terminators": "empty",
+  "projection": "rigid",
+  "elements": [
+    {
+      "structure": "features:thin_spruces/crown_01",
+      "weight": 1
+    }
+  ]
+}

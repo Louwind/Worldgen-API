@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.generator.FeatureGeneratorType;
-import github.Louwind.Features.impl.FeatureGenerators;
+import github.Louwind.Features.impl.init.FeatureGenerators;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;

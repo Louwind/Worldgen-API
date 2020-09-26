@@ -1,4 +1,4 @@
-package github.Louwind.Features.impl;
+package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
@@ -22,10 +22,7 @@ public class FeatureContextParameters {
 
     public static final FeatureContextParameter<ChunkPos> CHUNK_POS = new FeatureContextParameter(new Identifier("features:chunk_pos"));
 
-    @Deprecated
-    public static final FeatureContextParameter<PoolStructurePiece> PIECE = new FeatureContextParameter(new Identifier("features:piece"));
-
-    public static final FeatureContextParameter<BlockRotation> ROTATION = new FeatureContextParameter(new Identifier("features:rotation"));
+    public static final FeatureContextParameter<Integer> HEIGHT = new FeatureContextParameter(new Identifier("features:height"));
 
     public static final FeatureContextParameter<List<StructurePiece>> PIECES = new FeatureContextParameter(new Identifier("features:pieces"));
 
@@ -33,8 +30,9 @@ public class FeatureContextParameters {
 
     public static final FeatureContextParameter<Random> RANDOM = new FeatureContextParameter(new Identifier("features:random"));
 
-    @Deprecated
     public static final FeatureContextParameter<Set<BlockPos>> ROOT = new FeatureContextParameter(new Identifier("features:root"));
+
+    public static final FeatureContextParameter<BlockRotation> ROTATION = new FeatureContextParameter(new Identifier("features:rotation"));
 
     public static final FeatureContextParameter<OptionalContextParameter<StructurePool>> STRUCTURE_POOL = new FeatureContextParameter(new Identifier("features:structure_pool"));
 

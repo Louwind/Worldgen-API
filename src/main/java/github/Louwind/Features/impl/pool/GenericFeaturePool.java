@@ -7,7 +7,7 @@ import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.FeaturePoolTypes;
+import github.Louwind.Features.impl.init.FeaturePools;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.properties.FeatureProperties;
@@ -61,7 +61,7 @@ public class GenericFeaturePool implements FeaturePool {
 
     @Override
     public FeaturePoolType getType() {
-        return FeaturePoolTypes.POOL;
+        return FeaturePools.POOL;
     }
 
     public static class Serializer implements JsonSerializer<GenericFeaturePool> {
@@ -77,7 +77,7 @@ public class GenericFeaturePool implements FeaturePool {
             StructurePool structurePool = FeaturesJsonHelper.getStructurePool(json, "pool");
             FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
 
-            FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "setters");
+            FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "context");
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
             FeatureEntry[] entries = FeaturesJsonHelper.getEntries(json, context, "entries");
 

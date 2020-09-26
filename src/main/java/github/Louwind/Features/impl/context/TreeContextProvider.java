@@ -3,19 +3,13 @@ package github.Louwind.Features.impl.context;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.FeatureContextProvider;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.chunk.Chunk;
 
 import java.util.List;
 import java.util.Random;
@@ -23,12 +17,7 @@ import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class GenericContextProvider implements FeatureContextProvider {
-
-    @Override
-    public Set<FeatureContextParameter<?>> getAllowedParameters() {
-        return ImmutableSet.of(HEIGHT);
-    }
+public class TreeContextProvider extends GenericContextProvider {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
@@ -37,22 +26,11 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     @Override
     public FeatureContextBuilder getContext(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos) {
-        OptionalContextParameter<StructurePool> structurePool = pool.getStructurePool();
+        FeatureContextBuilder builder = super.getContext(pool, pieces, rotation, properties, world, random, pos);
 
-        Chunk chunk = world.getChunk(pos);
-        ChunkPos chunkPos = chunk.getPos();
         Set<BlockPos> root = Sets.newHashSet(pos);
 
-        return new FeatureContextBuilder()
-                .put(BOX, BlockBox.infinite())
-                .put(CHUNK_POS, chunkPos)
-                .put(PIECES, pieces)
-                .put(POS, pos)
-                .put(RANDOM, random)
-                .put(ROOT, root)
-                .put(ROTATION, rotation)
-                .put(STRUCTURE_POOL, structurePool)
-                .put(WORLD, world);
+        return builder.put(ROOT, root);
     }
 
 }

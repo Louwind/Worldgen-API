@@ -7,7 +7,7 @@ import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.FeatureEntryTypes;
+import github.Louwind.Features.impl.init.FeatureEntries;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
@@ -44,7 +44,7 @@ public class GenericFeatureEntry implements FeatureEntry {
 
 	@Override
 	public FeatureEntryType getType() {
-		return FeatureEntryTypes.ENTRY;
+		return FeatureEntries.ENTRY;
 	}
 
 	public static class Serializer implements JsonSerializer<GenericFeatureEntry> {
@@ -59,7 +59,7 @@ public class GenericFeatureEntry implements FeatureEntry {
 			Identifier structureId = FeaturesJsonHelper.getIdentifier(json, "structure");
 
 			FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
-			FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "setters");
+			FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "context");
 
 			return new GenericFeatureEntry(structureId, functions, setters);
 		}

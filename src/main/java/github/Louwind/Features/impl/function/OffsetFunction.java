@@ -12,8 +12,8 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
-import github.Louwind.Features.impl.FeatureContextParameters;
-import github.Louwind.Features.impl.FeatureFunctions;
+import github.Louwind.Features.impl.init.FeatureContextParameters;
+import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
@@ -78,10 +78,8 @@ public class OffsetFunction implements FeatureFunction {
 
 		@Override
 		public OffsetFunction fromJson(JsonObject json, JsonDeserializationContext context) {
-			JsonObject object = json.getAsJsonObject();
-
-			FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(object, context, "conditions");
-			JsonObject offset = JsonHelper.getObject(object, "offset");
+			FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
+			JsonObject offset = JsonHelper.getObject(json, "offset");
 
 			Map<Direction.Axis, OptionalContextParameter<Integer>> map = Maps.newEnumMap(Direction.Axis.class);
 

@@ -33,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import java.util.List;
 import java.util.Random;
 
-import static github.Louwind.Features.impl.FeatureContextParameters.*;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class GenericFeature<CT extends FeatureContextProvider, FC extends FeatureConfig> extends Feature<FC> {
 
@@ -67,8 +67,8 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
             StructurePoolElement poolElement = piece.getPoolElement();
             List<FeatureContextSetter> setters = generator.getSetters(pool, poolElement);
 
-            for (FeatureContextSetter<?> setter : setters)
-                setter.apply(this.contextProvider, builder);
+            for (FeatureContextSetter setter : setters)
+                setter.accept(this.contextProvider, builder);
 
             try {
                 FeatureContext context = builder.build(this.contextProvider);

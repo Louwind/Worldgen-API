@@ -12,7 +12,6 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
-import github.Louwind.Features.util.deserializer.FeatureContextSetterDeserializer;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -40,6 +39,10 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_GETTER_TYPE, "type", "type", FeatureContextGetter::getType).createGsonSerializer();
     }
 
+    private static Object createFeatureContextSetterSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_SETTER_TYPE, "context", "type", FeatureContextSetter::getType).createGsonSerializer();
+    }
+
     private static Object createFeatureConditionSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONDITION_TYPE, "condition", "condition", FeatureCondition::getType).createGsonSerializer();
     }
@@ -65,7 +68,7 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextSetter.class, new FeatureContextSetterDeserializer());
+                .registerTypeHierarchyAdapter(FeatureContextSetter.class, FeatureGsons.createFeatureContextSetterSerializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {

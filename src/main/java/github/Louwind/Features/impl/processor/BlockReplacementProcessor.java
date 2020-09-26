@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
-import github.Louwind.Features.impl.FeatureProcessorTypes;
+import github.Louwind.Features.impl.init.FeatureProcessors;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -48,7 +48,7 @@ public class BlockReplacementProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return FeatureProcessorTypes.BLOCK_REPLACEMENT_PROCESSOR;
+        return FeatureProcessors.BLOCK_REPLACEMENT_PROCESSOR;
     }
 
     public static class Serializer implements JsonSerializer<BlockReplacementProcessor> {

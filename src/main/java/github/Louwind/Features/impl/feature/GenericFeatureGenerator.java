@@ -2,7 +2,7 @@ package github.Louwind.Features.impl.feature;
 
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.generator.FeatureGeneratorType;
-import github.Louwind.Features.impl.FeatureGenerators;
+import github.Louwind.Features.impl.init.FeatureGenerators;
 import github.Louwind.Features.impl.properties.GenericFeatureProperties;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;

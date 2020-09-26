@@ -1,4 +1,4 @@
-package github.Louwind.Features.impl;
+package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.generator.FeatureGeneratorType;
 import github.Louwind.Features.impl.generator.GenericFeatureGenerator;
