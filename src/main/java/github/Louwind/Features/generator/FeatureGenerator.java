@@ -1,6 +1,5 @@
 package github.Louwind.Features.generator;
 
-import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.mixin.SinglePoolElementAccessor;
@@ -23,10 +22,6 @@ public interface FeatureGenerator {
         return this.fromPools(pool, poolElement, FeaturePool::getFunctions, FeatureEntry::getFunctions);
     }
 
-    default List<FeatureContextSetter> getSetters(FeaturePool pool, StructurePoolElement poolElement) {
-        return this.fromPools(pool, poolElement, FeaturePool::getSetters, FeatureEntry::getSetters);
-    }
-
     FeatureGeneratorType getType();
 
     List<FeaturePool> getPools();
@@ -42,25 +37,14 @@ public interface FeatureGenerator {
 
     default <T> List<T> fromPools(FeaturePool pool, StructurePoolElement poolElement, Function<FeaturePool, List<T>> poolfunction, Function<FeatureEntry, List<T>> entryFunction) {
 
-        List<FeaturePool> pools = this.getPools().stream()
-                .filter(featurePool -> featurePool == pool)
-                .collect(Collectors.toList());
+        List<T> list = poolfunction.apply(pool);
+        Optional<FeatureEntry> entryOptional = this.getEntry(pool, poolElement);
 
-        List<T> list = pools.stream()
-                .map(poolfunction::apply)
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+        if (entryOptional.isPresent()) {
+            FeatureEntry entry = entryOptional.get();
+            List<T> entryList = entryFunction.apply(entry);
 
-        for (FeaturePool featurePool : pools) {
-            Optional<FeatureEntry> entryOptional = this.getEntry(featurePool, poolElement);
-
-            if (entryOptional.isPresent()) {
-                FeatureEntry entry = entryOptional.get();
-                List<T> entryList = entryFunction.apply(entry);
-
-                return Stream.concat(list.stream(), entryList.stream()).collect(Collectors.toList());
-            }
-
+            return Stream.concat(list.stream(), entryList.stream()).collect(Collectors.toList());
         }
 
         return list;

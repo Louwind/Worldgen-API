@@ -8,21 +8,24 @@
         "type": "features:properties",
         "rotations": "none"
       },
-      "context": [
-        {
-          "type": "features:parameter",
-          "parameter": "features:height",
-          "from": [
-            {
-              "type": "features:ranged",
-              "range": {
-                "min": 4,
-                "max": 8
+      "context": {
+        "type": "features:tree",
+        "overrides": [
+          {
+            "type": "features:parameter",
+            "parameter": "features:height",
+            "from": [
+              {
+                "type": "features:ranged",
+                "range": {
+                  "min": 4,
+                  "max": 8
+                }
               }
-            }
-          ]
-        }
-      ],
+            ]
+          }
+        ]
+      },
       "functions": [
         {
           "function": "features:place_trunk",

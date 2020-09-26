@@ -5,9 +5,11 @@ import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.context.GenericContextProvider;
 import github.Louwind.Features.impl.properties.GenericFeatureProperties;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
@@ -60,6 +62,10 @@ public class FeaturesJsonHelper {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
         return FeaturesRegistry.FEATURE_CONTEXT_PARAMETER.get(id);
+    }
+
+    public static FeatureContextProvider getContextProvider(JsonObject object, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, GenericContextProvider.EMPTY, context, FeatureContextProvider.class);
     }
 
     public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, Function<JsonElement, T> function) {

@@ -15,10 +15,10 @@ import java.util.function.Supplier;
 
 public class DebugStickItem<T extends FeatureConfig> extends Item {
 
-    private final GenericFeature<?, T> feature;
+    private final GenericFeature<T> feature;
     private final Supplier<T> featureConfig;
 
-    public DebugStickItem(GenericFeature<?, T> feature, Supplier<T> featureConfig, Settings settings) {
+    public DebugStickItem(GenericFeature<T> feature, Supplier<T> featureConfig, Settings settings) {
         super(settings);
 
         this.feature = feature;

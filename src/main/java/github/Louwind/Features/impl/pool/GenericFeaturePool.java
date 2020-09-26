@@ -3,8 +3,8 @@ package github.Louwind.Features.impl.pool;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.init.FeaturePools;
@@ -22,21 +22,26 @@ public class GenericFeaturePool implements FeaturePool {
 
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
-    protected final List<FeatureContextSetter> setters;
     protected final FeatureProperties properties;
+    protected final FeatureContextProvider provider;
     protected final OptionalContextParameter<StructurePool> structurePool;
 
-    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureContextSetter[] setters, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties) {
+    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties, FeatureContextProvider provider) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
-        this.setters = Arrays.asList(setters);
         this.properties = properties;
+        this.provider = provider;
         this.structurePool = structurePool;
     }
 
     @Override
     public List<FeatureEntry> getEntries() {
         return this.entries;
+    }
+
+    @Override
+    public FeatureContextProvider getContextProvider() {
+        return this.provider;
     }
 
     @Override
@@ -47,11 +52,6 @@ public class GenericFeaturePool implements FeaturePool {
     @Override
     public FeatureProperties getProperties() {
         return this.properties;
-    }
-
-    @Override
-    public List<FeatureContextSetter> getSetters() {
-        return this.setters;
     }
 
     @Override
@@ -73,15 +73,15 @@ public class GenericFeaturePool implements FeaturePool {
 
         @Override
         public GenericFeaturePool fromJson(JsonObject json, JsonDeserializationContext context) {
-            // TODO FeaturesJsonHelper::getParameter
             StructurePool structurePool = FeaturesJsonHelper.getStructurePool(json, "pool");
-            FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
 
-            FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "context");
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
             FeatureEntry[] entries = FeaturesJsonHelper.getEntries(json, context, "entries");
 
-            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), setters, functions, entries, props);
+            FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
+            FeatureContextProvider provider = FeaturesJsonHelper.getContextProvider(json, context, "context");
+
+            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), functions, entries, props, provider);
         }
 
     }

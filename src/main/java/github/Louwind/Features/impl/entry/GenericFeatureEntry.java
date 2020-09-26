@@ -3,7 +3,6 @@ package github.Louwind.Features.impl.entry;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunction;
@@ -18,23 +17,16 @@ import java.util.List;
 public class GenericFeatureEntry implements FeatureEntry {
 
 	private final List<FeatureFunction> functions;
-	private final List<FeatureContextSetter> setters;
 	private final Identifier structureId;
 
-	public GenericFeatureEntry(Identifier structureId, FeatureFunction[] functions, FeatureContextSetter[] setters) {
+	public GenericFeatureEntry(Identifier structureId, FeatureFunction[] functions) {
 		this.functions = Arrays.asList(functions);
-		this.setters = Arrays.asList(setters);
 		this.structureId = structureId;
 	}
 
 	@Override
 	public List<FeatureFunction> getFunctions() {
 		return this.functions;
-	}
-
-	@Override
-	public List<FeatureContextSetter> getSetters() {
-		return this.setters;
 	}
 
 	@Override
@@ -59,9 +51,8 @@ public class GenericFeatureEntry implements FeatureEntry {
 			Identifier structureId = FeaturesJsonHelper.getIdentifier(json, "structure");
 
 			FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
-			FeatureContextSetter[] setters = FeaturesJsonHelper.getSetters(json, context, "context");
 
-			return new GenericFeatureEntry(structureId, functions, setters);
+			return new GenericFeatureEntry(structureId, functions);
 		}
 
 	}

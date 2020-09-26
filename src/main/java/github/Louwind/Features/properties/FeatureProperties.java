@@ -1,12 +1,10 @@
 package github.Louwind.Features.properties;
 
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockBox;
 
 import java.util.List;
 import java.util.Random;
 
-@Deprecated
 public interface FeatureProperties {
 
     List<BlockRotation> getRotations();

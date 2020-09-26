@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GenericFeatureProperties implements github.Louwind.Features.properties.FeatureProperties {
 
-    public static final github.Louwind.Features.properties.FeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{});
+    public static final GenericFeatureProperties EMPTY = new GenericFeatureProperties(new BlockRotation[]{});
 
     private final List<BlockRotation> rotations;
 

@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import github.Louwind.Features.Features;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.FeatureContextProvider;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.pool.FeaturePool;
@@ -35,16 +33,14 @@ import java.util.Random;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class GenericFeature<CT extends FeatureContextProvider, FC extends FeatureConfig> extends Feature<FC> {
+public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
 
     protected final Identifier identifier;
-    protected final CT contextProvider;
 
-    public GenericFeature(Identifier identifier, CT contextProvider, Codec<FC> configCodec) {
+    public GenericFeature(Identifier identifier, Codec<FC> configCodec) {
         super(configCodec);
 
         this.identifier = identifier;
-        this.contextProvider = contextProvider;
     }
 
     @Override
@@ -56,39 +52,41 @@ public class GenericFeature<CT extends FeatureContextProvider, FC extends Featur
         DynamicRegistryManager registryManager = server.getRegistryManager();
         StructureAccessor accessor = server.getStructureAccessor();
 
-        FeaturePool pool = generator.getRandomPool(random);
-        FeatureProperties properties = generator.getProperties();
-        BlockRotation rotation = properties.getRotations(random);
+        if(generator != null) {
+            FeaturePool pool = generator.getRandomPool(random);
+            FeatureProperties properties = generator.getProperties();
+            BlockRotation rotation = properties.getRotations(random);
 
-        List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, blockPos);
-        FeatureContextBuilder builder = this.contextProvider.getContext(pool, pieces, rotation, properties, world, random,  blockPos);
+            List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, blockPos);
 
-        return pieces.stream().map(PoolStructurePiece.class::cast).allMatch(piece -> {
-            StructurePoolElement poolElement = piece.getPoolElement();
-            List<FeatureContextSetter> setters = generator.getSetters(pool, poolElement);
+            return pieces.stream().map(PoolStructurePiece.class::cast).allMatch(piece -> {
+                StructurePoolElement poolElement = piece.getPoolElement();
 
-            for (FeatureContextSetter setter : setters)
-                setter.accept(this.contextProvider, builder);
+                FeatureContextProvider provider = pool.getContextProvider();
 
-            try {
-                FeatureContext context = builder.build(this.contextProvider);
-                List<FeatureFunction> functions = generator.getFunctions(pool, poolElement);
+                try {
+                    FeatureContext context = provider.getContext(pool, pieces, rotation, properties, world, random,  blockPos);
 
-                for (FeatureFunction function: functions)
-                    function.apply(piece, context);
+                    List<FeatureFunction> functions = generator.getFunctions(pool, poolElement);
 
-                ChunkPos chunkPos = context.get(CHUNK_POS);
-                BlockBox box = context.get(BOX);
+                    for (FeatureFunction function: functions)
+                        function.apply(piece, context);
 
-                return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, blockPos);
+                    ChunkPos chunkPos = context.get(CHUNK_POS);
+                    BlockBox box = context.get(BOX);
 
-            } catch (IllegalAccessException e) {
-                LogManager.getLogger().warn(e);
+                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, blockPos);
 
-                return false;
-            }
+                } catch (IllegalAccessException e) {
+                    LogManager.getLogger().warn(e);
 
-        });
+                    return false;
+                }
+
+            });
+        }
+
+        return false;
     }
 
     protected List<StructurePiece> getPieces(FeaturePool pool, BlockRotation rotation, DynamicRegistryManager registryManager, StructureManager structureManager, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {

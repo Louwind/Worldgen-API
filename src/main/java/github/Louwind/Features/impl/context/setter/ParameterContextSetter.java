@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.FeatureContextProvider;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.setter.FeatureContextSetter;

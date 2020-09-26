@@ -1,7 +1,7 @@
 package github.Louwind.Features.context.setter;
 
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.FeatureContextProvider;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 
 import java.util.function.BiConsumer;
 
