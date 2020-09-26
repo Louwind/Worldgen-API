@@ -2,11 +2,10 @@ package github.Louwind.Features.registry;
 
 import com.mojang.serialization.Lifecycle;
 import github.Louwind.Features.condition.FeatureConditionType;
-import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
-import github.Louwind.Features.context.setter.FeatureContextSetterType;
+import github.Louwind.Features.context.override.FeatureContextOverrideType;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.generator.FeatureGeneratorType;
@@ -27,7 +26,7 @@ public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureContextProviderType> FEATURE_CONTEXT_PROVIDER = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:provider")), Lifecycle.experimental());
 
-    public static final SimpleRegistry<FeatureContextSetterType> FEATURE_CONTEXT_SETTER_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:setter")), Lifecycle.experimental());
+    public static final SimpleRegistry<FeatureContextOverrideType> FEATURE_CONTEXT_OVERRIDE_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:setter")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureEntryType> FEATURE_ENTRY_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:entries")), Lifecycle.experimental());
 

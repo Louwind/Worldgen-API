@@ -3,7 +3,7 @@ package github.Louwind.Features.context.provider;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextAware;
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import net.minecraft.structure.StructurePiece;
@@ -21,13 +21,13 @@ public interface FeatureContextProvider  extends FeatureContextAware {
     default FeatureContext getContext(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos) throws IllegalAccessException {
         FeatureContextBuilder builder = this.getBuilder(pool, pieces, rotation, properties, world, random,  pos);
 
-        for (FeatureContextSetter setter : this.getContextSetters())
-            setter.accept(this, builder);
+        for (FeatureContextOverride overrides : this.getContextSetters())
+            overrides.accept(this, builder);
 
         return builder.build(this);
     }
 
-    List<FeatureContextSetter> getContextSetters();
+    List<FeatureContextOverride> getContextSetters();
 
     FeatureContextProviderType getType();
 

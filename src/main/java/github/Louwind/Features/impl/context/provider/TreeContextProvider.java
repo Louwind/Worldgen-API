@@ -1,4 +1,4 @@
-package github.Louwind.Features.impl.context;
+package github.Louwind.Features.impl.context.provider;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -8,7 +8,7 @@ import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
@@ -27,7 +27,7 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class TreeContextProvider extends GenericContextProvider {
 
-    public TreeContextProvider(FeatureContextSetter[] overrides) {
+    public TreeContextProvider(FeatureContextOverride[] overrides) {
         super(overrides);
     }
 
@@ -64,7 +64,7 @@ public class TreeContextProvider extends GenericContextProvider {
 
         @Override
         public TreeContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
-            FeatureContextSetter[] overrides = FeaturesJsonHelper.getSetters(json, context, "overrides");
+            FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
 
             return new TreeContextProvider(overrides);
         }

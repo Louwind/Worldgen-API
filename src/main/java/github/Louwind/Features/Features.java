@@ -32,7 +32,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_PROPERTIES_TYPE, new Identifier("features:properties"), FeatureProperties.PROPERTIES);
 
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED_GETTER);
-        Registry.register(FEATURE_CONTEXT_SETTER_TYPE, new Identifier("features:parameter"), FeatureContextSetters.PARAMETER);
+        Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
 
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_pos"), FeatureContextParameters.CHUNK_POS);

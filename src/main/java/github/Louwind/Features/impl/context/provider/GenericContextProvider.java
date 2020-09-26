@@ -1,4 +1,4 @@
-package github.Louwind.Features.impl.context;
+package github.Louwind.Features.impl.context.provider;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -10,7 +10,7 @@ import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
@@ -36,9 +36,9 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     public static final FeatureContextProvider EMPTY = new GenericContextProvider();
 
-    private final List<FeatureContextSetter> overrides;
+    private final List<FeatureContextOverride> overrides;
 
-    public GenericContextProvider(FeatureContextSetter ...overrides) {
+    public GenericContextProvider(FeatureContextOverride...overrides) {
         this.overrides = Arrays.asList(overrides);
     }
 
@@ -68,7 +68,7 @@ public class GenericContextProvider implements FeatureContextProvider {
     }
 
     @Override
-    public List<FeatureContextSetter> getContextSetters() {
+    public List<FeatureContextOverride> getContextSetters() {
         return this.overrides;
     }
 
@@ -86,7 +86,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
         @Override
         public GenericContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
-            FeatureContextSetter[] overrides = FeaturesJsonHelper.getSetters(json, context, "overrides");
+            FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
 
             return new GenericContextProvider(overrides);
         }

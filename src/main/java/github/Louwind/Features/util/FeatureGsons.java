@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
@@ -40,8 +40,8 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_GETTER_TYPE, "type", "type", FeatureContextGetter::getType).createGsonSerializer();
     }
 
-    private static Object createFeatureContextSetterSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_SETTER_TYPE, "type", "type", FeatureContextSetter::getType).createGsonSerializer();
+    private static Object createFeatureContextOverrideSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_OVERRIDE_TYPE, "type", "type", FeatureContextOverride::getType).createGsonSerializer();
     }
 
     private static Object createFeatureContextProviderSerializer() {
@@ -74,7 +74,7 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextSetter.class, FeatureGsons.createFeatureContextSetterSerializer());
+                .registerTypeHierarchyAdapter(FeatureContextOverride.class, FeatureGsons.createFeatureContextOverrideSerializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {

@@ -1,8 +1,8 @@
 package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
-import github.Louwind.Features.impl.context.GenericContextProvider;
-import github.Louwind.Features.impl.context.TreeContextProvider;
+import github.Louwind.Features.impl.context.provider.GenericContextProvider;
+import github.Louwind.Features.impl.context.provider.TreeContextProvider;
 
 public class FeatureContextProviders {
 

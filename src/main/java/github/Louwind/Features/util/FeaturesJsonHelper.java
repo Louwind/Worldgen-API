@@ -6,10 +6,10 @@ import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.context.setter.FeatureContextSetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.context.GenericContextProvider;
+import github.Louwind.Features.impl.context.provider.GenericContextProvider;
 import github.Louwind.Features.impl.properties.GenericFeatureProperties;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
@@ -20,14 +20,10 @@ import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 // TODO error handling
 public class FeaturesJsonHelper {
@@ -138,12 +134,12 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, new BlockRotation[]{}, context, BlockRotation[].class);
     }
 
-    public static FeatureContextSetter[] getSetters(JsonObject object, FeatureContextSetter[] defaultValue, JsonDeserializationContext context, String name) {
-        return JsonHelper.deserialize(object, name, defaultValue, context, FeatureContextSetter[].class);
+    public static FeatureContextOverride[] getContextOverrides(JsonObject object, FeatureContextOverride[] defaultValue, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, FeatureContextOverride[].class);
     }
 
-    public static FeatureContextSetter[] getSetters(JsonObject object, JsonDeserializationContext context, String name) {
-        return FeaturesJsonHelper.getSetters(object, new FeatureContextSetter[]{}, context, name);
+    public static FeatureContextOverride[] getContextOverrides(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getContextOverrides(object, new FeatureContextOverride[]{}, context, name);
     }
 
     public static StructurePool getStructurePool(JsonObject object, String name) {
