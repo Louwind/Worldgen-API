@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
+import static net.minecraft.util.registry.BuiltinRegistries.*;
+
 public class StructureProcessorManager extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>>  {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
@@ -51,7 +53,16 @@ public class StructureProcessorManager extends JsonDataLoader implements SimpleR
             try {
                 StructureProcessorList structureProcessorList = GSON.fromJson(jsonElement, StructureProcessorList.class);
 
-                BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST, id, structureProcessorList);
+                if(!STRUCTURE_PROCESSOR_LIST.containsId(id))
+                    BuiltinRegistries.add(STRUCTURE_PROCESSOR_LIST, id, structureProcessorList);
+                else {
+                    int rawId = STRUCTURE_PROCESSOR_LIST.getRawId(structureProcessorList);
+
+                    STRUCTURE_PROCESSOR_LIST.getKey(structureProcessorList).ifPresent(key -> {
+                        BuiltinRegistries.set(STRUCTURE_PROCESSOR_LIST, rawId, key, structureProcessorList);
+                    });
+                }
+
             } catch (Exception exception) {
                 LOGGER.error("Couldn't parse processor list {}", id, exception);
             }
