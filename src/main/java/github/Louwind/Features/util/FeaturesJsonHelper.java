@@ -31,7 +31,6 @@ import net.minecraft.util.registry.Registry;
 import java.util.Map;
 import java.util.function.Function;
 
-// TODO error handling
 public class FeaturesJsonHelper {
 
     public static Block getBlock(JsonObject object, String name) {

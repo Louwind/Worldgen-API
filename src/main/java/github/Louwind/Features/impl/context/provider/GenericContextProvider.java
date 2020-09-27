@@ -68,7 +68,7 @@ public class GenericContextProvider implements FeatureContextProvider {
     }
 
     @Override
-    public List<FeatureContextOverride> getContextSetters() {
+    public List<FeatureContextOverride> getContextOverrides() {
         return this.overrides;
     }
 

@@ -16,6 +16,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Represents all {@link FeaturePool} that a structure built with jigsaws can have
+ * */
 public interface FeatureGenerator {
 
     default List<FeatureFunction> getFunctions(FeaturePool pool, StructurePoolElement poolElement) {
@@ -35,6 +38,7 @@ public interface FeatureGenerator {
         return pools.get(index);
     }
 
+    @Deprecated
     default <T> List<T> fromPools(FeaturePool pool, StructurePoolElement poolElement, Function<FeaturePool, List<T>> poolfunction, Function<FeatureEntry, List<T>> entryFunction) {
 
         List<T> list = poolfunction.apply(pool);
@@ -50,6 +54,7 @@ public interface FeatureGenerator {
         return list;
     }
 
+    @Deprecated
     default Optional<FeatureEntry> getEntry(FeaturePool pool, StructurePoolElement poolElement) {
 
         if(poolElement instanceof SinglePoolElement) {

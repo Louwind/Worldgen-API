@@ -59,7 +59,7 @@ public class FeatureGeneratorManager extends JsonDataLoader implements SimpleRes
 
                 this.features.put(id, generator);
             } catch (Exception exception) {
-                LOGGER.error("Couldn't parse feature type {}", id, exception);
+                LOGGER.error("Couldn't parse feature {}", id, exception);
             }
 
         });

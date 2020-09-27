@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static github.Louwind.Features.impl.init.FeatureContextParameters.RANDOM;
+
 public class RangeContextGetter implements FeatureContextGetter<Integer> {
 
     private final List<FeatureCondition> conditions;
@@ -40,7 +42,7 @@ public class RangeContextGetter implements FeatureContextGetter<Integer> {
 
     @Override
     public Integer apply(FeatureContextBuilder builder) {
-        Random random = new Random();
+        Random random = builder.get(RANDOM);
 
         return this.min + random.nextInt(this.max - this.min + 1);
     }

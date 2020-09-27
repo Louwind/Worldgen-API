@@ -5,6 +5,9 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A storage for {@link FeatureContextParameter} and its generic values
+ * */
 public class FeatureContext {
 
     private final Map<FeatureContextParameter<?>, Object> parameters;

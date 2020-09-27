@@ -5,6 +5,9 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
 import java.util.Set;
 
+/**
+ * Provides the allowed and required parameters {@link FeatureContextParameter}
+ * */
 public interface FeatureContextAware {
 
     default Set<FeatureContextParameter<?>> getAllowedParameters() {

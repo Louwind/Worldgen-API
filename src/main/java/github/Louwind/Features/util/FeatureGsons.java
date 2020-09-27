@@ -37,6 +37,7 @@ public class FeatureGsons {
         }).createGsonSerializer();
     }
 
+    @Deprecated
     private static Object createRuleTestSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
             RuleTestInvoker invoker = (RuleTestInvoker) rule;

@@ -1,6 +1,6 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.item.DebugStickItem;
+import github.Louwind.Features.impl.item.DebugStickItem;
 import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 

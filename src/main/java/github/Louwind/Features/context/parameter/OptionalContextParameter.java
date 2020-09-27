@@ -4,6 +4,9 @@ import github.Louwind.Features.context.FeatureContext;
 
 import java.util.NoSuchElementException;
 
+/**
+ * An optional for context parameters and values
+ * */
 public class OptionalContextParameter<T> {
 
     public static final OptionalContextParameter<?> EMPTY = new OptionalContextParameter(null, null);
@@ -28,6 +31,10 @@ public class OptionalContextParameter<T> {
         return new OptionalContextParameter<T>(null, value);
     }
 
+    /**
+     * @returns The context parameter value inside context or {@code value}
+     * @throws NoSuchElementException If {@code parameter} or {@code value} are null
+     * */
     public T get(FeatureContext context) {
 
         if(this.parameter == null && this.value == null)

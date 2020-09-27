@@ -14,6 +14,11 @@ import net.minecraft.world.StructureWorldAccess;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Provides a context according to the variables when a {@link github.Louwind.Features.impl.feature.GenericFeature}
+ * it's been generated. Also Overrides all values required in {@code FeatureContextProvider::getContext}
+ *
+ * */
 public interface FeatureContextProvider  extends FeatureContextAware {
 
     FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos);
@@ -21,13 +26,13 @@ public interface FeatureContextProvider  extends FeatureContextAware {
     default FeatureContext getContext(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos) throws IllegalAccessException {
         FeatureContextBuilder builder = this.getBuilder(pool, pieces, rotation, properties, world, random,  pos);
 
-        for (FeatureContextOverride overrides : this.getContextSetters())
+        for (FeatureContextOverride overrides : this.getContextOverrides())
             overrides.accept(this, builder);
 
         return builder.build(this);
     }
 
-    List<FeatureContextOverride> getContextSetters();
+    List<FeatureContextOverride> getContextOverrides();
 
     FeatureContextProviderType getType();
 

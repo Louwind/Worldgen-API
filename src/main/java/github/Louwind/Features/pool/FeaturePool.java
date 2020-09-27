@@ -9,6 +9,10 @@ import net.minecraft.structure.pool.StructurePool;
 
 import java.util.List;
 
+/**
+ * Represents a {@link StructurePool} and all logic applicable to it,
+ * like context provider, functions and properties.
+ * */
 public interface FeaturePool {
 
     List<FeatureEntry> getEntries();

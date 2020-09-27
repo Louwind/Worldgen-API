@@ -9,6 +9,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A context builder which accepts parameters {@link FeatureContextParameter} and values
+ * */
 public class FeatureContextBuilder {
 
     protected final Map<FeatureContextParameter<?>, Object> parameters;
@@ -17,12 +20,24 @@ public class FeatureContextBuilder {
         this.parameters = Maps.newIdentityHashMap();
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> T get(FeatureContextParameter<T> parameter) {
+        return (T) this.parameters.get(parameter);
+    }
+
     public <T> FeatureContextBuilder put(FeatureContextParameter<T> key, T value) {
         this.parameters.put(key, value);
 
         return this;
     }
 
+    /**
+     * @return A context that contains all required values and others allowed
+     * according to the context provider {@link FeatureContextProvider}
+     *
+     * @throws IllegalAccessException When the builder doesn't have all
+     * required parameters or some parameter it's not allowed
+     * */
     public FeatureContext build(FeatureContextProvider provider) throws IllegalAccessException {
         FeatureContext context = new FeatureContext(this.parameters);
 
