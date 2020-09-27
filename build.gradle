@@ -73,5 +73,14 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
+		maven {
+			url "https://repo.repsy.io/mvn/louwind/features-api"
+			credentials {
+				def envUsername = System.getenv("repsyUsername")
+				def envPassword = System.getenv("repsyPassword")
+				username = envUsername == null ? findProperty("repsyUsername") : envUsername
+				password = envPassword == null ? findProperty("repsyPassword") : envPassword
+			}
+		}
 	}
 }
