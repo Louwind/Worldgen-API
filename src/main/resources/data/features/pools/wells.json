@@ -2,6 +2,7 @@
   "name": "features:wells",
   "terminators": "empty",
   "projection": "rigid",
+  "processors": "minecraft:mossify_10_percent",
   "elements": [
     {
       "structure": "features:wells/well_01",

@@ -28,11 +28,17 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_GENERATOR_TYPE, new Identifier("features:generic"), FeatureGenerators.GENERIC);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:replace"), FeatureProcessors.BLOCK_REPLACEMENT_PROCESSOR);
         Registry.register(FEATURE_PROPERTIES_TYPE, new Identifier("features:properties"), FeatureProperties.PROPERTIES);
 
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED_GETTER);
         Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
+
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:always_true"), FeatureRuleTests.ALWAYS_TRUE);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:block_match"), FeatureRuleTests.BLOCK_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:blockstate_match"), FeatureRuleTests.BLOCKSTATE_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:random_block_match"), FeatureRuleTests.RANDOM_BLOCK_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("features:tag_match"), FeatureRuleTests.TAG_MATCH);
 
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_pos"), FeatureContextParameters.CHUNK_POS);
@@ -47,6 +53,8 @@ public class Features implements ModInitializer {
 
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk"), FeatureFunctions.PLACE_TRUNK);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:offset"), FeatureFunctions.OFFSET);
+
+        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.RULE_PROCESSOR);
 
         Registry.register(FEATURE, new Identifier("features:thin_spruce"), GenericFeatures.THIN_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:well"), GenericFeatures.WELL);

@@ -3,19 +3,26 @@ package github.Louwind.Features.util;
 import com.google.gson.GsonBuilder;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
-import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.override.FeatureContextOverride;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
+import github.Louwind.Features.impl.init.FeatureRuleTests;
+import github.Louwind.Features.mixin.RuleTestInvoker;
 import github.Louwind.Features.mixin.StructureProcessorInvoker;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.processor.FeatureProcessorType;
+import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
+import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorRule;
+import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.JsonSerializing;
 
 public class FeatureGsons {
@@ -25,6 +32,33 @@ public class FeatureGsons {
             StructureProcessorInvoker invoker = (StructureProcessorInvoker) processor;
 
             return (FeatureProcessorType) invoker.getType();
+        }).createGsonSerializer();
+    }
+
+    private static Object createRuleTestSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
+            RuleTestInvoker invoker = (RuleTestInvoker) rule;
+            RuleTestType type = invoker.getType();
+
+            if(type == RuleTestType.ALWAYS_TRUE)
+                return FeatureRuleTests.ALWAYS_TRUE;
+
+            if(type == RuleTestType.BLOCK_MATCH)
+                return FeatureRuleTests.BLOCK_MATCH;
+
+            if(type == RuleTestType.BLOCKSTATE_MATCH)
+                return FeatureRuleTests.BLOCKSTATE_MATCH;
+
+            if(type == RuleTestType.RANDOM_BLOCK_MATCH)
+                return FeatureRuleTests.RANDOM_BLOCK_MATCH;
+
+            if(type == RuleTestType.RANDOM_BLOCKSTATE_MATCH)
+                return FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH;
+
+            if(type == RuleTestType.TAG_MATCH)
+                return FeatureRuleTests.TAG_MATCH;
+
+            return (FeatureRuleTestType) invoker.getType();
         }).createGsonSerializer();
     }
 
@@ -73,13 +107,15 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextOverride.class, FeatureGsons.createFeatureContextOverrideSerializer());
+                .registerTypeHierarchyAdapter(FeatureContextOverride.class, FeatureGsons.createFeatureContextOverrideSerializer())
+                .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
+                .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
+                .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 

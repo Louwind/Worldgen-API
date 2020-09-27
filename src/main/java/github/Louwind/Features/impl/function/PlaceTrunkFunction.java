@@ -59,7 +59,7 @@ public class PlaceTrunkFunction implements FeatureFunction {
         StructureWorldAccess access = context.get(WORLD);
 
         for (BlockPos pos : root) {
-            for (int i = 0; i < height; i++) {
+            for (int i = 1; i < height; i++) {
                 BlockPos up = pos.up(i);
 
                 access.setBlockState(up, state, 3);

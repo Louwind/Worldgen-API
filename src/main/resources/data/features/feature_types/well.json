@@ -6,7 +6,7 @@
       "pool": "features:wells",
       "properties": {
         "type": "features:properties",
-        "rotations": "all"
+        "rotations": "none"
       },
       "entries": [
         {

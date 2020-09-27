@@ -15,14 +15,20 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Property;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorList;
+import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Map;
 import java.util.function.Function;
 
 // TODO error handling
@@ -102,6 +108,23 @@ public class FeaturesJsonHelper {
     }
 
     public static StructureProcessor[] getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonPrimitive()) {
+                JsonPrimitive primitive = element.getAsJsonPrimitive();
+
+                if(primitive.isString()) {
+                    Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
+                    StructureProcessorList list = BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.get(id);
+
+                    return list.getList().toArray(new StructureProcessor[] {});
+                }
+
+            }
+        }
+
         return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessor[].class);
     }
 
@@ -154,6 +177,53 @@ public class FeaturesJsonHelper {
 
     public static FeaturePool[] getPools(JsonObject object, JsonDeserializationContext context, String name) {
         return JsonHelper.deserialize(object, name, new FeaturePool[]{}, context, FeaturePool[].class);
+    }
+
+    public static StructureProcessorRule[] getProcessorRules(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getProcessorRules(object, name, new StructureProcessorRule[]{}, context);
+    }
+
+    public static StructureProcessorRule[] getProcessorRules(JsonObject object, String name, StructureProcessorRule[] defaultValue, JsonDeserializationContext context) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessorRule[].class);
+    }
+
+    public static BlockState getBlockState(JsonObject object, String name) {
+        JsonObject blockstate = object.getAsJsonObject(name);
+
+        Block block = FeaturesJsonHelper.getBlock(blockstate, "block");
+        JsonObject properties = JsonHelper.getObject(blockstate, "properties");
+
+        BlockState state = block.getDefaultState();
+        StateManager<?, ?> manager = block.getStateManager();
+
+        for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
+            Property<?> property = manager.getProperty(entry.getKey());
+
+            if(property != null) {
+                JsonElement element = entry.getValue();
+
+                if(element.isJsonPrimitive()) {
+                    JsonPrimitive primitive = element.getAsJsonPrimitive();
+
+                    if(primitive.isString())
+                        FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
+
+                    if(primitive.isBoolean())
+                        FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+
+                    if(primitive.isNumber())
+                        FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                }
+
+            }
+
+        }
+
+        return state;
+    }
+
+    private static <T extends Comparable<T>> void parsePropertyValue(Property<T> property, BlockState state, String string) {
+        property.parse(string).ifPresent(value -> state.with(property, value));
     }
 
 }
