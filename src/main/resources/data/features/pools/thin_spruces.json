@@ -2,25 +2,7 @@
   "name": "features:thin_spruces",
   "terminators": "empty",
   "projection": "rigid",
-  "processors": [
-    {
-      "processor": "features:rule",
-      "rules": [
-        {
-          "test": {
-            "test": "features:block_match",
-            "block": "minecraft:spruce_leaves"
-          },
-          "blockstate": {
-            "block": "minecraft:spruce_leaves",
-            "properties": {
-              "persistent": false
-            }
-          }
-        }
-      ]
-    }
-  ],
+  "processors": "features:no_persistent_spruce_leaves",
   "elements": [
     {
       "structure": "features:thin_spruces/crown_01",

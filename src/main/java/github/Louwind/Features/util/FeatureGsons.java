@@ -17,9 +17,11 @@ import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
+import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.RuleTestType;
@@ -114,6 +116,7 @@ public class FeatureGsons {
     public static GsonBuilder getProcessorGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
+                .registerTypeAdapter(StructureProcessorList.class, new StructureProcessorListDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
                 .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());

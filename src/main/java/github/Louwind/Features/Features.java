@@ -2,6 +2,7 @@ package github.Louwind.Features;
 
 import github.Louwind.Features.client.resource.FeatureGeneratorManager;
 import github.Louwind.Features.client.resource.StructurePoolManager;
+import github.Louwind.Features.client.resource.StructureProcessorManager;
 import github.Louwind.Features.impl.init.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -16,9 +17,11 @@ public class Features implements ModInitializer {
 
     public static final FeatureGeneratorManager FEATURE_GENERATOR_MANAGER = new FeatureGeneratorManager();
     public static final StructurePoolManager STRUCTURE_POOL_MANAGER = new StructurePoolManager();
+    public static final StructureProcessorManager STRUCTURE_PROCESSOR_MANAGER = new StructureProcessorManager();
 
     @Override
     public void onInitialize() {
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
 
