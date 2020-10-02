@@ -27,10 +27,10 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class PlaceTrunkFunction implements FeatureFunction {
 
-    protected OptionalContextParameter<Block> block;
-    protected List<FeatureCondition> conditions;
+    protected final List<FeatureCondition> conditions;
+    protected final Block block;
 
-    public PlaceTrunkFunction(OptionalContextParameter<Block> block, FeatureCondition[] conditions) {
+    public PlaceTrunkFunction(Block block, FeatureCondition[] conditions) {
         this.block = block;
         this.conditions = Arrays.asList(conditions);
     }
@@ -52,14 +52,14 @@ public class PlaceTrunkFunction implements FeatureFunction {
 
     @Override
     public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        BlockState state = this.block.get(context).getDefaultState();
+        BlockState state = this.block.getDefaultState();
 
         int height = context.get(HEIGHT);
         Set<BlockPos> root = context.get(ROOT);
         StructureWorldAccess access = context.get(WORLD);
 
         for (BlockPos pos : root) {
-            for (int i = 1; i < height; i++) {
+            for (int i = 0; i < height; i++) {
                 BlockPos up = pos.up(i);
 
                 access.setBlockState(up, state, 3);
@@ -78,8 +78,8 @@ public class PlaceTrunkFunction implements FeatureFunction {
 
         @Override
         public PlaceTrunkFunction fromJson(JsonObject json, JsonDeserializationContext context) {
-            OptionalContextParameter<Block> block = FeaturesJsonHelper.getOptionalContextParameter(json, "block", element -> FeaturesJsonHelper.getBlock(json, "block"));
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
+            Block block = FeaturesJsonHelper.getBlock(json, "block");
 
             return new PlaceTrunkFunction(block, conditions);
         }

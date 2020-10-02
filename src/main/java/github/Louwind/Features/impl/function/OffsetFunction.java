@@ -1,39 +1,36 @@
 package github.Louwind.Features.impl.function;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
-import github.Louwind.Features.impl.init.FeatureContextParameters;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
+import github.Louwind.Features.util.OptionalBlockPos;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECES;
 
 public class OffsetFunction implements FeatureFunction {
 
 	protected List<FeatureCondition> conditions;
-	protected Map<Direction.Axis, OptionalContextParameter<Integer>> map;
+	protected OptionalBlockPos pos;
 
-	public OffsetFunction(Map<Direction.Axis, OptionalContextParameter<Integer>> map, FeatureCondition[] conditions) {
+	public OffsetFunction(OptionalBlockPos pos, FeatureCondition[] conditions) {
 		this.conditions = Arrays.asList(conditions);
-		this.map = map;
+		this.pos = pos;
 	}
 
 	@Override
@@ -48,20 +45,17 @@ public class OffsetFunction implements FeatureFunction {
 
 	@Override
 	public Set<FeatureContextParameter<?>> getRequiredParameters() {
-		return ImmutableSet.of(FeatureContextParameters.PIECES);
+		return ImmutableSet.of(PIECES);
 	}
 
 	@Override
 	public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-		List<StructurePiece> pieces = context.get(FeatureContextParameters.PIECES);
+		List<StructurePiece> pieces = context.get(PIECES);
+		BlockPos pos = this.pos.get(context);
 
-		OptionalContextParameter<Integer> parameterX = this.map.get(Direction.Axis.X);
-		OptionalContextParameter<Integer> parameterY = this.map.get(Direction.Axis.Y);
-		OptionalContextParameter<Integer> parameterZ = this.map.get(Direction.Axis.Z);
-
-		int x = parameterX.isPresent() ? parameterX.get(context) : 0;
-		int y = parameterY.isPresent() ? parameterY.get(context) : 0;
-		int z = parameterZ.isPresent() ? parameterZ.get(context) : 0;
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
 
 		for (StructurePiece piece : pieces)
 			piece.translate(x, y, z);
@@ -79,19 +73,9 @@ public class OffsetFunction implements FeatureFunction {
 		@Override
 		public OffsetFunction fromJson(JsonObject json, JsonDeserializationContext context) {
 			FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
-			JsonObject offset = JsonHelper.getObject(json, "offset");
+			OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(json, "offset");
 
-			Map<Direction.Axis, OptionalContextParameter<Integer>> map = Maps.newEnumMap(Direction.Axis.class);
-
-			OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalContextParameter(offset, "x", JsonElement::getAsInt);
-			OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalContextParameter(offset, "y", JsonElement::getAsInt);
-			OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalContextParameter(offset, "z", JsonElement::getAsInt);
-
-			map.put(Direction.Axis.X, x);
-			map.put(Direction.Axis.Y, y);
-			map.put(Direction.Axis.Z, z);
-
-			return new OffsetFunction(map, conditions);
+			return new OffsetFunction(pos, conditions);
 		}
 
 	}

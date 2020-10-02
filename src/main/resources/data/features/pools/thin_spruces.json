@@ -2,7 +2,7 @@
   "name": "features:thin_spruces",
   "terminators": "empty",
   "projection": "rigid",
-  "processors": "features:no_persistent_spruce_leaves",
+  "processors": "features:no_persistent_leaves",
   "elements": [
     {
       "structure": "features:thin_spruces/crown_01",

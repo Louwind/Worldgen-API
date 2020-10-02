@@ -5,6 +5,6 @@ import github.Louwind.Features.impl.generator.GenericFeatureGenerator;
 
 public class FeatureGenerators {
 
-    public static final FeatureGeneratorType GENERIC = new FeatureGeneratorType(new GenericFeatureGenerator.Serializer());
+    public static final FeatureGeneratorType GENERATOR = new FeatureGeneratorType(new GenericFeatureGenerator.Serializer());
 
 }

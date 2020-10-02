@@ -7,7 +7,6 @@ import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.generator.FeatureGeneratorType;
 import github.Louwind.Features.impl.init.FeatureGenerators;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
 
@@ -17,26 +16,19 @@ import java.util.List;
 public class GenericFeatureGenerator implements FeatureGenerator {
 
     protected final List<FeaturePool> pools;
-    protected final FeatureProperties properties;
 
-    public GenericFeatureGenerator(FeaturePool[] pools, FeatureProperties properties) {
+    public GenericFeatureGenerator(FeaturePool[] pools) {
         this.pools = Arrays.asList(pools);
-        this.properties = properties;
     }
 
     @Override
     public FeatureGeneratorType getType() {
-        return FeatureGenerators.GENERIC;
+        return FeatureGenerators.GENERATOR;
     }
 
     @Override
     public List<FeaturePool> getPools() {
         return this.pools;
-    }
-
-    @Override
-    public FeatureProperties getProperties() {
-        return this.properties;
     }
 
     public static class Serializer implements JsonSerializer<GenericFeatureGenerator> {
@@ -49,9 +41,8 @@ public class GenericFeatureGenerator implements FeatureGenerator {
         @Override
         public GenericFeatureGenerator fromJson(JsonObject json, JsonDeserializationContext context) {
             FeaturePool[] pools = FeaturesJsonHelper.getPools(json, context, "pools");
-            FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
 
-            return new GenericFeatureGenerator(pools, props);
+            return new GenericFeatureGenerator(pools);
         }
 
     }

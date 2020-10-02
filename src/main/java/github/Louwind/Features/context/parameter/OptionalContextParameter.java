@@ -1,6 +1,7 @@
 package github.Louwind.Features.context.parameter;
 
 import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.impl.init.FeatureContextParameters;
 
 import java.util.NoSuchElementException;
 
@@ -46,9 +47,13 @@ public class OptionalContextParameter<T> {
     public T get() {
 
         if(this.value == null)
-            throw new NoSuchElementException("No parameter nor value present");
+            throw new NoSuchElementException("No value is present");
 
         return this.value;
+    }
+
+    public FeatureContextParameter<T> getParameter() {
+        return this.parameter != null ? this.parameter : FeatureContextParameters.empty();
     }
 
     public boolean isPresent() {

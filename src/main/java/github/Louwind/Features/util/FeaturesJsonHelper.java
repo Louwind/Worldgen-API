@@ -1,18 +1,19 @@
 package github.Louwind.Features.util;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
+import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.GenericContextProvider;
-import github.Louwind.Features.impl.properties.GenericFeatureProperties;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,6 +26,7 @@ import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
@@ -84,6 +86,36 @@ public class FeaturesJsonHelper {
         }
 
         return OptionalContextParameter.empty();
+    }
+
+    public static OptionalBlockPos getOptionalBlockPos(JsonObject object, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonObject()) {
+                JsonObject pos = element.getAsJsonObject();
+
+                if(pos.has("parameter")) {
+                    FeatureContextParameter<BlockPos> parameter = FeaturesJsonHelper.getContextParameter(pos, "parameter");
+                    OptionalContextParameter<BlockPos> optional = OptionalContextParameter.of(parameter);
+
+                    return OptionalBlockPos.of(optional);
+                }
+
+                if(pos.has("x") || pos.has("y") || pos.has("z")) {
+                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalContextParameter(pos, "x", JsonElement::getAsInt);
+                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalContextParameter(pos, "y", JsonElement::getAsInt);
+                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalContextParameter(pos, "z", JsonElement::getAsInt);
+
+                    return OptionalBlockPos.of(x, y, z);
+                }
+
+            }
+
+        }
+
+        return OptionalBlockPos.empty();
     }
 
     public static FeatureEntry[] getEntries(JsonObject object, JsonDeserializationContext context, String name) {
@@ -170,10 +202,6 @@ public class FeaturesJsonHelper {
         return BuiltinRegistries.STRUCTURE_POOL.get(id);
     }
 
-    public static FeatureProperties getPoolProperties(JsonObject object, JsonDeserializationContext context, String name) {
-        return JsonHelper.deserialize(object, name, GenericFeatureProperties.EMPTY, context, FeatureProperties.class);
-    }
-
     public static FeaturePool[] getPools(JsonObject object, JsonDeserializationContext context, String name) {
         return JsonHelper.deserialize(object, name, new FeaturePool[]{}, context, FeaturePool[].class);
     }
@@ -186,6 +214,7 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessorRule[].class);
     }
 
+    @Deprecated
     public static BlockState getBlockState(JsonObject object, String name) {
         JsonObject blockstate = object.getAsJsonObject(name);
 
@@ -221,6 +250,7 @@ public class FeaturesJsonHelper {
         return state;
     }
 
+    @Deprecated
     private static <T extends Comparable<T>> void parsePropertyValue(Property<T> property, BlockState state, String string) {
         property.parse(string).ifPresent(value -> state.with(property, value));
     }

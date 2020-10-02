@@ -39,7 +39,7 @@ public class DebugStickItem<T extends FeatureConfig> extends Item {
             ServerWorld server = (ServerWorld) world;
             ChunkGenerator chunkGenerator = server.getChunkManager().getChunkGenerator();
 
-           if(this.feature.generate(server, chunkGenerator, random, pos, this.featureConfig.get()))
+           if(this.feature.generate(server, chunkGenerator, random, pos.up(), this.featureConfig.get()))
                return ActionResult.CONSUME;
         }
 

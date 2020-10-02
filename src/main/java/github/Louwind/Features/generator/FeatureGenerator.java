@@ -4,7 +4,6 @@ import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.mixin.SinglePoolElementAccessor;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.properties.FeatureProperties;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
@@ -28,8 +27,6 @@ public interface FeatureGenerator {
     FeatureGeneratorType getType();
 
     List<FeaturePool> getPools();
-
-    FeatureProperties getProperties();
 
     default FeaturePool getRandomPool(Random random) {
         List<FeaturePool> pools = this.getPools();

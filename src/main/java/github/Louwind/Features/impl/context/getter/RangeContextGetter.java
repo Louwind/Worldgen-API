@@ -32,7 +32,7 @@ public class RangeContextGetter implements FeatureContextGetter<Integer> {
 
     @Override
     public FeatureContextGetterType getType() {
-        return FeatureContextGetters.RANGED_GETTER;
+        return FeatureContextGetters.RANGED;
     }
 
     @Override

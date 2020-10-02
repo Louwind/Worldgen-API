@@ -25,15 +25,18 @@ public class Features implements ModInitializer {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
 
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:generic"), FeatureContextProviders.GENERIC);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:provider"), FeatureContextProviders.PROVIDER);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
 
+        Registry.register(FEATURE_GENERATOR_TYPE, new Identifier("features:generator"), FeatureGenerators.GENERATOR);
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
-        Registry.register(FEATURE_GENERATOR_TYPE, new Identifier("features:generic"), FeatureGenerators.GENERIC);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
-        Registry.register(FEATURE_PROPERTIES_TYPE, new Identifier("features:properties"), FeatureProperties.PROPERTIES);
 
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED_GETTER);
+        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:addition"), FeatureContextGetters.ADDITION);
+        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:multiplication"), FeatureContextGetters.MULTIPLICATION);
+        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED);
+
         Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
 
         Registry.register(FEATURE_RULE_TEST, new Identifier("features:always_true"), FeatureRuleTests.ALWAYS_TRUE);
@@ -43,8 +46,14 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_RULE_TEST, new Identifier("features:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
         Registry.register(FEATURE_RULE_TEST, new Identifier("features:tag_match"), FeatureRuleTests.TAG_MATCH);
 
+        Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:alternatives"), FeatureConditions.ALTERNATIVES);
+        Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:inverted"), FeatureConditions.INVERTED);
+        Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:none"), FeatureConditions.NONE);
+        Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:rotation"), FeatureConditions.ROTATION);
+
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_pos"), FeatureContextParameters.CHUNK_POS);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pos"), FeatureContextParameters.POS);
@@ -52,10 +61,16 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:root"), FeatureContextParameters.ROOT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:rotation"), FeatureContextParameters.ROTATION);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:structure_pool"), FeatureContextParameters.STRUCTURE_POOL);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:trunks"), FeatureContextParameters.TRUNKS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
-        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk"), FeatureFunctions.PLACE_TRUNK);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:elif"), FeatureFunctions.ELIF);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:mirror"), FeatureFunctions.MIRROR);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:offset"), FeatureFunctions.OFFSET);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_feature"), FeatureFunctions.PLACE_FEATURE);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk"), FeatureFunctions.PLACE_TRUNK);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.RULE_PROCESSOR);
 

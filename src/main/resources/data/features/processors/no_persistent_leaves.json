@@ -1,0 +1,20 @@
+{
+  "processors": [
+    {
+      "processor": "features:with",
+      "rules": [
+        {
+          "rule": "features:properties",
+          "test": {
+            "test": "features:tag_match",
+            "tag": "#leaves"
+          },
+          "properties": {
+            "distance": 1,
+            "persistent": false
+          }
+        }
+      ]
+    }
+  ]
+}

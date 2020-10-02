@@ -13,7 +13,6 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
@@ -38,7 +37,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     private final List<FeatureContextOverride> overrides;
 
-    public GenericContextProvider(FeatureContextOverride...overrides) {
+    public GenericContextProvider(FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
     }
 
@@ -48,7 +47,7 @@ public class GenericContextProvider implements FeatureContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, FeatureProperties properties, StructureWorldAccess world, Random random, BlockPos pos) {
+    public FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos) {
         OptionalContextParameter<StructurePool> structurePool = pool.getStructurePool();
 
         Chunk chunk = world.getChunk(pos);
@@ -74,7 +73,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     @Override
     public FeatureContextProviderType getType() {
-        return FeatureContextProviders.GENERIC;
+        return FeatureContextProviders.PROVIDER;
     }
 
     public static class Serializer implements JsonSerializer<GenericContextProvider> {

@@ -22,7 +22,7 @@ public class GenericFeatureGenerator implements FeatureGenerator {
 
     @Override
     public FeatureGeneratorType getType() {
-        return FeatureGenerators.GENERIC;
+        return FeatureGenerators.GENERATOR;
     }
 
     @Override
