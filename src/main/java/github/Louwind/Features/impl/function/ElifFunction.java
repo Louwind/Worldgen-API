@@ -36,16 +36,15 @@ public class ElifFunction implements FeatureFunction {
     }
 
     @Override
-    public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
 
         for (FeatureFunction function : this.functions) {
 
             if(function.test(context))
-                return function.apply(poolStructurePiece, context);
+                function.accept(poolStructurePiece, context);
 
         }
 
-        return poolStructurePiece;
     }
 
     public static class Serializer implements JsonSerializer<ElifFunction> {

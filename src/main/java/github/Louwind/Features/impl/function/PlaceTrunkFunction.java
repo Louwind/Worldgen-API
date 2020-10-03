@@ -51,7 +51,7 @@ public class PlaceTrunkFunction implements FeatureFunction {
     }
 
     @Override
-    public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
         BlockState state = this.block.getDefaultState();
 
         int height = context.get(HEIGHT);
@@ -66,7 +66,6 @@ public class PlaceTrunkFunction implements FeatureFunction {
             }
         }
 
-        return poolStructurePiece;
     }
 
     public static class Serializer implements JsonSerializer<PlaceTrunkFunction> {

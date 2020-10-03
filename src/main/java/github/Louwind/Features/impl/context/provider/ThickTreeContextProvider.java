@@ -29,8 +29,8 @@ public class ThickTreeContextProvider extends TreeContextProvider {
 
     private final Block sapling;
 
-    public ThickTreeContextProvider(Block sapling, FeatureContextOverride[] overrides) {
-        super(overrides);
+    public ThickTreeContextProvider(Block sapling, BlockRotation[] rotations, FeatureContextOverride[] overrides) {
+        super(rotations, overrides);
 
         this.sapling = sapling;
     }
@@ -65,9 +65,10 @@ public class ThickTreeContextProvider extends TreeContextProvider {
         @Override
         public ThickTreeContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
             Block sapling = FeaturesJsonHelper.getBlock(json, "sapling");
 
-            return new ThickTreeContextProvider(sapling, overrides);
+            return new ThickTreeContextProvider(sapling, rotations, overrides);
         }
 
     }

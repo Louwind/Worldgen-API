@@ -7,13 +7,13 @@ import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
-import github.Louwind.Features.impl.init.FeatureConditions;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
+import net.minecraft.util.math.Direction;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,9 +39,11 @@ public class RotationFunction implements FeatureFunction {
     }
 
     @Override
-    public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        // TODO rotate
-        return poolStructurePiece;
+    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+        Direction facing = poolStructurePiece.getFacing();
+        Direction direction = this.rotation.rotate(facing);
+
+        poolStructurePiece.setOrientation(direction);
     }
 
     public static class Serializer implements JsonSerializer<RotationFunction> {

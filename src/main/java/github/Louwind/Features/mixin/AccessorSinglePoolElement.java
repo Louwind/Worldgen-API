@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(SinglePoolElement.class)
-public interface SinglePoolElementAccessor {
+public interface AccessorSinglePoolElement {
 
     @Accessor("field_24015")
     Either<Identifier, Structure> getStructure();

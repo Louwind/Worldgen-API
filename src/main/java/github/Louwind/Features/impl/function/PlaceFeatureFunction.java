@@ -4,14 +4,11 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import github.Louwind.Features.Features;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
-import github.Louwind.Features.generator.FeatureGenerator;
-import github.Louwind.Features.impl.feature.GenericFeature;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalBlockPos;
@@ -24,10 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +30,6 @@ import java.util.Random;
 import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_POOL;
 
 public class PlaceFeatureFunction implements FeatureFunction {
 
@@ -65,7 +59,7 @@ public class PlaceFeatureFunction implements FeatureFunction {
     }
 
     @Override
-    public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
         BlockPos pos = context.get(POS);
         Random random = context.get(RANDOM);
         StructureWorldAccess access = context.get(WORLD);
@@ -80,7 +74,6 @@ public class PlaceFeatureFunction implements FeatureFunction {
             feature.generate(access, chunkGenerator, random, pos);
         }
 
-        return poolStructurePiece;
     }
 
     public static class Serializer implements JsonSerializer<PlaceFeatureFunction> {

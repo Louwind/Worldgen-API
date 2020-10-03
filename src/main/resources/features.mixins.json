@@ -4,9 +4,9 @@
   "package": "github.Louwind.Features.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "RuleTestInvoker",
-    "SinglePoolElementAccessor",
-    "StructureProcessorInvoker"
+    "InvokerRuleTest",
+    "AccessorSinglePoolElement",
+    "InvokerStructureProcessor"
   ],
   "client": [
   ],

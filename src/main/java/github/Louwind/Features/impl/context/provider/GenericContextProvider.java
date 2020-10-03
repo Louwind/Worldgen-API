@@ -33,12 +33,14 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class GenericContextProvider implements FeatureContextProvider {
 
-    public static final FeatureContextProvider EMPTY = new GenericContextProvider();
+    public static final FeatureContextProvider EMPTY = new GenericContextProvider(new BlockRotation[]{ BlockRotation.NONE });
 
     private final List<FeatureContextOverride> overrides;
+    private final List<BlockRotation> rotations;
 
-    public GenericContextProvider(FeatureContextOverride ...overrides) {
+    public GenericContextProvider(BlockRotation[] rotations, FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
+        this.rotations = Arrays.asList(rotations);
     }
 
     @Override
@@ -72,6 +74,14 @@ public class GenericContextProvider implements FeatureContextProvider {
     }
 
     @Override
+    public BlockRotation getRotations(Random random) {
+        int size = this.rotations.size();
+        int index = random.nextInt(size);
+
+        return this.rotations.get(index);
+    }
+
+    @Override
     public FeatureContextProviderType getType() {
         return FeatureContextProviders.PROVIDER;
     }
@@ -86,8 +96,9 @@ public class GenericContextProvider implements FeatureContextProvider {
         @Override
         public GenericContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
 
-            return new GenericContextProvider(overrides);
+            return new GenericContextProvider(rotations, overrides);
         }
 
     }

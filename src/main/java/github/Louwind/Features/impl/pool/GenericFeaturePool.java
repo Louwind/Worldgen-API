@@ -10,7 +10,6 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.init.FeaturePools;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.pool.FeaturePoolType;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.JsonSerializer;
@@ -22,14 +21,12 @@ public class GenericFeaturePool implements FeaturePool {
 
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
-    protected final FeatureProperties properties;
     protected final FeatureContextProvider provider;
     protected final OptionalContextParameter<StructurePool> structurePool;
 
-    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureFunction[] functions, FeatureEntry[] entries, FeatureProperties properties, FeatureContextProvider provider) {
+    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureFunction[] functions, FeatureEntry[] entries, FeatureContextProvider provider) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
-        this.properties = properties;
         this.provider = provider;
         this.structurePool = structurePool;
     }
@@ -47,11 +44,6 @@ public class GenericFeaturePool implements FeaturePool {
     @Override
     public List<FeatureFunction> getFunctions() {
         return this.functions;
-    }
-
-    @Override
-    public FeatureProperties getProperties() {
-        return this.properties;
     }
 
     @Override
@@ -78,10 +70,9 @@ public class GenericFeaturePool implements FeaturePool {
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
             FeatureEntry[] entries = FeaturesJsonHelper.getEntries(json, context, "entries");
 
-            FeatureProperties props = FeaturesJsonHelper.getPoolProperties(json, context, "properties");
             FeatureContextProvider provider = FeaturesJsonHelper.getContextProvider(json, context, "context");
 
-            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), functions, entries, props, provider);
+            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), functions, entries, provider);
         }
 
     }

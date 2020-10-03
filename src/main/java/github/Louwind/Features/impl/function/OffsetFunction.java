@@ -49,7 +49,7 @@ public class OffsetFunction implements FeatureFunction {
 	}
 
 	@Override
-	public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+	public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
 		List<StructurePiece> pieces = context.get(PIECES);
 		BlockPos pos = this.pos.get(context);
 
@@ -60,7 +60,6 @@ public class OffsetFunction implements FeatureFunction {
 		for (StructurePiece piece : pieces)
 			piece.translate(x, y, z);
 
-		return poolStructurePiece;
 	}
 
 	public static class Serializer implements JsonSerializer<OffsetFunction> {

@@ -45,7 +45,7 @@ public class PivotFunction implements FeatureFunction {
     }
 
     @Override
-    public PoolStructurePiece apply(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
         List<StructurePiece> pieces = context.get(FeatureContextParameters.PIECES);
         BlockRotation rotation = context.get(FeatureContextParameters.ROTATION);
 
@@ -63,7 +63,6 @@ public class PivotFunction implements FeatureFunction {
         for(StructurePiece piece : pieces)
             piece.translate(x, y, z);
 
-        return poolStructurePiece;
     }
 
     public static class Serializer implements JsonSerializer<PivotFunction> {
@@ -85,7 +84,6 @@ public class PivotFunction implements FeatureFunction {
             when.put(BlockRotation.COUNTERCLOCKWISE_90, FeaturesJsonHelper.getOptionalBlockPos(object, "counterclockwise_90"));
 
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
-
             OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(object, "all");
 
             return new PivotFunction(pos, when, conditions);

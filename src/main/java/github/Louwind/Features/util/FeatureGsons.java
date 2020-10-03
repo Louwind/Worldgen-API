@@ -9,12 +9,11 @@ import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
-import github.Louwind.Features.mixin.RuleTestInvoker;
-import github.Louwind.Features.mixin.StructureProcessorInvoker;
+import github.Louwind.Features.mixin.InvokerRuleTest;
+import github.Louwind.Features.mixin.InvokerStructureProcessor;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
-import github.Louwind.Features.properties.FeatureProperties;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
@@ -31,7 +30,7 @@ public class FeatureGsons {
 
     private static Object createStructureProcessorSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROCESSOR_TYPE, "processor", "processor", processor -> {
-            StructureProcessorInvoker invoker = (StructureProcessorInvoker) processor;
+            InvokerStructureProcessor invoker = (InvokerStructureProcessor) processor;
 
             return (FeatureProcessorType) invoker.getType();
         }).createGsonSerializer();
@@ -40,7 +39,7 @@ public class FeatureGsons {
     @Deprecated
     private static Object createRuleTestSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
-            RuleTestInvoker invoker = (RuleTestInvoker) rule;
+            InvokerRuleTest invoker = (InvokerRuleTest) rule;
             RuleTestType type = invoker.getType();
 
             if(type == RuleTestType.ALWAYS_TRUE)
@@ -97,16 +96,11 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_TYPE, "type", "type", FeaturePool::getType).createGsonSerializer();
     }
 
-    private static Object createFeaturePropertiesSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROPERTIES_TYPE, "properties", "type", FeatureProperties::getType).createGsonSerializer();
-    }
-
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeHierarchyAdapter(FeatureGenerator.class, FeatureGsons.createFeatureGeneratorSerializer())
                 .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
-                .registerTypeHierarchyAdapter(FeatureProperties.class, FeatureGsons.createFeaturePropertiesSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())

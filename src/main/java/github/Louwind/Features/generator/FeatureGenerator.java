@@ -2,7 +2,7 @@ package github.Louwind.Features.generator;
 
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.mixin.SinglePoolElementAccessor;
+import github.Louwind.Features.mixin.AccessorSinglePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -56,7 +56,7 @@ public interface FeatureGenerator {
 
         if(poolElement instanceof SinglePoolElement) {
             SinglePoolElement singlePoolElement = (SinglePoolElement) poolElement;
-            SinglePoolElementAccessor accessor = (SinglePoolElementAccessor) singlePoolElement;
+            AccessorSinglePoolElement accessor = (AccessorSinglePoolElement) singlePoolElement;
 
             Optional<Identifier> optional = accessor.getStructure().left();
 

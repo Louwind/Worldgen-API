@@ -33,6 +33,7 @@ public interface FeatureContextProvider  extends FeatureContextAware {
 
     List<FeatureContextOverride> getContextOverrides();
 
-    FeatureContextProviderType getType();
+    BlockRotation getRotations(Random random);
 
+    FeatureContextProviderType getType();
 }

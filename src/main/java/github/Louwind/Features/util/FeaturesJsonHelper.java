@@ -41,6 +41,12 @@ public class FeaturesJsonHelper {
         return Registry.BLOCK.get(id);
     }
 
+    public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name) {
+        String string = JsonHelper.getString(object, name);
+
+        return (T) Enum.valueOf(clazz, string.toUpperCase());
+    }
+
     public static Identifier getIdentifier(JsonObject object, String name) {
         String id = JsonHelper.getString(object, name);
 
@@ -177,7 +183,7 @@ public class FeaturesJsonHelper {
                     if (string.equals("all"))
                         return BlockRotation.values();
 
-                    BlockRotation rotation = BlockRotation.valueOf(string.toUpperCase());
+                    BlockRotation rotation = FeaturesJsonHelper.getEnum(object, BlockRotation.class, name);
 
                     if(rotation != null)
                         return new BlockRotation[] { rotation };
@@ -185,7 +191,7 @@ public class FeaturesJsonHelper {
             }
         }
 
-        return JsonHelper.deserialize(object, name, new BlockRotation[]{}, context, BlockRotation[].class);
+        return new BlockRotation[]{};
     }
 
     public static FeatureContextOverride[] getContextOverrides(JsonObject object, FeatureContextOverride[] defaultValue, JsonDeserializationContext context, String name) {

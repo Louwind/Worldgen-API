@@ -1,15 +1,12 @@
 {
-  "type": "features:generic",
+  "type": "features:generator",
   "pools": [
     {
       "type": "features:pool",
       "pool": "features:thin_spruces",
-      "properties": {
-        "type": "features:properties",
-        "rotations": "none"
-      },
       "context": {
         "type": "features:tree",
+        "rotations": "none",
         "overrides": [
           {
             "type": "features:parameter",
