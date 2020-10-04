@@ -95,7 +95,7 @@ public class MirrorFunction implements FeatureFunction {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
             Block block = FeaturesJsonHelper.getBlock(json, "block");
-            Direction direction = FeaturesJsonHelper.getEnum(json, Direction.class, "rotation");
+            Direction direction = FeaturesJsonHelper.getEnum(json, Direction.class, "direction");
             BlockRotation rotation = FeaturesJsonHelper.getEnum(json, BlockRotation.class, "rotation");
 
             return new MirrorFunction(block, direction, rotation, conditions);
