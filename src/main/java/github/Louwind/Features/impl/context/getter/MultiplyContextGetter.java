@@ -17,13 +17,13 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-public class MultiplicationContextGetter implements FeatureContextGetter<Integer> {
+public class MultiplyContextGetter implements FeatureContextGetter<Integer> {
 
     private final List<FeatureCondition> conditions;
     private final OptionalContextParameter<Integer> base;
     private final OptionalContextParameter<Integer> multiplier;
 
-    public MultiplicationContextGetter(OptionalContextParameter<Integer> base, OptionalContextParameter<Integer> multiplier, FeatureCondition[] conditions) {
+    public MultiplyContextGetter(OptionalContextParameter<Integer> base, OptionalContextParameter<Integer> multiplier, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
         this.base = base;
         this.multiplier = multiplier;
@@ -31,7 +31,7 @@ public class MultiplicationContextGetter implements FeatureContextGetter<Integer
 
     @Override
     public FeatureContextGetterType getType() {
-        return FeatureContextGetters.MULTIPLICATION;
+        return FeatureContextGetters.MULTIPLY;
     }
 
     @Override
@@ -50,21 +50,21 @@ public class MultiplicationContextGetter implements FeatureContextGetter<Integer
         return base * multiplier;
     }
 
-    public static class Serializer implements JsonSerializer<MultiplicationContextGetter> {
+    public static class Serializer implements JsonSerializer<MultiplyContextGetter> {
 
         @Override
-        public void toJson(JsonObject json, MultiplicationContextGetter object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, MultiplyContextGetter object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public MultiplicationContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
+        public MultiplyContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
             OptionalContextParameter<Integer> base = FeaturesJsonHelper.getOptionalContextParameter(json, "base", JsonElement::getAsInt);
             OptionalContextParameter<Integer> multiplier = FeaturesJsonHelper.getOptionalContextParameter(json, "multiplier", JsonElement::getAsInt);
 
-            return new MultiplicationContextGetter(base, multiplier, conditions);
+            return new MultiplyContextGetter(base, multiplier, conditions);
         }
 
     }
