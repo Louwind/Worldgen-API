@@ -73,8 +73,9 @@ public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
 
                     ChunkPos chunkPos = context.get(CHUNK_POS);
                     BlockBox box = context.get(BOX);
+                    BlockPos pos = context.get(POS);
 
-                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, blockPos);
+                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
 
                 } catch (IllegalAccessException e) {
                     LogManager.getLogger().warn(e);
