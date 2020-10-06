@@ -20,10 +20,9 @@ import java.util.Random;
  * */
 public interface FeatureContextProvider  extends FeatureContextAware {
 
-    FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos);
+    FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos);
 
-    default FeatureContext getContext(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos) throws IllegalAccessException {
-        FeatureContextBuilder builder = this.getBuilder(pool, pieces, rotation, world, random,  pos);
+    default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalAccessException {
 
         for (FeatureContextOverride overrides : this.getContextOverrides())
             overrides.accept(this, builder);

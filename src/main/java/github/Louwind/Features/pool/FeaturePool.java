@@ -20,8 +20,7 @@ public interface FeaturePool {
 
     List<FeatureFunction> getFunctions();
 
-    @Deprecated
-    OptionalContextParameter<StructurePool> getStructurePool();
+    StructurePool getStructurePool();
 
     FeaturePoolType getType();
 

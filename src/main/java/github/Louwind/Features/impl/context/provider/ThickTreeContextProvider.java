@@ -13,13 +13,11 @@ import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -41,8 +39,8 @@ public class ThickTreeContextProvider extends TreeContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos origin) {
-        FeatureContextBuilder builder = super.getBuilder(pool, pieces, rotation, world, random, origin);
+    public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos origin) {
+        FeatureContextBuilder builder = super.getBuilder(pool, rotation, world, random, origin);
 
         Set<BlockPos> saplings = FeaturesThickSaplingGenerator.getSaplings(world, this.sapling, origin);
         BlockPos pos = saplings.stream().sorted().iterator().next();

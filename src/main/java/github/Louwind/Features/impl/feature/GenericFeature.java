@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import github.Louwind.Features.Features;
 import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
@@ -57,23 +58,26 @@ public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
             FeatureContextProvider provider = pool.getContextProvider();
 
             BlockRotation rotation = provider.getRotations(random);
+            FeatureContextBuilder builder = provider.getBuilder(pool, rotation, world, random, blockPos);
 
-            List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, blockPos);
+            BlockPos pos = builder.get(POS);
+
+            List<StructurePiece> pieces = this.getPieces(pool, rotation, registryManager, structureManager, chunkGenerator, random, pos);
+
+            builder.put(PIECES, pieces);
 
             return pieces.stream().map(FeaturesStructurePiece.class::cast).allMatch(piece -> {
                 StructurePoolElement poolElement = piece.getPoolElement();
 
                 try {
-                    FeatureContext context = provider.getContext(pool, pieces, rotation, world, random,  blockPos);
-
                     List<FeatureFunction> functions = generator.getFunctions(pool, poolElement);
+                    FeatureContext context = provider.getContext(builder);
 
                     for (FeatureFunction function: functions)
                         function.accept(piece, context);
 
                     ChunkPos chunkPos = context.get(CHUNK_POS);
                     BlockBox box = context.get(BOX);
-                    BlockPos pos = context.get(POS);
 
                     return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
 
@@ -92,7 +96,7 @@ public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
     protected List<StructurePiece> getPieces(FeaturePool pool, BlockRotation rotation, DynamicRegistryManager registryManager, StructureManager structureManager, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
         List<StructurePiece> pieces = Lists.newArrayList();
 
-        StructurePoolElement poolElement = pool.getStructurePool().get().getRandomElement(random);
+        StructurePoolElement poolElement = pool.getStructurePool().getRandomElement(random);
         int level = blockPos.getY();
 
         FeaturesStructurePiece piece = new FeaturesStructurePiece(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());

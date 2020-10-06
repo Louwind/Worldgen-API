@@ -1,0 +1,12 @@
+{
+  "name": "features:thick_stripped_spruces",
+  "terminators": "empty",
+  "projection": "rigid",
+  "processors": "features:no_persistent_spruce_leaves",
+  "elements": [
+    {
+      "structure": "features:thick_stripped_spruces/crown_01",
+      "weight": 1
+    }
+  ]
+}

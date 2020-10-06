@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.init.FeaturePools;
@@ -22,9 +21,9 @@ public class GenericFeaturePool implements FeaturePool {
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
     protected final FeatureContextProvider provider;
-    protected final OptionalContextParameter<StructurePool> structurePool;
+    protected final StructurePool structurePool;
 
-    public GenericFeaturePool(OptionalContextParameter<StructurePool> structurePool, FeatureFunction[] functions, FeatureEntry[] entries, FeatureContextProvider provider) {
+    public GenericFeaturePool(StructurePool structurePool, FeatureFunction[] functions, FeatureEntry[] entries, FeatureContextProvider provider) {
         this.entries = Arrays.asList(entries);
         this.functions = Arrays.asList(functions);
         this.provider = provider;
@@ -47,7 +46,7 @@ public class GenericFeaturePool implements FeaturePool {
     }
 
     @Override
-    public OptionalContextParameter<StructurePool> getStructurePool() {
+    public StructurePool getStructurePool() {
         return this.structurePool;
     }
 
@@ -72,7 +71,7 @@ public class GenericFeaturePool implements FeaturePool {
 
             FeatureContextProvider provider = FeaturesJsonHelper.getContextProvider(json, context, "context");
 
-            return new GenericFeaturePool(OptionalContextParameter.of(structurePool), functions, entries, provider);
+            return new GenericFeaturePool(structurePool, functions, entries, provider);
         }
 
     }

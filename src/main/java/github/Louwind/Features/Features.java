@@ -75,9 +75,11 @@ public class Features implements ModInitializer {
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.RULE_PROCESSOR);
 
+        Registry.register(FEATURE, new Identifier("features:thick_stripped_spruce"), GenericFeatures.THICK_STRIPPED_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:thin_spruce"), GenericFeatures.THIN_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:well"), GenericFeatures.WELL);
 
+        Registry.register(ITEM, new Identifier("features:thick_stripped_spruce_debug_stick"), FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thin_spruce_debug_stick"), FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:well_debug_stick"), FeaturesItems.WELL_DEBUG_STICK);
     }

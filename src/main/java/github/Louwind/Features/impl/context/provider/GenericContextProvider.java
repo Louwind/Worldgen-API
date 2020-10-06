@@ -6,11 +6,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
-import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.context.override.FeatureContextOverride;
+import github.Louwind.Features.context.parameter.FeatureContextParameter;
+import github.Louwind.Features.context.provider.FeatureContextProvider;
+import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
@@ -49,8 +48,8 @@ public class GenericContextProvider implements FeatureContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getBuilder(FeaturePool pool, List<StructurePiece> pieces, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos) {
-        OptionalContextParameter<StructurePool> structurePool = pool.getStructurePool();
+    public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos) {
+        StructurePool structurePool = pool.getStructurePool();
 
         Chunk chunk = world.getChunk(pos);
         ChunkPos chunkPos = chunk.getPos();
@@ -59,7 +58,6 @@ public class GenericContextProvider implements FeatureContextProvider {
         return new FeatureContextBuilder()
                 .put(BOX, BlockBox.infinite())
                 .put(CHUNK_POS, chunkPos)
-                .put(PIECES, pieces)
                 .put(POS, pos)
                 .put(RANDOM, random)
                 .put(ROOT, root)
