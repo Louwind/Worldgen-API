@@ -2,10 +2,13 @@
   "name": "features:thick_stripped_spruces",
   "terminators": "empty",
   "projection": "rigid",
-  "processors": "features:no_persistent_spruce_leaves",
   "elements": [
     {
-      "structure": "features:thick_stripped_spruces/crown_01",
+      "element": {
+        "type": "minecraft:single_pool_element",
+        "structure": "features:thick_stripped_spruces/crown_01",
+        "processors": "features:no_persistent_spruce_leaves"
+      },
       "weight": 1
     }
   ]

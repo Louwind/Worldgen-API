@@ -1,6 +1,6 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.impl.util.serializer.*;
+import github.Louwind.Features.impl.util.serializer.test.*;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 
 public class FeatureRuleTests {

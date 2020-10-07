@@ -12,6 +12,7 @@ import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.mixin.InvokerRuleTest;
 import github.Louwind.Features.mixin.InvokerStructureProcessor;
 import github.Louwind.Features.pool.FeaturePool;
+import github.Louwind.Features.pool.element.FeaturesPoolElementFunction;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
@@ -36,7 +37,6 @@ public class FeatureGsons {
         }).createGsonSerializer();
     }
 
-    @Deprecated
     private static Object createRuleTestSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
             InvokerRuleTest invoker = (InvokerRuleTest) rule;
@@ -96,6 +96,14 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_TYPE, "type", "type", FeaturePool::getType).createGsonSerializer();
     }
 
+    private static Object createFeaturePoolElementSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_ELEMENT_TYPE, "type", "type", object -> {
+            FeaturesPoolElementFunction function = (FeaturesPoolElementFunction) object;
+
+            return function.getType();
+        }).createGsonSerializer();
+    }
+
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeHierarchyAdapter(FeatureGenerator.class, FeatureGsons.createFeatureGeneratorSerializer())
@@ -114,6 +122,7 @@ public class FeatureGsons {
                 .registerTypeAdapter(StructureProcessorList.class, new StructureProcessorListDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
                 .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
+                .registerTypeAdapter(FeaturesPoolElementFunction.class, FeatureGsons.createFeaturePoolElementSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 

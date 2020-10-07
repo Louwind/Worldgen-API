@@ -39,12 +39,12 @@ public class Features implements ModInitializer {
 
         Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
 
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:always_true"), FeatureRuleTests.ALWAYS_TRUE);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:block_match"), FeatureRuleTests.BLOCK_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:blockstate_match"), FeatureRuleTests.BLOCKSTATE_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:random_block_match"), FeatureRuleTests.RANDOM_BLOCK_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("features:tag_match"), FeatureRuleTests.TAG_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:always_true"), FeatureRuleTests.ALWAYS_TRUE);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:block_match"), FeatureRuleTests.BLOCK_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:blockstate_match"), FeatureRuleTests.BLOCKSTATE_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:random_block_match"), FeatureRuleTests.RANDOM_BLOCK_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
+        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:tag_match"), FeatureRuleTests.TAG_MATCH);
 
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:alternatives"), FeatureConditions.ALTERNATIVES);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:inverted"), FeatureConditions.INVERTED);
@@ -73,7 +73,13 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
 
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.RULE_PROCESSOR);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty_pool_element"), FeaturePoolElements.EMPTY_POOL_ELEMENT);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:feature_pool_element"), FeaturePoolElements.FEATURE_POOL_ELEMENT);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:legacy_single_pool_element"), FeaturePoolElements.LEGACY_SINGLE_POOL_ELEMENT);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:list_pool_element"), FeaturePoolElements.LIST_POOL_ELEMENT);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single_pool_element"), FeaturePoolElements.SINGLE_POOL_ELEMENT);
+
+        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 
         Registry.register(FEATURE, new Identifier("features:thick_stripped_spruce"), GenericFeatures.THICK_STRIPPED_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:thin_spruce"), GenericFeatures.THIN_SPRUCE);

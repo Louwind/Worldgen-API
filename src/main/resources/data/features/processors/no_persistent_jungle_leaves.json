@@ -1,12 +1,12 @@
 {
   "processors": [
     {
-      "processor": "features:rule",
+      "processor": "minecraft:rule",
       "rules": [
         {
           "rule": "features:properties",
           "test": {
-            "test": "features:block_match",
+            "test": "minecraft:block_match",
             "block": "minecraft:jungle_leaves"
           },
           "blockstate": {

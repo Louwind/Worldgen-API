@@ -1,4 +1,4 @@
-package github.Louwind.Features.impl.util.serializer;
+package github.Louwind.Features.impl.util.serializer.test;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;

@@ -10,6 +10,7 @@ import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.generator.FeatureGeneratorType;
 import github.Louwind.Features.pool.FeaturePoolType;
+import github.Louwind.Features.pool.element.FeaturePoolElementType;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import net.minecraft.util.Identifier;
@@ -35,6 +36,8 @@ public class FeaturesRegistry {
     public static final SimpleRegistry<FeatureGeneratorType> FEATURE_GENERATOR_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:generator")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureProcessorType> FEATURE_PROCESSOR_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:processor")), Lifecycle.experimental());
+
+    public static final SimpleRegistry<FeaturePoolElementType> FEATURE_POOL_ELEMENT_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:pool_element")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeaturePoolType> FEATURE_POOL_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:pools")), Lifecycle.experimental());
 

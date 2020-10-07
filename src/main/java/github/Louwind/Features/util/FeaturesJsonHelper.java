@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -144,7 +145,7 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getFunction(object, new FeatureFunction[]{}, context, name);
     }
 
-    public static StructureProcessor[] getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
+    public static StructureProcessorList getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
 
         if(object.has(name)) {
             JsonElement element = object.get(name);
@@ -154,18 +155,19 @@ public class FeaturesJsonHelper {
 
                 if(primitive.isString()) {
                     Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
-                    StructureProcessorList list = BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.get(id);
 
-                    return list.getList().toArray(new StructureProcessor[] {});
+                    return BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.get(id);
                 }
 
             }
         }
 
-        return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessor[].class);
+        StructureProcessor[] processors = JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessor[].class);
+
+        return new StructureProcessorList(Arrays.asList(processors));
     }
 
-    public static StructureProcessor[] getProcessors(JsonObject object, JsonDeserializationContext context, String name) {
+    public static StructureProcessorList getProcessors(JsonObject object, JsonDeserializationContext context, String name) {
         return FeaturesJsonHelper.getProcessors(object, new StructureProcessor[]{}, context, name);
     }
 
