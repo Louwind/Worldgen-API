@@ -3,7 +3,7 @@ package github.Louwind.Features.util.deserializer;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
-import github.Louwind.Features.pool.element.FeaturesPoolElementFunction;
+import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
@@ -28,7 +28,7 @@ public class StructurePoolDeserializer implements JsonDeserializer<StructurePool
                 .stream(object.getAsJsonArray("elements").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(obj -> {
-                    FeaturesPoolElementFunction function = JsonHelper.deserialize(obj, "element", context, FeaturesPoolElementFunction.class);
+                    FeaturesElementSupplier function = JsonHelper.deserialize(obj, "element", context, FeaturesElementSupplier.class);
                     int weight = JsonHelper.getInt(obj, "weight");
 
                     return Pair.of(function.get(), weight);

@@ -73,11 +73,13 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
 
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty_pool_element"), FeaturePoolElements.EMPTY_POOL_ELEMENT);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:feature_pool_element"), FeaturePoolElements.FEATURE_POOL_ELEMENT);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:legacy_single_pool_element"), FeaturePoolElements.LEGACY_SINGLE_POOL_ELEMENT);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:list_pool_element"), FeaturePoolElements.LIST_POOL_ELEMENT);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single_pool_element"), FeaturePoolElements.SINGLE_POOL_ELEMENT);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:no_update_neighbors"), FeaturePoolElements.NO_UPDATE_NEIGHBORS);
+
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty"), FeaturePoolElements.EMPTY);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:feature"), FeaturePoolElements.FEATURE);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:legacy_single"), FeaturePoolElements.LEGACY_SINGLE);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:list"), FeaturePoolElements.LIST);
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 

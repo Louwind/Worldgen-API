@@ -12,7 +12,7 @@ import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.mixin.InvokerRuleTest;
 import github.Louwind.Features.mixin.InvokerStructureProcessor;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.pool.element.FeaturesPoolElementFunction;
+import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
@@ -98,7 +98,7 @@ public class FeatureGsons {
 
     private static Object createFeaturePoolElementSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_ELEMENT_TYPE, "type", "type", object -> {
-            FeaturesPoolElementFunction function = (FeaturesPoolElementFunction) object;
+            FeaturesElementSupplier function = (FeaturesElementSupplier) object;
 
             return function.getType();
         }).createGsonSerializer();
@@ -122,7 +122,7 @@ public class FeatureGsons {
                 .registerTypeAdapter(StructureProcessorList.class, new StructureProcessorListDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
                 .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
-                .registerTypeAdapter(FeaturesPoolElementFunction.class, FeatureGsons.createFeaturePoolElementSerializer())
+                .registerTypeAdapter(FeaturesElementSupplier.class, FeatureGsons.createFeaturePoolElementSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 

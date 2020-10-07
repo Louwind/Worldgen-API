@@ -6,11 +6,11 @@ import net.minecraft.structure.pool.StructurePoolElementType;
 import net.minecraft.util.JsonSerializableType;
 import net.minecraft.util.JsonSerializer;
 
-public class FeaturePoolElementType<T extends StructurePoolElement> extends JsonSerializableType<FeaturesPoolElementFunction<T>> implements StructurePoolElementType<T> {
+public class FeaturePoolElementType<T extends StructurePoolElement> extends JsonSerializableType<FeaturesElementSupplier<T>> implements StructurePoolElementType<T> {
 
     private final Codec<T> codec;
 
-    public FeaturePoolElementType(JsonSerializer<FeaturesPoolElementFunction<T>> jsonSerializer, Codec<T> codec) {
+    public FeaturePoolElementType(JsonSerializer<FeaturesElementSupplier<T>> jsonSerializer, Codec<T> codec) {
         super(jsonSerializer);
 
         this.codec = codec;

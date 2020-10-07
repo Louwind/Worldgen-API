@@ -1,10 +1,10 @@
-package github.Louwind.Features.impl.pool.element;
+package github.Louwind.Features.impl.pool.element.supplier;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.impl.init.FeaturePoolElements;
-import github.Louwind.Features.pool.element.FeaturesPoolElementFunction;
+import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.pool.element.FeaturePoolElementType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.SinglePoolElement;
@@ -16,19 +16,19 @@ import net.minecraft.util.JsonSerializer;
 
 import java.util.function.Function;
 
-public class SinglePoolElementFunction implements FeaturesPoolElementFunction<SinglePoolElement> {
+public class SingleElementSupplier implements FeaturesElementSupplier<SinglePoolElement> {
 
     private final String structure;
     private final StructureProcessorList list;
 
-    public SinglePoolElementFunction(String structure, StructureProcessorList list)  {
+    public SingleElementSupplier(String structure, StructureProcessorList list)  {
         this.structure = structure;
         this.list = list;
     }
 
     @Override
     public FeaturePoolElementType<SinglePoolElement> getType() {
-        return FeaturePoolElements.SINGLE_POOL_ELEMENT;
+        return FeaturePoolElements.SINGLE;
     }
 
     @Override
@@ -36,19 +36,19 @@ public class SinglePoolElementFunction implements FeaturesPoolElementFunction<Si
         return StructurePoolElement.method_30435(this.structure, this.list);
     }
 
-    public static class Serializer implements JsonSerializer<SinglePoolElementFunction> {
+    public static class Serializer implements JsonSerializer<SingleElementSupplier> {
 
         @Override
-        public void toJson(JsonObject json, SinglePoolElementFunction object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, SingleElementSupplier object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public SinglePoolElementFunction fromJson(JsonObject json, JsonDeserializationContext context) {
+        public SingleElementSupplier fromJson(JsonObject json, JsonDeserializationContext context) {
             StructureProcessorList list = FeaturesJsonHelper.getProcessors(json, context, "processors");
             String structure = JsonHelper.getString(json, "structure");
 
-            return new SinglePoolElementFunction(structure, list);
+            return new SingleElementSupplier(structure, list);
         }
 
     }

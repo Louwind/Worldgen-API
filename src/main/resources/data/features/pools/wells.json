@@ -5,7 +5,7 @@
   "elements": [
     {
       "element": {
-        "type": "minecraft:single_pool_element",
+        "type": "minecraft:single",
         "structure": "features:wells/well_01",
         "processors": "minecraft:mossify_10_percent"
       },

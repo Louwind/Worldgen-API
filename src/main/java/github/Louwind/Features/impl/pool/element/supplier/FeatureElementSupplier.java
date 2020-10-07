@@ -1,11 +1,11 @@
-package github.Louwind.Features.impl.pool.element;
+package github.Louwind.Features.impl.pool.element.supplier;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.impl.init.FeaturePoolElements;
 import github.Louwind.Features.pool.element.FeaturePoolElementType;
-import github.Louwind.Features.pool.element.FeaturesPoolElementFunction;
+import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.FeaturePoolElement;
 import net.minecraft.structure.pool.StructurePool;
@@ -17,17 +17,17 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 import java.util.function.Function;
 
-public class FeaturePoolElementFunction implements FeaturesPoolElementFunction<FeaturePoolElement> {
+public class FeatureElementSupplier implements FeaturesElementSupplier {
 
     private final ConfiguredFeature<?, ?> configuredFeature;
 
-    public FeaturePoolElementFunction(ConfiguredFeature<?, ?> configuredFeature)  {
+    public FeatureElementSupplier(ConfiguredFeature<?, ?> configuredFeature)  {
         this.configuredFeature = configuredFeature;
     }
 
     @Override
     public FeaturePoolElementType<FeaturePoolElement> getType() {
-        return FeaturePoolElements.FEATURE_POOL_ELEMENT;
+        return FeaturePoolElements.FEATURE;
     }
 
     @Override
@@ -35,19 +35,19 @@ public class FeaturePoolElementFunction implements FeaturesPoolElementFunction<F
         return StructurePoolElement.method_30421(this.configuredFeature);
     }
 
-    public static class Serializer implements JsonSerializer<FeaturePoolElementFunction> {
+    public static class Serializer implements JsonSerializer<FeatureElementSupplier> {
 
         @Override
-        public void toJson(JsonObject json, FeaturePoolElementFunction object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, FeatureElementSupplier object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public FeaturePoolElementFunction fromJson(JsonObject json, JsonDeserializationContext context) {
+        public FeatureElementSupplier fromJson(JsonObject json, JsonDeserializationContext context) {
             Identifier feature = FeaturesJsonHelper.getIdentifier(json, "feature");
             ConfiguredFeature<?, ?> configuredFeature = BuiltinRegistries.CONFIGURED_FEATURE.get(feature);
 
-            return new FeaturePoolElementFunction(configuredFeature);
+            return new FeatureElementSupplier(configuredFeature);
         }
 
     }
