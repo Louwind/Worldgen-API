@@ -19,7 +19,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -64,7 +63,7 @@ public class PlaceFeatureFunction implements FeatureFunction {
         Random random = context.get(RANDOM);
         StructureWorldAccess access = context.get(WORLD);
 
-        if(Registry.FEATURE.containsId(this.id)) {
+        if(BuiltinRegistries.CONFIGURED_FEATURE.containsId(this.id)) {
             ConfiguredFeature<?, ?> feature = BuiltinRegistries.CONFIGURED_FEATURE.get(this.id);
 
             ServerWorld server = access.toServerWorld();
