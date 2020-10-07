@@ -8,6 +8,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 import java.util.Random;
@@ -18,15 +20,20 @@ import java.util.function.Supplier;
  * */
 public class DebugStickItem<T extends FeatureConfig> extends Item {
 
-    private final GenericFeature<T> feature;
-    private final Supplier<T> featureConfig;
+    private final ConfiguredFeature<T, ? extends Feature<T>> feature;
 
-    public DebugStickItem(GenericFeature<T> feature, Supplier<T> featureConfig, Settings settings) {
+    public DebugStickItem(ConfiguredFeature<T, Feature<T>> feature, Settings settings) {
         super(settings);
 
         this.feature = feature;
-        this.featureConfig = featureConfig;
     }
+
+    public DebugStickItem(Feature<T> feature, Supplier<T> featureConfig, Settings settings) {
+        super(settings);
+
+        this.feature = feature.configure(featureConfig.get());
+    }
+
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -39,7 +46,7 @@ public class DebugStickItem<T extends FeatureConfig> extends Item {
             ServerWorld server = (ServerWorld) world;
             ChunkGenerator chunkGenerator = server.getChunkManager().getChunkGenerator();
 
-           if(this.feature.generate(server, chunkGenerator, random, pos.up(), this.featureConfig.get()))
+           if(this.feature.generate(server, chunkGenerator, random, pos.up()))
                return ActionResult.CONSUME;
         }
 

@@ -46,7 +46,7 @@ public class FeatureGeneratorManager extends JsonDataLoader implements SimpleRes
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("features:feature_types");
+        return new Identifier("features:features");
     }
 
     @Override
