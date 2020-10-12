@@ -1,13 +1,11 @@
 package github.Louwind.Features.impl.context.provider;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
@@ -39,11 +37,6 @@ public class GenericContextProvider implements FeatureContextProvider {
     public GenericContextProvider(BlockRotation[] rotations, FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
         this.rotations = Arrays.asList(rotations);
-    }
-
-    @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override

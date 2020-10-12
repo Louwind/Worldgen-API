@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import static github.Louwind.Features.Features.STRUCTURE_METADATA_MANAGER;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class MetadataPoolElement extends SinglePoolElement {
 
@@ -34,24 +35,36 @@ public class MetadataPoolElement extends SinglePoolElement {
     }
 
     @Override
+    public StructurePoolElementType<?> getType() {
+        return StructurePoolElementTypes.METADATA;
+    }
+
+    @Override
     public void method_16756(WorldAccess worldAccess, Structure.StructureBlockInfo structureBlockInfo, BlockPos blockPos, BlockRotation blockRotation, Random random, BlockBox blockBox) {
         super.method_16756(worldAccess, structureBlockInfo, blockPos, blockRotation, random, blockBox);
 
         Identifier id = new Identifier(structureBlockInfo.tag.getString("metadata"));
 
         if(STRUCTURE_METADATA_MANAGER.contains(id)) {
-            FeatureContext context = new FeatureContextBuilder().build(FeatureContextProviders.METADATA);
             StructureMetadata metadata = STRUCTURE_METADATA_MANAGER.get(id);
 
-            for (FeatureFunction function: metadata.getFunctions())
-                function.accept(context);
+            try {
+                FeatureContext context = new FeatureContextBuilder()
+                        .put(BLOCK_INFO, structureBlockInfo)
+                        .put(POS, blockPos)
+                        .put(RANDOM, random)
+                        .put(ROTATION, blockRotation)
+                        .put(WORLD_ACCESS, worldAccess)
+                        .build(FeatureContextProviders.METADATA);
+
+                for (FeatureFunction function: metadata.getFunctions())
+                    function.accept(context);
+
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
 
-    }
-
-    @Override
-    public StructurePoolElementType<?> getType() {
-        return StructurePoolElementTypes.METADATA;
     }
 
 }

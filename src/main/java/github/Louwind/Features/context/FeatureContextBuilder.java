@@ -3,6 +3,7 @@ package github.Louwind.Features.context;
 import com.google.common.collect.Maps;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
+import github.Louwind.Features.context.provider.FeatureContextProviderType;
 
 import java.util.Map;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class FeatureContextBuilder {
      * @throws IllegalAccessException When the builder doesn't have all
      * required parameters or some parameter it's not allowed
      * */
-    public FeatureContext build(FeatureContextProvider provider) throws IllegalAccessException {
+    public FeatureContext build(FeatureContextProviderType provider) throws IllegalAccessException {
         FeatureContext context = new FeatureContext(this.parameters);
 
         Set<FeatureContextParameter<?>> allowed = provider.getAllowedParameters();
