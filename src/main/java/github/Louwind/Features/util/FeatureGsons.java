@@ -10,7 +10,6 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.metadata.StructureMetadata;
-import github.Louwind.Features.metadata.function.MetadataFunction;
 import github.Louwind.Features.mixin.InvokerRuleTest;
 import github.Louwind.Features.mixin.InvokerStructureProcessor;
 import github.Louwind.Features.pool.FeaturePool;
@@ -120,6 +119,7 @@ public class FeatureGsons {
 
     public static GsonBuilder getMetadataGsonBuilder() {
         return new GsonBuilder()
+                .registerTypeAdapter(StructureMetadata.class, new StructureMetadata.Deserializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer());
     }

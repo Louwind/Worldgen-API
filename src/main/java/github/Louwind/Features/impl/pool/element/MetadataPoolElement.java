@@ -3,6 +3,7 @@ package github.Louwind.Features.impl.pool.element;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.function.FeatureFunction;
@@ -20,6 +21,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -57,8 +59,14 @@ public class MetadataPoolElement extends SinglePoolElement {
                         .put(WORLD_ACCESS, worldAccess)
                         .build(FeatureContextProviders.METADATA);
 
-                for (FeatureFunction function: metadata.getFunctions())
-                    function.accept(context);
+                List<FeatureCondition> conditions = metadata.getConditions();
+
+                if(conditions.stream().allMatch(condition -> condition.test(context))) {
+                    List<FeatureFunction> functions = metadata.getFunctions();
+
+                    for (FeatureFunction function: functions)
+                        function.accept(context);
+                }
 
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
