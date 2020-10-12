@@ -1,6 +1,7 @@
 package github.Louwind.Features;
 
 import github.Louwind.Features.client.resource.FeatureGeneratorManager;
+import github.Louwind.Features.client.resource.StructureMetadataManager;
 import github.Louwind.Features.client.resource.StructurePoolManager;
 import github.Louwind.Features.client.resource.StructureProcessorManager;
 import github.Louwind.Features.impl.init.*;
@@ -16,15 +17,18 @@ import static net.minecraft.util.registry.Registry.*;
 public class Features implements ModInitializer {
 
     public static final FeatureGeneratorManager FEATURE_GENERATOR_MANAGER = new FeatureGeneratorManager();
+    public static final StructureMetadataManager STRUCTURE_METADATA_MANAGER = new StructureMetadataManager();
     public static final StructurePoolManager STRUCTURE_POOL_MANAGER = new StructurePoolManager();
     public static final StructureProcessorManager STRUCTURE_PROCESSOR_MANAGER = new StructureProcessorManager();
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_MANAGER);
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_METADATA_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_MANAGER);
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
 
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:metadata"), FeatureContextProviders.METADATA);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:provider"), FeatureContextProviders.PROVIDER);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
@@ -51,18 +55,21 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:none"), FeatureConditions.NONE);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:rotation"), FeatureConditions.ROTATION);
 
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:block_info"), FeatureContextParameters.BLOCK_INFO);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_pos"), FeatureContextParameters.CHUNK_POS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:piece"), FeatureContextParameters.PIECE);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pos"), FeatureContextParameters.POS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:random"), FeatureContextParameters.RANDOM);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:root"), FeatureContextParameters.ROOT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:rotation"), FeatureContextParameters.ROTATION);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:structure_pool"), FeatureContextParameters.STRUCTURE_POOL);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:structure_world_access"), FeatureContextParameters.STRUCTURE_WORLD_ACCESS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:trunks"), FeatureContextParameters.TRUNKS);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world_access"), FeatureContextParameters.WORLD_ACCESS);
 
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:elif"), FeatureFunctions.ELIF);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:mirror"), FeatureFunctions.MIRROR);
@@ -73,6 +80,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
 
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:metadata"), FeaturePoolElements.METADATA);
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:no_update_neighbors"), FeaturePoolElements.NO_UPDATE_NEIGHBORS);
 
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty"), FeaturePoolElements.EMPTY);
@@ -90,6 +98,9 @@ public class Features implements ModInitializer {
         Registry.register(ITEM, new Identifier("features:thick_stripped_spruce_debug_stick"), FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thin_spruce_debug_stick"), FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:well_debug_stick"), FeaturesItems.WELL_DEBUG_STICK);
+
+        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:metadata"), StructurePoolElementTypes.METADATA);
+        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
     }
 
 }

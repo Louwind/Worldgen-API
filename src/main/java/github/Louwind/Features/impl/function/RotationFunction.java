@@ -1,15 +1,17 @@
 package github.Louwind.Features.impl.function;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
+import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
@@ -17,6 +19,9 @@ import net.minecraft.util.math.Direction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
+import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECE;
 
 public class RotationFunction implements FeatureFunction {
 
@@ -39,11 +44,18 @@ public class RotationFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        Direction facing = poolStructurePiece.getFacing();
+    public Set<FeatureContextParameter<?>> getRequiredParameters() {
+        return ImmutableSet.of(PIECE);
+    }
+
+    @Override
+    public void accept(FeatureContext context) {
+        StructurePiece piece = context.get(PIECE);
+
+        Direction facing = piece.getFacing();
         Direction direction = this.rotation.rotate(facing);
 
-        poolStructurePiece.setOrientation(direction);
+        piece.setOrientation(direction);
     }
 
     public static class Serializer implements JsonSerializer<RotationFunction> {

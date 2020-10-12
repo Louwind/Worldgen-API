@@ -7,14 +7,12 @@ import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
@@ -47,16 +45,16 @@ public class PlaceTrunkFunction implements FeatureFunction {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, ROOT, WORLD);
+        return ImmutableSet.of(HEIGHT, ROOT, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
         BlockState state = this.block.getDefaultState();
 
         int height = context.get(HEIGHT);
         Set<BlockPos> root = context.get(ROOT);
-        StructureWorldAccess access = context.get(WORLD);
+        StructureWorldAccess access = context.get(STRUCTURE_WORLD_ACCESS);
 
         for (BlockPos pos : root) {
             for (int i = 0; i < height; i++) {

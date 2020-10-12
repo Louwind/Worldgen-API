@@ -35,7 +35,7 @@ public class ThickTreeContextProvider extends TreeContextProvider {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, CHUNK_POS, ORIGIN, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD);
+        return ImmutableSet.of(BOX, CHUNK_POS, ORIGIN, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override

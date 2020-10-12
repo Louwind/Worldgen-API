@@ -13,7 +13,6 @@ import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +25,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static net.minecraft.block.LeavesBlock.*;
+import static net.minecraft.block.LeavesBlock.DISTANCE;
 
 public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
 
@@ -54,17 +53,17 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, RANDOM, ROOT, WORLD);
+        return ImmutableSet.of(HEIGHT, RANDOM, ROOT, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
         BlockState state = this.trunk.getDefaultState();
 
         int height = context.get(HEIGHT);
         Random random = context.get(RANDOM);
         Set<BlockPos> root = context.get(ROOT);
-        StructureWorldAccess access = context.get(WORLD);
+        StructureWorldAccess access = context.get(STRUCTURE_WORLD_ACCESS);
 
         for (BlockPos pos : root) {
             for (int i = 0; i < height; i++) {

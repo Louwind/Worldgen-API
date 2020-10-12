@@ -13,7 +13,6 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
@@ -44,7 +43,7 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD);
+        return ImmutableSet.of(BOX, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class GenericContextProvider implements FeatureContextProvider {
                 .put(ROOT, root)
                 .put(ROTATION, rotation)
                 .put(STRUCTURE_POOL, structurePool)
-                .put(WORLD, world);
+                .put(STRUCTURE_WORLD_ACCESS, world);
     }
 
     @Override

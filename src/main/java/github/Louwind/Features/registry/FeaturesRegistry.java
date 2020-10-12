@@ -42,4 +42,5 @@ public class FeaturesRegistry {
     public static final SimpleRegistry<FeaturePoolType> FEATURE_POOL_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:pools")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureRuleTestType> FEATURE_RULE_TEST = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:rule_tests")), Lifecycle.experimental());
+
 }

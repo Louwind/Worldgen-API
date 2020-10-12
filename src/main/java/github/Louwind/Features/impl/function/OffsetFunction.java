@@ -12,7 +12,6 @@ import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalBlockPos;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +48,7 @@ public class OffsetFunction implements FeatureFunction {
 	}
 
 	@Override
-	public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+	public void accept(FeatureContext context) {
 		List<StructurePiece> pieces = context.get(PIECES);
 		BlockPos pos = this.pos.get(context);
 

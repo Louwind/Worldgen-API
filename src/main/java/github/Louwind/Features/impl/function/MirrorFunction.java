@@ -1,5 +1,6 @@
 package github.Louwind.Features.impl.function;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -13,6 +14,7 @@ import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockBox;
@@ -54,16 +56,17 @@ public class MirrorFunction implements FeatureFunction {
 
     @Override
     public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return null;
+        return ImmutableSet.of(PIECE, POS, STRUCTURE_WORLD_ACCESS);
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        StructureWorldAccess world = context.get(WORLD);
+    public void accept(FeatureContext context) {
+        StructureWorldAccess world = context.get(STRUCTURE_WORLD_ACCESS);
+        StructurePiece piece = context.get(PIECE);
         BlockPos pos = context.get(POS);
 
         Direction.Axis axis = this.direction.getAxis();
-        BlockBox box = poolStructurePiece.getBoundingBox();
+        BlockBox box = piece.getBoundingBox();
 
         int countX = box.getBlockCountX();
         int countY = box.getBlockCountY();
@@ -75,10 +78,10 @@ public class MirrorFunction implements FeatureFunction {
         BlockState state = world.getBlockState(offset);
 
         if(state.isOf(this.block)) {
-            Direction facing = poolStructurePiece.getFacing();
+            Direction facing = piece.getFacing();
             Direction direction = this.rotation.rotate(facing);
 
-            poolStructurePiece.setOrientation(direction);
+            piece.setOrientation(direction);
         }
 
     }

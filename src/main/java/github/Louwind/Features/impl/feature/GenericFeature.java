@@ -11,7 +11,6 @@ import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.world.structure.FeaturesStructurePiece;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
@@ -69,12 +68,14 @@ public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
             return pieces.stream().map(FeaturesStructurePiece.class::cast).allMatch(piece -> {
                 StructurePoolElement poolElement = piece.getPoolElement();
 
+                builder.put(PIECE, piece);
+
                 try {
                     List<FeatureFunction> functions = generator.getFunctions(pool, poolElement);
                     FeatureContext context = provider.getContext(builder);
 
                     for (FeatureFunction function: functions)
-                        function.accept(piece, context);
+                        function.accept(context);
 
                     ChunkPos chunkPos = context.get(CHUNK_POS);
                     BlockBox box = context.get(BOX);

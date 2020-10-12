@@ -1,0 +1,9 @@
+{
+  "type": "features:metadata",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_table": "features:wine_storage_barrel"
+    }
+  ]
+}

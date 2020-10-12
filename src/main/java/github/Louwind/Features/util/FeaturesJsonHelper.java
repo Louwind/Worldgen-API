@@ -1,5 +1,6 @@
 package github.Louwind.Features.util;
 
+import com.google.common.primitives.Ints;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -31,6 +32,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -143,6 +145,18 @@ public class FeaturesJsonHelper {
 
     public static FeatureFunction[] getFunction(JsonObject object, JsonDeserializationContext context, String name) {
         return FeaturesJsonHelper.getFunction(object, new FeatureFunction[]{}, context, name);
+    }
+
+    public static List<Integer> getIntegers(JsonObject object, JsonDeserializationContext context, String name) {
+        return Ints.asList(FeaturesJsonHelper.getInts(object, context, name));
+    }
+
+    public static int[] getInts(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getInts(object, new int[] {}, context, name);
+    }
+
+    public static int[] getInts(JsonObject object, int[] defaultValue, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, int[].class);
     }
 
     public static StructureProcessorList getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
