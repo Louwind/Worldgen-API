@@ -10,6 +10,7 @@ import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.override.FeatureContextOverrideType;
+import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextOverrides;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
@@ -30,11 +31,12 @@ public class ParameterContextOverride<T> implements FeatureContextOverride {
 
     @Override
     public void accept(FeatureContextProvider provider, FeatureContextBuilder builder) {
+        FeatureContextProviderType type = provider.getType();
 
         for (FeatureContextGetter<T> from : this.from) {
 
             try {
-                FeatureContext context = builder.build(provider);
+                FeatureContext context = builder.build(type);
 
                 if (from.test(context)) {
                     T t = from.apply(builder);

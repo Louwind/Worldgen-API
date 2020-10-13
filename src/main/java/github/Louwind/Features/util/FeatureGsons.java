@@ -129,8 +129,8 @@ public class FeatureGsons {
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
                 .registerTypeAdapter(StructureProcessorList.class, new StructureProcessorListDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
-                .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
                 .registerTypeAdapter(FeaturesElementSupplier.class, FeatureGsons.createFeaturePoolElementSerializer())
+                .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 

@@ -61,7 +61,7 @@ public class RandomFunction implements FeatureFunction {
         @Override
         public RandomFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "functions");
+            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "terms");
 
             List<FeatureFunction> list = Stream.of(functions).collect(Collectors.toList());
             List<Integer> weights = FeaturesJsonHelper.getIntegers(json, context, "weights");

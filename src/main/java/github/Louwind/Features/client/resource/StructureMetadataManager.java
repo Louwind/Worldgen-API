@@ -3,25 +3,19 @@ package github.Louwind.Features.client.resource;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.metadata.StructureMetadata;
 import github.Louwind.Features.util.FeatureGsons;
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePools;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.BuiltinRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-
-import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_POOL;
 
 public class StructureMetadataManager extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>> {
 
@@ -31,7 +25,7 @@ public class StructureMetadataManager extends JsonDataLoader implements SimpleRe
     private final Map<Identifier, StructureMetadata> metadata = Maps.newHashMap();
 
     public StructureMetadataManager() {
-        super(GSON, "features/metadata");
+        super(GSON, "structure_metadata");
     }
 
     @Override
@@ -56,7 +50,7 @@ public class StructureMetadataManager extends JsonDataLoader implements SimpleRe
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("features:metadata");
+        return new Identifier("features:structure_metadata");
     }
 
     @Override

@@ -78,7 +78,10 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_feature"), FeatureFunctions.PLACE_FEATURE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk"), FeatureFunctions.PLACE_TRUNK);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:random"), FeatureFunctions.RANDOM);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:set_loot_table"), FeatureFunctions.SET_LOOT_TABLE);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:set_nbt"), FeatureFunctions.SET_NBT);
 
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:metadata"), FeaturePoolElements.METADATA);
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:no_update_neighbors"), FeaturePoolElements.NO_UPDATE_NEIGHBORS);
@@ -94,10 +97,12 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE, new Identifier("features:thick_stripped_spruce"), GenericFeatures.THICK_STRIPPED_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:thin_spruce"), GenericFeatures.THIN_SPRUCE);
         Registry.register(FEATURE, new Identifier("features:well"), GenericFeatures.WELL);
+        Registry.register(FEATURE, new Identifier("features:wine_storage"), GenericFeatures.WINE_STORAGE);
 
         Registry.register(ITEM, new Identifier("features:thick_stripped_spruce_debug_stick"), FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thin_spruce_debug_stick"), FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:well_debug_stick"), FeaturesItems.WELL_DEBUG_STICK);
+        Registry.register(ITEM, new Identifier("features:wine_storage_debug_stick"), FeaturesItems.WINE_STORAGE_DEBUG_STICK);
 
         Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:metadata"), StructurePoolElementTypes.METADATA);
         Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);

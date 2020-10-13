@@ -20,12 +20,12 @@
                 "type": "minecraft:uniform"
               }
             }
-          ]
+          ],
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bottle",
+          "name": "minecraft:glass_bottle",
           "weight": 6
         },
         {
