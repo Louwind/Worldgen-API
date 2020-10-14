@@ -3,8 +3,6 @@ package github.Louwind.Features.client.resource;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import github.Louwind.Features.util.FeatureGsons;
-import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
-import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
@@ -14,30 +12,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
-import static net.minecraft.util.registry.BuiltinRegistries.*;
+import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_PROCESSOR_LIST;
 
-public class StructureProcessorManager extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>>  {
+public class StructureProcessorManager extends JsonReloadListener  {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
     public StructureProcessorManager() {
         super(GSON, "processors");
-    }
-
-    @Override
-    public CompletableFuture<Map<Identifier, JsonElement>> load(ResourceManager resourceManager, Profiler profiler, Executor executor) {
-        Map<Identifier, JsonElement> map = this.prepare(resourceManager, profiler);
-
-        return CompletableFuture.completedFuture(map);
-    }
-
-    @Override
-    public CompletableFuture<Void> apply(Map<Identifier, JsonElement> loader, ResourceManager resourceManager, Profiler profiler, Executor executor) {
-        return CompletableFuture.runAsync(() -> this.apply(loader, resourceManager, profiler));
     }
 
     @Override
