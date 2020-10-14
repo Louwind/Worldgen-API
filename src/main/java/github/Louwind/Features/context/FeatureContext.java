@@ -1,8 +1,8 @@
 package github.Louwind.Features.context;
 
+import com.google.common.collect.ImmutableMap;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,10 +10,10 @@ import java.util.Map;
  * */
 public class FeatureContext {
 
-    private final Map<FeatureContextParameter<?>, Object> parameters;
+    protected final Map<FeatureContextParameter<?>, Object> parameters;
 
     public FeatureContext(Map<FeatureContextParameter<?>, Object> parameters) {
-        this.parameters = new HashMap(parameters);
+        this.parameters = ImmutableMap.copyOf(parameters);
     }
 
     @SuppressWarnings("unchecked")

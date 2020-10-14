@@ -13,7 +13,6 @@ import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +25,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static net.minecraft.block.LeavesBlock.*;
+import static net.minecraft.block.LeavesBlock.DISTANCE;
 
 public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
 
@@ -58,7 +57,7 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
         BlockState state = this.trunk.getDefaultState();
 
         int height = context.get(HEIGHT);
@@ -78,11 +77,7 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
                         BlockPos offset = up.offset(direction);
                         BlockState offsetState = access.getBlockState(offset);
 
-                        if (offsetState.getBlock() == this.leaves)
-                            continue;
-                        else if (offsetState.getBlock() == this.trunk)
-                            continue;
-                        else if (random.nextDouble() < this.probability)
+                        if (offsetState.isAir() && random.nextDouble() < this.probability)
                             access.setBlockState(offset, this.leaves.getDefaultState().with(DISTANCE, 1), 3);
                     }
 

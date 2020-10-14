@@ -5,13 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.context.FeatureContextBuilder;
+import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureContextGetters;
-import github.Louwind.Features.impl.init.FeatureContextParameters;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
 
@@ -41,12 +40,12 @@ public class AdditionContextGetter implements FeatureContextGetter<Integer> {
     }
 
     @Override
-    public Integer apply(FeatureContextBuilder builder) {
+    public Integer apply(FeatureContext context) {
         FeatureContextParameter<Integer> additionParameter = this.addition.getParameter();
         FeatureContextParameter<Integer> numberParameter = this.number.getParameter();
 
-        int addition = builder.get(additionParameter);
-        int number = builder.get(numberParameter);
+        int addition = context.get(additionParameter);
+        int number = context.get(numberParameter);
 
         return number + addition;
     }

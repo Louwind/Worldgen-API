@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.context.FeatureContextBuilder;
+import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.impl.init.FeatureContextGetters;
@@ -41,8 +41,8 @@ public class RangeContextGetter implements FeatureContextGetter<Integer> {
     }
 
     @Override
-    public Integer apply(FeatureContextBuilder builder) {
-        Random random = builder.get(RANDOM);
+    public Integer apply(FeatureContext context) {
+        Random random = context.get(RANDOM);
 
         return this.min + random.nextInt(this.max - this.min + 1);
     }

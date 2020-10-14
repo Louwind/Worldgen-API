@@ -14,7 +14,6 @@ import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalBlockPos;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +57,7 @@ public class PlaceFeatureFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
         BlockPos pos = context.get(POS);
         Random random = context.get(RANDOM);
         StructureWorldAccess access = context.get(WORLD);

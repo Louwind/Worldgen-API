@@ -49,8 +49,8 @@ public class OffsetFunction implements FeatureFunction {
 	}
 
 	@Override
-	public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-		List<StructurePiece> pieces = context.get(PIECES);
+	public void accept(FeatureContext context) {
+		List<PoolStructurePiece> pieces = context.get(PIECES);
 		BlockPos pos = this.pos.get(context);
 
 		int x = pos.getX();

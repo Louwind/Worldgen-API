@@ -54,8 +54,8 @@ public class PivotFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        List<StructurePiece> pieces = context.get(PIECES);
+    public void accept(FeatureContext context) {
+        List<PoolStructurePiece> pieces = context.get(PIECES);
         BlockRotation rotation = context.get(ROTATION);
 
         OptionalBlockPos optional = this.when.get(rotation);

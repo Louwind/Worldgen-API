@@ -9,7 +9,6 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.JsonSerializer;
 
 import java.util.Arrays;
@@ -36,13 +35,12 @@ public class ElifFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
 
         for (FeatureFunction function : this.functions) {
 
             if(function.test(context))
-                function.accept(poolStructurePiece, context);
-
+                function.accept(context);
         }
 
     }

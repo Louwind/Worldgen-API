@@ -34,10 +34,10 @@ public class ParameterContextOverride<T> implements FeatureContextOverride {
         for (FeatureContextGetter<T> from : this.from) {
 
             try {
-                FeatureContext context = builder.build(provider);
+                FeatureContext context = builder.build(provider.getType());
 
                 if (from.test(context)) {
-                    T t = from.apply(builder);
+                    T t = from.apply(context);
 
                     builder.put(this.parameter, t);
 

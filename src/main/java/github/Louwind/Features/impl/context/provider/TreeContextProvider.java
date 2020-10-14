@@ -16,6 +16,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 import java.util.Random;
 import java.util.Set;
@@ -29,13 +30,13 @@ public class TreeContextProvider extends GenericContextProvider {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getAllowedParameters() {
+    public Set<FeatureContextParameter<?>> getOptionalParameters() {
         return ImmutableSet.of(HEIGHT);
     }
 
     @Override
-    public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos) {
-        FeatureContextBuilder builder = super.getBuilder(pool, rotation, world, random, pos);
+    public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos) {
+        FeatureContextBuilder builder = super.getBuilder(pool, rotation, world, chunkGenerator, random, pos);
 
         Set<BlockPos> root = Sets.newHashSet(pos);
 

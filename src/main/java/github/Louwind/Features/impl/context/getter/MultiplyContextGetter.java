@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.context.FeatureContextBuilder;
+import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
@@ -40,12 +40,12 @@ public class MultiplyContextGetter implements FeatureContextGetter<Integer> {
     }
 
     @Override
-    public Integer apply(FeatureContextBuilder builder) {
+    public Integer apply(FeatureContext context) {
         FeatureContextParameter<Integer> baseParameter = this.base.getParameter();
         FeatureContextParameter<Integer> multiplierParameter = this.multiplier.getParameter();
 
-        int base = builder.get(baseParameter);
-        int multiplier = builder.get(multiplierParameter);
+        int base = context.get(baseParameter);
+        int multiplier = context.get(multiplierParameter);
 
         return base * multiplier;
     }

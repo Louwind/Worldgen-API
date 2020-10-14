@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
@@ -22,7 +21,6 @@ import net.minecraft.world.StructureWorldAccess;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
@@ -53,17 +51,13 @@ public class MirrorFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return null;
-    }
-
-    @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
+    public void accept(FeatureContext context) {
         StructureWorldAccess world = context.get(WORLD);
+        PoolStructurePiece piece = context.get(PIECE);
         BlockPos pos = context.get(POS);
 
         Direction.Axis axis = this.direction.getAxis();
-        BlockBox box = poolStructurePiece.getBoundingBox();
+        BlockBox box = piece.getBoundingBox();
 
         int countX = box.getBlockCountX();
         int countY = box.getBlockCountY();
@@ -75,10 +69,14 @@ public class MirrorFunction implements FeatureFunction {
         BlockState state = world.getBlockState(offset);
 
         if(state.isOf(this.block)) {
-            Direction facing = poolStructurePiece.getFacing();
-            Direction direction = this.rotation.rotate(facing);
+            Direction facing = piece.getFacing();
 
-            poolStructurePiece.setOrientation(direction);
+            if(facing != null) {
+                Direction direction = this.rotation.rotate(facing);
+
+                piece.setOrientation(direction);
+            }
+
         }
 
     }

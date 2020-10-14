@@ -18,6 +18,8 @@ import net.minecraft.util.math.Direction;
 import java.util.Arrays;
 import java.util.List;
 
+import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECE;
+
 public class RotationFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
@@ -39,11 +41,17 @@ public class RotationFunction implements FeatureFunction {
     }
 
     @Override
-    public void accept(PoolStructurePiece poolStructurePiece, FeatureContext context) {
-        Direction facing = poolStructurePiece.getFacing();
-        Direction direction = this.rotation.rotate(facing);
+    public void accept(FeatureContext context) {
+        PoolStructurePiece piece = context.get(PIECE);
 
-        poolStructurePiece.setOrientation(direction);
+        Direction facing = piece.getFacing();
+
+        if(facing != null) {
+            Direction direction = this.rotation.rotate(facing);
+
+            piece.setOrientation(direction);
+        }
+
     }
 
     public static class Serializer implements JsonSerializer<RotationFunction> {

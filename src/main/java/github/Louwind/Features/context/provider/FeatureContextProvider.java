@@ -5,10 +5,10 @@ import github.Louwind.Features.context.FeatureContextAware;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.pool.FeaturePool;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 import java.util.List;
 import java.util.Random;
@@ -18,16 +18,19 @@ import java.util.Random;
  * it's been generated. Also Overrides all values required in {@code FeatureContextProvider::getContext}
  *
  * */
-public interface FeatureContextProvider  extends FeatureContextAware {
+public interface FeatureContextProvider extends FeatureContextAware {
 
-    FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, Random random, BlockPos pos);
+    FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos);
 
-    default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalAccessException {
+    default FeatureContext getContext(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos) throws IllegalAccessException {
+        FeatureContextBuilder builder = this.getBuilder(pool, rotation, world, chunkGenerator, random, pos);
 
         for (FeatureContextOverride overrides : this.getContextOverrides())
             overrides.accept(this, builder);
 
-        return builder.build(this);
+        FeatureContextProviderType type = this.getType();
+
+        return builder.build(type);
     }
 
     List<FeatureContextOverride> getContextOverrides();
