@@ -49,11 +49,6 @@ public class PivotFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(PIECES, ROTATION);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         List<PoolStructurePiece> pieces = context.get(PIECES);
         BlockRotation rotation = context.get(ROTATION);

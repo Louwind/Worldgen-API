@@ -44,11 +44,6 @@ public class PlaceTrunkFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, ROOT, WORLD);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         BlockState state = this.block.getDefaultState();
 

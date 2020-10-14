@@ -52,11 +52,6 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, RANDOM, ROOT, WORLD);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         BlockState state = this.trunk.getDefaultState();
 

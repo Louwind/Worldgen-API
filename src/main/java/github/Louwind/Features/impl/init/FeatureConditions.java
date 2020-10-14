@@ -14,6 +14,6 @@ public class FeatureConditions {
 
     public static final FeatureConditionType NONE = new FeatureConditionType(new NoneCondition.Serializer());
 
-    public static final FeatureConditionType ROTATION = new FeatureConditionType(new RotationCondition.Serializer());
+    public static final FeatureConditionType ROTATION = new FeatureConditionType(new RotationCondition.Serializer(), builder -> builder.required(FeatureContextParameters.ROTATION));
 
 }

@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 /**
  * A context {@link FeatureContext} predicate that consumes required and allowed parameters {@link FeatureContextAware}
  * */
-public interface FeatureCondition extends FeatureContextAware, Predicate<FeatureContext> {
+public interface FeatureCondition extends Predicate<FeatureContext> {
 
     FeatureConditionType getType();
 

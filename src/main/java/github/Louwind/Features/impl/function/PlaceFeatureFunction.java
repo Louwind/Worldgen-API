@@ -1,12 +1,10 @@
 package github.Louwind.Features.impl.function;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
@@ -25,7 +23,6 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
@@ -49,11 +46,6 @@ public class PlaceFeatureFunction implements FeatureFunction {
     @Override
     public List<FeatureCondition> getConditions() {
         return this.conditions;
-    }
-
-    @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(POS, RANDOM, WORLD);
     }
 
     @Override
