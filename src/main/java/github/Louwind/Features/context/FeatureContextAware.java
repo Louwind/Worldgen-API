@@ -24,6 +24,7 @@ public interface FeatureContextAware {
         return ImmutableSet.of();
     }
 
+    @Deprecated
     default Set<FeatureContextParameter<?>> getRequiredParameters() {
         return ImmutableSet.of();
     }
