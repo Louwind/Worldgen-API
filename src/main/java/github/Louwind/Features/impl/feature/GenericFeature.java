@@ -11,7 +11,6 @@ import github.Louwind.Features.generator.FeatureGenerator;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.world.structure.FeaturesStructurePiece;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
