@@ -12,4 +12,6 @@ public class GenericFeatures {
 
     public static final GenericFeature<DefaultFeatureConfig> WELL = new GenericFeature(new Identifier("features:well"), DefaultFeatureConfig.CODEC);
 
+    public static final GenericFeature<DefaultFeatureConfig> WINE_STORAGE = new GenericFeature(new Identifier("features:wine_storage"), DefaultFeatureConfig.CODEC);
+
 }

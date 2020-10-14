@@ -116,6 +116,10 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer());
     }
 
+    public static GsonBuilder getMetadataGsonBuilder() {
+        return new GsonBuilder();
+    }
+
     public static GsonBuilder getProcessorGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
