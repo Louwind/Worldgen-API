@@ -51,15 +51,15 @@ public abstract class JsonReloadListener<T> extends JsonDataLoader implements Si
         loader.forEach((id, jsonElement) -> {
 
             try {
-                T structureProcessorList = this.gson.fromJson(jsonElement, this.type);
+                T t = this.gson.fromJson(jsonElement, this.type);
 
                 if(!this.registry.containsId(id))
-                    BuiltinRegistries.add(this.registry, id, structureProcessorList);
+                    BuiltinRegistries.add(this.registry, id, t);
                 else {
-                    int rawId = this.registry.getRawId(structureProcessorList);
+                    int rawId = this.registry.getRawId(t);
 
-                    this.registry.getKey(structureProcessorList).ifPresent(key -> {
-                        BuiltinRegistries.set(this.registry, rawId, key, structureProcessorList);
+                    this.registry.getKey(t).ifPresent(key -> {
+                        BuiltinRegistries.set(this.registry, rawId, key, t);
                     });
                 }
 
