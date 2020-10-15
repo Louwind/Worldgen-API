@@ -1,14 +1,14 @@
 package github.Louwind.Features.impl.feature;
 
-import github.Louwind.Features.generator.FeatureGenerator;
-import github.Louwind.Features.generator.FeatureGeneratorType;
-import github.Louwind.Features.impl.init.FeatureGenerators;
+import github.Louwind.Features.generator.FeatureStart;
+import github.Louwind.Features.generator.FeatureStartType;
+import github.Louwind.Features.impl.init.FeatureStarts;
 import github.Louwind.Features.pool.FeaturePool;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GenericFeatureGenerator implements FeatureGenerator {
+public class GenericFeatureGenerator implements FeatureStart {
 
     protected final List<FeaturePool> pools;
 
@@ -17,8 +17,8 @@ public class GenericFeatureGenerator implements FeatureGenerator {
     }
 
     @Override
-    public FeatureGeneratorType getType() {
-        return FeatureGenerators.GENERATOR;
+    public FeatureStartType getType() {
+        return FeatureStarts.START;
     }
 
     @Override

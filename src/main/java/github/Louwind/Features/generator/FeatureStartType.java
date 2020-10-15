@@ -3,9 +3,9 @@ package github.Louwind.Features.generator;
 import net.minecraft.util.JsonSerializableType;
 import net.minecraft.util.JsonSerializer;
 
-public class FeatureGeneratorType extends JsonSerializableType<FeatureGenerator> {
+public class FeatureStartType extends JsonSerializableType<FeatureStart> {
 
-    public FeatureGeneratorType(JsonSerializer<? extends FeatureGenerator> jsonSerializer) {
+    public FeatureStartType(JsonSerializer<? extends FeatureStart> jsonSerializer) {
         super(jsonSerializer);
     }
 

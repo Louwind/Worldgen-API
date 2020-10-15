@@ -12,6 +12,7 @@ import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -21,13 +22,13 @@ public abstract class JsonReloadListener<T> extends JsonDataLoader implements Si
     protected static final Logger LOGGER = LogManager.getLogger();
 
     protected final Gson gson;
-    protected final Class<T> clazz;
+    protected final Type type;
     protected final Registry<T> registry;
 
-    public JsonReloadListener(Gson gson, Class<T> clazz, Registry<T> registry, String dataType) {
+    public JsonReloadListener(Gson gson, Type clazz, Registry<T> registry, String dataType) {
         super(gson, dataType);
 
-        this.clazz = clazz;
+        this.type = clazz;
         this.gson = gson;
         this.registry = registry;
     }
@@ -50,7 +51,7 @@ public abstract class JsonReloadListener<T> extends JsonDataLoader implements Si
         loader.forEach((id, jsonElement) -> {
 
             try {
-                T structureProcessorList = this.gson.fromJson(jsonElement, this.clazz);
+                T structureProcessorList = this.gson.fromJson(jsonElement, this.type);
 
                 if(!this.registry.containsId(id))
                     BuiltinRegistries.add(this.registry, id, structureProcessorList);

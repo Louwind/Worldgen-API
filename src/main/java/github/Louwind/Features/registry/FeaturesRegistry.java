@@ -8,7 +8,7 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
-import github.Louwind.Features.generator.FeatureGeneratorType;
+import github.Louwind.Features.generator.FeatureStartType;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.pool.element.FeaturePoolElementType;
@@ -35,7 +35,7 @@ public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureFunctionType> FEATURE_FUNCTION_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:function")), Lifecycle.experimental());
 
-    public static final SimpleRegistry<FeatureGeneratorType> FEATURE_GENERATOR_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:generator")), Lifecycle.experimental());
+    public static final SimpleRegistry<FeatureStartType> FEATURE_START_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:generator")), Lifecycle.experimental());
 
     public static final MutableRegistry<FeatureMetadata> FEATURE_METADATA = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier("features:metadata")), Lifecycle.experimental());
 

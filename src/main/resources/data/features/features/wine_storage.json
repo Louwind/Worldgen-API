@@ -1,19 +1,21 @@
 {
-  "type": "features:generator",
-  "pools": [
-    {
-      "type": "features:pool",
-      "pool": "features:wine_storages",
-      "context": {
-        "type": "features:provider",
-        "rotations": "none"
-      },
-      "entries": [
-        {
-          "type": "features:entry",
-          "structure": "features:wine_storages/wine_storage_01"
-        }
-      ]
-    }
-  ]
+  "start": {
+    "type": "features:start",
+    "pools": [
+      {
+        "type": "features:pool",
+        "pool": "features:wine_storages",
+        "context": {
+          "type": "features:provider",
+          "rotations": "none"
+        },
+        "entries": [
+          {
+            "type": "features:entry",
+            "structure": "features:wine_storages/wine_storage_01"
+          }
+        ]
+      }
+    ]
+  }
 }

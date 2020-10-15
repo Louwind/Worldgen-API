@@ -3,9 +3,9 @@ package github.Louwind.Features.impl.generator;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import github.Louwind.Features.generator.FeatureGenerator;
-import github.Louwind.Features.generator.FeatureGeneratorType;
-import github.Louwind.Features.impl.init.FeatureGenerators;
+import github.Louwind.Features.generator.FeatureStart;
+import github.Louwind.Features.generator.FeatureStartType;
+import github.Louwind.Features.impl.init.FeatureStarts;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
@@ -13,17 +13,17 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-public class GenericFeatureGenerator implements FeatureGenerator {
+public class GenericFeatureStart implements FeatureStart {
 
     protected final List<FeaturePool> pools;
 
-    public GenericFeatureGenerator(FeaturePool[] pools) {
+    public GenericFeatureStart(FeaturePool[] pools) {
         this.pools = Arrays.asList(pools);
     }
 
     @Override
-    public FeatureGeneratorType getType() {
-        return FeatureGenerators.GENERATOR;
+    public FeatureStartType getType() {
+        return FeatureStarts.START;
     }
 
     @Override
@@ -31,18 +31,18 @@ public class GenericFeatureGenerator implements FeatureGenerator {
         return this.pools;
     }
 
-    public static class Serializer implements JsonSerializer<GenericFeatureGenerator> {
+    public static class Serializer implements JsonSerializer<GenericFeatureStart> {
 
         @Override
-        public void toJson(JsonObject json, GenericFeatureGenerator object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, GenericFeatureStart object, JsonSerializationContext context) {
             // TODO toJson
         }
 
         @Override
-        public GenericFeatureGenerator fromJson(JsonObject json, JsonDeserializationContext context) {
+        public GenericFeatureStart fromJson(JsonObject json, JsonDeserializationContext context) {
             FeaturePool[] pools = FeaturesJsonHelper.getPools(json, context, "pools");
 
-            return new GenericFeatureGenerator(pools);
+            return new GenericFeatureStart(pools);
         }
 
     }

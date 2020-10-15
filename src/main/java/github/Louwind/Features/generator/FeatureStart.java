@@ -18,13 +18,13 @@ import java.util.stream.Stream;
 /**
  * Represents all {@link FeaturePool} that a structure built with jigsaws can have
  * */
-public interface FeatureGenerator {
+public interface FeatureStart {
 
     default List<FeatureFunction> getFunctions(FeaturePool pool, StructurePoolElement poolElement) {
         return this.fromPools(pool, poolElement, FeaturePool::getFunctions, FeatureEntry::getFunctions);
     }
 
-    FeatureGeneratorType getType();
+    FeatureStartType getType();
 
     List<FeaturePool> getPools();
 

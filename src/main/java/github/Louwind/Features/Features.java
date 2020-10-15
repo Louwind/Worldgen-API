@@ -1,6 +1,6 @@
 package github.Louwind.Features;
 
-import github.Louwind.Features.client.resource.FeatureGeneratorManager;
+import github.Louwind.Features.client.resource.FeatureManager;
 import github.Louwind.Features.client.resource.FeatureMetadataManager;
 import github.Louwind.Features.client.resource.StructurePoolManager;
 import github.Louwind.Features.client.resource.StructureProcessorManager;
@@ -16,7 +16,7 @@ import static net.minecraft.util.registry.Registry.*;
 
 public class Features implements ModInitializer {
 
-    public static final FeatureGeneratorManager FEATURE_GENERATOR_MANAGER = new FeatureGeneratorManager();
+    public static final FeatureManager FEATURE_GENERATOR_MANAGER = new FeatureManager();
     public static final FeatureMetadataManager FEATURE_METADATA_MANAGER = new FeatureMetadataManager();
     public static final StructurePoolManager STRUCTURE_POOL_MANAGER = new StructurePoolManager();
     public static final StructureProcessorManager STRUCTURE_PROCESSOR_MANAGER = new StructureProcessorManager();
@@ -32,7 +32,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
 
-        Registry.register(FEATURE_GENERATOR_TYPE, new Identifier("features:generator"), FeatureGenerators.GENERATOR);
+        Registry.register(FEATURE_START_TYPE, new Identifier("features:start"), FeatureStarts.START);
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
 
@@ -86,11 +86,6 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
-
-        Registry.register(FEATURE, new Identifier("features:thick_stripped_spruce"), GenericFeatures.THICK_STRIPPED_SPRUCE);
-        Registry.register(FEATURE, new Identifier("features:thin_spruce"), GenericFeatures.THIN_SPRUCE);
-        Registry.register(FEATURE, new Identifier("features:well"), GenericFeatures.WELL);
-        Registry.register(FEATURE, new Identifier("features:wine_storage"), GenericFeatures.WINE_STORAGE);
 
         Registry.register(ITEM, new Identifier("features:thick_stripped_spruce_debug_stick"), FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thin_spruce_debug_stick"), FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
