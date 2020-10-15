@@ -1,4 +1,4 @@
-package github.Louwind.Features.generator;
+package github.Louwind.Features.start;
 
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;

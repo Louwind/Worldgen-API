@@ -7,7 +7,7 @@ import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.generator.FeatureStart;
+import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.mixin.InvokerRuleTest;
 import github.Louwind.Features.mixin.InvokerStructureProcessor;

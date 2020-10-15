@@ -1,4 +1,4 @@
-package github.Louwind.Features.generator;
+package github.Louwind.Features.start;
 
 import net.minecraft.util.JsonSerializableType;
 import net.minecraft.util.JsonSerializer;

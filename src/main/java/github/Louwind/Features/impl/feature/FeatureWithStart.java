@@ -4,7 +4,7 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.generator.FeatureStart;
+import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
 import net.minecraft.server.world.ServerWorld;
