@@ -1,9 +1,7 @@
 package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;

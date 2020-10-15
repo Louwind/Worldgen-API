@@ -7,6 +7,7 @@ import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.mixin.InvokerRuleTest;
@@ -94,6 +95,10 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_FUNCTION_TYPE, "function", "function", FeatureFunction::getType).createGsonSerializer();
     }
 
+    private static Object createFeatureMetadataSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_METADATA_TYPE, "type", "type", FeatureMetadata::getType).createGsonSerializer();
+    }
+
     private static Object createFeaturePoolSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_POOL_TYPE, "type", "type", FeaturePool::getType).createGsonSerializer();
     }
@@ -120,7 +125,10 @@ public class FeatureGsons {
     }
 
     public static GsonBuilder getMetadataGsonBuilder() {
-        return new GsonBuilder();
+        return new GsonBuilder()
+                .registerTypeHierarchyAdapter(FeatureMetadata.class, FeatureGsons.createFeatureMetadataSerializer())
+                .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
+                .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer());
     }
 
     public static GsonBuilder getProcessorGsonBuilder() {

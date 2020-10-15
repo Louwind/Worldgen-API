@@ -34,6 +34,16 @@ public interface FeatureContextProvider extends FeatureContextAware {
         return builder.build(type);
     }
 
+    default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalAccessException {
+
+        for (FeatureContextOverride overrides : this.getContextOverrides())
+            overrides.accept(this, builder);
+
+        FeatureContextProviderType type = this.getType();
+
+        return builder.build(type);
+    }
+
     List<FeatureContextOverride> getContextOverrides();
 
     BlockRotation getRotations(Random random);
