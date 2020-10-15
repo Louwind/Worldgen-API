@@ -4,6 +4,7 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextAware;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
+import github.Louwind.Features.impl.feature.FeatureWithStart;
 import github.Louwind.Features.pool.FeaturePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Provides a context according to the variables when a {@link github.Louwind.Features.impl.feature.GenericFeature}
+ * Provides a context according to the variables when a {@link FeatureWithStart}
  * it's been generated. Also Overrides all values required in {@code FeatureContextProvider::getContext}
  *
  * */

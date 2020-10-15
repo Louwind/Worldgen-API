@@ -1,6 +1,5 @@
 package github.Louwind.Features.impl.feature;
 
-import com.mojang.serialization.Codec;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
@@ -18,8 +17,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
@@ -27,20 +26,20 @@ import java.util.Random;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
+public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
 
-    protected final FeatureStart generator;
+    protected final FeatureStart start;
 
-    public GenericFeature(FeatureStart generator, Codec<FC> configCodec) {
-        super(configCodec);
+    public FeatureWithStart(FeatureStart start) {
+        super(DefaultFeatureConfig.CODEC);
 
-        this.generator = generator;
+        this.start = start;
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FC featureConfig) {
+    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig featureConfig) {
         ServerWorld server = world.toServerWorld();
-        FeaturePool pool = this.generator.getRandomPool(random);
+        FeaturePool pool = this.start.getRandomPool(random);
 
         StructureAccessor accessor = server.getStructureAccessor();
         FeatureContextProvider provider = pool.getContextProvider();
@@ -56,7 +55,7 @@ public class GenericFeature<FC extends FeatureConfig> extends Feature<FC> {
 
                 try {
                     FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PROVIDER);
-                    List<FeatureFunction> functions = generator.getFunctions(pool, poolElement);
+                    List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
 
                     for (FeatureFunction function: functions)
                         function.accept(pieceContext);
