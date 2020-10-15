@@ -5,7 +5,6 @@ import github.Louwind.Features.world.structure.FeaturesStructurePiece;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -21,7 +20,7 @@ import java.util.Random;
 
 public class FeaturesPieceGenerator {
 
-    public static List<PoolStructurePiece> getPieces(StructureWorldAccess world, StructurePool pool, BlockRotation rotation, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
+    public static <T extends StructurePoolBasedGenerator.PieceFactory> List<PoolStructurePiece> getPieces(StructureWorldAccess world, StructurePool pool, T pieceFactory, BlockRotation rotation, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
         ServerWorld server = world.toServerWorld();
 
         DynamicRegistryManager registryManager = server.getRegistryManager();
@@ -32,13 +31,17 @@ public class FeaturesPieceGenerator {
         StructurePoolElement poolElement = pool.getRandomElement(random);
         int level = blockPos.getY();
 
-        FeaturesStructurePiece piece = new FeaturesStructurePiece(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());
+        PoolStructurePiece piece = pieceFactory.create(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());
 
-        StructurePoolBasedGenerator.method_27230(registryManager, piece, Integer.MAX_VALUE, FeaturesStructurePiece::new, chunkGenerator, structureManager, pieces, random);
+        StructurePoolBasedGenerator.method_27230(registryManager, piece, Integer.MAX_VALUE, pieceFactory, chunkGenerator, structureManager, pieces, random);
 
         pieces.add(piece);
 
         return pieces;
+    }
+
+    public static List<PoolStructurePiece> getPieces(StructureWorldAccess world, StructurePool pool, BlockRotation rotation, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
+        return FeaturesPieceGenerator.getPieces(world, pool, FeaturesStructurePiece::new, rotation, chunkGenerator, random, blockPos);
     }
 
 }

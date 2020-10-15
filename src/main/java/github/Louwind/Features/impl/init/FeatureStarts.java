@@ -1,7 +1,7 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.generator.FeatureStartType;
-import github.Louwind.Features.impl.generator.GenericFeatureStart;
+import github.Louwind.Features.start.FeatureStartType;
+import github.Louwind.Features.impl.start.GenericFeatureStart;
 
 public class FeatureStarts {
 
