@@ -14,7 +14,6 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO rename
 public class SequenceFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
