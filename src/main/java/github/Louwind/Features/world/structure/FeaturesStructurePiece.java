@@ -7,6 +7,7 @@ import github.Louwind.Features.metadata.FeatureMetadata;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -24,7 +25,6 @@ import java.util.List;
 import java.util.Random;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static github.Louwind.Features.impl.init.FeatureContextParameters.WORLD;
 import static github.Louwind.Features.impl.init.FeatureContextProviders.METADATA;
 import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_METADATA;
 
@@ -54,37 +54,38 @@ public class FeaturesStructurePiece extends PoolStructurePiece {
 
             if(this.poolElement instanceof SinglePoolElement) {
                 SinglePoolElement singlePoolElement = (SinglePoolElement) this.poolElement;
+                List<Structure.StructureBlockInfo> structureBlockInfos = singlePoolElement.getDataStructureBlocks(structureManager, blockPos, this.rotation, true);
 
-                return singlePoolElement.getDataStructureBlocks(structureManager, this.pos, this.rotation, true)
-                        .stream()
-                        .allMatch(structureBlockInfo -> {
-                            Identifier id = new Identifier(structureBlockInfo.tag.getString("metadata"));
+                for (Structure.StructureBlockInfo structureBlockInfo : structureBlockInfos) {
+                    Identifier id = new Identifier(structureBlockInfo.tag.getString("metadata"));
 
-                            if(FEATURE_METADATA.containsId(id)) {
-                                FeatureMetadata metadata = FEATURE_METADATA.get(id);
+                    if(FEATURE_METADATA.containsId(id)) {
+                        FeatureMetadata metadata = FEATURE_METADATA.get(id);
 
-                                try {
-                                    FeatureContext context = new FeatureContextBuilder()
-                                            .put(POS, pos)
-                                            .put(RANDOM, random)
-                                            .put(ROTATION, rotation)
-                                            .put(WORLD, world)
-                                            .build(METADATA);
+                        try {
+                            FeatureContext context = new FeatureContextBuilder()
+                                    .put(BLOCK_INFO, structureBlockInfo)
+                                    .put(POS, pos)
+                                    .put(RANDOM, random)
+                                    .put(ROTATION, rotation)
+                                    .put(WORLD, world)
+                                    .build(METADATA);
 
-                                    metadata.accept(context);
+                            metadata.accept(context);
 
-                                    List<FeatureFunction> functions = metadata.getFunctions();
+                            List<FeatureFunction> functions = metadata.getFunctions();
 
-                                    for (FeatureFunction function: functions)
-                                        function.accept(context);
+                            for (FeatureFunction function: functions)
+                                function.accept(context);
 
-                                } catch (IllegalAccessException e) {
-                                    LogManager.getLogger().warn(e);
-                                }
-                            }
+                        } catch (IllegalAccessException e) {
+                            LogManager.getLogger().warn(e);
+                        }
+                    }
 
-                            return false;
-                        });
+                }
+
+                return true;
             }
 
         }

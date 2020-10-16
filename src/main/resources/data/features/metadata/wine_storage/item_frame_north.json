@@ -1,8 +1,5 @@
 {
   "type": "features:entity",
-  "metadata": "features:wine_storage/item_frame",
-  "entity": {
-    "type": "minecraft:item_frame",
-    "facing": "north"
-  }
+  "id": "minecraft:item_frame",
+  "tag": "{Facing:2}"
 }

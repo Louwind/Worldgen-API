@@ -11,7 +11,7 @@ public class FeatureContextProviders {
 
     public static final FeatureContextProviderType PROVIDER = new FeatureContextProviderType(new GenericContextProvider.Serializer(), builder -> builder.optional(PIECE).required(BOX, CHUNK_GENERATOR, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD));
 
-    public static final FeatureContextProviderType METADATA = new FeatureContextProviderType(null, builder -> builder.required(POS, RANDOM, ROTATION, WORLD));
+    public static final FeatureContextProviderType METADATA = new FeatureContextProviderType(null, builder -> builder.required(BLOCK_INFO, POS, RANDOM, ROTATION, WORLD));
 
     public static final FeatureContextProviderType THICK_TREE = new FeatureContextProviderType(new ThickTreeContextProvider.Serializer(), builder -> builder.required(BOX, CHUNK_GENERATOR, CHUNK_POS, ORIGIN, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD));
 

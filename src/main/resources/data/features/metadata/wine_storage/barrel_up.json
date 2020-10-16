@@ -1,6 +1,5 @@
 {
   "type": "features:blockstate",
-  "metadata": "features:wine_storage/barrel",
   "blockstate": {
     "block": "minecraft:barrel",
     "properties": {

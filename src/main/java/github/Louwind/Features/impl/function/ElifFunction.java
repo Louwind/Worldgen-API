@@ -14,6 +14,7 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
+// TODO rename
 public class ElifFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;

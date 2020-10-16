@@ -2,6 +2,7 @@ package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.Structure;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -21,6 +22,8 @@ public class FeatureContextParameters {
     public static <T> FeatureContextParameter<T> empty() {
         return (FeatureContextParameter<T>) EMPTY;
     }
+
+    public static final FeatureContextParameter<Structure.StructureBlockInfo> BLOCK_INFO = new FeatureContextParameter<>(new Identifier("features:block_info"));
 
     public static final FeatureContextParameter<BlockBox> BOX = new FeatureContextParameter<>(new Identifier("features:box"));
 

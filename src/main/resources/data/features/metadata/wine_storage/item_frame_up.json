@@ -1,11 +1,5 @@
 {
   "type": "features:entity",
-  "metadata": "features:wine_storage/item_frame",
-  "entity": {
-    "type": "minecraft:item_frame",
-    "facing": "up",
-    "rotation": {
-      "parameter": "features:rotation"
-    }
-  }
+  "id": "minecraft:item_frame",
+  "tag": "{Facing:1}"
 }
