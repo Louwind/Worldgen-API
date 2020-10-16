@@ -7,7 +7,7 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class FeatureFunctions {
 
-    public static final FeatureFunctionType ELIF = new FeatureFunctionType(new ElifFunction.Serializer());
+    public static final FeatureFunctionType SEQUENCE = new FeatureFunctionType(new SequenceFunction.Serializer());
 
     public static final FeatureFunctionType MIRROR = new FeatureFunctionType(new MirrorFunction.Serializer(), builder -> builder.required(POS, RANDOM, WORLD));
 

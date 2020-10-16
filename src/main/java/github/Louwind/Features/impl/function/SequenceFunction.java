@@ -15,19 +15,19 @@ import java.util.Arrays;
 import java.util.List;
 
 // TODO rename
-public class ElifFunction implements FeatureFunction {
+public class SequenceFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
     private final List<FeatureFunction> functions;
 
-    public ElifFunction(FeatureFunction[] functions, FeatureCondition[] conditions) {
+    public SequenceFunction(FeatureFunction[] functions, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
         this.functions = Arrays.asList(functions);
     }
 
     @Override
     public FeatureFunctionType getType() {
-        return FeatureFunctions.ELIF;
+        return FeatureFunctions.SEQUENCE;
     }
 
     @Override
@@ -46,19 +46,19 @@ public class ElifFunction implements FeatureFunction {
 
     }
 
-    public static class Serializer implements JsonSerializer<ElifFunction> {
+    public static class Serializer implements JsonSerializer<SequenceFunction> {
 
         @Override
-        public void toJson(JsonObject json, ElifFunction object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, SequenceFunction object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public ElifFunction fromJson(JsonObject json, JsonDeserializationContext context) {
+        public SequenceFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "functions");
 
-            return new ElifFunction(functions, conditions);
+            return new SequenceFunction(functions, conditions);
         }
 
     }
