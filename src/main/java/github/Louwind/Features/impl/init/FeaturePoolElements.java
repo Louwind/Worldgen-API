@@ -1,6 +1,5 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.impl.pool.element.MetadataPoolElement;
 import github.Louwind.Features.impl.pool.element.NoUpdateNeighborsPoolElement;
 import github.Louwind.Features.impl.pool.element.supplier.*;
 import github.Louwind.Features.impl.pool.element.supplier.EmptyElementSupplier;
@@ -20,8 +19,6 @@ public class FeaturePoolElements {
     public static final FeaturePoolElementType<LegacySinglePoolElement> LEGACY_SINGLE = new FeaturePoolElementType(new LegacySingleElementSupplier.Serializer(), LegacySinglePoolElement.CODEC);
 
     public static final FeaturePoolElementType<ListPoolElement> LIST = new FeaturePoolElementType(new ListElementSupplier.Serializer(), ListPoolElement.CODEC);
-
-    public static final FeaturePoolElementType<MetadataPoolElement> METADATA = new FeaturePoolElementType(new MetadataElementSupplier.Serializer(), MetadataPoolElement.CODEC);
 
     public static final FeaturePoolElementType<NoUpdateNeighborsPoolElement> NO_UPDATE_NEIGHBORS = new FeaturePoolElementType(new NoUpdateNeighborsElementSupplier.Serializer(), NoUpdateNeighborsPoolElement.CODEC);
 

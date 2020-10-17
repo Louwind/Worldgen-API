@@ -11,17 +11,10 @@ import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
-<<<<<<< HEAD
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldAccess;
-=======
 import net.minecraft.structure.Structure;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.world.StructureWorldAccess;
->>>>>>> 1.1.0
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,32 +33,6 @@ public class SetLootTableFunction implements FeatureFunction {
     }
 
     @Override
-<<<<<<< HEAD
-    public void accept(FeatureContext context) {
-        WorldAccess world = context.get(WORLD_ACCESS);
-        Random random = context.get(RANDOM);
-        BlockPos pos = context.get(POS);
-
-        BlockPos down = pos.down();
-        BlockEntity entity = world.getBlockEntity(down);
-
-        if(entity instanceof LootableContainerBlockEntity) {
-            LootableContainerBlockEntity lootable = (LootableContainerBlockEntity) entity;
-
-            lootable.setLootTable(this.lootTable, random.nextLong());
-        }
-
-    }
-
-    @Override
-    public FeatureFunctionType getType() {
-        return FeatureFunctions.SET_LOOT_TABLE;
-    }
-
-    @Override
-    public List<FeatureCondition> getConditions() {
-        return this.conditions;
-=======
     public FeatureFunctionType getType() {
         return FeatureFunctions.SET_LOOT_TABLE;
     }
@@ -94,7 +61,6 @@ public class SetLootTableFunction implements FeatureFunction {
 
         }
 
->>>>>>> 1.1.0
     }
 
     public static class Serializer implements JsonSerializer<SetLootTableFunction> {
