@@ -7,7 +7,7 @@
         "pool": "features:wine_storages",
         "context": {
           "type": "features:provider",
-          "rotations": "none"
+          "rotations": "all"
         },
         "entries": [
           {

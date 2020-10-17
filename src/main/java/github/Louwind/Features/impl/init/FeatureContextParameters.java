@@ -4,6 +4,7 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -34,6 +35,8 @@ public class FeatureContextParameters {
     public static final FeatureContextParameter EMPTY = new FeatureContextParameter<>(new Identifier("features:empty"));
 
     public static final FeatureContextParameter<Integer> HEIGHT = new FeatureContextParameter<>(new Identifier("features:height"));
+
+    public static final FeatureContextParameter<BlockMirror> MIRROR = new FeatureContextParameter<>(new Identifier("features:mirror"));
 
     public static final FeatureContextParameter<BlockPos> ORIGIN = new FeatureContextParameter<>(new Identifier("features:origin"));
 

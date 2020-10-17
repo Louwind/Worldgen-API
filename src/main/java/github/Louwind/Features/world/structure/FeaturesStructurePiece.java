@@ -4,11 +4,13 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.metadata.FeatureMetadata;
+import github.Louwind.Features.mixin.InvokerSinglePoolElement;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.BlockRotation;
@@ -42,55 +44,6 @@ public class FeaturesStructurePiece extends PoolStructurePiece {
         super(manager, tag);
 
         this.rotation = BlockRotation.valueOf(tag.getString("rotation"));
-    }
-
-    @Override
-    public boolean method_27236(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox blockBox, BlockPos blockPos, boolean keepJigsaws) {
-        ServerWorld world = structureWorldAccess.toServerWorld();
-        StructureManager manager = world.getStructureManager();
-
-        if(this.poolElement.generate(manager, structureWorldAccess, structureAccessor, chunkGenerator, this.pos, blockPos, this.rotation, blockBox, random, keepJigsaws)) {
-            StructureManager structureManager = world.getStructureManager();
-
-            if(this.poolElement instanceof SinglePoolElement) {
-                SinglePoolElement singlePoolElement = (SinglePoolElement) this.poolElement;
-                List<Structure.StructureBlockInfo> structureBlockInfos = singlePoolElement.getDataStructureBlocks(structureManager, blockPos, this.rotation, true);
-
-                for (Structure.StructureBlockInfo structureBlockInfo : structureBlockInfos) {
-                    Identifier id = new Identifier(structureBlockInfo.tag.getString("metadata"));
-
-                    if(FEATURE_METADATA.containsId(id)) {
-                        FeatureMetadata metadata = FEATURE_METADATA.get(id);
-
-                        try {
-                            FeatureContext context = new FeatureContextBuilder()
-                                    .put(BLOCK_INFO, structureBlockInfo)
-                                    .put(POS, pos)
-                                    .put(RANDOM, random)
-                                    .put(ROTATION, rotation)
-                                    .put(WORLD, world)
-                                    .build(METADATA);
-
-                            metadata.accept(context);
-
-                            List<FeatureFunction> functions = metadata.getFunctions();
-
-                            for (FeatureFunction function: functions)
-                                function.accept(context);
-
-                        } catch (IllegalAccessException e) {
-                            LogManager.getLogger().warn(e);
-                        }
-                    }
-
-                }
-
-                return true;
-            }
-
-        }
-
-        return false;
     }
 
     @Override

@@ -1,5 +1,6 @@
 {
   "type": "features:entity",
   "id": "minecraft:item_frame",
-  "tag": "{Facing:1}"
+  "tag": "{Facing:1}",
+  "rotation": "none"
 }

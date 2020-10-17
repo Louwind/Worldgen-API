@@ -87,6 +87,8 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, GenericContextProvider.EMPTY, context, FeatureContextProvider.class);
     }
 
+    // TODO default value
+    // TODO FeaturesJsonHelper::getOptionalEnumContextParameter
     public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, Function<JsonElement, T> function) {
 
         if(object.has(name)) {
