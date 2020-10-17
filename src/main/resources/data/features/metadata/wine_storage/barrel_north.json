@@ -7,9 +7,6 @@
     }
   ],
   "blockstate": {
-    "block": "minecraft:barrel",
-    "properties": {
-      "facing": "north"
-    }
+    "block": "minecraft:barrel"
   }
 }

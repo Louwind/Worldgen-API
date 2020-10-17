@@ -15,7 +15,6 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.nbt.Tag;
@@ -43,12 +42,6 @@ public class FeaturesJsonHelper {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
         return Registry.BLOCK.get(id);
-    }
-
-    public static EntityType<?> getEntity(JsonObject object, String name) {
-        Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
-
-        return Registry.ENTITY_TYPE.get(id);
     }
 
     public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name) {
@@ -87,9 +80,7 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, GenericContextProvider.EMPTY, context, FeatureContextProvider.class);
     }
 
-    // TODO default value
-    // TODO FeaturesJsonHelper::getOptionalEnumContextParameter
-    public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, Function<JsonElement, T> function) {
+    public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, T defaultValue, Function<JsonElement, T> function) {
 
         if(object.has(name)) {
             JsonElement element = object.get(name);
@@ -103,7 +94,7 @@ public class FeaturesJsonHelper {
             return OptionalContextParameter.of(function.apply(element));
         }
 
-        return OptionalContextParameter.empty();
+        return defaultValue != null ? OptionalContextParameter.of(defaultValue) : OptionalContextParameter.empty();
     }
 
     public static OptionalBlockPos getOptionalBlockPos(JsonObject object, String name) {
@@ -122,9 +113,9 @@ public class FeaturesJsonHelper {
                 }
 
                 if(pos.has("x") || pos.has("y") || pos.has("z")) {
-                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalContextParameter(pos, "x", JsonElement::getAsInt);
-                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalContextParameter(pos, "y", JsonElement::getAsInt);
-                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalContextParameter(pos, "z", JsonElement::getAsInt);
+                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalInt(pos, "x");
+                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalInt(pos, "y");
+                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalInt(pos, "z");
 
                     return OptionalBlockPos.of(x, y, z);
                 }
@@ -134,6 +125,19 @@ public class FeaturesJsonHelper {
         }
 
         return OptionalBlockPos.empty();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Enum> OptionalContextParameter<T> getOptionalEnumContextParameter(JsonObject object, String name, T defaultValue, Class<T> clazz) {
+        return (OptionalContextParameter<T>) FeaturesJsonHelper.getOptionalContextParameter(object, name, defaultValue, jsonElement -> FeaturesJsonHelper.getEnum(object, defaultValue.getClass(), name));
+    }
+
+    public static OptionalContextParameter<Integer> getOptionalInt(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0, JsonElement::getAsInt);
+    }
+
+    public static OptionalContextParameter<BlockRotation> getOptionalRotation(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalEnumContextParameter(object, name, BlockRotation.NONE, BlockRotation.class);
     }
 
     public static OptionalTag getOptionalTag(JsonObject object, String name) {
@@ -276,28 +280,31 @@ public class FeaturesJsonHelper {
         JsonObject blockstate = object.getAsJsonObject(name);
 
         Block block = FeaturesJsonHelper.getBlock(blockstate, "block");
-        JsonObject properties = JsonHelper.getObject(blockstate, "properties");
-
         BlockState state = block.getDefaultState();
-        StateManager<?, ?> manager = block.getStateManager();
 
-        for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
-            Property<?> property = manager.getProperty(entry.getKey());
+        if(blockstate.has("properties")) {
+            JsonObject properties = JsonHelper.getObject(blockstate, "properties");
+            StateManager<?, ?> manager = block.getStateManager();
 
-            if(property != null) {
-                JsonElement element = entry.getValue();
+            for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
+                Property<?> property = manager.getProperty(entry.getKey());
 
-                if(element.isJsonPrimitive()) {
-                    JsonPrimitive primitive = element.getAsJsonPrimitive();
+                if(property != null) {
+                    JsonElement element = entry.getValue();
 
-                    if(primitive.isString())
-                        state = FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
+                    if(element.isJsonPrimitive()) {
+                        JsonPrimitive primitive = element.getAsJsonPrimitive();
 
-                    if(primitive.isBoolean())
-                        state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+                        if(primitive.isString())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
 
-                    if(primitive.isNumber())
-                        state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                        if(primitive.isBoolean())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+
+                        if(primitive.isNumber())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                    }
+
                 }
 
             }

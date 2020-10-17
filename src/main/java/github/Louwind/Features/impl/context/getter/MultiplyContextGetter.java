@@ -61,8 +61,8 @@ public class MultiplyContextGetter implements FeatureContextGetter<Integer> {
         public MultiplyContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
-            OptionalContextParameter<Integer> base = FeaturesJsonHelper.getOptionalContextParameter(json, "base", JsonElement::getAsInt);
-            OptionalContextParameter<Integer> multiplier = FeaturesJsonHelper.getOptionalContextParameter(json, "multiplier", JsonElement::getAsInt);
+            OptionalContextParameter<Integer> base = FeaturesJsonHelper.getOptionalInt(json, "base");
+            OptionalContextParameter<Integer> multiplier = FeaturesJsonHelper.getOptionalInt(json, "multiplier");
 
             return new MultiplyContextGetter(base, multiplier, conditions);
         }

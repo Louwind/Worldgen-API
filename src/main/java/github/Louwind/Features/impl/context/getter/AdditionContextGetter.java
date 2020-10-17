@@ -1,7 +1,6 @@
 package github.Louwind.Features.impl.context.getter;
 
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
@@ -61,8 +60,8 @@ public class AdditionContextGetter implements FeatureContextGetter<Integer> {
         public AdditionContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
-            OptionalContextParameter<Integer> addition = FeaturesJsonHelper.getOptionalContextParameter(json, "addition", JsonElement::getAsInt);
-            OptionalContextParameter<Integer> number = FeaturesJsonHelper.getOptionalContextParameter(json, "number", JsonElement::getAsInt);
+            OptionalContextParameter<Integer> addition = FeaturesJsonHelper.getOptionalInt(json, "addition");
+            OptionalContextParameter<Integer> number = FeaturesJsonHelper.getOptionalInt(json, "number");
 
             return new AdditionContextGetter(number, addition, conditions);
         }

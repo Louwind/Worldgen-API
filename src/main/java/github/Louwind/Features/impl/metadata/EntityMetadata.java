@@ -93,8 +93,7 @@ public class EntityMetadata implements FeatureMetadata {
 
         @Override
         public EntityMetadata fromJson(JsonObject json, JsonDeserializationContext context) {
-            OptionalContextParameter<BlockRotation> rotation = FeaturesJsonHelper.getOptionalContextParameter(json, "rotation", jsonElement -> FeaturesJsonHelper.getEnum(json, BlockRotation.class, "rotation"));
-
+            OptionalContextParameter<BlockRotation> rotation = FeaturesJsonHelper.getOptionalRotation(json, "rotation");
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
             FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "functions");
 
