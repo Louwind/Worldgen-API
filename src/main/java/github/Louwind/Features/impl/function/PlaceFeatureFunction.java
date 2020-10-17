@@ -1,12 +1,10 @@
 package github.Louwind.Features.impl.function;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
@@ -25,7 +23,6 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
@@ -52,15 +49,10 @@ public class PlaceFeatureFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(POS, RANDOM, STRUCTURE_WORLD_ACCESS);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         BlockPos pos = context.get(POS);
         Random random = context.get(RANDOM);
-        StructureWorldAccess access = context.get(STRUCTURE_WORLD_ACCESS);
+        StructureWorldAccess access = context.get(WORLD);
 
         if(BuiltinRegistries.CONFIGURED_FEATURE.containsId(this.id)) {
             ConfiguredFeature<?, ?> feature = BuiltinRegistries.CONFIGURED_FEATURE.get(this.id);

@@ -1,31 +1,36 @@
 package github.Louwind.Features.client.resource;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.generator.FeatureGenerator;
-import github.Louwind.Features.util.FeatureGsons;
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public class FeatureGeneratorManager extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>>  {
+public abstract class JsonReloadListener<T> extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>> {
 
-    private static final Gson GSON = FeatureGsons.getFeatureGsonBuilder().create();
-    private static final Logger LOGGER = LogManager.getLogger();
+    protected static final Logger LOGGER = LogManager.getLogger();
 
-    private final Map<Identifier, FeatureGenerator> features = Maps.newHashMap();
+    protected final Gson gson;
+    protected final Type type;
+    protected final Registry<T> registry;
 
-    public FeatureGeneratorManager() {
-        super(GSON, "features");
+    public JsonReloadListener(Gson gson, Type clazz, Registry<T> registry, String dataType) {
+        super(gson, dataType);
+
+        this.type = clazz;
+        this.gson = gson;
+        this.registry = registry;
     }
 
     @Override
@@ -40,26 +45,26 @@ public class FeatureGeneratorManager extends JsonDataLoader implements SimpleRes
         return CompletableFuture.runAsync(() -> this.apply(loader, resourceManager, profiler));
     }
 
-    public FeatureGenerator get(Identifier id) {
-        return this.features.get(id);
-    }
-
-    @Override
-    public Identifier getFabricId() {
-        return new Identifier("features:features");
-    }
-
     @Override
     protected void apply(Map<Identifier, JsonElement> loader, ResourceManager manager, Profiler profiler) {
 
         loader.forEach((id, jsonElement) -> {
 
             try {
-                FeatureGenerator generator = GSON.fromJson(jsonElement, FeatureGenerator.class);
+                T t = this.gson.fromJson(jsonElement, this.type);
 
-                this.features.put(id, generator);
+                if(!this.registry.containsId(id))
+                    BuiltinRegistries.add(this.registry, id, t);
+                else {
+                    int rawId = this.registry.getRawId(t);
+
+                    this.registry.getKey(t).ifPresent(key -> {
+                        BuiltinRegistries.set(this.registry, rawId, key, t);
+                    });
+                }
+
             } catch (Exception exception) {
-                LOGGER.error("Couldn't parse feature {}", id, exception);
+                LOGGER.error("Couldn't parse json {}", id, exception);
             }
 
         });

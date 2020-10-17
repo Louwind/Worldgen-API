@@ -1,7 +1,6 @@
 package github.Louwind.Features.world.structure;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -9,11 +8,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-
-import java.util.Random;
 
 public class FeaturesStructurePiece extends PoolStructurePiece {
 
@@ -29,14 +23,6 @@ public class FeaturesStructurePiece extends PoolStructurePiece {
         super(manager, tag);
 
         this.rotation = BlockRotation.valueOf(tag.getString("rotation"));
-    }
-
-    @Override
-    public boolean method_27236(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox blockBox, BlockPos blockPos, boolean keepJigsaws) {
-        ServerWorld world = structureWorldAccess.toServerWorld();
-        StructureManager manager = world.getStructureManager();
-
-        return this.poolElement.generate(manager, structureWorldAccess, structureAccessor, chunkGenerator, this.pos, blockPos, this.rotation, blockBox, random, keepJigsaws);
     }
 
     @Override

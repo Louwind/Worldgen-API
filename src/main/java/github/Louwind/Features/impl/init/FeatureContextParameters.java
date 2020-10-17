@@ -1,16 +1,17 @@
 package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 import java.util.List;
 import java.util.Random;
@@ -27,17 +28,21 @@ public class FeatureContextParameters {
 
     public static final FeatureContextParameter<BlockBox> BOX = new FeatureContextParameter<>(new Identifier("features:box"));
 
+    public static final FeatureContextParameter<ChunkGenerator> CHUNK_GENERATOR = new FeatureContextParameter<>(new Identifier("features:chunk_generator"));
+
     public static final FeatureContextParameter<ChunkPos> CHUNK_POS = new FeatureContextParameter<>(new Identifier("features:chunk_pos"));
 
     public static final FeatureContextParameter EMPTY = new FeatureContextParameter<>(new Identifier("features:empty"));
 
     public static final FeatureContextParameter<Integer> HEIGHT = new FeatureContextParameter<>(new Identifier("features:height"));
 
+    public static final FeatureContextParameter<BlockMirror> MIRROR = new FeatureContextParameter<>(new Identifier("features:mirror"));
+
     public static final FeatureContextParameter<BlockPos> ORIGIN = new FeatureContextParameter<>(new Identifier("features:origin"));
 
-    public static final FeatureContextParameter<List<StructurePiece>> PIECES = new FeatureContextParameter<>(new Identifier("features:pieces"));
+    public static final FeatureContextParameter<List<PoolStructurePiece>> PIECES = new FeatureContextParameter<>(new Identifier("features:pieces"));
 
-    public static final FeatureContextParameter<StructurePiece> PIECE = new FeatureContextParameter<>(new Identifier("features:piece"));
+    public static final FeatureContextParameter<PoolStructurePiece> PIECE = new FeatureContextParameter<>(new Identifier("features:piece"));
 
     public static final FeatureContextParameter<BlockPos> POS = new FeatureContextParameter<>(new Identifier("features:pos"));
 
@@ -49,10 +54,8 @@ public class FeatureContextParameters {
 
     public static final FeatureContextParameter<StructurePool> STRUCTURE_POOL = new FeatureContextParameter<>(new Identifier("features:structure_pool"));
 
-    public static final FeatureContextParameter<StructureWorldAccess> STRUCTURE_WORLD_ACCESS = new FeatureContextParameter<>(new Identifier("features:structure_world_access"));
-
     public static final FeatureContextParameter<Integer> TRUNKS = new FeatureContextParameter<>(new Identifier("features:trunks"));
 
-    public static final FeatureContextParameter<WorldAccess> WORLD_ACCESS = new FeatureContextParameter<>(new Identifier("features:world_access"));
+    public static final FeatureContextParameter<StructureWorldAccess> WORLD = new FeatureContextParameter<>(new Identifier("features:world"));
 
 }

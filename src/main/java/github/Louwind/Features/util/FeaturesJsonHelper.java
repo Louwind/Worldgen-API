@@ -1,10 +1,7 @@
 package github.Louwind.Features.util;
 
-import com.google.common.primitives.Ints;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
@@ -18,6 +15,9 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.nbt.Tag;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.structure.pool.StructurePool;
@@ -32,8 +32,8 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class FeaturesJsonHelper {
@@ -80,7 +80,7 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, GenericContextProvider.EMPTY, context, FeatureContextProvider.class);
     }
 
-    public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, Function<JsonElement, T> function) {
+    public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, T defaultValue, Function<JsonElement, T> function) {
 
         if(object.has(name)) {
             JsonElement element = object.get(name);
@@ -94,7 +94,7 @@ public class FeaturesJsonHelper {
             return OptionalContextParameter.of(function.apply(element));
         }
 
-        return OptionalContextParameter.empty();
+        return defaultValue != null ? OptionalContextParameter.of(defaultValue) : OptionalContextParameter.empty();
     }
 
     public static OptionalBlockPos getOptionalBlockPos(JsonObject object, String name) {
@@ -113,9 +113,9 @@ public class FeaturesJsonHelper {
                 }
 
                 if(pos.has("x") || pos.has("y") || pos.has("z")) {
-                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalContextParameter(pos, "x", JsonElement::getAsInt);
-                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalContextParameter(pos, "y", JsonElement::getAsInt);
-                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalContextParameter(pos, "z", JsonElement::getAsInt);
+                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalInt(pos, "x");
+                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalInt(pos, "y");
+                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalInt(pos, "z");
 
                     return OptionalBlockPos.of(x, y, z);
                 }
@@ -125,6 +125,57 @@ public class FeaturesJsonHelper {
         }
 
         return OptionalBlockPos.empty();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Enum> OptionalContextParameter<T> getOptionalEnumContextParameter(JsonObject object, String name, T defaultValue, Class<T> clazz) {
+        return (OptionalContextParameter<T>) FeaturesJsonHelper.getOptionalContextParameter(object, name, defaultValue, jsonElement -> FeaturesJsonHelper.getEnum(object, defaultValue.getClass(), name));
+    }
+
+    public static OptionalContextParameter<Integer> getOptionalInt(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0, JsonElement::getAsInt);
+    }
+
+    public static OptionalContextParameter<BlockRotation> getOptionalRotation(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalEnumContextParameter(object, name, BlockRotation.NONE, BlockRotation.class);
+    }
+
+    public static OptionalTag getOptionalTag(JsonObject object, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonObject()) {
+                JsonObject tag = element.getAsJsonObject();
+
+                if(tag.has("parameter")) {
+                    FeatureContextParameter<Tag> parameter = FeaturesJsonHelper.getContextParameter(tag, "parameter");
+                    OptionalContextParameter<Tag> optional = OptionalContextParameter.of(parameter);
+
+                    return OptionalTag.of(optional);
+                }
+
+            }
+
+            if(element.isJsonPrimitive()) {
+                JsonPrimitive primitive = element.getAsJsonPrimitive();
+
+                if(primitive.isString()) {
+                    try {
+                        CompoundTag compoundTag = StringNbtReader.parse(primitive.getAsString());
+                        OptionalContextParameter<Tag> optional = OptionalContextParameter.of(compoundTag);
+
+                        return OptionalTag.of(optional);
+                    } catch (CommandSyntaxException e) {
+                        throw new JsonSyntaxException(e.getMessage());
+                    }
+                }
+
+            }
+
+        }
+
+        return OptionalTag.empty();
     }
 
     public static FeatureEntry[] getEntries(JsonObject object, JsonDeserializationContext context, String name) {
@@ -145,18 +196,6 @@ public class FeaturesJsonHelper {
 
     public static FeatureFunction[] getFunction(JsonObject object, JsonDeserializationContext context, String name) {
         return FeaturesJsonHelper.getFunction(object, new FeatureFunction[]{}, context, name);
-    }
-
-    public static List<Integer> getIntegers(JsonObject object, JsonDeserializationContext context, String name) {
-        return Ints.asList(FeaturesJsonHelper.getInts(object, context, name));
-    }
-
-    public static int[] getInts(JsonObject object, JsonDeserializationContext context, String name) {
-        return FeaturesJsonHelper.getInts(object, new int[] {}, context, name);
-    }
-
-    public static int[] getInts(JsonObject object, int[] defaultValue, JsonDeserializationContext context, String name) {
-        return JsonHelper.deserialize(object, name, defaultValue, context, int[].class);
     }
 
     public static StructureProcessorList getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
@@ -241,28 +280,31 @@ public class FeaturesJsonHelper {
         JsonObject blockstate = object.getAsJsonObject(name);
 
         Block block = FeaturesJsonHelper.getBlock(blockstate, "block");
-        JsonObject properties = JsonHelper.getObject(blockstate, "properties");
-
         BlockState state = block.getDefaultState();
-        StateManager<?, ?> manager = block.getStateManager();
 
-        for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
-            Property<?> property = manager.getProperty(entry.getKey());
+        if(blockstate.has("properties")) {
+            JsonObject properties = JsonHelper.getObject(blockstate, "properties");
+            StateManager<?, ?> manager = block.getStateManager();
 
-            if(property != null) {
-                JsonElement element = entry.getValue();
+            for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
+                Property<?> property = manager.getProperty(entry.getKey());
 
-                if(element.isJsonPrimitive()) {
-                    JsonPrimitive primitive = element.getAsJsonPrimitive();
+                if(property != null) {
+                    JsonElement element = entry.getValue();
 
-                    if(primitive.isString())
-                        FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
+                    if(element.isJsonPrimitive()) {
+                        JsonPrimitive primitive = element.getAsJsonPrimitive();
 
-                    if(primitive.isBoolean())
-                        FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+                        if(primitive.isString())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
 
-                    if(primitive.isNumber())
-                        FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                        if(primitive.isBoolean())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+
+                        if(primitive.isNumber())
+                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                    }
+
                 }
 
             }
@@ -273,8 +315,16 @@ public class FeaturesJsonHelper {
     }
 
     @Deprecated
-    private static <T extends Comparable<T>> void parsePropertyValue(Property<T> property, BlockState state, String string) {
-        property.parse(string).ifPresent(value -> state.with(property, value));
+    private static <T extends Comparable<T>> BlockState parsePropertyValue(Property<T> property, BlockState state, String string) {
+        Optional<T> optional = property.parse(string);
+
+        if(optional.isPresent()) {
+            T t = optional.get();
+
+            return state.with(property, t);
+        }
+
+        return state;
     }
 
 }

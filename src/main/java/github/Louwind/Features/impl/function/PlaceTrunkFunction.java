@@ -44,17 +44,12 @@ public class PlaceTrunkFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, ROOT, STRUCTURE_WORLD_ACCESS);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         BlockState state = this.block.getDefaultState();
 
         int height = context.get(HEIGHT);
         Set<BlockPos> root = context.get(ROOT);
-        StructureWorldAccess access = context.get(STRUCTURE_WORLD_ACCESS);
+        StructureWorldAccess access = context.get(WORLD);
 
         for (BlockPos pos : root) {
             for (int i = 0; i < height; i++) {

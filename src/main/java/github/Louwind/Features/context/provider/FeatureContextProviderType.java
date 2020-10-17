@@ -1,38 +1,15 @@
 package github.Louwind.Features.context.provider;
 
-import com.google.common.collect.Sets;
-import github.Louwind.Features.context.FeatureContextAware;
 import github.Louwind.Features.context.FeatureContextProviderBuilder;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
-import net.minecraft.util.JsonSerializableType;
+import github.Louwind.Features.util.ContextAwareSerializableType;
 import net.minecraft.util.JsonSerializer;
 
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 
-public class FeatureContextProviderType extends JsonSerializableType<FeatureContextProvider> implements FeatureContextAware {
+public class FeatureContextProviderType extends ContextAwareSerializableType<FeatureContextProvider> {
 
-    private final Set<FeatureContextParameter<?>> allowed;
-    private final Set<FeatureContextParameter<?>> required;
-
-    public FeatureContextProviderType(JsonSerializer<? extends FeatureContextProvider> jsonSerializer, Supplier<FeatureContextProviderBuilder> supplier) {
-        super(jsonSerializer);
-
-        FeatureContextProviderBuilder builder = supplier.get();
-
-        this.allowed = builder.allowed();
-        this.required = builder.required();
-    }
-
-    @Override
-    public Set<FeatureContextParameter<?>> getAllowedParameters() {
-        return this.allowed;
-    }
-
-    @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return this.required;
+    public FeatureContextProviderType(JsonSerializer<? extends FeatureContextProvider> jsonSerializer, Consumer<FeatureContextProviderBuilder> consumer) {
+        super(jsonSerializer, consumer);
     }
 
 }

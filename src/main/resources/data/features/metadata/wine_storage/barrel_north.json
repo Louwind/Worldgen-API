@@ -1,0 +1,12 @@
+{
+  "type": "features:blockstate",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_table": "features:structures/wine_storage_barrel"
+    }
+  ],
+  "blockstate": {
+    "block": "minecraft:barrel"
+  }
+}

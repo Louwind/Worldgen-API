@@ -1,0 +1,8 @@
+{
+  "type": "features:entity",
+  "id": "minecraft:item_frame",
+  "tag": "{Facing:2}",
+  "rotation": {
+    "parameter": "features:rotation"
+  }
+}

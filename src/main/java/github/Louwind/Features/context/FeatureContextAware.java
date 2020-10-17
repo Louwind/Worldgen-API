@@ -10,7 +10,7 @@ import java.util.Set;
  * */
 public interface FeatureContextAware {
 
-    default Set<FeatureContextParameter<?>> getAllowedParameters() {
+    default Set<FeatureContextParameter<?>> getOptionalParameters() {
         return ImmutableSet.of();
     }
 

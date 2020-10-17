@@ -11,10 +11,17 @@ import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
+<<<<<<< HEAD
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
+=======
+import net.minecraft.structure.Structure;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonSerializer;
+import net.minecraft.world.StructureWorldAccess;
+>>>>>>> 1.1.0
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +40,7 @@ public class SetLootTableFunction implements FeatureFunction {
     }
 
     @Override
+<<<<<<< HEAD
     public void accept(FeatureContext context) {
         WorldAccess world = context.get(WORLD_ACCESS);
         Random random = context.get(RANDOM);
@@ -57,6 +65,36 @@ public class SetLootTableFunction implements FeatureFunction {
     @Override
     public List<FeatureCondition> getConditions() {
         return this.conditions;
+=======
+    public FeatureFunctionType getType() {
+        return FeatureFunctions.SET_LOOT_TABLE;
+    }
+
+    @Override
+    public List<FeatureCondition> getConditions() {
+        return this.conditions;
+    }
+
+    @Override
+    public void accept(FeatureContext context) {
+        Structure.StructureBlockInfo blockInfo = context.get(BLOCK_INFO);
+        StructureWorldAccess world = context.get(WORLD);
+        Random random = context.get(RANDOM);
+
+        BlockEntity blockEntity = world.getBlockEntity(blockInfo.pos);
+
+        if(blockEntity != null) {
+            long seed = random.nextLong();
+
+            if(blockEntity instanceof LootableContainerBlockEntity) {
+                LootableContainerBlockEntity lootable = (LootableContainerBlockEntity) blockEntity;
+
+                lootable.setLootTable(this.lootTable, seed);
+            }
+
+        }
+
+>>>>>>> 1.1.0
     }
 
     public static class Serializer implements JsonSerializer<SetLootTableFunction> {

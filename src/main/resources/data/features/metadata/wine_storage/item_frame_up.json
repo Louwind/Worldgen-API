@@ -1,0 +1,5 @@
+{
+  "type": "features:entity",
+  "id": "minecraft:item_frame",
+  "tag": "{Facing:1}"
+}

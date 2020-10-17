@@ -52,18 +52,13 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(HEIGHT, RANDOM, ROOT, STRUCTURE_WORLD_ACCESS);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
         BlockState state = this.trunk.getDefaultState();
 
         int height = context.get(HEIGHT);
         Random random = context.get(RANDOM);
         Set<BlockPos> root = context.get(ROOT);
-        StructureWorldAccess access = context.get(STRUCTURE_WORLD_ACCESS);
+        StructureWorldAccess access = context.get(WORLD);
 
         for (BlockPos pos : root) {
             for (int i = 0; i < height; i++) {
@@ -77,11 +72,7 @@ public class PlaceTrunkWithLeavesFunction implements FeatureFunction {
                         BlockPos offset = up.offset(direction);
                         BlockState offsetState = access.getBlockState(offset);
 
-                        if (offsetState.getBlock() == this.leaves)
-                            continue;
-                        else if (offsetState.getBlock() == this.trunk)
-                            continue;
-                        else if (random.nextDouble() < this.probability)
+                        if (offsetState.isAir() && random.nextDouble() < this.probability)
                             access.setBlockState(offset, this.leaves.getDefaultState().with(DISTANCE, 1), 3);
                     }
 

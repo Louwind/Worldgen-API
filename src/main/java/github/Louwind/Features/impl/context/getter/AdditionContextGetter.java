@@ -1,17 +1,15 @@
 package github.Louwind.Features.impl.context.getter;
 
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.context.FeatureContextBuilder;
+import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureContextGetters;
-import github.Louwind.Features.impl.init.FeatureContextParameters;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
 
@@ -41,12 +39,12 @@ public class AdditionContextGetter implements FeatureContextGetter<Integer> {
     }
 
     @Override
-    public Integer apply(FeatureContextBuilder builder) {
+    public Integer apply(FeatureContext context) {
         FeatureContextParameter<Integer> additionParameter = this.addition.getParameter();
         FeatureContextParameter<Integer> numberParameter = this.number.getParameter();
 
-        int addition = builder.get(additionParameter);
-        int number = builder.get(numberParameter);
+        int addition = context.get(additionParameter);
+        int number = context.get(numberParameter);
 
         return number + addition;
     }
@@ -62,8 +60,8 @@ public class AdditionContextGetter implements FeatureContextGetter<Integer> {
         public AdditionContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
-            OptionalContextParameter<Integer> addition = FeaturesJsonHelper.getOptionalContextParameter(json, "addition", JsonElement::getAsInt);
-            OptionalContextParameter<Integer> number = FeaturesJsonHelper.getOptionalContextParameter(json, "number", JsonElement::getAsInt);
+            OptionalContextParameter<Integer> addition = FeaturesJsonHelper.getOptionalInt(json, "addition");
+            OptionalContextParameter<Integer> number = FeaturesJsonHelper.getOptionalInt(json, "number");
 
             return new AdditionContextGetter(number, addition, conditions);
         }

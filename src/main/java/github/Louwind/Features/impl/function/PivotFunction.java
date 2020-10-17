@@ -13,6 +13,7 @@ import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalBlockPos;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
@@ -23,8 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECES;
-import static github.Louwind.Features.impl.init.FeatureContextParameters.ROTATION;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class PivotFunction implements FeatureFunction {
 
@@ -49,13 +49,8 @@ public class PivotFunction implements FeatureFunction {
     }
 
     @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(PIECES, ROTATION);
-    }
-
-    @Override
     public void accept(FeatureContext context) {
-        List<StructurePiece> pieces = context.get(PIECES);
+        List<PoolStructurePiece> pieces = context.get(PIECES);
         BlockRotation rotation = context.get(ROTATION);
 
         OptionalBlockPos optional = this.when.get(rotation);

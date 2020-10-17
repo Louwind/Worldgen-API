@@ -1,12 +1,19 @@
 package github.Louwind.Features.context.getter;
 
-import net.minecraft.util.JsonSerializableType;
+import github.Louwind.Features.context.FeatureContextProviderBuilder;
+import github.Louwind.Features.util.ContextAwareSerializableType;
 import net.minecraft.util.JsonSerializer;
 
-public class FeatureContextGetterType extends JsonSerializableType<FeatureContextGetter> {
+import java.util.function.Consumer;
 
-	public FeatureContextGetterType(JsonSerializer<? extends FeatureContextGetter>  jsonSerializer) {
-		super(jsonSerializer);
+public class FeatureContextGetterType extends ContextAwareSerializableType<FeatureContextGetter> {
+
+	public FeatureContextGetterType(JsonSerializer<? extends FeatureContextGetter> jsonSerializer, Consumer<FeatureContextProviderBuilder> consumer) {
+		super(jsonSerializer, consumer);
+	}
+
+	public FeatureContextGetterType(JsonSerializer<? extends FeatureContextGetter> jsonSerializer) {
+		this(jsonSerializer, builder -> {});
 	}
 
 }
