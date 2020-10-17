@@ -1,6 +1,8 @@
 package github.Louwind.Features.impl.loot;
 
 import github.Louwind.Features.loot.LootBehavior;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.JukeboxBlock;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
@@ -25,8 +27,10 @@ public class JukeboxLootBehavior implements LootBehavior<JukeboxBlockEntity> {
         int size = loot.size();
         int index = random.nextInt(size);
         ItemStack stack = loot.get(index);
+        BlockState state = server.getBlockState(pos);
+        JukeboxBlock jukebox = (JukeboxBlock) state.getBlock();
 
-        blockEntity.setRecord(stack);
+        jukebox.setRecord(server, pos, state, stack);
     }
 
 }
