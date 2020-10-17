@@ -12,6 +12,8 @@ import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.Structure;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
@@ -20,8 +22,7 @@ import net.minecraft.world.StructureWorldAccess;
 import java.util.Arrays;
 import java.util.List;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.BLOCK_INFO;
-import static github.Louwind.Features.impl.init.FeatureContextParameters.WORLD;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class BlockstateMetadata implements FeatureMetadata {
 
@@ -57,9 +58,11 @@ public class BlockstateMetadata implements FeatureMetadata {
         Structure.StructureBlockInfo blockInfo = context.get(BLOCK_INFO);
         StructureWorldAccess world = context.get(WORLD);
 
-        BlockPos pos = blockInfo.pos;
+        BlockMirror mirror = context.get(MIRROR);
+        BlockRotation rotation = context.get(ROTATION);
+        BlockState state = this.state.mirror(mirror).rotate(rotation);
 
-        world.setBlockState(pos, this.state, this.flag);
+        world.setBlockState(blockInfo.pos, state, this.flag);
     }
 
     public static class Serializer implements JsonSerializer<BlockstateMetadata> {

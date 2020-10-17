@@ -61,7 +61,6 @@ public class EntityMetadata implements FeatureMetadata {
     @Override
     public void accept(FeatureContext context) {
         Structure.StructureBlockInfo blockInfo = context.get(BLOCK_INFO);
-
         StructureWorldAccess world = context.get(WORLD);
         BlockMirror mirror = context.get(MIRROR);
 
