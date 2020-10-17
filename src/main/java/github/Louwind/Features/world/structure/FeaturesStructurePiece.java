@@ -1,34 +1,13 @@
 package github.Louwind.Features.world.structure;
 
-import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.metadata.FeatureMetadata;
-import github.Louwind.Features.mixin.InvokerSinglePoolElement;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import org.apache.logging.log4j.LogManager;
-
-import java.util.List;
-import java.util.Random;
-
-import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static github.Louwind.Features.impl.init.FeatureContextProviders.METADATA;
-import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_METADATA;
 
 public class FeaturesStructurePiece extends PoolStructurePiece {
 

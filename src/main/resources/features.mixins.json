@@ -7,7 +7,6 @@
     "AccessorStructurePiece",
     "AccessorSinglePoolElement",
     "InvokerRuleTest",
-    "InvokerSinglePoolElement",
     "InvokerStructureProcessor",
     "MixinSinglePoolElement"
   ],
