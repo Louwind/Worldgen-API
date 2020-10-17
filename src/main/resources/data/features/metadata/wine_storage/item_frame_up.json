@@ -1,5 +1,12 @@
 {
   "type": "features:entity",
   "id": "minecraft:item_frame",
-  "tag": "{Facing:1}"
+  "tag": "{Facing:1}",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_behavior": "minecraft:item_frame",
+      "loot_table": "features:structures/wine_storage"
+    }
+  ]
 }

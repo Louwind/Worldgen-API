@@ -8,9 +8,11 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
+import github.Louwind.Features.loot.LootBehavior;
+import github.Louwind.Features.registry.FeaturesRegistry;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
@@ -25,10 +27,12 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 public class SetLootTableFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
+    private final Identifier lootBehavior;
     private final Identifier lootTable;
 
-    public SetLootTableFunction(Identifier lootTable, FeatureCondition[] conditions) {
+    public SetLootTableFunction(Identifier lootBehavior, Identifier lootTable, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
+        this.lootBehavior = lootBehavior;
         this.lootTable = lootTable;
     }
 
@@ -42,6 +46,7 @@ public class SetLootTableFunction implements FeatureFunction {
         return this.conditions;
     }
 
+    @SuppressWarnings("unckecked")
     @Override
     public void accept(FeatureContext context) {
         Structure.StructureBlockInfo blockInfo = context.get(BLOCK_INFO);
@@ -50,15 +55,13 @@ public class SetLootTableFunction implements FeatureFunction {
 
         BlockEntity blockEntity = world.getBlockEntity(blockInfo.pos);
 
-        if(blockEntity != null) {
+        if(FeaturesRegistry.LOOT_BEHAVIOR.containsId(this.lootBehavior)) {
+            LootBehavior lootBehavior = FeaturesRegistry.LOOT_BEHAVIOR.get(this.lootBehavior);
+
+            ServerWorld server = world.toServerWorld();
             long seed = random.nextLong();
 
-            if(blockEntity instanceof LootableContainerBlockEntity) {
-                LootableContainerBlockEntity lootable = (LootableContainerBlockEntity) blockEntity;
-
-                lootable.setLootTable(this.lootTable, seed);
-            }
-
+            lootBehavior.setLootTable(this.lootTable, server, blockEntity, blockInfo.pos, seed);
         }
 
     }
@@ -73,9 +76,10 @@ public class SetLootTableFunction implements FeatureFunction {
         @Override
         public SetLootTableFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
+            Identifier lootBehavior = FeaturesJsonHelper.getIdentifier(json, "loot_behavior");
             Identifier lootTable = FeaturesJsonHelper.getIdentifier(json, "loot_table");
 
-            return new SetLootTableFunction(lootTable, conditions);
+            return new SetLootTableFunction(lootBehavior, lootTable, conditions);
         }
 
     }
