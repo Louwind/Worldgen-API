@@ -1,0 +1,14 @@
+{
+  "name": "features:kitchens",
+  "terminators": "empty",
+  "projection": "rigid",
+  "elements": [
+    {
+      "element": {
+        "type": "minecraft:single",
+        "structure": "features:kitchens/kitchen_01"
+      },
+      "weight": 1
+    }
+  ]
+}

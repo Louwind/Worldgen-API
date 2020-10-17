@@ -1,0 +1,13 @@
+{
+  "type": "features:blockstate",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_behavior": "minecraft:abstract_furnace",
+      "loot_table": "features:structures/kitchen/furnace"
+    }
+  ],
+  "blockstate": {
+    "block": "minecraft:smoker"
+  }
+}

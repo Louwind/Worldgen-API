@@ -29,7 +29,7 @@ public class AbstractFurnaceLootBehavior implements LootBehavior<AbstractFurnace
         if(AbstractFurnaceBlockEntity.canUseAsFuel(stack))
             blockEntity.setStack(1, stack);
         else
-            blockEntity.setStack(random.nextBoolean() ? 0 : 2, stack);
+            blockEntity.setStack(0, stack);
 
     }
 
