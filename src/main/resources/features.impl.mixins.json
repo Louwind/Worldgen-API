@@ -4,7 +4,6 @@
   "package": "github.Louwind.Features.impl.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AccessorLecternBlockEntity"
   ],
   "client": [
   ],

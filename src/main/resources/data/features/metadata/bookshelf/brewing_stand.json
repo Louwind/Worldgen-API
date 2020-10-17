@@ -1,0 +1,13 @@
+{
+  "type": "features:blockstate",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_behavior": "minecraft:brewing_stand",
+      "loot_table": "features:structures/bookshelf/brewing_stand"
+    }
+  ],
+  "blockstate": {
+    "block": "minecraft:brewing_stand"
+  }
+}
