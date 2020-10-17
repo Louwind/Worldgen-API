@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "features.impl.mixins.json",
     "features.mixins.json"
   ],
 
