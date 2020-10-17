@@ -99,6 +99,7 @@ public class Features implements ModInitializer {
         Registry.register(ITEM, new Identifier("features:wine_storage_debug_stick"), FeaturesItems.WINE_STORAGE_DEBUG_STICK);
 
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:abstract_furnace"), LootBehaviors.ABSTRACT_FURNACE);
+        Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:brewing_stand"), LootBehaviors.BREWING_STAND);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:item_frame"), LootBehaviors.ITEM_FRAME);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lootable_container"), LootBehaviors.LOOTABLE_CONTAINER);
     }
