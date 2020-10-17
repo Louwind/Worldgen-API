@@ -14,6 +14,8 @@ public class LootBehaviors {
 
     public static final LootBehavior<LootableContainerBlockEntity> ITEM_FRAME =  new ItemFrameLootBehavior();
 
+    public static final LootBehavior<JukeboxBlockEntity> JUKEBOX =  new JukeboxLootBehavior();
+
     public static final LootBehavior<LecternBlockEntity> LECTERN =  new LecternLootBehavior();
 
     public static final LootBehavior<LootableContainerBlockEntity> LOOTABLE_CONTAINER =  new LootableContainerLootBehavior();
