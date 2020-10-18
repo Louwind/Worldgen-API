@@ -175,7 +175,7 @@ public class FeaturesJsonHelper {
 
         }
 
-        return OptionalTag.empty();
+        return OptionalTag.newCompoundTag();
     }
 
     public static FeatureEntry[] getEntries(JsonObject object, JsonDeserializationContext context, String name) {

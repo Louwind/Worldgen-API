@@ -8,6 +8,8 @@ public class LootBehaviors {
 
     public static final LootBehavior<AbstractFurnaceBlockEntity> ABSTRACT_FURNACE =  new AbstractFurnaceLootBehavior();
 
+    public static final LootBehavior<LootableContainerBlockEntity> ARMOR_STAND =  new ArmorStandLootBehavior();
+
     public static final LootBehavior<BrewingStandBlockEntity> BREWING_STAND =  new BrewingStandLootBehavior();
 
     public static final LootBehavior<CampfireBlockEntity> CAMPFIRE =  new CampfireLootBehavior();

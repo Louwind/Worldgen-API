@@ -94,6 +94,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 
         Registry.register(ITEM, new Identifier("features:bookshelf_debug_stick"), FeaturesItems.BOOKSHELF_DEBUG_STICK);
+        Registry.register(ITEM, new Identifier("features:dress_room_debug_stick"), FeaturesItems.DRESS_ROOM_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:kitchen_debug_stick"), FeaturesItems.KITCHEN_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thick_stripped_spruce_debug_stick"), FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:thin_spruce_debug_stick"), FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
@@ -101,12 +102,15 @@ public class Features implements ModInitializer {
         Registry.register(ITEM, new Identifier("features:wine_storage_debug_stick"), FeaturesItems.WINE_STORAGE_DEBUG_STICK);
 
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:abstract_furnace"), LootBehaviors.ABSTRACT_FURNACE);
+        Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:armor_stand"), LootBehaviors.ARMOR_STAND);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:brewing_stand"), LootBehaviors.BREWING_STAND);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:campfire"), LootBehaviors.CAMPFIRE);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:item_frame"), LootBehaviors.ITEM_FRAME);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:jukebox"), LootBehaviors.JUKEBOX);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lootable_container"), LootBehaviors.LOOTABLE_CONTAINER);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lectern"), LootBehaviors.LECTERN);
+
+        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
 
     }
 

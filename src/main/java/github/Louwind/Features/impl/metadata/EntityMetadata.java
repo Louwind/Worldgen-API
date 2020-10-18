@@ -68,16 +68,16 @@ public class EntityMetadata implements FeatureMetadata {
         BlockRotation rotation = this.rotation.get(context);
         ServerWorld server = world.toServerWorld();
 
-        int x = blockInfo.pos.getX();
-        int y = blockInfo.pos.getY();
-        int z = blockInfo.pos.getZ();
+        double x = blockInfo.pos.getX();
+        double y = blockInfo.pos.getY();
+        double z = blockInfo.pos.getZ();
 
         compoundTag.putString("id", this.id.toString());
 
         EntityType.getEntityFromTag(compoundTag, server).ifPresent(entity -> {
             float yaw = entity.applyMirror(mirror) + entity.yaw - entity.applyRotation(rotation);
 
-            entity.refreshPositionAndAngles(x, y, z, yaw, entity.pitch);
+            entity.refreshPositionAndAngles(x + 0.5, y, z + 0.5, yaw, entity.pitch);
 
             world.spawnEntityAndPassengers(entity);
         });

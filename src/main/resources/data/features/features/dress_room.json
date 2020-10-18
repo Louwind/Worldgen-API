@@ -1,0 +1,21 @@
+{
+  "start": {
+    "type": "features:start",
+    "pools": [
+      {
+        "type": "features:pool",
+        "pool": "features:dress_rooms",
+        "context": {
+          "type": "features:provider",
+          "rotations": "all"
+        },
+        "entries": [
+          {
+            "type": "features:entry",
+            "structure": "features:dress_rooms/dress_room_01"
+          }
+        ]
+      }
+    ]
+  }
+}

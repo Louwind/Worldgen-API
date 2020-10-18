@@ -34,4 +34,12 @@ public class OptionalTag {
         return new OptionalTag(tag);
     }
 
+    public static OptionalTag of(Tag tag) {
+        return new OptionalTag(OptionalContextParameter.of(tag));
+    }
+
+    public static OptionalTag newCompoundTag() {
+        return OptionalTag.of(new CompoundTag());
+    }
+
 }

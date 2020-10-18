@@ -11,6 +11,8 @@ public class FeaturesItems {
 
     public static final Item BOOKSHELF_DEBUG_STICK = new DebugStickItem(new Identifier("features:bookshelf"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
 
+    public static final Item DRESS_ROOM_DEBUG_STICK = new DebugStickItem(new Identifier("features:dress_room"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
+
     public static final Item KITCHEN_DEBUG_STICK = new DebugStickItem(new Identifier("features:kitchen"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
 
     public static final Item THICK_STRIPPED_SPRUCE_DEBUG_STICK = new DebugStickItem(new Identifier("features:thick_stripped_spruce"), Suppliers.ofInstance(INSTANCE), new Item.Settings());

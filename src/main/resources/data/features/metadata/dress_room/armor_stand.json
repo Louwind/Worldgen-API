@@ -1,0 +1,14 @@
+{
+  "type": "features:entity",
+  "id": "minecraft:armor_stand",
+  "functions": [
+    {
+      "function": "features:set_loot_table",
+      "loot_behavior": "minecraft:armor_stand",
+      "loot_table": "features:structures/dress_room/armor_stand"
+    }
+  ],
+  "rotation": {
+    "parameter": "features:rotation"
+  }
+}
