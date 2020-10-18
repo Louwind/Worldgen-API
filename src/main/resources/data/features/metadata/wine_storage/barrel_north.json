@@ -4,7 +4,7 @@
     {
       "function": "features:set_loot_table",
       "loot_behavior": "minecraft:lootable_container",
-      "loot_table": "features:structures/wine_storage"
+      "loot_table": "features:structures/wine_storage/barrel_and_item_frame"
     }
   ],
   "blockstate": {
