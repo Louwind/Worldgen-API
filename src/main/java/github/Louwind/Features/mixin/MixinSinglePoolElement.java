@@ -64,8 +64,11 @@ public abstract class MixinSinglePoolElement {
 
                         List<FeatureFunction> functions = metadata.getFunctions();
 
-                        for (FeatureFunction function: functions)
-                            function.accept(context);
+                        for (FeatureFunction function: functions) {
+
+                            if(function.test(context))
+                                function.accept(context);
+                        }
 
                     } catch (IllegalAccessException e) {
                         LogManager.getLogger().warn(e);

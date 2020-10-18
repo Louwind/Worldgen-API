@@ -57,8 +57,11 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
                     FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PROVIDER);
                     List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
 
-                    for (FeatureFunction function: functions)
-                        function.accept(pieceContext);
+                    for (FeatureFunction function: functions) {
+
+                        if(function.test(pieceContext))
+                            function.accept(pieceContext);
+                    }
 
                     ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
                     BlockBox box = pieceContext.get(BOX);

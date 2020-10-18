@@ -57,8 +57,11 @@ public class SetEntityNbtFunction implements FeatureFunction {
         ServerWorld server = world.toServerWorld();
         Box box = new Box(blockInfo.pos);
 
-        for (Entity entity : server.getEntitiesByType(this.entityType, box, entity -> true))
-            entity.fromTag(tag);
+        for (Entity entity : server.getEntitiesByType(this.entityType, box, entity -> true)) {
+            CompoundTag compoundTag = entity.toTag(tag);
+
+            entity.fromTag(compoundTag);
+        }
 
     }
 
