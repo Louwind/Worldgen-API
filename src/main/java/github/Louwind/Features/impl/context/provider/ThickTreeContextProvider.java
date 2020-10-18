@@ -1,12 +1,10 @@
 package github.Louwind.Features.impl.context.provider;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.block.sapling.FeaturesThickSaplingGenerator;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
@@ -36,11 +34,6 @@ public class ThickTreeContextProvider extends TreeContextProvider {
         super(rotations, overrides);
 
         this.sapling = sapling;
-    }
-
-    @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, CHUNK_POS, ORIGIN, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD);
     }
 
     @Override

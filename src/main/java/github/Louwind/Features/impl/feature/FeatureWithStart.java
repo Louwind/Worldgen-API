@@ -4,6 +4,7 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
@@ -47,34 +48,40 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
 
         StructureAccessor accessor = server.getStructureAccessor();
         FeatureContextProvider provider = pool.getContextProvider();
-        BlockRotation rotation = provider.getRotations(random);
 
-        try {
-            FeatureContext context = provider.getContext(pool, rotation, world, chunkGenerator, random, blockPos);
+        if(provider instanceof PieceContextProvider) {
+            PieceContextProvider contextProvider = (PieceContextProvider) provider;
+            BlockRotation rotation = contextProvider.getRotations(random);
 
-            List<PoolStructurePiece> pieces = context.get(PIECES);
+            try {
+                FeatureContextBuilder builder = contextProvider.getBuilder(pool, rotation, world, chunkGenerator, random, blockPos);
 
-            return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
-                StructurePoolElement poolElement = piece.getPoolElement();
-                List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
+                FeatureContext context = provider.getContext(builder);
+                List<PoolStructurePiece> pieces = context.get(PIECES);
 
-                FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PROVIDER);
+                return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
+                    StructurePoolElement poolElement = piece.getPoolElement();
+                    List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
 
-                for (FeatureFunction function: functions) {
+                    FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PIECE);
 
-                    if(function.test(pieceContext))
-                        function.accept(pieceContext);
-                }
+                    for (FeatureFunction function: functions) {
 
-                ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
-                BlockBox box = pieceContext.get(BOX);
-                BlockPos pos = pieceContext.get(POS);
+                        if(function.test(pieceContext))
+                            function.accept(pieceContext);
+                    }
 
-                return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
-            }));
+                    ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
+                    BlockBox box = pieceContext.get(BOX);
+                    BlockPos pos = pieceContext.get(POS);
 
-        } catch (IllegalAccessException e) {
-           LOGGER.warn(e);
+                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
+                }));
+
+            } catch (IllegalAccessException e) {
+                LOGGER.warn(e);
+            }
+
         }
 
         return false;

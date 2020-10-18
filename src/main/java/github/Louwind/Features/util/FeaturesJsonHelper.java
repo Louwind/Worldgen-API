@@ -10,7 +10,7 @@ import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.context.provider.GenericContextProvider;
+import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
@@ -84,7 +84,7 @@ public class FeaturesJsonHelper {
     }
 
     public static FeatureContextProvider getContextProvider(JsonObject object, JsonDeserializationContext context, String name) {
-        return JsonHelper.deserialize(object, name, GenericContextProvider.EMPTY, context, FeatureContextProvider.class);
+        return JsonHelper.deserialize(object, name, PieceContextProvider.EMPTY, context, FeatureContextProvider.class);
     }
 
     public static <T> OptionalContextParameter<T> getOptionalContextParameter(JsonObject object, String name, T defaultValue, Function<JsonElement, T> function) {

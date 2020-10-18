@@ -1,13 +1,11 @@
 package github.Louwind.Features.impl.context.provider;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
@@ -32,24 +30,18 @@ import java.util.Set;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class GenericContextProvider implements FeatureContextProvider {
+public class PieceContextProvider implements FeatureContextProvider {
 
-    public static final FeatureContextProvider EMPTY = new GenericContextProvider(new BlockRotation[]{ BlockRotation.NONE });
+    public static final FeatureContextProvider EMPTY = new PieceContextProvider(new BlockRotation[]{ BlockRotation.NONE });
 
     private final List<FeatureContextOverride> overrides;
     private final List<BlockRotation> rotations;
 
-    public GenericContextProvider(BlockRotation[] rotations, FeatureContextOverride ...overrides) {
+    public PieceContextProvider(BlockRotation[] rotations, FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
         this.rotations = Arrays.asList(rotations);
     }
 
-    @Override
-    public Set<FeatureContextParameter<?>> getRequiredParameters() {
-        return ImmutableSet.of(BOX, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, STRUCTURE_POOL, WORLD);
-    }
-
-    @Override
     public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos) {
         StructurePool structurePool = pool.getStructurePool();
 
@@ -77,7 +69,6 @@ public class GenericContextProvider implements FeatureContextProvider {
         return this.overrides;
     }
 
-    @Override
     public BlockRotation getRotations(Random random) {
         int size = this.rotations.size();
         int index = random.nextInt(size);
@@ -87,22 +78,22 @@ public class GenericContextProvider implements FeatureContextProvider {
 
     @Override
     public FeatureContextProviderType getType() {
-        return FeatureContextProviders.PROVIDER;
+        return FeatureContextProviders.PIECE;
     }
 
-    public static class Serializer implements JsonSerializer<GenericContextProvider> {
+    public static class Serializer implements JsonSerializer<PieceContextProvider> {
 
         @Override
-        public void toJson(JsonObject json, GenericContextProvider object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, PieceContextProvider object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public GenericContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
+        public PieceContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
             BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
 
-            return new GenericContextProvider(rotations, overrides);
+            return new PieceContextProvider(rotations, overrides);
         }
 
     }

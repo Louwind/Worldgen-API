@@ -6,7 +6,7 @@ import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.context.provider.GenericContextProvider;
+import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.impl.init.FeaturePools;
 import github.Louwind.Features.mixin.AccessorStructurePools;
 import github.Louwind.Features.pool.FeaturePool;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class GenericFeaturePool implements FeaturePool {
 
-    public static final FeaturePool EMPTY = new GenericFeaturePool(AccessorStructurePools.invalid(), ArrayUtils.toArray(), ArrayUtils.toArray(), GenericContextProvider.EMPTY);
+    public static final FeaturePool EMPTY = new GenericFeaturePool(AccessorStructurePools.invalid(), ArrayUtils.toArray(), ArrayUtils.toArray(), PieceContextProvider.EMPTY);
 
     public static FeaturePool empty(StructurePool structurePool) {
         StructurePool invalid = AccessorStructurePools.invalid();
@@ -29,7 +29,7 @@ public class GenericFeaturePool implements FeaturePool {
         if(structurePool == invalid)
             return EMPTY;
 
-        return new GenericFeaturePool(structurePool, ArrayUtils.toArray(), ArrayUtils.toArray(), GenericContextProvider.EMPTY);
+        return new GenericFeaturePool(structurePool, ArrayUtils.toArray(), ArrayUtils.toArray(), PieceContextProvider.EMPTY);
     }
 
     protected final List<FeatureEntry> entries;

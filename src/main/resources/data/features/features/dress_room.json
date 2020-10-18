@@ -7,7 +7,7 @@
         "type": "features:pool",
         "pool": "features:dress_rooms",
         "context": {
-          "type": "features:provider",
+          "type": "features:piece",
           "rotations": "all"
         }
       }

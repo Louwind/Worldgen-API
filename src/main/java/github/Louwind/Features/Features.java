@@ -28,7 +28,8 @@ public class Features implements ModInitializer {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_GENERATOR_MANAGER);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_METADATA_MANAGER);
 
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:provider"), FeatureContextProviders.PROVIDER);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:piece"), FeatureContextProviders.PIECE);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:metadata"), FeatureContextProviders.METADATA);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
 
