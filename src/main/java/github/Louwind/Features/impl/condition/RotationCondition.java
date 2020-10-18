@@ -7,8 +7,8 @@ import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.condition.FeatureConditionType;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.impl.init.FeatureConditions;
+import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.ROTATION;
@@ -42,8 +42,7 @@ public class RotationCondition implements FeatureCondition {
 
         @Override
         public RotationCondition fromJson(JsonObject json, JsonDeserializationContext context) {
-            String string = JsonHelper.getString(json, "rotation");
-            BlockRotation rotation = BlockRotation.valueOf(string.toUpperCase());
+            BlockRotation rotation = FeaturesJsonHelper.getEnum(json, BlockRotation.class, "rotation");
 
             return new RotationCondition(rotation);
         }
