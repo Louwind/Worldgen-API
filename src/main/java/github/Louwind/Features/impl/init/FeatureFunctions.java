@@ -23,6 +23,8 @@ public class FeatureFunctions {
 
     public static final FeatureFunctionType ROTATE = new FeatureFunctionType(new RotationFunction.Serializer(), builder -> builder.required(PIECE));
 
+    public static final FeatureFunctionType SET_ENTITY_NBT = new FeatureFunctionType(new SetEntityNbtFunction.Serializer(), builder -> builder.required(BLOCK_INFO, WORLD));
+
     public static final FeatureFunctionType SET_LOOT_TABLE = new FeatureFunctionType(new SetLootTableFunction.Serializer(), builder -> builder.required(BLOCK_INFO, RANDOM, WORLD));
 
 }

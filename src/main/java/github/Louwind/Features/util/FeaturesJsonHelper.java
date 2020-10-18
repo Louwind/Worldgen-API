@@ -15,6 +15,7 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.nbt.Tag;
@@ -42,6 +43,12 @@ public class FeaturesJsonHelper {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
         return Registry.BLOCK.get(id);
+    }
+
+    public static EntityType<?> getEntityType(JsonObject object, String name) {
+        Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
+
+        return Registry.ENTITY_TYPE.get(id);
     }
 
     public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name) {
