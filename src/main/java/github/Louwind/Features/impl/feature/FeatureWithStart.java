@@ -7,6 +7,7 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
+import github.Louwind.Features.util.ThrowingPredicate;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -20,6 +21,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Random;
@@ -27,6 +29,8 @@ import java.util.Random;
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     protected final FeatureStart start;
 
@@ -50,34 +54,27 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
 
             List<PoolStructurePiece> pieces = context.get(PIECES);
 
-            // TODO ThrowablePredicate
-            return pieces.stream().allMatch(piece -> {
+            return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
                 StructurePoolElement poolElement = piece.getPoolElement();
+                List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
 
-                try {
-                    FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PROVIDER);
-                    List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
+                FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PROVIDER);
 
-                    for (FeatureFunction function: functions) {
+                for (FeatureFunction function: functions) {
 
-                        if(function.test(pieceContext))
-                            function.accept(pieceContext);
-                    }
-
-                    ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
-                    BlockBox box = pieceContext.get(BOX);
-                    BlockPos pos = pieceContext.get(POS);
-
-                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
-                } catch (IllegalAccessException e) {
-                    LogManager.getLogger().warn(e);
+                    if(function.test(pieceContext))
+                        function.accept(pieceContext);
                 }
 
-                return false;
-            });
+                ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
+                BlockBox box = pieceContext.get(BOX);
+                BlockPos pos = pieceContext.get(POS);
+
+                return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
+            }));
 
         } catch (IllegalAccessException e) {
-            LogManager.getLogger().warn(e);
+           LOGGER.warn(e);
         }
 
         return false;
