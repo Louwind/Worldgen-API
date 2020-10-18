@@ -65,6 +65,10 @@ public class OptionalBlockPos {
         return new OptionalBlockPos(pos);
     }
 
+    public static OptionalBlockPos of(BlockPos pos) {
+        return new OptionalBlockPos(OptionalContextParameter.of(pos));
+    }
+
     public static OptionalBlockPos of(OptionalContextParameter<Integer> x, OptionalContextParameter<Integer> y, OptionalContextParameter<Integer> z) {
         return new OptionalBlockPos(x, y, z);
     }

@@ -21,6 +21,8 @@ public class FeatureFunctions {
 
     public static final FeatureFunctionType PLACE_TRUNK_WITH_LEAVES = new FeatureFunctionType(new PlaceTrunkWithLeavesFunction.Serializer(), builder -> builder.required(HEIGHT, RANDOM, ROOT, WORLD));
 
+    public static final FeatureFunctionType ROTATE_ENTITY = new FeatureFunctionType(new RotateEntityFunction.Serializer(), builder -> builder.required(BLOCK_INFO, FeatureContextParameters.MIRROR, ROTATION, WORLD));
+
     public static final FeatureFunctionType ROTATE = new FeatureFunctionType(new RotationFunction.Serializer(), builder -> builder.required(PIECE));
 
     public static final FeatureFunctionType SET_ENTITY_NBT = new FeatureFunctionType(new SetEntityNbtFunction.Serializer(), builder -> builder.required(BLOCK_INFO, WORLD));

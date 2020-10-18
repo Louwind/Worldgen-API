@@ -131,7 +131,7 @@ public class FeaturesJsonHelper {
 
         }
 
-        return OptionalBlockPos.empty();
+        return OptionalBlockPos.of(BlockPos.ORIGIN);
     }
 
     @SuppressWarnings("unchecked")
@@ -141,6 +141,10 @@ public class FeaturesJsonHelper {
 
     public static OptionalContextParameter<Integer> getOptionalInt(JsonObject object, String name) {
         return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0, JsonElement::getAsInt);
+    }
+
+    public static OptionalContextParameter<Float> getOptionalFloat(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0f, JsonElement::getAsFloat);
     }
 
     public static OptionalContextParameter<BlockRotation> getOptionalRotation(JsonObject object, String name) {
