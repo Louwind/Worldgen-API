@@ -1,0 +1,80 @@
+{
+  "context": {
+    "type": "features:processor",
+    "overrides": [
+      {
+        "type": "features:parameter",
+        "parameter": "features:palette",
+        "from": [
+          {
+            "type": "features:choose_palette",
+            "palettes": [
+              {
+                "rules": [
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:light_gray_concrete"
+                    },
+                    "blockstate": "minecraft:cyan_concrete"
+                  },
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:gray_bed"
+                    },
+                    "blockstate": "minecraft:cyan_bed"
+                  },
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:light_gray_carpet"
+                    },
+                    "blockstate": {
+                      "block": "minecraft:cyan_carpet"
+                    }
+                  }
+                ],
+                "weight": 1
+              },
+              {
+                "rules": [
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:light_gray_concrete"
+                    },
+                    "blockstate": "minecraft:red_concrete"
+                  },
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:gray_bed"
+                    },
+                    "blockstate": "minecraft:red_bed"
+                  },
+                  {
+                    "test": {
+                      "test": "minecraft:block_match",
+                      "block": "minecraft:light_gray_carpet"
+                    },
+                    "blockstate": "minecraft:red_carpet"
+                  }
+                ],
+                "weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "processors": [
+    {
+      "processor": "features:palette",
+      "palette": {
+        "parameter": "features:palette"
+      }
+    }
+  ]
+}

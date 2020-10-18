@@ -1,0 +1,16 @@
+{
+  "start": {
+    "type": "features:start",
+    "start_pool": "features:bedrooms",
+    "pools": [
+      {
+        "type": "features:pool",
+        "pool": "features:bedrooms",
+        "context": {
+          "type": "features:piece",
+          "rotations": "all"
+        }
+      }
+    ]
+  }
+}

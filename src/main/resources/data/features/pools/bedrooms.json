@@ -1,0 +1,15 @@
+{
+  "name": "features:bedrooms",
+  "terminators": "empty",
+  "projection": "rigid",
+  "elements": [
+    {
+      "element": {
+        "type": "minecraft:single",
+        "structure": "features:bedrooms/bedroom_01",
+        "processors": "features:bedroom_palettes"
+      },
+      "weight": 1
+    }
+  ]
+}

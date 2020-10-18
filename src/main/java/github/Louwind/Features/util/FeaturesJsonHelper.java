@@ -15,6 +15,7 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
@@ -286,43 +287,57 @@ public class FeaturesJsonHelper {
         return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessorRule[].class);
     }
 
-    @Deprecated
     public static BlockState getBlockState(JsonObject object, String name) {
-        JsonObject blockstate = object.getAsJsonObject(name);
+        JsonElement element = object.get(name);
 
-        Block block = FeaturesJsonHelper.getBlock(blockstate, "block");
-        BlockState state = block.getDefaultState();
+        if(element.isJsonPrimitive()) {
+            JsonPrimitive primitive = element.getAsJsonPrimitive();
 
-        if(blockstate.has("properties")) {
-            JsonObject properties = JsonHelper.getObject(blockstate, "properties");
-            StateManager<?, ?> manager = block.getStateManager();
+            if(primitive.isString()) {
+                Block block = FeaturesJsonHelper.getBlock(object, name);
 
-            for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
-                Property<?> property = manager.getProperty(entry.getKey());
+                return block.getDefaultState();
+            }
 
-                if(property != null) {
-                    JsonElement element = entry.getValue();
+        } else if(element.isJsonObject()) {
+            JsonObject blockstate = object.getAsJsonObject(name);
 
-                    if(element.isJsonPrimitive()) {
-                        JsonPrimitive primitive = element.getAsJsonPrimitive();
+            Block block = FeaturesJsonHelper.getBlock(blockstate, "block");
+            BlockState state = block.getDefaultState();
 
-                        if(primitive.isString())
-                            state = FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
+            if(blockstate.has("properties")) {
+                JsonObject properties = JsonHelper.getObject(blockstate, "properties");
+                StateManager<?, ?> manager = block.getStateManager();
 
-                        if(primitive.isBoolean())
-                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+                for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
+                    Property<?> property = manager.getProperty(entry.getKey());
 
-                        if(primitive.isNumber())
-                            state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                    if(property != null) {
+                        JsonElement jsonElement = entry.getValue();
+
+                        if(jsonElement.isJsonPrimitive()) {
+                            JsonPrimitive primitive = jsonElement.getAsJsonPrimitive();
+
+                            if(primitive.isString())
+                                state = FeaturesJsonHelper.parsePropertyValue(property, state, primitive.getAsString());
+
+                            if(primitive.isBoolean())
+                                state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsBoolean()));
+
+                            if(primitive.isNumber())
+                                state = FeaturesJsonHelper.parsePropertyValue(property, state, String.valueOf(primitive.getAsInt()));
+                        }
+
                     }
 
                 }
 
             }
 
+            return state;
         }
 
-        return state;
+        return Blocks.AIR.getDefaultState();
     }
 
     @Deprecated
