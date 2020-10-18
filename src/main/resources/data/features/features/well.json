@@ -1,13 +1,14 @@
 {
   "start": {
     "type": "features:start",
+    "start_pool": "features:wells",
     "pools": [
       {
         "type": "features:pool",
         "pool": "features:wells",
         "context": {
           "type": "features:provider",
-          "rotations": "none"
+          "rotations": "all"
         },
         "entries": [
           {

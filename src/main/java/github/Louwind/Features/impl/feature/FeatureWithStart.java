@@ -39,7 +39,7 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
     @Override
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig featureConfig) {
         ServerWorld server = world.toServerWorld();
-        FeaturePool pool = this.start.getRandomPool(random);
+        FeaturePool pool = this.start.getStartPool();
 
         StructureAccessor accessor = server.getStructureAccessor();
         FeatureContextProvider provider = pool.getContextProvider();
@@ -50,6 +50,7 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
 
             List<PoolStructurePiece> pieces = context.get(PIECES);
 
+            // TODO ThrowablePredicate
             return pieces.stream().allMatch(piece -> {
                 StructurePoolElement poolElement = piece.getPoolElement();
 

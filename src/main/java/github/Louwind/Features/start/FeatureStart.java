@@ -5,6 +5,7 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.mixin.AccessorSinglePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import net.minecraft.structure.pool.SinglePoolElement;
+import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
 
@@ -28,12 +29,7 @@ public interface FeatureStart {
 
     List<FeaturePool> getPools();
 
-    default FeaturePool getRandomPool(Random random) {
-        List<FeaturePool> pools = this.getPools();
-        int index = random.nextInt(pools.size());
-
-        return pools.get(index);
-    }
+    FeaturePool getStartPool();
 
     @Deprecated
     default <T> List<T> fromPools(FeaturePool pool, StructurePoolElement poolElement, Function<FeaturePool, List<T>> poolfunction, Function<FeatureEntry, List<T>> entryFunction) {

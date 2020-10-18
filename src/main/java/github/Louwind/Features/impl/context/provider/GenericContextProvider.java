@@ -15,7 +15,6 @@ import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.FeaturesPieceGenerator;
 import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;

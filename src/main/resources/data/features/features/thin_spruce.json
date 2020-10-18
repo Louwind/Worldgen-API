@@ -1,6 +1,7 @@
 {
   "start": {
     "type": "features:start",
+    "start_pool": "features:thin_spruces",
     "pools": [
       {
         "type": "features:pool",

@@ -46,6 +46,7 @@ public interface FeatureContextProvider extends FeatureContextAware {
 
     List<FeatureContextOverride> getContextOverrides();
 
+    @Deprecated
     BlockRotation getRotations(Random random);
 
     FeatureContextProviderType getType();

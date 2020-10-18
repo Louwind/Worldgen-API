@@ -2,10 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "github.Louwind.Features.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_11",
   "mixins": [
     "AccessorStructurePiece",
     "AccessorSinglePoolElement",
+    "AccessorStructurePools",
     "InvokerRuleTest",
     "InvokerStructureProcessor",
     "MixinSinglePoolElement"

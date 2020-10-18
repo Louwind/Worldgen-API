@@ -6,17 +6,31 @@ import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.context.provider.GenericContextProvider;
 import github.Louwind.Features.impl.init.FeaturePools;
+import github.Louwind.Features.mixin.AccessorStructurePools;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.JsonSerializer;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class GenericFeaturePool implements FeaturePool {
+
+    public static final FeaturePool EMPTY = new GenericFeaturePool(AccessorStructurePools.invalid(), ArrayUtils.toArray(), ArrayUtils.toArray(), GenericContextProvider.EMPTY);
+
+    public static FeaturePool empty(StructurePool structurePool) {
+        StructurePool invalid = AccessorStructurePools.invalid();
+
+        if(structurePool == invalid)
+            return EMPTY;
+
+        return new GenericFeaturePool(structurePool, ArrayUtils.toArray(), ArrayUtils.toArray(), GenericContextProvider.EMPTY);
+    }
 
     protected final List<FeatureEntry> entries;
     protected final List<FeatureFunction> functions;
