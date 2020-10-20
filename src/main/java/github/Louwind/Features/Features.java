@@ -88,6 +88,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:entity"), FeatureMetadataTypes.ENTITY);
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:blockstate"), FeatureMetadataTypes.BLOCKSTATE);
 
+        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:context_aware"), FeaturePoolElements.CONTEXT_AWARE);
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:no_update_neighbors"), FeaturePoolElements.NO_UPDATE_NEIGHBORS);
 
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty"), FeaturePoolElements.EMPTY);
@@ -96,8 +97,10 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:list"), FeaturePoolElements.LIST);
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
 
+        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 
+        Registry.register(ITEM, new Identifier("features:bedroom_debug_stick"), FeaturesItems.BEDROOM_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:bookshelf_debug_stick"), FeaturesItems.BOOKSHELF_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:dress_room_debug_stick"), FeaturesItems.DRESS_ROOM_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:kitchen_debug_stick"), FeaturesItems.KITCHEN_DEBUG_STICK);
@@ -115,8 +118,10 @@ public class Features implements ModInitializer {
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lootable_container"), LootBehaviors.LOOTABLE_CONTAINER);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lectern"), LootBehaviors.LECTERN);
 
+        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:context_aware"), StructurePoolElementTypes.CONTEXT_AWARE);
         Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
 
+        Registry.register(STRUCTURE_PROCESSOR, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
     }
 
 }

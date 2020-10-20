@@ -5,14 +5,14 @@
   "elements": [
     {
       "element": {
-        "type": "minecraft:single",
+        "type": "features:context_aware",
         "structure": "features:bedrooms/bedroom_01",
         "processors": [
           {
-            "processor": "minecraft:rule",
-            "rules": [
-
-            ]
+            "processor": "features:rule",
+            "rules": {
+              "parameter": "features:palette"
+            }
           }
         ]
       },

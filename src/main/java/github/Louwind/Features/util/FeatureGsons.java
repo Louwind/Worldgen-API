@@ -114,6 +114,7 @@ public class FeatureGsons {
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(Feature.class, new FeatureDeserializer())
+                .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
                 .registerTypeHierarchyAdapter(FeatureStart.class, FeatureGsons.createFeatureStartSerializer())
                 .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
@@ -121,7 +122,8 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextOverride.class, FeatureGsons.createFeatureContextOverrideSerializer())
-                .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer());
+                .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer())
+                .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer());
     }
 
     public static GsonBuilder getMetadataGsonBuilder() {

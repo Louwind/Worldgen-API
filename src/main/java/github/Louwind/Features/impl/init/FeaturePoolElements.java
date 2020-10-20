@@ -1,5 +1,6 @@
 package github.Louwind.Features.impl.init;
 
+import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.impl.pool.element.NoUpdateNeighborsPoolElement;
 import github.Louwind.Features.impl.pool.element.supplier.*;
 import github.Louwind.Features.impl.pool.element.supplier.EmptyElementSupplier;
@@ -11,6 +12,8 @@ import github.Louwind.Features.pool.element.FeaturePoolElementType;
 import net.minecraft.structure.pool.*;
 
 public class FeaturePoolElements {
+
+    public static final FeaturePoolElementType<ContextAwarePoolElement> CONTEXT_AWARE = new FeaturePoolElementType(new ContextAwarePoolElement.Serializer(), ContextAwarePoolElement.CODEC);
 
     public static final FeaturePoolElementType<EmptyPoolElement> EMPTY = new FeaturePoolElementType(new EmptyElementSupplier.Serializer(), EmptyPoolElement.CODEC);
 

@@ -58,7 +58,7 @@ public class ChoosePaletteContextGetter implements FeatureContextGetter<Structur
         @Override
         public ChoosePaletteContextGetter fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
-            List<StructureProcessorRule[]> palettes = FeaturesJsonHelper.getWeightedList(json, "palette", obj -> FeaturesJsonHelper.getProcessorRules(obj, context, "rules"));
+            List<StructureProcessorRule[]> palettes = FeaturesJsonHelper.getWeightedList(json, "palettes", obj -> FeaturesJsonHelper.getProcessorRules(obj, context, "rules"));
 
             return new ChoosePaletteContextGetter(palettes, conditions);
         }

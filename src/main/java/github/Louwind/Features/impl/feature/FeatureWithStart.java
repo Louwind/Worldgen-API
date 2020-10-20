@@ -5,6 +5,7 @@ import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.PieceContextProvider;
+import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.pool.FeaturePool;
@@ -74,6 +75,12 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
                     ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
                     BlockBox box = pieceContext.get(BOX);
                     BlockPos pos = pieceContext.get(POS);
+
+                    if(poolElement instanceof ContextAwarePoolElement) {
+                        ContextAwarePoolElement element = (ContextAwarePoolElement) poolElement;
+
+                        element.setContext(pieceContext);
+                    }
 
                     return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
                 }));

@@ -9,6 +9,8 @@ import static net.minecraft.world.gen.feature.DefaultFeatureConfig.INSTANCE;
 
 public class FeaturesItems {
 
+    public static final Item BEDROOM_DEBUG_STICK = new DebugStickItem(new Identifier("features:bedroom"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
+
     public static final Item BOOKSHELF_DEBUG_STICK = new DebugStickItem(new Identifier("features:bookshelf"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
 
     public static final Item DRESS_ROOM_DEBUG_STICK = new DebugStickItem(new Identifier("features:dress_room"), Suppliers.ofInstance(INSTANCE), new Item.Settings());
