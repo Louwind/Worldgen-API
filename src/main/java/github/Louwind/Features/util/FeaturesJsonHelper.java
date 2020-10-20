@@ -1,5 +1,6 @@
 package github.Louwind.Features.util;
 
+import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import github.Louwind.Features.condition.FeatureCondition;
@@ -33,10 +34,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class FeaturesJsonHelper {
 
@@ -351,6 +352,26 @@ public class FeaturesJsonHelper {
         }
 
         return state;
+    }
+
+    public static <T> List<T> getWeightedList(JsonObject object, String name, Function<JsonObject, T> function) {
+
+        if(object.has(name)) {
+            JsonArray array = JsonHelper.getArray(object, name);
+
+            return StreamSupport.stream(array.spliterator(), false)
+                    .map(JsonElement::getAsJsonObject)
+                    .map(obj -> {
+                        T t = function.apply(obj);
+                        int weight = JsonHelper.getInt(obj, "weight");
+
+                        return Collections.nCopies(weight, t);
+                    })
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        }
+
+        return Lists.newArrayList();
     }
 
 }

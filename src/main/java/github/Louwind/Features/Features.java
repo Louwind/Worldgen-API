@@ -38,6 +38,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
 
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:addition"), FeatureContextGetters.ADDITION);
+        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:choose_palette"), FeatureContextGetters.CHOOSE_PALETTE);
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:multiply"), FeatureContextGetters.MULTIPLY);
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED);
 
@@ -62,6 +63,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:mirror"), FeatureContextParameters.MIRROR);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:palette"), FeatureContextParameters.PALETTE);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pos"), FeatureContextParameters.POS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:random"), FeatureContextParameters.RANDOM);

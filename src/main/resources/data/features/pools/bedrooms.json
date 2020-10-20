@@ -7,7 +7,14 @@
       "element": {
         "type": "minecraft:single",
         "structure": "features:bedrooms/bedroom_01",
-        "processors": "features:bedroom_palettes"
+        "processors": [
+          {
+            "processor": "minecraft:rule",
+            "rules": [
+
+            ]
+          }
+        ]
       },
       "weight": 1
     }

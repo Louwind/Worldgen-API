@@ -4,6 +4,7 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -39,6 +40,8 @@ public class FeatureContextParameters {
     public static final FeatureContextParameter<BlockMirror> MIRROR = new FeatureContextParameter<>(new Identifier("features:mirror"));
 
     public static final FeatureContextParameter<BlockPos> ORIGIN = new FeatureContextParameter<>(new Identifier("features:origin"));
+
+    public static final FeatureContextParameter<StructureProcessorRule[]> PALETTE = new FeatureContextParameter<>(new Identifier("features:palette"));
 
     public static final FeatureContextParameter<List<PoolStructurePiece>> PIECES = new FeatureContextParameter<>(new Identifier("features:pieces"));
 
