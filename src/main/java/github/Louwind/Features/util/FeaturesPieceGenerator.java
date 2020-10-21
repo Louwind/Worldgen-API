@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.List;
 import java.util.Random;
@@ -28,14 +29,9 @@ public class FeaturesPieceGenerator {
 
         List<PoolStructurePiece> pieces = Lists.newArrayList();
 
-        StructurePoolElement poolElement = pool.getRandomElement(random);
-        int level = blockPos.getY();
+        StructurePoolFeatureConfig config = new StructurePoolFeatureConfig(() -> pool, Integer.MAX_VALUE);
 
-        PoolStructurePiece piece = pieceFactory.create(structureManager, poolElement, blockPos, level, rotation, BlockBox.infinite());
-
-        StructurePoolBasedGenerator.method_27230(registryManager, piece, Integer.MAX_VALUE, pieceFactory, chunkGenerator, structureManager, pieces, random);
-
-        pieces.add(piece);
+        StructurePoolBasedGenerator.method_30419(registryManager, config, pieceFactory, chunkGenerator, structureManager, blockPos, pieces, random, true, false);
 
         return pieces;
     }
