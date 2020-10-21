@@ -9,7 +9,8 @@
     "AccessorStructurePools",
     "InvokerRuleTest",
     "InvokerStructureProcessor",
-    "MixinSinglePoolElement"
+    "MixinSinglePoolElement",
+    "MixinStructurePoolBasedGenerator"
   ],
   "client": [
   ],
