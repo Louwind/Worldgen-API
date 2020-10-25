@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_POOL;
 
-public class StructurePoolManager extends JsonReloadListener<StructurePool> {
+public class StructurePoolManager extends JsonReloadListener {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
     private static final Logger LOGGER = LogManager.getLogger();

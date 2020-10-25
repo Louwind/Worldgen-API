@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public abstract class JsonReloadListener<T> extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>> {
+public abstract class JsonReloadListener extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>> {
 
     public JsonReloadListener(Gson gson, String dataType) {
         super(gson, dataType);

@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-public abstract class SimpleJsonReloadListener<T> extends JsonReloadListener<T> {
+public abstract class SimpleJsonReloadListener<T> extends JsonReloadListener {
 
     protected static final Logger LOGGER = LogManager.getLogger();
 
