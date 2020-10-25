@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 
 import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_PROCESSOR_LIST;
 
-public class StructureProcessorManager extends JsonReloadListener<StructureProcessorList>  {
+public class StructureProcessorManager extends SimpleJsonReloadListener<StructureProcessorList>  {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
 

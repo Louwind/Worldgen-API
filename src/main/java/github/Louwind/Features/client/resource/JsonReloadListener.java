@@ -7,30 +7,15 @@ import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public abstract class JsonReloadListener<T> extends JsonDataLoader implements SimpleResourceReloadListener<Map<Identifier, JsonElement>> {
 
-    protected static final Logger LOGGER = LogManager.getLogger();
-
-    protected final Gson gson;
-    protected final Type type;
-    protected final Registry<T> registry;
-
-    public JsonReloadListener(Gson gson, Type clazz, Registry<T> registry, String dataType) {
+    public JsonReloadListener(Gson gson, String dataType) {
         super(gson, dataType);
-
-        this.type = clazz;
-        this.gson = gson;
-        this.registry = registry;
     }
 
     @Override
@@ -43,32 +28,6 @@ public abstract class JsonReloadListener<T> extends JsonDataLoader implements Si
     @Override
     public CompletableFuture<Void> apply(Map<Identifier, JsonElement> loader, ResourceManager resourceManager, Profiler profiler, Executor executor) {
         return CompletableFuture.runAsync(() -> this.apply(loader, resourceManager, profiler));
-    }
-
-    @Override
-    protected void apply(Map<Identifier, JsonElement> loader, ResourceManager manager, Profiler profiler) {
-
-        loader.forEach((id, jsonElement) -> {
-
-            try {
-                T t = this.gson.fromJson(jsonElement, this.type);
-
-                if(!this.registry.containsId(id))
-                    BuiltinRegistries.add(this.registry, id, t);
-                else {
-                    int rawId = this.registry.getRawId(t);
-
-                    this.registry.getKey(t).ifPresent(key -> {
-                        BuiltinRegistries.set(this.registry, rawId, key, t);
-                    });
-                }
-
-            } catch (Exception exception) {
-                LOGGER.error("Couldn't parse json {}", id, exception);
-            }
-
-        });
-
     }
 
 }

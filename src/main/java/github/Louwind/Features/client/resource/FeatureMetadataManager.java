@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 
 import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_METADATA;
 
-public class FeatureMetadataManager extends JsonReloadListener<FeatureMetadata> {
+public class FeatureMetadataManager extends SimpleJsonReloadListener<FeatureMetadata> {
 
     private static final Gson GSON = FeatureGsons.getMetadataGsonBuilder().create();
 

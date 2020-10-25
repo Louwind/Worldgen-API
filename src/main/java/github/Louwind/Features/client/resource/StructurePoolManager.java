@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 
 import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_POOL;
 
-public class StructurePoolManager extends JsonReloadListener<StructurePool> {
+public class StructurePoolManager extends SimpleJsonReloadListener<StructurePool> {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
 

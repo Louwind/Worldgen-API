@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
 
-public class FeatureManager extends JsonReloadListener<Feature<?>> {
+public class FeatureManager extends SimpleJsonReloadListener<Feature<?>> {
 
     private static final Gson GSON = FeatureGsons.getFeatureGsonBuilder().create();
 
