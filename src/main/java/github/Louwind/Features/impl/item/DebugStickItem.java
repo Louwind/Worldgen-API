@@ -7,32 +7,26 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 import java.util.Random;
-import java.util.function.Supplier;
 
 /**
  * An item that generates a {@link FeatureWithStart} when you right-click a block
  * */
-public class DebugStickItem<T extends FeatureConfig> extends Item {
+public class DebugStickItem extends Item {
 
-    private final Supplier<T> featureConfig;
     private final Identifier identifier;
 
-    public DebugStickItem(Identifier identifier, Supplier<T> featureConfig, Settings settings) {
+    public DebugStickItem(Identifier identifier, Settings settings) {
         super(settings);
 
-        this.featureConfig = featureConfig;
         this.identifier = identifier;
     }
 
-
-    @SuppressWarnings("unchecked")
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         BlockPos pos = context.getBlockPos();
@@ -44,10 +38,10 @@ public class DebugStickItem<T extends FeatureConfig> extends Item {
             ServerWorld server = (ServerWorld) world;
             ChunkGenerator chunkGenerator = server.getChunkManager().getChunkGenerator();
 
-            if(Registry.FEATURE.containsId(this.identifier)) {
-                Feature<T> feature = (Feature<T>) Registry.FEATURE.get(this.identifier);
+            if(BuiltinRegistries.CONFIGURED_FEATURE.containsId(this.identifier)) {
+                ConfiguredFeature<?, ?> feature = BuiltinRegistries.CONFIGURED_FEATURE.get(this.identifier);
 
-                if(feature != null && feature.generate(server, chunkGenerator, random, pos.up(), this.featureConfig.get()))
+                if(feature != null && feature.generate(server, chunkGenerator, random, pos.up()))
                     return ActionResult.CONSUME;
             }
 

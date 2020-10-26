@@ -5,11 +5,12 @@ import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.PieceContextProvider;
-import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
-import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
+import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
+import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.util.ThrowingPredicate;
+import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -20,7 +21,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,20 +30,20 @@ import java.util.Random;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
+public class FeatureWithStart extends Feature<JigsawFeatureConfig> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final FeatureStart start;
 
     public FeatureWithStart(FeatureStart start) {
-        super(DefaultFeatureConfig.CODEC);
+        super(JigsawFeatureConfig.CODEC);
 
         this.start = start;
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig featureConfig) {
+    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, JigsawFeatureConfig featureConfig) {
         ServerWorld server = world.toServerWorld();
         FeaturePool pool = this.start.getStartPool();
 
@@ -55,7 +55,7 @@ public class FeatureWithStart extends Feature<DefaultFeatureConfig> {
             BlockRotation rotation = contextProvider.getRotations(random);
 
             try {
-                FeatureContextBuilder builder = contextProvider.getBuilder(pool, rotation, world, chunkGenerator, random, blockPos);
+                FeatureContextBuilder builder = contextProvider.getBuilder(featureConfig, rotation, world, chunkGenerator, random, blockPos);
 
                 FeatureContext context = provider.getContext(builder);
                 List<PoolStructurePiece> pieces = context.get(PIECES);

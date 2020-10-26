@@ -9,11 +9,10 @@ import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
-import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.FeaturesPieceGenerator;
+import github.Louwind.Features.util.JigsawPieceGenerator;
+import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
 import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockBox;
@@ -22,6 +21,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,14 +42,12 @@ public class PieceContextProvider implements FeatureContextProvider {
         this.rotations = Arrays.asList(rotations);
     }
 
-    public FeatureContextBuilder getBuilder(FeaturePool pool, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos) {
-        StructurePool structurePool = pool.getStructurePool();
-
+    public FeatureContextBuilder getBuilder(JigsawFeatureConfig config, BlockRotation rotation, StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos) {
         Chunk chunk = world.getChunk(pos);
         ChunkPos chunkPos = chunk.getPos();
         Set<BlockPos> root = Sets.newHashSet(pos);
 
-        List<PoolStructurePiece> pieces = FeaturesPieceGenerator.getPieces(world, structurePool, rotation, chunkGenerator, random, pos);
+        List<PoolStructurePiece> pieces = JigsawPieceGenerator.getPieces(world, config, chunkGenerator, random, pos);
 
         return new FeatureContextBuilder()
                 .put(BOX, BlockBox.infinite())
@@ -60,7 +58,6 @@ public class PieceContextProvider implements FeatureContextProvider {
                 .put(RANDOM, random)
                 .put(ROOT, root)
                 .put(ROTATION, rotation)
-                .put(STRUCTURE_POOL, structurePool)
                 .put(WORLD, world);
     }
 

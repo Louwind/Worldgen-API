@@ -55,8 +55,6 @@ public class FeatureContextParameters {
 
     public static final FeatureContextParameter<BlockRotation> ROTATION = new FeatureContextParameter<>(new Identifier("features:rotation"));
 
-    public static final FeatureContextParameter<StructurePool> STRUCTURE_POOL = new FeatureContextParameter<>(new Identifier("features:structure_pool"));
-
     public static final FeatureContextParameter<Integer> TRUNKS = new FeatureContextParameter<>(new Identifier("features:trunks"));
 
     public static final FeatureContextParameter<StructureWorldAccess> WORLD = new FeatureContextParameter<>(new Identifier("features:world"));
