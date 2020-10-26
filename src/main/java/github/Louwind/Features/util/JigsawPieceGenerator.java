@@ -1,7 +1,7 @@
 package github.Louwind.Features.util;
 
 import com.google.common.collect.Lists;
-import github.Louwind.Features.world.structure.FeaturesStructurePiece;
+import github.Louwind.Features.world.structure.JigsawStructurePiece;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
@@ -31,7 +31,7 @@ public class JigsawPieceGenerator {
     }
 
     public static List<PoolStructurePiece> getPieces(StructureWorldAccess world, StructurePoolFeatureConfig config, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos) {
-        return JigsawPieceGenerator.getPieces(world, config, FeaturesStructurePiece::new, chunkGenerator, random, blockPos);
+        return JigsawPieceGenerator.getPieces(world, config, JigsawStructurePiece::new, chunkGenerator, random, blockPos);
     }
 
 }

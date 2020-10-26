@@ -9,17 +9,17 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class FeaturesStructurePiece extends PoolStructurePiece {
+public class JigsawStructurePiece extends PoolStructurePiece {
 
     private BlockRotation rotation;
 
-    public FeaturesStructurePiece(StructureManager structureManager, StructurePoolElement structurePoolElement, BlockPos blockPos, int i, BlockRotation blockRotation, BlockBox blockBox) {
+    public JigsawStructurePiece(StructureManager structureManager, StructurePoolElement structurePoolElement, BlockPos blockPos, int i, BlockRotation blockRotation, BlockBox blockBox) {
         super(structureManager, structurePoolElement, blockPos, i, blockRotation, blockBox);
 
         this.rotation = blockRotation;
     }
 
-    public FeaturesStructurePiece(StructureManager manager, CompoundTag tag) {
+    public JigsawStructurePiece(StructureManager manager, CompoundTag tag) {
         super(manager, tag);
 
         this.rotation = BlockRotation.valueOf(tag.getString("rotation"));
