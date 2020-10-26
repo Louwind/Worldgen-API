@@ -3,6 +3,7 @@ package github.Louwind.Features.client.resource;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import github.Louwind.Features.util.FeatureGsons;
+import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
@@ -15,12 +16,12 @@ import java.util.Map;
 
 import static net.minecraft.util.registry.BuiltinRegistries.STRUCTURE_POOL;
 
-public class StructurePoolManager extends JsonReloadListener {
+public class StructurePoolReloadListener extends JsonReloadListener {
 
     private static final Gson GSON = FeatureGsons.getProcessorGsonBuilder().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public StructurePoolManager() {
+    public StructurePoolReloadListener() {
         super(GSON, "pools");
     }
 

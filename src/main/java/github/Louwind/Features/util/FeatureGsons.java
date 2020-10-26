@@ -134,4 +134,8 @@ public class FeatureGsons {
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 
+    public static GsonBuilder getStructureFeatureGsonBuilder() {
+        return new GsonBuilder();
+    }
+
 }
