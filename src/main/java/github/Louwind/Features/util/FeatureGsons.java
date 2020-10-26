@@ -7,9 +7,8 @@ import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.metadata.FeatureMetadata;
-import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
+import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.mixin.InvokerRuleTest;
 import github.Louwind.Features.mixin.InvokerStructureProcessor;
 import github.Louwind.Features.pool.FeaturePool;
@@ -17,7 +16,6 @@ import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
-import github.Louwind.Features.util.deserializer.FeatureDeserializer;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
@@ -28,7 +26,6 @@ import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.JsonSerializing;
-import net.minecraft.world.gen.feature.Feature;
 
 public class FeatureGsons {
 
@@ -71,10 +68,6 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_ENTRY_TYPE, "type", "type", FeatureEntry::getType).createGsonSerializer();
     }
 
-    private static Object createFeatureStartSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_START_TYPE, "type", "type", FeatureStart::getType).createGsonSerializer();
-    }
-
     private static Object createFeatureContextGetterSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONTEXT_GETTER_TYPE, "type", "type", FeatureContextGetter::getType).createGsonSerializer();
     }
@@ -113,9 +106,7 @@ public class FeatureGsons {
 
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
-                .registerTypeAdapter(Feature.class, new FeatureDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
-                .registerTypeHierarchyAdapter(FeatureStart.class, FeatureGsons.createFeatureStartSerializer())
                 .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())

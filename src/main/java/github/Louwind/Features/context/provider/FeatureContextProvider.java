@@ -3,12 +3,11 @@ package github.Louwind.Features.context.provider;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.override.FeatureContextOverride;
-import github.Louwind.Features.impl.feature.FeatureWithStart;
 
 import java.util.List;
 
 /**
- * Provides a context according to the variables when a {@link FeatureWithStart}
+ * Provides a context according to the variables when a feature
  * it's been generated. Also Overrides all values required in {@code FeatureContextProvider::getContext}
  *
  * */

@@ -1,6 +1,5 @@
 package github.Louwind.Features.impl.item;
 
-import github.Louwind.Features.impl.feature.FeatureWithStart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.world.ServerWorld;
@@ -15,7 +14,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import java.util.Random;
 
 /**
- * An item that generates a {@link FeatureWithStart} when you right-click a block
+ * An item that generates a feature when you right-click a block
  * */
 public class DebugStickItem extends Item {
 

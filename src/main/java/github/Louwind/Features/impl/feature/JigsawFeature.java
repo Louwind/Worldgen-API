@@ -6,13 +6,14 @@ import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
+import github.Louwind.Features.impl.pool.GenericFeaturePool;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
-import github.Louwind.Features.start.FeatureStart;
 import github.Louwind.Features.util.ThrowingPredicate;
 import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockBox;
@@ -30,25 +31,31 @@ import java.util.Random;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
-public class FeatureWithStart extends Feature<JigsawFeatureConfig> {
+public class JigsawFeature extends Feature<JigsawFeatureConfig> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    protected final FeatureStart start;
+    protected final List<FeaturePool> pools;
 
-    public FeatureWithStart(FeatureStart start) {
+    public JigsawFeature(List<FeaturePool> pools) {
         super(JigsawFeatureConfig.CODEC);
 
-        this.start = start;
+        this.pools = pools;
     }
 
     @Override
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, JigsawFeatureConfig featureConfig) {
         ServerWorld server = world.toServerWorld();
-        FeaturePool pool = this.start.getStartPool();
 
+        StructurePool structurePool = featureConfig.getStartPool().get();
         StructureAccessor accessor = server.getStructureAccessor();
-        FeatureContextProvider provider = pool.getContextProvider();
+
+        FeaturePool featurePool = this.pools.stream()
+                .filter(pool -> pool.getStructurePool() == structurePool)
+                .findFirst()
+                .orElse(GenericFeaturePool.EMPTY);
+
+        FeatureContextProvider provider = featurePool.getContextProvider();
 
         if(provider instanceof PieceContextProvider) {
             PieceContextProvider contextProvider = (PieceContextProvider) provider;
@@ -62,7 +69,7 @@ public class FeatureWithStart extends Feature<JigsawFeatureConfig> {
 
                 return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
                     StructurePoolElement poolElement = piece.getPoolElement();
-                    List<FeatureFunction> functions = this.start.getFunctions(pool, poolElement);
+                    List<FeatureFunction> functions = featurePool.getFunctions(poolElement);
 
                     FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PIECE);
 

@@ -33,7 +33,6 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
 
-        Registry.register(FEATURE_START_TYPE, new Identifier("features:start"), FeatureStarts.START);
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
 

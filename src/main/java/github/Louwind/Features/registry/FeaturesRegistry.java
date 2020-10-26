@@ -9,15 +9,13 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.loot.LootBehavior;
-import github.Louwind.Features.metadata.FeatureMetadataType;
-import github.Louwind.Features.start.FeatureStartType;
 import github.Louwind.Features.metadata.FeatureMetadata;
+import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.pool.FeaturePoolType;
 import github.Louwind.Features.pool.element.FeaturePoolElementType;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.SimpleRegistry;
 
@@ -36,8 +34,6 @@ public class FeaturesRegistry {
     public static final SimpleRegistry<FeatureEntryType> FEATURE_ENTRY_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:entries")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureFunctionType> FEATURE_FUNCTION_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:function")), Lifecycle.experimental());
-
-    public static final SimpleRegistry<FeatureStartType> FEATURE_START_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:generator")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureMetadata> FEATURE_METADATA = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier("features:metadata")), Lifecycle.experimental());
 
