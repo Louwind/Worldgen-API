@@ -32,27 +32,13 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
             Codec.intRange(0, Integer.MAX_VALUE).fieldOf("size").forGetter(JigsawFeatureConfig::getSize))
             .apply(instance, JigsawFeatureConfig::new));
 
-    protected final boolean keepJigsaws;
-    protected final boolean surface;
-
     public JigsawFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int size) {
-        super(startPool, rotations, size);
-
-        this.keepJigsaws = keepJigsaws;
-        this.surface = surface;
-    }
-
-    public boolean getKeepJigsaws() {
-        return this.keepJigsaws;
+        super(startPool, rotations, keepJigsaws, surface, size);
     }
 
     @Override
     public FeatureConfigType getType() {
         return FeatureConfigTypes.JIGSAW;
-    }
-
-    public boolean isSurface() {
-        return this.surface;
     }
 
     public static class Serializer implements JsonSerializer<JigsawFeatureConfig> {

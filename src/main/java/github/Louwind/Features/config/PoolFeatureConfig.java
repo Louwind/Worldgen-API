@@ -10,15 +10,27 @@ import java.util.function.Supplier;
 public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
 
     protected final List<BlockRotation> rotations;
+    protected final boolean keepJigsaws;
+    protected final boolean surface;
 
-    public PoolFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, int size) {
+    public PoolFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int size) {
         super(startPool, size);
 
+        this.keepJigsaws = keepJigsaws;
         this.rotations = rotations;
+        this.surface = surface;
     }
 
     public List<BlockRotation> getRotations() {
         return this.rotations;
+    }
+
+    public boolean getKeepJigsaws() {
+        return this.keepJigsaws;
+    }
+
+    public boolean isSurface() {
+        return this.surface;
     }
 
     public abstract FeatureConfigType getType();
