@@ -53,6 +53,8 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
         Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:tag_match"), FeatureRuleTests.TAG_MATCH);
 
+        Registry.register(FEATURE_CONFIG_TYPE, new Identifier("features:jigsaw"), FeatureConfigTypes.JIGSAW);
+
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:alternatives"), FeatureConditions.ALTERNATIVES);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:inverted"), FeatureConditions.INVERTED);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:none"), FeatureConditions.NONE);

@@ -10,7 +10,7 @@ import github.Louwind.Features.impl.block.sapling.FeaturesThickSaplingGenerator;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.JigsawPieceGenerator;
-import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
+import github.Louwind.Features.impl.config.JigsawFeatureConfig;
 import net.minecraft.block.Block;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.BlockRotation;
@@ -18,7 +18,6 @@ import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.List;
 import java.util.Random;

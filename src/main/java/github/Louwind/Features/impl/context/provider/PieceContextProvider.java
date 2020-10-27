@@ -11,7 +11,7 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.JigsawPieceGenerator;
-import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
+import github.Louwind.Features.impl.config.JigsawFeatureConfig;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;

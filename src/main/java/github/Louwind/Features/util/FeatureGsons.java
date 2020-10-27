@@ -2,6 +2,7 @@ package github.Louwind.Features.util;
 
 import com.google.gson.GsonBuilder;
 import github.Louwind.Features.condition.FeatureCondition;
+import github.Louwind.Features.config.FeaturesConfig;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
@@ -84,6 +85,10 @@ public class FeatureGsons {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONDITION_TYPE, "condition", "condition", FeatureCondition::getType).createGsonSerializer();
     }
 
+    private static Object createFeatureConfigSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONFIG_TYPE, "condition", "condition", FeaturesConfig::getType).createGsonSerializer();
+    }
+
     private static Object createFeatureFunctionSerializer() {
         return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_FUNCTION_TYPE, "function", "function", FeatureFunction::getType).createGsonSerializer();
     }
@@ -107,10 +112,11 @@ public class FeatureGsons {
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
-                .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
-                .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
+                .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer())
+                .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
+                .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextGetter.class, FeatureGsons.createFeatureContextGetterSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextOverride.class, FeatureGsons.createFeatureContextOverrideSerializer())
                 .registerTypeHierarchyAdapter(FeatureContextProvider.class, FeatureGsons.createFeatureContextProviderSerializer())

@@ -2,6 +2,7 @@ package github.Louwind.Features.registry;
 
 import com.mojang.serialization.Lifecycle;
 import github.Louwind.Features.condition.FeatureConditionType;
+import github.Louwind.Features.config.FeatureConfigType;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.context.override.FeatureContextOverrideType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
@@ -22,6 +23,8 @@ import net.minecraft.util.registry.SimpleRegistry;
 public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureConditionType> FEATURE_CONDITION_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:condition")), Lifecycle.experimental());
+
+    public static final SimpleRegistry<FeatureConfigType> FEATURE_CONFIG_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:config")), Lifecycle.experimental());
 
     public static final SimpleRegistry<FeatureContextGetterType> FEATURE_CONTEXT_GETTER_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:getter")), Lifecycle.experimental());
 

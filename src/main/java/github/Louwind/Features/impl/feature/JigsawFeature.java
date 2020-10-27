@@ -10,7 +10,7 @@ import github.Louwind.Features.impl.pool.GenericFeaturePool;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.ThrowingPredicate;
-import github.Louwind.Features.world.gen.feature.JigsawFeatureConfig;
+import github.Louwind.Features.impl.config.JigsawFeatureConfig;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.pool.StructurePool;
