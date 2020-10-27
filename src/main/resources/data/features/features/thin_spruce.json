@@ -1,55 +1,52 @@
 {
-  "start": {
-    "type": "features:start",
-    "start_pool": "features:thin_spruces",
-    "pools": [
-      {
-        "type": "features:pool",
-        "pool": "features:thin_spruces",
-        "context": {
-          "type": "features:tree",
-          "rotations": "none",
-          "overrides": [
-            {
-              "type": "features:parameter",
-              "parameter": "features:height",
-              "from": [
-                {
-                  "type": "features:ranged",
-                  "range": {
-                    "min": 4,
-                    "max": 8
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "functions": [
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:thin_spruces",
+      "context": {
+        "type": "features:tree",
+        "rotations": "none",
+        "overrides": [
           {
-            "function": "features:place_trunk",
-            "block": "minecraft:stripped_spruce_log"
-          }
-        ],
-        "entries": [
-          {
-            "type": "features:entry",
-            "structure": "features:thin_spruces/crown_01",
-            "functions": [
+            "type": "features:parameter",
+            "parameter": "features:height",
+            "from": [
               {
-                "function": "features:offset",
-                "offset": {
-                  "x": -1,
-                  "y": {
-                    "parameter": "features:height"
-                  },
-                  "z": -1
+                "type": "features:ranged",
+                "range": {
+                  "min": 4,
+                  "max": 8
                 }
               }
             ]
           }
         ]
-      }
-    ]
-  }
+      },
+      "functions": [
+        {
+          "function": "features:place_trunk",
+          "block": "minecraft:stripped_spruce_log"
+        }
+      ],
+      "entries": [
+        {
+          "type": "features:entry",
+          "structure": "features:thin_spruces/crown_01",
+          "functions": [
+            {
+              "function": "features:offset",
+              "offset": {
+                "x": -1,
+                "y": {
+                  "parameter": "features:height"
+                },
+                "z": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

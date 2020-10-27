@@ -1,56 +1,53 @@
 {
-  "start": {
-    "type": "features:start",
-    "start_pool": "features:thick_stripped_spruces",
-    "pools": [
-      {
-        "type": "features:pool",
-        "pool": "features:thick_stripped_spruces",
-        "context": {
-          "type": "features:thick_tree",
-          "sapling": "minecraft:spruce_sapling",
-          "rotations": "none",
-          "overrides": [
-            {
-              "type": "features:parameter",
-              "parameter": "features:height",
-              "from": [
-                {
-                  "type": "features:ranged",
-                  "range": {
-                    "min": 6,
-                    "max": 10
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "functions": [
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:thick_stripped_spruces",
+      "context": {
+        "type": "features:thick_tree",
+        "sapling": "minecraft:spruce_sapling",
+        "rotations": "none",
+        "overrides": [
           {
-            "function": "features:place_trunk",
-            "block": "minecraft:stripped_spruce_log"
-          }
-        ],
-        "entries": [
-          {
-            "type": "features:entry",
-            "structure": "features:thick_stripped_spruces/crown_01",
-            "functions": [
+            "type": "features:parameter",
+            "parameter": "features:height",
+            "from": [
               {
-                "function": "features:offset",
-                "offset": {
-                  "x": -1,
-                  "y": {
-                    "parameter": "features:height"
-                  },
-                  "z": -1
+                "type": "features:ranged",
+                "range": {
+                  "min": 6,
+                  "max": 10
                 }
               }
             ]
           }
         ]
-      }
-    ]
-  }
+      },
+      "functions": [
+        {
+          "function": "features:place_trunk",
+          "block": "minecraft:stripped_spruce_log"
+        }
+      ],
+      "entries": [
+        {
+          "type": "features:entry",
+          "structure": "features:thick_stripped_spruces/crown_01",
+          "functions": [
+            {
+              "function": "features:offset",
+              "offset": {
+                "x": -1,
+                "y": {
+                  "parameter": "features:height"
+                },
+                "z": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -1,16 +1,13 @@
 {
-  "start": {
-    "type": "features:start",
-    "start_pool": "features:wine_storages",
-    "pools": [
-      {
-        "type": "features:pool",
-        "pool": "features:wine_storages",
-        "context": {
-          "type": "features:piece",
-          "rotations": "all"
-        }
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:wine_storages",
+      "context": {
+        "type": "features:piece",
+        "rotations": "all"
       }
-    ]
-  }
+    }
+  ]
 }

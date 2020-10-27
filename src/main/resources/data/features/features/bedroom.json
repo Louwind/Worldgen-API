@@ -1,170 +1,32 @@
 {
-  "start": {
-    "type": "features:start",
-    "start_pool": "features:bedrooms",
-    "pools": [
-      {
-        "type": "features:pool",
-        "pool": "features:bedrooms",
-        "context": {
-          "type": "features:piece",
-          "rotations": "all",
-          "overrides": [
-            {
-              "type": "features:parameter",
-              "parameter": "features:palette",
-              "from": [
-                {
-                  "type": "features:choose_palette",
-                  "palettes": [
-                    {
-                      "rules": [
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_concrete"
-                          },
-                          "blockstate": "minecraft:cyan_concrete"
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:bedrooms",
+      "context": {
+        "type": "features:piece",
+        "rotations": "all",
+        "overrides": [
+          {
+            "type": "features:parameter",
+            "parameter": "features:palette",
+            "from": [
+              {
+                "type": "features:choose_palette",
+                "palettes": [
+                  {
+                    "rules": [
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_concrete"
                         },
-                        {
-                          "test": {
-                            "test": "minecraft:blockstate_match",
-                            "blockstate": {
-                              "block": "minecraft:gray_bed",
-                              "properties": {
-                                "part": "head"
-                              }
-                            }
-                          },
-                          "blockstate": {
-                            "block": "minecraft:cyan_bed",
-                            "properties": {
-                              "part": "head"
-                            }
-                          }
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:gray_bed"
-                          },
-                          "blockstate": "minecraft:cyan_bed"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_carpet"
-                          },
-                          "blockstate": "minecraft:cyan_carpet"
-                        }
-                      ],
-                      "weight": 1
-                    },
-                    {
-                      "rules": [
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_concrete"
-                          },
-                          "blockstate": "minecraft:red_concrete"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:blockstate_match",
-                            "blockstate": {
-                              "block": "minecraft:gray_bed",
-                              "properties": {
-                                "part": "head"
-                              }
-                            }
-                          },
-                          "blockstate": {
-                            "block": "minecraft:red_bed",
-                            "properties": {
-                              "part": "head"
-                            }
-                          }
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:gray_bed"
-                          },
-                          "blockstate": "minecraft:red_bed"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_carpet"
-                          },
-                          "blockstate": "minecraft:red_carpet"
-                        }
-                      ],
-                      "weight": 1
-                    },
-                    {
-                      "rules": [
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_concrete"
-                          },
-                          "blockstate": "minecraft:light_gray_concrete"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:blockstate_match",
-                            "blockstate": {
-                              "block": "minecraft:gray_bed",
-                              "properties": {
-                                "part": "head"
-                              }
-                            }
-                          },
-                          "blockstate": {
-                            "block": "minecraft:light_gray_bed",
-                            "properties": {
-                              "part": "head"
-                            }
-                          }
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:gray_bed"
-                          },
-                          "blockstate": "minecraft:light_gray_bed"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_carpet"
-                          },
-                          "blockstate": "minecraft:light_gray_carpet"
-                        }
-                      ],
-                      "weight": 1
-                    },
-                    {
-                      "rules": [
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_concrete"
-                          },
-                          "blockstate": "minecraft:gray_concrete"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:blockstate_match",
-                            "blockstate": {
-                              "block": "minecraft:gray_bed",
-                              "properties": {
-                                "part": "head"
-                              }
-                            }
-                          },
+                        "blockstate": "minecraft:cyan_concrete"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:blockstate_match",
                           "blockstate": {
                             "block": "minecraft:gray_bed",
                             "properties": {
@@ -172,30 +34,165 @@
                             }
                           }
                         },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:gray_bed"
-                          },
-                          "blockstate": "minecraft:gray_bed"
-                        },
-                        {
-                          "test": {
-                            "test": "minecraft:block_match",
-                            "block": "minecraft:light_gray_carpet"
-                          },
-                          "blockstate": "minecraft:gray_carpet"
+                        "blockstate": {
+                          "block": "minecraft:cyan_bed",
+                          "properties": {
+                            "part": "head"
+                          }
                         }
-                      ],
-                      "weight": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:gray_bed"
+                        },
+                        "blockstate": "minecraft:cyan_bed"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_carpet"
+                        },
+                        "blockstate": "minecraft:cyan_carpet"
+                      }
+                    ],
+                    "weight": 1
+                  },
+                  {
+                    "rules": [
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_concrete"
+                        },
+                        "blockstate": "minecraft:red_concrete"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:blockstate_match",
+                          "blockstate": {
+                            "block": "minecraft:gray_bed",
+                            "properties": {
+                              "part": "head"
+                            }
+                          }
+                        },
+                        "blockstate": {
+                          "block": "minecraft:red_bed",
+                          "properties": {
+                            "part": "head"
+                          }
+                        }
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:gray_bed"
+                        },
+                        "blockstate": "minecraft:red_bed"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_carpet"
+                        },
+                        "blockstate": "minecraft:red_carpet"
+                      }
+                    ],
+                    "weight": 1
+                  },
+                  {
+                    "rules": [
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_concrete"
+                        },
+                        "blockstate": "minecraft:light_gray_concrete"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:blockstate_match",
+                          "blockstate": {
+                            "block": "minecraft:gray_bed",
+                            "properties": {
+                              "part": "head"
+                            }
+                          }
+                        },
+                        "blockstate": {
+                          "block": "minecraft:light_gray_bed",
+                          "properties": {
+                            "part": "head"
+                          }
+                        }
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:gray_bed"
+                        },
+                        "blockstate": "minecraft:light_gray_bed"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_carpet"
+                        },
+                        "blockstate": "minecraft:light_gray_carpet"
+                      }
+                    ],
+                    "weight": 1
+                  },
+                  {
+                    "rules": [
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_concrete"
+                        },
+                        "blockstate": "minecraft:gray_concrete"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:blockstate_match",
+                          "blockstate": {
+                            "block": "minecraft:gray_bed",
+                            "properties": {
+                              "part": "head"
+                            }
+                          }
+                        },
+                        "blockstate": {
+                          "block": "minecraft:gray_bed",
+                          "properties": {
+                            "part": "head"
+                          }
+                        }
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:gray_bed"
+                        },
+                        "blockstate": "minecraft:gray_bed"
+                      },
+                      {
+                        "test": {
+                          "test": "minecraft:block_match",
+                          "block": "minecraft:light_gray_carpet"
+                        },
+                        "blockstate": "minecraft:gray_carpet"
+                      }
+                    ],
+                    "weight": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
-    ]
-  }
+    }
+  ]
 }
