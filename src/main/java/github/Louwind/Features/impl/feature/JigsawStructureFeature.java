@@ -3,6 +3,7 @@ package github.Louwind.Features.impl.feature;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.feature.PoolStructureFeature;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +37,17 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public JigsawStructureFeature(List<FeaturePool> pools) {
-        super(JigsawFeatureConfig.CODEC, pools);
+    private final GenerationStep.Feature step;
+
+    public JigsawStructureFeature(Codec<JigsawFeatureConfig> codec, GenerationStep.Feature step, List<FeaturePool> pools) {
+        super(codec, pools);
+
+        this.step = step;
+    }
+
+    @Override
+    public GenerationStep.Feature getGenerationStep() {
+        return this.step;
     }
 
     @Override
@@ -100,9 +111,10 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
         @Override
         public JigsawStructureFeature fromJson(JsonObject json, JsonDeserializationContext context) {
-            FeaturePool[] pools = FeaturesJsonHelper.getPools(json.getAsJsonObject(), context, "pools");
+            GenerationStep.Feature step = FeaturesJsonHelper.getEnum(json, GenerationStep.Feature.class, "step");
+            FeaturePool[] pools = FeaturesJsonHelper.getPools(json, context, "pools");
 
-            return new JigsawStructureFeature(Arrays.asList(pools));
+            return new JigsawStructureFeature(JigsawFeatureConfig.CODEC, step, Arrays.asList(pools));
         }
 
     }
