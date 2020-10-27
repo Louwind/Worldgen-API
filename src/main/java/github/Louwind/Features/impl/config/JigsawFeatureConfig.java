@@ -29,11 +29,12 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
             Codec.list(BLOCK_ROTATION_CODEC).fieldOf("rotations").forGetter(JigsawFeatureConfig::getRotations),
             Codec.BOOL.fieldOf("keepJigsaws").forGetter(JigsawFeatureConfig::getKeepJigsaws),
             Codec.BOOL.fieldOf("surface").forGetter(JigsawFeatureConfig::isSurface),
+            Codec.intRange(Integer.MIN_VALUE, Integer.MAX_VALUE).fieldOf("y").forGetter(JigsawFeatureConfig::getStartY),
             Codec.intRange(0, Integer.MAX_VALUE).fieldOf("size").forGetter(JigsawFeatureConfig::getSize))
             .apply(instance, JigsawFeatureConfig::new));
 
-    public JigsawFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int size) {
-        super(startPool, rotations, keepJigsaws, surface, size);
+    public JigsawFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int startY, int size) {
+        super(startPool, rotations, keepJigsaws, surface, startY, size);
     }
 
     @Override
@@ -55,9 +56,10 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
 
             boolean keepJigsaws = JsonHelper.getBoolean(json, "keep_jigsaws", false);
             boolean surface = JsonHelper.getBoolean(json, "surface", true);
+            int startY = JsonHelper.getInt(json, "y", 0);
             int size = JsonHelper.getInt(json, "size", 1);
 
-            return new JigsawFeatureConfig(Suppliers.ofInstance(pool), Arrays.asList(rotations), keepJigsaws, surface, size);
+            return new JigsawFeatureConfig(Suppliers.ofInstance(pool), Arrays.asList(rotations), keepJigsaws, surface, startY, size);
         }
 
     }

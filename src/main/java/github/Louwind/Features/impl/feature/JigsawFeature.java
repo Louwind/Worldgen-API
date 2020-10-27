@@ -4,18 +4,17 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.feature.PoolFeatureType;
 import github.Louwind.Features.feature.PoolFeature;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.config.JigsawFeatureConfig;
-import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.impl.init.PoolFeatureTypes;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.JigsawPieceGenerator;
+import github.Louwind.Features.util.JigsawContextGenerator;
+import github.Louwind.Features.util.JigsawHelper;
 import github.Louwind.Features.util.ThrowingPredicate;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
@@ -49,34 +48,23 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
         ServerWorld server = world.toServerWorld();
         StructureAccessor accessor = server.getStructureAccessor();
 
-        FeaturePool pool = JigsawPieceGenerator.getStartPool(featureConfig, this.pools);
+        FeaturePool pool = JigsawHelper.getStartPool(featureConfig, this.pools);
         FeatureContextProvider provider = pool.getContextProvider();
 
             try {
-                FeatureContext context = JigsawPieceGenerator.getFeaturePieceContext(world, provider, featureConfig, chunkGenerator, random, blockPos);
+                FeatureContext context = JigsawContextGenerator.getFeaturePieceContext(world, provider, featureConfig, chunkGenerator, random, blockPos);
                 List<PoolStructurePiece> pieces = context.get(PIECES);
 
                 return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
+                    FeatureContext pieceContext = JigsawContextGenerator.getPieceContext(context, piece);
                     StructurePoolElement poolElement = piece.getPoolElement();
-                    List<FeatureFunction> functions = pool.getFunctions(poolElement);
 
-                    FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PIECE);
-
-                    for (FeatureFunction function: functions) {
-
-                        if(function.test(pieceContext))
-                            function.accept(pieceContext);
-                    }
+                    JigsawHelper.applyContext(poolElement, pieceContext);
+                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext);
 
                     ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
                     BlockBox box = pieceContext.get(BOX);
                     BlockPos pos = pieceContext.get(POS);
-
-                    if(poolElement instanceof ContextAwarePoolElement) {
-                        ContextAwarePoolElement element = (ContextAwarePoolElement) poolElement;
-
-                        element.setContext(pieceContext);
-                    }
 
                     return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
                 }));

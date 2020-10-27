@@ -42,11 +42,12 @@ public class PieceContextProvider implements FeatureContextProvider {
 
     public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         ServerWorld server = world.toServerWorld();
-
         DynamicRegistryManager registryManager = server.getRegistryManager();
         StructureManager structureManager = server.getStructureManager();
 
-        return this.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, pos);
+        FeatureContextBuilder builder = this.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, pos);
+
+        return builder.put(WORLD, world);
     }
 
     public FeatureContextBuilder getStructureContextBuilder(DynamicRegistryManager registryManager, StructureManager structureManager, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {

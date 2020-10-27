@@ -12,13 +12,15 @@ public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
     protected final List<BlockRotation> rotations;
     protected final boolean keepJigsaws;
     protected final boolean surface;
+    protected final int startY;
 
-    public PoolFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int size) {
+    public PoolFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int startY, int size) {
         super(startPool, size);
 
         this.keepJigsaws = keepJigsaws;
         this.rotations = rotations;
         this.surface = surface;
+        this.startY = startY;
     }
 
     public List<BlockRotation> getRotations() {
@@ -27,6 +29,10 @@ public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
 
     public boolean getKeepJigsaws() {
         return this.keepJigsaws;
+    }
+
+    public int getStartY() {
+        return this.startY;
     }
 
     public boolean isSurface() {
