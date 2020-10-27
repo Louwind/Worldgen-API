@@ -1,0 +1,9 @@
+{
+  "configurations": [
+    {
+      "type": "features:jigsaw",
+      "start_pool": "features:wells",
+      "rotations": "all"
+    }
+  ]
+}

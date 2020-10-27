@@ -1,32 +1,23 @@
 {
-  "configurations": {
-    "features:well": {
-      "type": "features:jigsaw",
-      "start_pool": "features:wells",
-      "rotations": "all"
-    }
-  },
-  "feature": {
-    "type": "minecraft:jigsaw",
-    "pools": [
-      {
-        "type": "features:pool",
-        "pool": "features:wells",
-        "entries": [
-          {
-            "type": "features:entry",
-            "structure": "features:wells/well_01",
-            "functions": [
-              {
-                "function": "features:offset",
-                "offset": {
-                  "y": -5
-                }
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:wells",
+      "entries": [
+        {
+          "type": "features:entry",
+          "structure": "features:wells/well_01",
+          "functions": [
+            {
+              "function": "features:offset",
+              "offset": {
+                "y": -5
               }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -8,6 +8,8 @@ import github.Louwind.Features.context.override.FeatureContextOverrideType;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.entry.FeatureEntryType;
+import github.Louwind.Features.feature.PoolFeatureType;
+import github.Louwind.Features.feature.PoolStructureFeatureType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.loot.LootBehavior;
 import github.Louwind.Features.metadata.FeatureMetadata;
@@ -50,6 +52,10 @@ public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureRuleTestType> FEATURE_RULE_TEST = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:rule_tests")), Lifecycle.experimental());
 
+    public static final SimpleRegistry<PoolFeatureType> FEATURE_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:feature_type")), Lifecycle.experimental());
+
     public static final SimpleRegistry<LootBehavior<?>> LOOT_BEHAVIOR = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:loot_behavior")), Lifecycle.experimental());
+
+    public static final SimpleRegistry<PoolStructureFeatureType> STRUCTURE_FEATURE_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:structure_feature_type")), Lifecycle.experimental());
 
 }

@@ -7,7 +7,9 @@ import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
+import github.Louwind.Features.feature.PoolStructureFeature;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.feature.PoolFeature;
 import github.Louwind.Features.impl.init.FeatureRuleTests;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.mixin.InvokerRuleTest;
@@ -27,42 +29,13 @@ import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.JsonSerializing;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.StructureFeature;
 
 public class FeatureGsons {
 
-    private static Object createStructureProcessorSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROCESSOR_TYPE, "processor", "processor", processor -> {
-            InvokerStructureProcessor invoker = (InvokerStructureProcessor) processor;
-
-            return (FeatureProcessorType) invoker.getType();
-        }).createGsonSerializer();
-    }
-
-    private static Object createRuleTestSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
-            InvokerRuleTest invoker = (InvokerRuleTest) rule;
-            RuleTestType type = invoker.getType();
-
-            if(type == RuleTestType.ALWAYS_TRUE)
-                return FeatureRuleTests.ALWAYS_TRUE;
-
-            if(type == RuleTestType.BLOCK_MATCH)
-                return FeatureRuleTests.BLOCK_MATCH;
-
-            if(type == RuleTestType.BLOCKSTATE_MATCH)
-                return FeatureRuleTests.BLOCKSTATE_MATCH;
-
-            if(type == RuleTestType.RANDOM_BLOCK_MATCH)
-                return FeatureRuleTests.RANDOM_BLOCK_MATCH;
-
-            if(type == RuleTestType.RANDOM_BLOCKSTATE_MATCH)
-                return FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH;
-
-            if(type == RuleTestType.TAG_MATCH)
-                return FeatureRuleTests.TAG_MATCH;
-
-            return (FeatureRuleTestType) invoker.getType();
-        }).createGsonSerializer();
+    private static Object createFeatureSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_TYPE, "type", "type", PoolFeature::getType).createGsonSerializer();
     }
 
     private static Object createFeatureEntrySerializer() {
@@ -109,11 +82,55 @@ public class FeatureGsons {
         }).createGsonSerializer();
     }
 
+    private static Object createStructureFeatureSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.STRUCTURE_FEATURE_TYPE, "type", "type", PoolStructureFeature::getType).createGsonSerializer();
+    }
+
+    private static Object createRuleTestSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_RULE_TEST, "test", "test", rule -> {
+            InvokerRuleTest invoker = (InvokerRuleTest) rule;
+            RuleTestType type = invoker.getType();
+
+            if(type == RuleTestType.ALWAYS_TRUE)
+                return FeatureRuleTests.ALWAYS_TRUE;
+
+            if(type == RuleTestType.BLOCK_MATCH)
+                return FeatureRuleTests.BLOCK_MATCH;
+
+            if(type == RuleTestType.BLOCKSTATE_MATCH)
+                return FeatureRuleTests.BLOCKSTATE_MATCH;
+
+            if(type == RuleTestType.RANDOM_BLOCK_MATCH)
+                return FeatureRuleTests.RANDOM_BLOCK_MATCH;
+
+            if(type == RuleTestType.RANDOM_BLOCKSTATE_MATCH)
+                return FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH;
+
+            if(type == RuleTestType.TAG_MATCH)
+                return FeatureRuleTests.TAG_MATCH;
+
+            return (FeatureRuleTestType) invoker.getType();
+        }).createGsonSerializer();
+    }
+
+    private static Object createStructureProcessorSerializer() {
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_PROCESSOR_TYPE, "processor", "processor", processor -> {
+            InvokerStructureProcessor invoker = (InvokerStructureProcessor) processor;
+
+            return (FeatureProcessorType) invoker.getType();
+        }).createGsonSerializer();
+    }
+
+    public static GsonBuilder getFeatureConfigGsonBuilder() {
+        return new GsonBuilder()
+                .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer());
+    }
+
     public static GsonBuilder getFeatureGsonBuilder() {
         return new GsonBuilder()
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
+                .registerTypeHierarchyAdapter(Feature.class, FeatureGsons.createFeatureSerializer())
                 .registerTypeHierarchyAdapter(FeatureCondition.class, FeatureGsons.createFeatureConditionSerializer())
-                .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer())
                 .registerTypeHierarchyAdapter(FeatureEntry.class, FeatureGsons.createFeatureEntrySerializer())
                 .registerTypeHierarchyAdapter(FeatureFunction.class, FeatureGsons.createFeatureFunctionSerializer())
                 .registerTypeHierarchyAdapter(FeaturePool.class, FeatureGsons.createFeaturePoolSerializer())
@@ -141,7 +158,8 @@ public class FeatureGsons {
     }
 
     public static GsonBuilder getStructureFeatureGsonBuilder() {
-        return new GsonBuilder();
+        return new GsonBuilder()
+                .registerTypeHierarchyAdapter(StructureFeature.class, FeatureGsons.createStructureFeatureSerializer());
     }
 
 }
