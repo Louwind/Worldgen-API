@@ -10,7 +10,7 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class FeatureContextProviders {
 
-    public static final FeatureContextProviderType PIECE = new FeatureContextProviderType(new PieceContextProvider.Serializer(), builder -> builder.optional(FeatureContextParameters.PIECE).required(BOX, CHUNK_GENERATOR, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION, WORLD));
+    public static final FeatureContextProviderType PIECE = new FeatureContextProviderType(new PieceContextProvider.Serializer(), builder -> builder.optional(FeatureContextParameters.PIECE, WORLD).required(BOX, CHUNK_GENERATOR, CHUNK_POS, PIECES, POS, RANDOM, ROOT, ROTATION));
 
     public static final FeatureContextProviderType METADATA = new FeatureContextProviderType(new MetadataContextProvider.Serializer(), builder -> builder.required(BLOCK_INFO, MIRROR, POS, RANDOM, ROTATION, WORLD));
 

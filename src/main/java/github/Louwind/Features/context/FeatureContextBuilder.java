@@ -37,13 +37,13 @@ public class FeatureContextBuilder {
      * @throws IllegalAccessException When the builder doesn't have all
      * required parameters or some parameter it's not allowed
      * */
-    public FeatureContext build(FeatureContextProviderType type) throws IllegalAccessException {
+    public FeatureContext build(FeatureContextProviderType type) throws IllegalArgumentException {
         FeatureContext context = new FeatureContext(this.parameters);
 
         Set<FeatureContextParameter<?>> required = type.getRequiredParameters();
 
         if(!required.stream().allMatch(context::has))
-            throw new IllegalAccessException("The context " + context + " doesn't have the require parameters of " + type + " context type");
+            throw new IllegalArgumentException("The context " + context + " doesn't have the require parameters of " + type + " context type");
 
         return context;
     }

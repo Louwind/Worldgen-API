@@ -13,7 +13,7 @@ import java.util.List;
  * */
 public interface FeatureContextProvider {
 
-    default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalAccessException {
+    default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalArgumentException {
 
         for (FeatureContextOverride overrides : this.getContextOverrides())
             overrides.accept(this, builder);

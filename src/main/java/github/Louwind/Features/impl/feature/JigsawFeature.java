@@ -10,19 +10,16 @@ import github.Louwind.Features.feature.PoolFeatureType;
 import github.Louwind.Features.feature.PoolFeature;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.config.JigsawFeatureConfig;
-import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.impl.init.PoolFeatureTypes;
-import github.Louwind.Features.impl.pool.GenericFeaturePool;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
+import github.Louwind.Features.util.JigsawPieceGenerator;
 import github.Louwind.Features.util.ThrowingPredicate;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -50,30 +47,18 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
     @Override
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, JigsawFeatureConfig featureConfig) {
         ServerWorld server = world.toServerWorld();
-
-        StructurePool structurePool = featureConfig.getStartPool().get();
         StructureAccessor accessor = server.getStructureAccessor();
 
-        FeaturePool featurePool = this.pools.stream()
-                .filter(pool -> pool.getStructurePool() == structurePool)
-                .findFirst()
-                .orElse(GenericFeaturePool.EMPTY);
-
-        FeatureContextProvider provider = featurePool.getContextProvider();
-
-        if(provider instanceof PieceContextProvider) {
-            PieceContextProvider contextProvider = (PieceContextProvider) provider;
-            BlockRotation rotation = contextProvider.getRotations(random);
+        FeaturePool pool = JigsawPieceGenerator.getStartPool(featureConfig, this.pools);
+        FeatureContextProvider provider = pool.getContextProvider();
 
             try {
-                FeatureContextBuilder builder = contextProvider.getBuilder(featureConfig, rotation, world, chunkGenerator, random, blockPos);
-
-                FeatureContext context = provider.getContext(builder);
+                FeatureContext context = JigsawPieceGenerator.getFeaturePieceContext(world, provider, featureConfig, chunkGenerator, random, blockPos);
                 List<PoolStructurePiece> pieces = context.get(PIECES);
 
                 return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
                     StructurePoolElement poolElement = piece.getPoolElement();
-                    List<FeatureFunction> functions = featurePool.getFunctions(poolElement);
+                    List<FeatureFunction> functions = pool.getFunctions(poolElement);
 
                     FeatureContext pieceContext = new FeatureContextBuilder(context).put(PIECE, piece).build(FeatureContextProviders.PIECE);
 
@@ -96,11 +81,9 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
                     return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
                 }));
 
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException e) {
                 LOGGER.warn(e);
             }
-
-        }
 
         return false;
     }
