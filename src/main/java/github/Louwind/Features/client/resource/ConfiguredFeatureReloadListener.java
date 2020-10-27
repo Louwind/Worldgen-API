@@ -2,7 +2,7 @@ package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.util.FeatureConfigList;
+import github.Louwind.Features.util.FeatureConfigMap;
 import github.Louwind.Features.util.FeatureGsons;
 import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -33,14 +33,14 @@ public class ConfiguredFeatureReloadListener extends JsonReloadListener {
         loader.forEach((id, jsonElement) -> {
 
             if(FEATURE.containsId(id)) {
-                FeatureConfigList configurations = GSON.fromJson(jsonElement, FeatureConfigList.class);
+                FeatureConfigMap configurations = GSON.fromJson(jsonElement, FeatureConfigMap.class);
 
-                for (FeatureConfig config : configurations.getList()) {
+                configurations.getMap().forEach((identifier, config) -> {
                     Feature<FeatureConfig> feature = (Feature<FeatureConfig>) FEATURE.get(id);
                     ConfiguredFeature<?, ?> configuredFeature = feature.configure(config);
 
-                    if(!CONFIGURED_FEATURE.containsId(id))
-                        BuiltinRegistries.add(CONFIGURED_FEATURE, id, configuredFeature);
+                    if(!CONFIGURED_FEATURE.containsId(identifier))
+                        BuiltinRegistries.add(CONFIGURED_FEATURE, identifier, configuredFeature);
                     else {
                         int rawId = CONFIGURED_FEATURE.getRawId(configuredFeature);
 
@@ -50,7 +50,7 @@ public class ConfiguredFeatureReloadListener extends JsonReloadListener {
 
                     }
 
-                }
+                });
 
             }
 

@@ -1,8 +1,8 @@
 {
   "configurations": {
-    "features:well": {
+    "features:bookshelf": {
       "type": "features:jigsaw",
-      "start_pool": "features:wells",
+      "start_pool": "features:bookshelfs",
       "rotations": "all"
     }
   }

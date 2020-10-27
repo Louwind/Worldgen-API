@@ -2,7 +2,7 @@ package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.util.FeatureConfigList;
+import github.Louwind.Features.util.FeatureConfigMap;
 import github.Louwind.Features.util.FeatureGsons;
 import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -31,14 +31,14 @@ public class ConfiguredStructureFeatureReloadListener extends JsonReloadListener
         loader.forEach((id, jsonElement) -> {
 
             if(STRUCTURE_FEATURE.containsId(id)) {
-                FeatureConfigList configurations = GSON.fromJson(jsonElement, FeatureConfigList.class);
+                FeatureConfigMap configurations = GSON.fromJson(jsonElement, FeatureConfigMap.class);
 
-                for (FeatureConfig config : configurations.getList()) {
+                configurations.getMap().forEach((identifier, config) -> {
                     StructureFeature<FeatureConfig> feature = (StructureFeature<FeatureConfig>) STRUCTURE_FEATURE.get(id);
                     ConfiguredStructureFeature<?, ?> configuredFeature = feature.configure(config);
 
-                    if(!CONFIGURED_STRUCTURE_FEATURE.containsId(id))
-                        BuiltinRegistries.add(CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
+                    if(!CONFIGURED_STRUCTURE_FEATURE.containsId(identifier))
+                        BuiltinRegistries.add(CONFIGURED_STRUCTURE_FEATURE, identifier, configuredFeature);
                     else {
                         int rawId = CONFIGURED_STRUCTURE_FEATURE.getRawId(configuredFeature);
 
@@ -48,7 +48,7 @@ public class ConfiguredStructureFeatureReloadListener extends JsonReloadListener
 
                     }
 
-                }
+                });
 
             }
 

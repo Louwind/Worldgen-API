@@ -1,8 +1,8 @@
 {
   "configurations": {
-    "features:well": {
+    "features:wine_storage": {
       "type": "features:jigsaw",
-      "start_pool": "features:wells",
+      "start_pool": "features:wine_storages",
       "rotations": "all"
     }
   }

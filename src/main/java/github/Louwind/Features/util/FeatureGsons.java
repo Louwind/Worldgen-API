@@ -124,7 +124,7 @@ public class FeatureGsons {
 
     public static GsonBuilder getFeatureConfigGsonBuilder() {
         return new GsonBuilder()
-                .registerTypeAdapter(FeatureConfigList.class, new FeatureConfigListDeserializer())
+                .registerTypeAdapter(FeatureConfigMap.class, new FeatureConfigListDeserializer())
                 .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer());
     }
 

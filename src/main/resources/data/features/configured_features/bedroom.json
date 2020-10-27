@@ -1,8 +1,8 @@
 {
   "configurations": {
-    "features:well": {
+    "features:bedroom": {
       "type": "features:jigsaw",
-      "start_pool": "features:wells",
+      "start_pool": "features:bedrooms",
       "rotations": "all"
     }
   }
