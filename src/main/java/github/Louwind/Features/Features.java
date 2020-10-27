@@ -4,32 +4,38 @@ import github.Louwind.Features.client.resource.*;
 import github.Louwind.Features.impl.init.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import static github.Louwind.Features.registry.FeaturesRegistry.*;
+import static net.minecraft.resource.ResourceType.*;
 import static net.minecraft.util.registry.Registry.*;
 
 public class Features implements ModInitializer {
 
-    public static final FeatureReloadListener FEATURE_RELOAD_LISTENER = new FeatureReloadListener();
+    private static final ConfiguredFeatureReloadListener CONFIGURED_FEATURE_RELOAD_LISTENER = new ConfiguredFeatureReloadListener();
 
-    public static final FeatureMetadataReloadListener FEATURE_METADATA_RELOAD_LISTENER = new FeatureMetadataReloadListener();
+    private static final ConfiguredStructureFeatureReloadListener CONFIGURED_STRUCTURE_FEATURE_RELOAD_LISTENER = new ConfiguredStructureFeatureReloadListener();
 
-    public static final StructureFeatureReloadListener STRUCTURE_FEATURE_RELOAD_LISTENER = new StructureFeatureReloadListener();
+    private static final FeatureReloadListener FEATURE_RELOAD_LISTENER = new FeatureReloadListener();
 
-    public static final StructurePoolReloadListener STRUCTURE_POOL_RELOAD_LISTENER = new StructurePoolReloadListener();
+    private static final FeatureMetadataReloadListener FEATURE_METADATA_RELOAD_LISTENER = new FeatureMetadataReloadListener();
 
-    public static final StructureProcessorReloadListener STRUCTURE_PROCESSOR_RELOAD_LISTENER = new StructureProcessorReloadListener();
+    private static final StructureFeatureReloadListener STRUCTURE_FEATURE_RELOAD_LISTENER = new StructureFeatureReloadListener();
+
+    private static final StructurePoolReloadListener STRUCTURE_POOL_RELOAD_LISTENER = new StructurePoolReloadListener();
+
+    private static final StructureProcessorReloadListener STRUCTURE_PROCESSOR_RELOAD_LISTENER = new StructureProcessorReloadListener();
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_RELOAD_LISTENER);
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_POOL_RELOAD_LISTENER);
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(STRUCTURE_FEATURE_RELOAD_LISTENER);
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_RELOAD_LISTENER);
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_POOL_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_FEATURE_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(CONFIGURED_FEATURE_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(CONFIGURED_STRUCTURE_FEATURE_RELOAD_LISTENER);
 
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:piece"), FeatureContextProviders.PIECE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:metadata"), FeatureContextProviders.METADATA);

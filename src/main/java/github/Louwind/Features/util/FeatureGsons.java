@@ -19,6 +19,7 @@ import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
+import github.Louwind.Features.util.deserializer.FeatureConfigListDeserializer;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
@@ -123,6 +124,7 @@ public class FeatureGsons {
 
     public static GsonBuilder getFeatureConfigGsonBuilder() {
         return new GsonBuilder()
+                .registerTypeAdapter(FeatureConfigList.class, new FeatureConfigListDeserializer())
                 .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer());
     }
 
