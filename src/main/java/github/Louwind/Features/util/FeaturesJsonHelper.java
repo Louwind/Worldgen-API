@@ -1,6 +1,7 @@
 package github.Louwind.Features.util;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import github.Louwind.Features.condition.FeatureCondition;
@@ -211,6 +212,31 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getFunction(object, new FeatureFunction[]{}, context, name);
     }
 
+    public static <K, V> Map<K, V> getMap(JsonObject object, Function<String, K> keyMapper, Function<JsonElement, V> valueMapper, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonObject()) {
+                JsonObject obj = element.getAsJsonObject();
+
+                return obj.entrySet().stream()
+                        .collect(Collectors.toMap(entry -> {
+                            String key = entry.getKey();
+
+                            return keyMapper.apply(key);
+                        }, entry -> {
+                            JsonElement value = entry.getValue();
+
+                            return valueMapper.apply(value);
+                        }));
+            }
+
+        }
+
+        return Maps.newHashMap();
+    }
+
     public static StructureProcessorList getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
 
         if(object.has(name)) {
@@ -237,7 +263,7 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getProcessors(object, new StructureProcessor[]{}, context, name);
     }
 
-    public static BlockRotation[] getRotations(JsonObject object, JsonDeserializationContext context, String name) {
+    public static BlockRotation[] getRotations(JsonObject object, String name) {
 
         if(object.has(name)) {
             JsonElement element = object.get(name);

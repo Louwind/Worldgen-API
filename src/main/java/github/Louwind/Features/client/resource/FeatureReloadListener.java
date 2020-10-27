@@ -2,15 +2,17 @@ package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import github.Louwind.Features.impl.config.JigsawFeatureConfig;
-import github.Louwind.Features.impl.feature.JigsawFeature;
 import github.Louwind.Features.util.FeatureGsons;
+import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
 
 import java.util.Map;
 
@@ -29,8 +31,10 @@ public class FeatureReloadListener extends JsonReloadListener {
     protected void apply(Map<Identifier, JsonElement> loader, ResourceManager manager, Profiler profiler) {
 
         loader.forEach((id, element) -> {
-            Map<Identifier, JigsawFeatureConfig> configurations = null;
-            JigsawFeature feature = null;
+            JsonObject object = element.getAsJsonObject();
+
+            Map<Identifier, JigsawFeatureConfig> configurations = FeaturesJsonHelper.getMap(object, Identifier::new, jsonElement -> GSON.fromJson(jsonElement, JigsawFeatureConfig.class), "configurations");
+            Feature<JigsawFeatureConfig> feature = GSON.fromJson(object.getAsJsonObject("feature"), Feature.class);
 
             if(!FEATURE.containsId(id))
                 BuiltinRegistries.add(FEATURE, id, feature);
@@ -41,8 +45,8 @@ public class FeatureReloadListener extends JsonReloadListener {
                     BuiltinRegistries.set(FEATURE, rawId, key, feature);
                 });
 
-            configurations.forEach((identifier, elementFeaturesConfig) -> {
-                ConfiguredFeature<?, ?> configuredFeature = feature.configure(elementFeaturesConfig);
+            configurations.forEach((identifier, config) -> {
+                ConfiguredFeature<?, ?> configuredFeature = feature.configure(config);
 
                 if(!CONFIGURED_FEATURE.containsId(id))
                     BuiltinRegistries.add(CONFIGURED_FEATURE, id, configuredFeature);

@@ -51,7 +51,7 @@ public class TreeContextProvider extends PieceContextProvider {
         @Override
         public TreeContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
             return new TreeContextProvider(rotations, overrides);
         }

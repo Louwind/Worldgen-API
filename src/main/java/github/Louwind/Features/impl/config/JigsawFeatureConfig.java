@@ -65,7 +65,7 @@ public class JigsawFeatureConfig extends FeaturesConfig {
         @Override
         public JigsawFeatureConfig fromJson(JsonObject json, JsonDeserializationContext context) {
             StructurePool pool = FeaturesJsonHelper.getStructurePool(json, "start_pool");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, context, "rotations");
+            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
             boolean keepJigsaws = JsonHelper.getBoolean(json, "keep_jigsaws", false);
             boolean surface = JsonHelper.getBoolean(json, "surface", true);
