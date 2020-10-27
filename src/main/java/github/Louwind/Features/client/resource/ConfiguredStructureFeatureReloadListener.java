@@ -2,7 +2,8 @@ package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.util.FeatureConfigMap;
+import github.Louwind.Features.config.PoolFeatureConfig;
+import github.Louwind.Features.util.PoolFeatureConfigMap;
 import github.Louwind.Features.util.FeatureGsons;
 import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -31,10 +32,11 @@ public class ConfiguredStructureFeatureReloadListener extends JsonReloadListener
         loader.forEach((id, jsonElement) -> {
 
             if(STRUCTURE_FEATURE.containsId(id)) {
-                FeatureConfigMap configurations = GSON.fromJson(jsonElement, FeatureConfigMap.class);
+                PoolFeatureConfigMap configurations = GSON.fromJson(jsonElement, PoolFeatureConfigMap.class);
 
                 configurations.getMap().forEach((identifier, config) -> {
-                    StructureFeature<FeatureConfig> feature = (StructureFeature<FeatureConfig>) STRUCTURE_FEATURE.get(id);
+                    StructureFeature<PoolFeatureConfig> feature = (StructureFeature<PoolFeatureConfig>) STRUCTURE_FEATURE.get(id);
+
                     ConfiguredStructureFeature<?, ?> configuredFeature = feature.configure(config);
 
                     if(!CONFIGURED_STRUCTURE_FEATURE.containsId(identifier))

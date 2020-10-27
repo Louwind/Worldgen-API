@@ -7,11 +7,11 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import java.util.List;
 import java.util.function.Supplier;
 
-public abstract class FeaturesConfig extends StructurePoolFeatureConfig {
+public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
 
     protected final List<BlockRotation> rotations;
 
-    public FeaturesConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, int size) {
+    public PoolFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, int size) {
         super(startPool, size);
 
         this.rotations = rotations;

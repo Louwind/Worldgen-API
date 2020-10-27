@@ -2,7 +2,7 @@ package github.Louwind.Features.util;
 
 import com.google.gson.GsonBuilder;
 import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.config.FeaturesConfig;
+import github.Louwind.Features.config.PoolFeatureConfig;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
@@ -19,7 +19,7 @@ import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
-import github.Louwind.Features.util.deserializer.FeatureConfigListDeserializer;
+import github.Louwind.Features.util.deserializer.PoolFeatureConfigListDeserializer;
 import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
 import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
@@ -60,7 +60,7 @@ public class FeatureGsons {
     }
 
     private static Object createFeatureConfigSerializer() {
-        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONFIG_TYPE, "condition", "condition", FeaturesConfig::getType).createGsonSerializer();
+        return JsonSerializing.createTypeHandler(FeaturesRegistry.FEATURE_CONFIG_TYPE, "type", "type", PoolFeatureConfig::getType).createGsonSerializer();
     }
 
     private static Object createFeatureFunctionSerializer() {
@@ -124,8 +124,8 @@ public class FeatureGsons {
 
     public static GsonBuilder getFeatureConfigGsonBuilder() {
         return new GsonBuilder()
-                .registerTypeAdapter(FeatureConfigMap.class, new FeatureConfigListDeserializer())
-                .registerTypeHierarchyAdapter(FeaturesConfig.class, FeatureGsons.createFeatureConfigSerializer());
+                .registerTypeAdapter(PoolFeatureConfigMap.class, new PoolFeatureConfigListDeserializer())
+                .registerTypeHierarchyAdapter(PoolFeatureConfig.class, FeatureGsons.createFeatureConfigSerializer());
     }
 
     public static GsonBuilder getFeatureGsonBuilder() {

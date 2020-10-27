@@ -7,7 +7,7 @@ import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.Louwind.Features.config.FeatureConfigType;
-import github.Louwind.Features.config.FeaturesConfig;
+import github.Louwind.Features.config.PoolFeatureConfig;
 import github.Louwind.Features.impl.init.FeatureConfigTypes;
 import github.Louwind.Features.util.CodecHelper;
 import github.Louwind.Features.util.FeaturesJsonHelper;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class JigsawFeatureConfig extends FeaturesConfig {
+public class JigsawFeatureConfig extends PoolFeatureConfig {
 
     public static final Codec<BlockRotation> BLOCK_ROTATION_CODEC = CodecHelper.createEnum(BlockRotation::values);
 

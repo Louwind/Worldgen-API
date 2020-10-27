@@ -2,7 +2,8 @@ package github.Louwind.Features.client.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import github.Louwind.Features.util.FeatureConfigMap;
+import github.Louwind.Features.config.PoolFeatureConfig;
+import github.Louwind.Features.util.PoolFeatureConfigMap;
 import github.Louwind.Features.util.FeatureGsons;
 import github.Louwind.Features.util.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -11,7 +12,6 @@ import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
 
 import java.util.Map;
 
@@ -33,10 +33,10 @@ public class ConfiguredFeatureReloadListener extends JsonReloadListener {
         loader.forEach((id, jsonElement) -> {
 
             if(FEATURE.containsId(id)) {
-                FeatureConfigMap configurations = GSON.fromJson(jsonElement, FeatureConfigMap.class);
+                PoolFeatureConfigMap configurations = GSON.fromJson(jsonElement, PoolFeatureConfigMap.class);
 
                 configurations.getMap().forEach((identifier, config) -> {
-                    Feature<FeatureConfig> feature = (Feature<FeatureConfig>) FEATURE.get(id);
+                    Feature<PoolFeatureConfig> feature = (Feature<PoolFeatureConfig>) FEATURE.get(id);
                     ConfiguredFeature<?, ?> configuredFeature = feature.configure(config);
 
                     if(!CONFIGURED_FEATURE.containsId(identifier))
