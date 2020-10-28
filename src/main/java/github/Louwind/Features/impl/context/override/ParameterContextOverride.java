@@ -44,7 +44,7 @@ public class ParameterContextOverride<T> implements FeatureContextOverride {
                     return;
                 }
 
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException e) {
                 String message = e.getMessage();
 
                 LogManager.getLogger().warn(message);

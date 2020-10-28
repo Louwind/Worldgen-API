@@ -70,7 +70,7 @@ public abstract class MixinSinglePoolElement {
                                 function.accept(context);
                         }
 
-                    } catch (IllegalAccessException e) {
+                    } catch (IllegalArgumentException e) {
                         LogManager.getLogger().warn(e);
                     }
 
