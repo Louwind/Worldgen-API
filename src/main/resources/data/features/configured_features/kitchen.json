@@ -2,7 +2,7 @@
   "configurations": {
     "features:kitchen": {
       "type": "features:jigsaw",
-      "start_pool": "features:bedrooms",
+      "start_pool": "features:kitchens",
       "rotations": "all"
     }
   }

@@ -18,6 +18,8 @@ import org.apache.logging.log4j.LogManager;
 import java.util.Arrays;
 import java.util.List;
 
+import static github.Louwind.Features.impl.init.FeatureContextProviders.EMPTY;
+
 public class ParameterContextOverride<T> implements FeatureContextOverride {
 
     protected final List<FeatureContextGetter<T>> from;
@@ -34,7 +36,7 @@ public class ParameterContextOverride<T> implements FeatureContextOverride {
         for (FeatureContextGetter<T> from : this.from) {
 
             try {
-                FeatureContext context = builder.build(provider.getType());
+                FeatureContext context = builder.build(EMPTY);
 
                 if (from.test(context)) {
                     T t = from.apply(context);
