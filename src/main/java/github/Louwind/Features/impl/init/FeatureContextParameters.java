@@ -3,14 +3,12 @@ package github.Louwind.Features.impl.init;
 import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.Structure;
-import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
@@ -30,8 +28,6 @@ public class FeatureContextParameters {
     public static final FeatureContextParameter<BlockBox> BOX = new FeatureContextParameter<>(new Identifier("features:box"));
 
     public static final FeatureContextParameter<ChunkGenerator> CHUNK_GENERATOR = new FeatureContextParameter<>(new Identifier("features:chunk_generator"));
-
-    public static final FeatureContextParameter<ChunkPos> CHUNK_POS = new FeatureContextParameter<>(new Identifier("features:chunk_pos"));
 
     public static final FeatureContextParameter EMPTY = new FeatureContextParameter<>(new Identifier("features:empty"));
 

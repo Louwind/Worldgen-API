@@ -69,7 +69,6 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:block_info"), FeatureContextParameters.BLOCK_INFO);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_generator"), FeatureContextParameters.CHUNK_GENERATOR);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_pos"), FeatureContextParameters.CHUNK_POS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:mirror"), FeatureContextParameters.MIRROR);

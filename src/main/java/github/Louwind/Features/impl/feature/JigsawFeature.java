@@ -5,12 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
-import github.Louwind.Features.feature.PoolFeatureType;
 import github.Louwind.Features.feature.PoolFeature;
-import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.feature.PoolFeatureType;
 import github.Louwind.Features.impl.config.JigsawFeatureConfig;
 import github.Louwind.Features.impl.init.PoolFeatureTypes;
-import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.JigsawContextGenerator;
@@ -24,6 +22,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.apache.logging.log4j.LogManager;
@@ -62,9 +61,11 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
                     JigsawHelper.applyContext(poolElement, pieceContext);
                     JigsawHelper.applyFunctions(pool, poolElement, pieceContext);
 
-                    ChunkPos chunkPos = pieceContext.get(CHUNK_POS);
                     BlockBox box = pieceContext.get(BOX);
                     BlockPos pos = pieceContext.get(POS);
+
+                    Chunk chunk = world.getChunk(pos);
+                    ChunkPos chunkPos = chunk.getPos();
 
                     return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
                 }));
