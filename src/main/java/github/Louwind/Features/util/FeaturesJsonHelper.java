@@ -137,9 +137,9 @@ public class FeaturesJsonHelper {
                 }
 
                 if(pos.has("x") || pos.has("y") || pos.has("z")) {
-                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalInt(pos, "x");
-                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalInt(pos, "y");
-                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalInt(pos, "z");
+                    OptionalContextParameter<Double> x = FeaturesJsonHelper.getOptionalDouble(pos, "x");
+                    OptionalContextParameter<Double> y = FeaturesJsonHelper.getOptionalDouble(pos, "y");
+                    OptionalContextParameter<Double> z = FeaturesJsonHelper.getOptionalDouble(pos, "z");
 
                     return OptionalBlockPos.of(x, y, z);
                 }
@@ -158,6 +158,10 @@ public class FeaturesJsonHelper {
 
     public static OptionalContextParameter<Integer> getOptionalInt(JsonObject object, String name) {
         return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0, JsonElement::getAsInt);
+    }
+
+    public static OptionalContextParameter<Double> getOptionalDouble(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0d, JsonElement::getAsDouble);
     }
 
     public static OptionalContextParameter<Float> getOptionalFloat(JsonObject object, String name) {

@@ -3,6 +3,7 @@ package github.Louwind.Features.util;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.NoSuchElementException;
 
@@ -11,11 +12,11 @@ public class OptionalBlockPos {
     private static final OptionalBlockPos EMPTY = new OptionalBlockPos(OptionalContextParameter.empty());
 
     private OptionalContextParameter<BlockPos> pos = OptionalContextParameter.empty();
-    private OptionalContextParameter<Integer> x = OptionalContextParameter.empty();
-    private OptionalContextParameter<Integer> y = OptionalContextParameter.empty();
-    private OptionalContextParameter<Integer> z = OptionalContextParameter.empty();
+    private OptionalContextParameter<Double> x = OptionalContextParameter.empty();
+    private OptionalContextParameter<Double> y = OptionalContextParameter.empty();
+    private OptionalContextParameter<Double> z = OptionalContextParameter.empty();
 
-    private OptionalBlockPos(OptionalContextParameter<Integer> x, OptionalContextParameter<Integer> y, OptionalContextParameter<Integer> z) {
+    private OptionalBlockPos(OptionalContextParameter<Double> x, OptionalContextParameter<Double> y, OptionalContextParameter<Double> z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -25,17 +26,36 @@ public class OptionalBlockPos {
         this.pos = pos;
     }
 
-    public BlockPos get(FeatureContext context) {
+    public BlockPos asPosition(FeatureContext context) {
 
         if(this.pos.isPresent())
             return this.pos.get(context);
 
         if(this.x.isPresent() || this.y.isPresent() || this.z.isPresent()) {
-            int x = this.x.isPresent() ? this.x.get(context) : 0;
-            int y = this.y.isPresent() ? this.y.get(context) : 0;
-            int z = this.z.isPresent() ? this.z.get(context) : 0;
+            double x = this.x.isPresent() ? this.x.get(context) : 0;
+            double y = this.y.isPresent() ? this.y.get(context) : 0;
+            double z = this.z.isPresent() ? this.z.get(context) : 0;
 
             return new BlockPos(x, y, z);
+        }
+
+        throw new NoSuchElementException("No parameter nor values are present");
+    }
+
+    public Vec3d asVector(FeatureContext context) {
+
+        if(this.pos.isPresent()) {
+            BlockPos pos = this.pos.get(context);
+
+            return Vec3d.of(pos);
+        }
+
+        if(this.x.isPresent() || this.y.isPresent() || this.z.isPresent()) {
+            double x = this.x.isPresent() ? this.x.get(context) : 0;
+            double y = this.y.isPresent() ? this.y.get(context) : 0;
+            double z = this.z.isPresent() ? this.z.get(context) : 0;
+
+            return new Vec3d(x, y, z);
         }
 
         throw new NoSuchElementException("No parameter nor values are present");
@@ -69,7 +89,7 @@ public class OptionalBlockPos {
         return new OptionalBlockPos(OptionalContextParameter.of(pos));
     }
 
-    public static OptionalBlockPos of(OptionalContextParameter<Integer> x, OptionalContextParameter<Integer> y, OptionalContextParameter<Integer> z) {
+    public static OptionalBlockPos of(OptionalContextParameter<Double> x, OptionalContextParameter<Double> y, OptionalContextParameter<Double> z) {
         return new OptionalBlockPos(x, y, z);
     }
 

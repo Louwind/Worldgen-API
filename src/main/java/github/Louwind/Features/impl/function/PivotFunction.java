@@ -1,13 +1,11 @@
 package github.Louwind.Features.impl.function;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
@@ -22,9 +20,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECES;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.ROTATION;
 
 public class PivotFunction implements FeatureFunction {
 
@@ -55,8 +53,8 @@ public class PivotFunction implements FeatureFunction {
 
         OptionalBlockPos optional = this.when.get(rotation);
 
-        BlockPos addition = optional.isPresent() ? optional.get(context) : BlockPos.ORIGIN;
-        BlockPos pos = this.pos.isPresent() ? this.pos.get(context) : BlockPos.ORIGIN;
+        BlockPos addition = optional.isPresent() ? optional.asPosition(context) : BlockPos.ORIGIN;
+        BlockPos pos = this.pos.isPresent() ? this.pos.asPosition(context) : BlockPos.ORIGIN;
         BlockPos add = pos.add(addition);
 
         int x = add.getX();

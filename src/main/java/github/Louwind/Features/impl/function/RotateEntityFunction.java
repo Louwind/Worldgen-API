@@ -65,7 +65,7 @@ public class RotateEntityFunction implements FeatureFunction {
 
         float baseYaw = this.yaw.get(context);
         float basePitch = this.pitch.get(context);
-        BlockPos basePos = this.pos.get(context);
+        BlockPos basePos = this.pos.asPosition(context);
 
         ServerWorld server = world.toServerWorld();
         Box box = new Box(blockInfo.pos);

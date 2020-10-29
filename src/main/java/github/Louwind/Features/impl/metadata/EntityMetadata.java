@@ -11,6 +11,7 @@ import github.Louwind.Features.impl.init.FeatureMetadataTypes;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
+import github.Louwind.Features.util.OptionalBlockPos;
 import github.Louwind.Features.util.OptionalTag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +21,8 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.StructureWorldAccess;
 
 import java.util.Arrays;
@@ -33,13 +36,15 @@ public class EntityMetadata implements FeatureMetadata {
     private final List<FeatureCondition> conditions;
     private final List<FeatureFunction> functions;
     private final OptionalTag compoundTag;
+    private final OptionalBlockPos pos;
     private final Identifier id;
 
-    public EntityMetadata(Identifier id, OptionalContextParameter<BlockRotation> rotation, OptionalTag compoundTag, FeatureFunction[] functions, FeatureCondition[] conditions) {
+    public EntityMetadata(Identifier id, OptionalContextParameter<BlockRotation> rotation, OptionalBlockPos pos, OptionalTag compoundTag, FeatureFunction[] functions, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
         this.functions = Arrays.asList(functions);
         this.compoundTag = compoundTag;
         this.rotation = rotation;
+        this.pos = pos;
         this.id = id;
     }
 
@@ -68,9 +73,11 @@ public class EntityMetadata implements FeatureMetadata {
         BlockRotation rotation = this.rotation.get(context);
         ServerWorld server = world.toServerWorld();
 
-        double x = blockInfo.pos.getX();
-        double y = blockInfo.pos.getY();
-        double z = blockInfo.pos.getZ();
+        Vec3d pos = this.pos.asVector(context);
+
+        double x = blockInfo.pos.getX() + pos.getX();
+        double y = blockInfo.pos.getY() + pos.getY();
+        double z = blockInfo.pos.getZ() + pos.getZ();
 
         compoundTag.putString("id", this.id.toString());
 
@@ -99,8 +106,9 @@ public class EntityMetadata implements FeatureMetadata {
 
             Identifier id = FeaturesJsonHelper.getIdentifier(json, "id");
             OptionalTag tag = FeaturesJsonHelper.getOptionalTag(json, "tag");
+            OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(json, "pos");
 
-            return new EntityMetadata(id, rotation, tag, functions, conditions);
+            return new EntityMetadata(id, rotation, pos, tag, functions, conditions);
         }
 
     }
