@@ -15,6 +15,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.StructureWorldAccess;
 
 import java.util.Arrays;
@@ -45,12 +47,14 @@ public class ExecuteCommandFunction implements FeatureFunction {
     @Override
     public void accept(FeatureContext context) {
         StructureWorldAccess worldAccess = context.get(WORLD);
+        BlockPos pos = context.get(POS);
 
         ServerWorld world = worldAccess.toServerWorld();
         MinecraftServer server = world.getServer();
+        Vec3d vec = Vec3d.ofCenter(pos);
 
         CommandManager commandManager = server.getCommandManager();
-        ServerCommandSource source =  server.getCommandSource().withSilent();
+        ServerCommandSource source =  server.getCommandSource().withPosition(vec).withSilent();
 
         for (String command : this.commands)
             commandManager.execute(source, command);
