@@ -107,6 +107,8 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
+
+        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:block_ignore"), FeatureProcessors.BLOCK_IGNORE_PROCESSOR);
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 
         Registry.register(FEATURE_TYPE, new Identifier("features:jigsaw"), PoolFeatureTypes.JIGSAW);

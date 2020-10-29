@@ -37,6 +37,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -49,6 +50,12 @@ public class FeaturesJsonHelper {
         return Registry.BLOCK.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be block, was unknown string '" + name + "'"));
     }
 
+    public static Block asBlock(JsonElement element, String name) {
+        Identifier id = FeaturesJsonHelper.asIdentifier(element, name);
+
+        return Registry.BLOCK.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be block, was unknown string"));
+    }
+
     public static EntityType<?> getEntityType(JsonObject object, String name) {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
@@ -59,6 +66,12 @@ public class FeaturesJsonHelper {
         String string = JsonHelper.getString(object, name);
 
         return (T) Enum.valueOf(clazz, string.toUpperCase());
+    }
+
+    public static Identifier asIdentifier(JsonElement element, String name) {
+        String id = JsonHelper.asString(element, name);
+
+        return new Identifier(id);
     }
 
     public static Identifier getIdentifier(JsonObject object, String name) {
@@ -403,6 +416,19 @@ public class FeaturesJsonHelper {
                         return Collections.nCopies(weight, t);
                     })
                     .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        }
+
+        return Lists.newArrayList();
+    }
+
+    public static <T> List<T> getList(JsonObject object, BiFunction<JsonElement, String, T> mapper, String name) {
+
+        if(object.has(name)) {
+            JsonArray array = JsonHelper.getArray(object, name);
+
+            return StreamSupport.stream(array.spliterator(), false)
+                    .map(element -> mapper.apply(element, name))
                     .collect(Collectors.toList());
         }
 
