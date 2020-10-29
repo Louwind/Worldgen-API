@@ -82,7 +82,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:trunks"), FeatureContextParameters.TRUNKS);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
-        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:sequence"), FeatureFunctions.SEQUENCE);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:execute_command"), FeatureFunctions.EXECUTE_COMMAND);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:mirror"), FeatureFunctions.MIRROR);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:offset"), FeatureFunctions.OFFSET);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:pivot"), FeatureFunctions.PIVOT);
@@ -91,6 +91,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate_entity"), FeatureFunctions.ROTATE_ENTITY);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:sequence"), FeatureFunctions.SEQUENCE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:set_entity_nbt"), FeatureFunctions.SET_ENTITY_NBT);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:set_loot_table"), FeatureFunctions.SET_LOOT_TABLE);
 
