@@ -45,13 +45,13 @@ public class FeaturesJsonHelper {
     public static Block getBlock(JsonObject object, String name) {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
-        return Registry.BLOCK.get(id);
+        return Registry.BLOCK.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be block, was unknown string '" + name + "'"));
     }
 
     public static EntityType<?> getEntityType(JsonObject object, String name) {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
-        return Registry.ENTITY_TYPE.get(id);
+        return Registry.ENTITY_TYPE.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be entity type, was unknown string '" + name + "'"));
     }
 
     public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name) {
@@ -248,7 +248,7 @@ public class FeaturesJsonHelper {
                 if(primitive.isString()) {
                     Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
-                    return BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.get(id);
+                    return BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be processor list, was unknown string '" + name + "'"));
                 }
 
             }
@@ -299,7 +299,7 @@ public class FeaturesJsonHelper {
     public static StructurePool getStructurePool(JsonObject object, String name) {
         Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
 
-        return BuiltinRegistries.STRUCTURE_POOL.get(id);
+        return BuiltinRegistries.STRUCTURE_POOL.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be structure pool, was unknown string '" + name + "'"));
     }
 
     public static FeaturePool[] getPools(JsonObject object, JsonDeserializationContext context, String name) {
