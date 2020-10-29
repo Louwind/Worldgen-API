@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
@@ -15,11 +14,8 @@ import java.util.Random;
 public class CampfireLootBehavior implements LootBehavior<CampfireBlockEntity> {
 
     @Override
-    public void setLootTable(Identifier lootTable, ServerWorld server, CampfireBlockEntity blockEntity, BlockPos pos, long seed) {
-        LootContext context = this.getContext(server, pos, seed);
-        LootTable table = this.getLootTable(server, lootTable);
-
-        List<ItemStack> loot = table.generateLoot(context);
+    public void setLootTable(LootTable lootTable, LootContext context, ServerWorld server, CampfireBlockEntity blockEntity, BlockPos pos, long seed) {
+        List<ItemStack> loot = lootTable.generateLoot(context);
         Random random = context.getRandom();
 
         int size = loot.size();
@@ -30,6 +26,7 @@ public class CampfireLootBehavior implements LootBehavior<CampfireBlockEntity> {
 
             blockEntity.addItem(stack, i);
         }
+
     }
 
 }

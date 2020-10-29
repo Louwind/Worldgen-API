@@ -24,6 +24,13 @@ public interface LootBehavior<T extends BlockEntity> {
         return world.getServer().getLootManager().getTable(lootTable);
     }
 
-    void setLootTable(Identifier lootTable, ServerWorld server, T blockEntity, BlockPos pos, long seed);
+    default void setLootTable(Identifier id, ServerWorld server, T blockEntity, BlockPos pos, long seed) {
+        LootContext context = this.getContext(server, pos, seed);
+        LootTable lootTable = this.getLootTable(server, id);
+
+        this.setLootTable(lootTable, context, server, blockEntity, pos, seed);
+    }
+
+    void setLootTable(LootTable lootTable, LootContext context, ServerWorld server, T blockEntity, BlockPos pos, long seed);
 
 }

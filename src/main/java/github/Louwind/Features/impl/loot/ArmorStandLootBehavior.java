@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
@@ -19,14 +18,11 @@ import java.util.List;
 public class ArmorStandLootBehavior implements LootBehavior<LootableContainerBlockEntity> {
 
     @Override
-    public void setLootTable(Identifier lootTable, ServerWorld server, LootableContainerBlockEntity blockEntity, BlockPos pos, long seed) {
-        LootContext context = this.getContext(server, pos, seed);
-        LootTable table = this.getLootTable(server, lootTable);
-
+    public void setLootTable(LootTable lootTable, LootContext context, ServerWorld server, LootableContainerBlockEntity blockEntity, BlockPos pos, long seed) {
         Box box = new Box(pos);
 
         for (ArmorStandEntity armorStand : server.getEntitiesByType(EntityType.ARMOR_STAND, box, entity -> true)) {
-            List<ItemStack> loot = table.generateLoot(context);
+            List<ItemStack> loot = lootTable.generateLoot(context);
 
             for (ItemStack stack : loot) {
                 EquipmentSlot equipmentSlot = MobEntity.getPreferredEquipmentSlot(stack);

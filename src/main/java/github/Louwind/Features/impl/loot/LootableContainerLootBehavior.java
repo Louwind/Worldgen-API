@@ -1,7 +1,6 @@
 package github.Louwind.Features.impl.loot;
 
 import github.Louwind.Features.loot.LootBehavior;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;

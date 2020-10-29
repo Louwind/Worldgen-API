@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
@@ -18,11 +17,8 @@ import java.util.Random;
 public class ItemFrameLootBehavior implements LootBehavior<LootableContainerBlockEntity> {
 
     @Override
-    public void setLootTable(Identifier lootTable, ServerWorld server, LootableContainerBlockEntity blockEntity, BlockPos pos, long seed) {
-        LootContext context = this.getContext(server, pos, seed);
-        LootTable table = this.getLootTable(server, lootTable);
-
-        List<ItemStack> loot = table.generateLoot(context);
+    public void setLootTable(LootTable lootTable, LootContext context, ServerWorld server, LootableContainerBlockEntity blockEntity, BlockPos pos, long seed) {
+        List<ItemStack> loot = lootTable.generateLoot(context);
         Random random = context.getRandom();
 
         Box box = new Box(pos);
@@ -34,7 +30,6 @@ public class ItemFrameLootBehavior implements LootBehavior<LootableContainerBloc
 
             itemFrame.setHeldItemStack(stack);
         }
-
     }
 
 }
