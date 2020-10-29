@@ -19,10 +19,7 @@ import github.Louwind.Features.pool.element.FeaturesElementSupplier;
 import github.Louwind.Features.processor.FeatureProcessorType;
 import github.Louwind.Features.processor.FeatureRuleTestType;
 import github.Louwind.Features.registry.FeaturesRegistry;
-import github.Louwind.Features.util.deserializer.PoolFeatureConfigListDeserializer;
-import github.Louwind.Features.util.deserializer.StructurePoolDeserializer;
-import github.Louwind.Features.util.deserializer.StructureProcessorListDeserializer;
-import github.Louwind.Features.util.deserializer.StructureProcessorRuleDeserializer;
+import github.Louwind.Features.util.deserializer.*;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.structure.processor.StructureProcessorList;
@@ -30,6 +27,7 @@ import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.JsonSerializing;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
@@ -161,6 +159,7 @@ public class FeatureGsons {
 
     public static GsonBuilder getStructureFeatureGsonBuilder() {
         return new GsonBuilder()
+                .registerTypeAdapter(SpawnSettings.SpawnEntry.class, new SpawnEntryDeserializer())
                 .registerTypeHierarchyAdapter(StructureFeature.class, FeatureGsons.createStructureFeatureSerializer());
     }
 

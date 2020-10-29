@@ -1,5 +1,6 @@
 package github.Louwind.Features.impl.feature;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.apache.logging.log4j.LogManager;
@@ -37,17 +39,31 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private final List<SpawnSettings.SpawnEntry> creatures;
+    private final List<SpawnSettings.SpawnEntry> monsters;
     private final GenerationStep.Feature step;
 
-    public JigsawStructureFeature(Codec<JigsawFeatureConfig> codec, GenerationStep.Feature step, List<FeaturePool> pools) {
+    public JigsawStructureFeature(Codec<JigsawFeatureConfig> codec, GenerationStep.Feature step, List<SpawnSettings.SpawnEntry> creatures, List<SpawnSettings.SpawnEntry> monsters, List<FeaturePool> pools) {
         super(codec, pools);
 
+        this.creatures = creatures;
+        this.monsters = monsters;
         this.step = step;
+    }
+
+    @Override
+    public List<SpawnSettings.SpawnEntry> getCreatureSpawns() {
+        return this.creatures;
     }
 
     @Override
     public GenerationStep.Feature getGenerationStep() {
         return this.step;
+    }
+
+    @Override
+    public List<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+        return this.monsters;
     }
 
     @Override
@@ -112,9 +128,13 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
         @Override
         public JigsawStructureFeature fromJson(JsonObject json, JsonDeserializationContext context) {
             GenerationStep.Feature step = FeaturesJsonHelper.getEnum(json, GenerationStep.Feature.class, "step");
+
+            SpawnSettings.SpawnEntry[] creatures = FeaturesJsonHelper.getSpawnEntries(json, context, "creatures");
+            SpawnSettings.SpawnEntry[] monsters = FeaturesJsonHelper.getSpawnEntries(json, context, "monsters");
+
             FeaturePool[] pools = FeaturesJsonHelper.getPools(json, context, "pools");
 
-            return new JigsawStructureFeature(JigsawFeatureConfig.CODEC, step, Arrays.asList(pools));
+            return new JigsawStructureFeature(JigsawFeatureConfig.CODEC, step, ImmutableList.copyOf(creatures), ImmutableList.copyOf(monsters), Arrays.asList(pools));
         }
 
     }

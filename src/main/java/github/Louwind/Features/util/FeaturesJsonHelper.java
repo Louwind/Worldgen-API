@@ -34,6 +34,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.*;
 import java.util.function.Function;
@@ -312,6 +313,14 @@ public class FeaturesJsonHelper {
 
     public static StructureProcessorRule[] getProcessorRules(JsonObject object, String name, StructureProcessorRule[] defaultValue, JsonDeserializationContext context) {
         return JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessorRule[].class);
+    }
+
+    public static SpawnSettings.SpawnEntry[] getSpawnEntries(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getSpawnEntries(object, name, new SpawnSettings.SpawnEntry[] {}, context);
+    }
+
+    public static SpawnSettings.SpawnEntry[] getSpawnEntries(JsonObject object, String name, SpawnSettings.SpawnEntry[] defaultValue, JsonDeserializationContext context) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, SpawnSettings.SpawnEntry[].class);
     }
 
     public static BlockState getBlockState(JsonObject object, String name) {
