@@ -55,17 +55,17 @@ public interface FeaturePool {
 
     default List<FeatureFunction> getFunctions(StructurePoolElement poolElement) {
         Optional<FeatureEntry> entryOptional = this.getEntry(poolElement);
+        List<FeatureFunction> functions = this.getFunctions();
 
         if (entryOptional.isPresent()) {
             FeatureEntry entry = entryOptional.get();
 
             List<FeatureFunction> entryList = entry.getFunctions();
-            List<FeatureFunction> functions = this.getFunctions();
 
             return Stream.concat(functions.stream(), entryList.stream()).collect(Collectors.toList());
         }
 
-        return Lists.newArrayList();
+        return functions;
     }
 
 }
