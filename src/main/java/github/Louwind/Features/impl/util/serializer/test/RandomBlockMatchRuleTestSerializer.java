@@ -19,7 +19,7 @@ public class RandomBlockMatchRuleTestSerializer implements JsonSerializer<Random
     @Override
     public RandomBlockMatchRuleTest fromJson(JsonObject json, JsonDeserializationContext context) {
         Block block = FeaturesJsonHelper.getBlock(json, "block");
-        int probability = JsonHelper.getInt(json, "probability");
+        float probability = JsonHelper.getFloat(json, "probability");
 
         return new RandomBlockMatchRuleTest(block, probability);
     }

@@ -20,7 +20,7 @@ public class RandomBlockstateMatchRuleTestSerializer implements JsonSerializer<R
     @Override
     public RandomBlockStateMatchRuleTest fromJson(JsonObject json, JsonDeserializationContext context) {
         BlockState blockState = FeaturesJsonHelper.getBlockState(json, "blockstate");
-        int probability = JsonHelper.getInt(json, "probability");
+        float probability = JsonHelper.getFloat(json, "probability");
 
         return new RandomBlockStateMatchRuleTest(blockState, probability);
     }
