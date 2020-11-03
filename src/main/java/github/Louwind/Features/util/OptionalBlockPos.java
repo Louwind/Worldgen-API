@@ -32,9 +32,9 @@ public class OptionalBlockPos {
             return this.pos.get(context);
 
         if(this.x.isPresent() || this.y.isPresent() || this.z.isPresent()) {
-            double x = this.x.isPresent() ? this.x.get(context) : 0;
-            double y = this.y.isPresent() ? this.y.get(context) : 0;
-            double z = this.z.isPresent() ? this.z.get(context) : 0;
+            double x = this.x.isPresent() ? (double) this.x.get(context) : 0;
+            double y = this.y.isPresent() ? (double) this.y.get(context) : 0;
+            double z = this.z.isPresent() ? (double) this.z.get(context) : 0;
 
             return new BlockPos(x, y, z);
         }
@@ -51,9 +51,9 @@ public class OptionalBlockPos {
         }
 
         if(this.x.isPresent() || this.y.isPresent() || this.z.isPresent()) {
-            double x = this.x.isPresent() ? this.x.get(context) : 0;
-            double y = this.y.isPresent() ? this.y.get(context) : 0;
-            double z = this.z.isPresent() ? this.z.get(context) : 0;
+            double x = this.x.isPresent() ? (double) this.x.get(context) : 0;
+            double y = this.y.isPresent() ? (double) this.y.get(context) : 0;
+            double z = this.z.isPresent() ? (double) this.z.get(context) : 0;
 
             return new Vec3d(x, y, z);
         }
