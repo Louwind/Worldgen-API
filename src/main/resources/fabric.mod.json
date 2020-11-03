@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "features",
   "version": "${version}",
-
   "name": "Features API",
   "description": "A Minecraft Fabric framework that allows to generate Structures and Features with JSON.",
   "authors": [
@@ -12,21 +11,19 @@
     "homepage": "https://github.com/Louwind/Features-API",
     "sources": "https://github.com/Louwind/Features-API"
   },
-
   "license": "CC0-1.0",
   "icon": "assets/features/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
       "github.Louwind.Features.Features"
     ]
   },
+  "accessWidener" : "features.accesswidener",
   "mixins": [
     "features.impl.mixins.json",
     "features.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
