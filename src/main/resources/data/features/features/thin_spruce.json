@@ -6,7 +6,6 @@
       "pool": "features:thin_spruces",
       "context": {
         "type": "features:tree",
-        "rotations": "none",
         "overrides": [
           {
             "type": "features:parameter",

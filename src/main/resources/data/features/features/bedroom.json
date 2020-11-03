@@ -6,7 +6,6 @@
       "pool": "features:bedrooms",
       "context": {
         "type": "features:piece",
-        "rotations": "all",
         "overrides": [
           {
             "type": "features:parameter",

@@ -3,11 +3,7 @@
   "pools": [
     {
       "type": "features:pool",
-      "pool": "features:kitchens",
-      "context": {
-        "type": "features:piece",
-        "rotations": "all"
-      }
+      "pool": "features:kitchens"
     }
   ]
 }

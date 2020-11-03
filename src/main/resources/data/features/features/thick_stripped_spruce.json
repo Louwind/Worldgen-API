@@ -7,7 +7,6 @@
       "context": {
         "type": "features:thick_tree",
         "sapling": "minecraft:spruce_sapling",
-        "rotations": "none",
         "overrides": [
           {
             "type": "features:parameter",
