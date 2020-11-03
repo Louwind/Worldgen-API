@@ -27,7 +27,7 @@ public class JigsawContextGenerator {
 
         if(provider instanceof PieceContextProvider) {
             PieceContextProvider contextProvider = (PieceContextProvider) provider;
-            BlockRotation rotation = contextProvider.getRotations(random);
+            BlockRotation rotation = config.getRotation(random);
 
             FeatureContextBuilder builder = contextProvider.getFeatureContextBuilder(world, config, rotation, chunkGenerator, pieces, random, blockPos);
 
@@ -45,7 +45,7 @@ public class JigsawContextGenerator {
 
         if(provider instanceof PieceContextProvider) {
             PieceContextProvider contextProvider = (PieceContextProvider) provider;
-            BlockRotation rotation = contextProvider.getRotations(random);
+            BlockRotation rotation = config.getRotation(random);
 
             FeatureContextBuilder builder = contextProvider.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, blockPos);
 

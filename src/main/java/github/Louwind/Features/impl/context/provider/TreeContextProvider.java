@@ -25,8 +25,8 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.ROOT;
 
 public class TreeContextProvider extends PieceContextProvider {
 
-    public TreeContextProvider(BlockRotation[] rotations, FeatureContextOverride[] overrides) {
-        super(rotations, overrides);
+    public TreeContextProvider(FeatureContextOverride[] overrides) {
+        super(overrides);
     }
 
     @Override
@@ -53,9 +53,8 @@ public class TreeContextProvider extends PieceContextProvider {
         @Override
         public TreeContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
-            return new TreeContextProvider(rotations, overrides);
+            return new TreeContextProvider(overrides);
         }
 
     }

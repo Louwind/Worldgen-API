@@ -5,6 +5,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Supplier;
 
 public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
@@ -21,6 +22,13 @@ public abstract class PoolFeatureConfig extends StructurePoolFeatureConfig {
         this.rotations = rotations;
         this.surface = surface;
         this.startY = startY;
+    }
+
+    public BlockRotation getRotation(Random random) {
+        int size = this.rotations.size();
+        int index = random.nextInt(size);
+
+        return this.rotations.get(index);
     }
 
     public List<BlockRotation> getRotations() {

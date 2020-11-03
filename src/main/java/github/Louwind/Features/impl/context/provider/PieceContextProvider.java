@@ -30,14 +30,12 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class PieceContextProvider implements FeatureContextProvider {
 
-    public static final FeatureContextProvider EMPTY = new PieceContextProvider(new BlockRotation[]{ BlockRotation.NONE });
+    public static final FeatureContextProvider EMPTY = new PieceContextProvider();
 
     private final List<FeatureContextOverride> overrides;
-    private final List<BlockRotation> rotations;
 
-    public PieceContextProvider(BlockRotation[] rotations, FeatureContextOverride ...overrides) {
+    public PieceContextProvider(FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
-        this.rotations = Arrays.asList(rotations);
     }
 
     public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
@@ -65,13 +63,6 @@ public class PieceContextProvider implements FeatureContextProvider {
         return this.overrides;
     }
 
-    public BlockRotation getRotations(Random random) {
-        int size = this.rotations.size();
-        int index = random.nextInt(size);
-
-        return this.rotations.get(index);
-    }
-
     @Override
     public FeatureContextProviderType getType() {
         return FeatureContextProviders.PIECE;
@@ -87,9 +78,8 @@ public class PieceContextProvider implements FeatureContextProvider {
         @Override
         public PieceContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
-            return new PieceContextProvider(rotations, overrides);
+            return new PieceContextProvider(overrides);
         }
 
     }
