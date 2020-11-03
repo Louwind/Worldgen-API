@@ -32,6 +32,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.SpawnSettings;
@@ -137,9 +138,9 @@ public class FeaturesJsonHelper {
                 }
 
                 if(pos.has("x") || pos.has("y") || pos.has("z")) {
-                    OptionalContextParameter<Double> x = FeaturesJsonHelper.getOptionalDouble(pos, "x");
-                    OptionalContextParameter<Double> y = FeaturesJsonHelper.getOptionalDouble(pos, "y");
-                    OptionalContextParameter<Double> z = FeaturesJsonHelper.getOptionalDouble(pos, "z");
+                    OptionalContextParameter<Integer> x = FeaturesJsonHelper.getOptionalInt(pos, "x");
+                    OptionalContextParameter<Integer> y = FeaturesJsonHelper.getOptionalInt(pos, "y");
+                    OptionalContextParameter<Integer> z = FeaturesJsonHelper.getOptionalInt(pos, "z");
 
                     return OptionalBlockPos.of(x, y, z);
                 }
@@ -149,6 +150,36 @@ public class FeaturesJsonHelper {
         }
 
         return OptionalBlockPos.of(BlockPos.ORIGIN);
+    }
+
+    public static OptionalVector getOptionalVector(JsonObject object, String name) {
+
+        if(object.has(name)) {
+            JsonElement element = object.get(name);
+
+            if(element.isJsonObject()) {
+                JsonObject pos = element.getAsJsonObject();
+
+                if(pos.has("parameter")) {
+                    FeatureContextParameter<Vec3d> parameter = FeaturesJsonHelper.getContextParameter(pos, "parameter");
+                    OptionalContextParameter<Vec3d> optional = OptionalContextParameter.of(parameter);
+
+                    return OptionalVector.of(optional);
+                }
+
+                if(pos.has("x") || pos.has("y") || pos.has("z")) {
+                    OptionalContextParameter<Double> x = FeaturesJsonHelper.getOptionalDouble(pos, "x");
+                    OptionalContextParameter<Double> y = FeaturesJsonHelper.getOptionalDouble(pos, "y");
+                    OptionalContextParameter<Double> z = FeaturesJsonHelper.getOptionalDouble(pos, "z");
+
+                    return OptionalVector.of(x, y, z);
+                }
+
+            }
+
+        }
+
+        return OptionalVector.of(Vec3d.ZERO);
     }
 
     @SuppressWarnings("unchecked")

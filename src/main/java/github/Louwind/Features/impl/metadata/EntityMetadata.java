@@ -11,7 +11,7 @@ import github.Louwind.Features.impl.init.FeatureMetadataTypes;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.OptionalBlockPos;
+import github.Louwind.Features.util.OptionalVector;
 import github.Louwind.Features.util.OptionalTag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +21,6 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.StructureWorldAccess;
 
@@ -36,10 +35,10 @@ public class EntityMetadata implements FeatureMetadata {
     private final List<FeatureCondition> conditions;
     private final List<FeatureFunction> functions;
     private final OptionalTag compoundTag;
-    private final OptionalBlockPos pos;
+    private final OptionalVector pos;
     private final Identifier id;
 
-    public EntityMetadata(Identifier id, OptionalContextParameter<BlockRotation> rotation, OptionalBlockPos pos, OptionalTag compoundTag, FeatureFunction[] functions, FeatureCondition[] conditions) {
+    public EntityMetadata(Identifier id, OptionalContextParameter<BlockRotation> rotation, OptionalVector pos, OptionalTag compoundTag, FeatureFunction[] functions, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
         this.functions = Arrays.asList(functions);
         this.compoundTag = compoundTag;
@@ -106,7 +105,7 @@ public class EntityMetadata implements FeatureMetadata {
 
             Identifier id = FeaturesJsonHelper.getIdentifier(json, "id");
             OptionalTag tag = FeaturesJsonHelper.getOptionalTag(json, "tag");
-            OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(json, "pos");
+            OptionalVector pos = FeaturesJsonHelper.getOptionalVector(json, "pos");
 
             return new EntityMetadata(id, rotation, pos, tag, functions, conditions);
         }
