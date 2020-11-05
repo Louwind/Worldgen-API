@@ -3,6 +3,7 @@ package github.Louwind.Features.util;
 import github.Louwind.Features.config.PoolFeatureConfig;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.function.FeatureFunction;
+import github.Louwind.Features.impl.init.FeatureContextParameters;
 import github.Louwind.Features.impl.pool.GenericFeaturePool;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
@@ -10,6 +11,7 @@ import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 
 import java.util.List;
+import java.util.Random;
 
 public class JigsawHelper {
 
@@ -22,13 +24,16 @@ public class JigsawHelper {
                 .orElse(GenericFeaturePool.EMPTY);
     }
 
-    public static void applyFunctions(FeaturePool pool, StructurePoolElement poolElement, FeatureContext context) {
-        List<FeatureFunction> functions = pool.getFunctions(poolElement);
+    public static void applyFunctions(FeaturePool pool, StructurePoolElement poolElement, FeatureContext context, Random random) {
 
-        for (FeatureFunction function: functions) {
+        if(pool.contains(poolElement, random)) {
+            List<FeatureFunction> functions = pool.getFunctions(poolElement);
 
-            if(function.test(context))
-                function.accept(context);
+            for (FeatureFunction function: functions) {
+
+                if(function.test(context))
+                    function.accept(context);
+            }
         }
 
     }

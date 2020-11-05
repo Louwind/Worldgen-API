@@ -1,6 +1,5 @@
 package github.Louwind.Features.pool;
 
-import com.google.common.collect.Lists;
 import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
@@ -12,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +20,12 @@ import java.util.stream.Stream;
  * like context provider, functions and properties.
  * */
 public interface FeaturePool {
+
+    default boolean contains(StructurePoolElement poolElement, Random random) {
+        StructurePool pool = this.getStructurePool();
+
+        return pool.getElementIndicesInRandomOrder(random).contains(poolElement);
+    }
 
     List<FeatureEntry> getEntries();
 

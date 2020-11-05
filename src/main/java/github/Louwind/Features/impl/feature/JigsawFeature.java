@@ -59,7 +59,7 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
                     StructurePoolElement poolElement = piece.getPoolElement();
 
                     JigsawHelper.applyContext(poolElement, pieceContext);
-                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext);
+                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext, random);
 
                     BlockBox box = pieceContext.get(BOX);
                     BlockPos pos = pieceContext.get(POS);

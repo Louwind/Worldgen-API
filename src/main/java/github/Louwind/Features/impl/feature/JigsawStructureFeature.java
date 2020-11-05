@@ -106,7 +106,7 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
                     StructurePoolElement poolElement = piece.getPoolElement();
 
                     JigsawHelper.applyContext(poolElement, pieceContext);
-                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext);
+                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext, this.random);
                 }
 
                 this.setBoundingBoxFromChildren();
