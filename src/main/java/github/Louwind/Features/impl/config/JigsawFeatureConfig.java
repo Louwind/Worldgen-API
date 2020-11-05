@@ -55,7 +55,7 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
             BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
             boolean keepJigsaws = JsonHelper.getBoolean(json, "keep_jigsaws", false);
-            boolean surface = JsonHelper.getBoolean(json, "surface", true);
+            boolean surface = JsonHelper.getBoolean(json, "surface", false);
             int startY = JsonHelper.getInt(json, "y", 0);
             int size = JsonHelper.getInt(json, "size", 1);
 

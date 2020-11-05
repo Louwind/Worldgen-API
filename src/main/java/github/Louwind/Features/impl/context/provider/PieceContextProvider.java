@@ -52,7 +52,7 @@ public class PieceContextProvider implements FeatureContextProvider {
         return new FeatureContextBuilder()
                 .put(BOX, BlockBox.infinite())
                 .put(CHUNK_GENERATOR, chunkGenerator)
-                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, pieces, random, pos))
+                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, pieces, random, rotation, pos))
                 .put(POS, pos)
                 .put(RANDOM, random)
                 .put(ROTATION, rotation);

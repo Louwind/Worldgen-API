@@ -51,7 +51,7 @@ public class ThickTreeContextProvider extends TreeContextProvider {
         BlockPos pos = saplings.stream().sorted().iterator().next();
 
         return builder.put(ORIGIN, origin)
-                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, random, pos))
+                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, random, rotation, pos))
                 .put(POS, pos)
                 .put(ROOT, saplings);
     }
