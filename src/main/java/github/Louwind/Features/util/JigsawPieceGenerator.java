@@ -36,10 +36,12 @@ public class JigsawPieceGenerator {
         int size = config.getSize();
         int y = pos.getY();
 
-        int level = config.isSurface() ? y + chunkGenerator.getHeightOnGround(i, j, Heightmap.Type.WORLD_SURFACE_WG) : y;
-        int offset = boundingBox.minY + piece.getGroundLevelDelta();
+        if(config.isSurface()) {
+            int level = y + chunkGenerator.getHeightOnGround(i, j, Heightmap.Type.WORLD_SURFACE_WG);
+            int offset = boundingBox.minY + piece.getGroundLevelDelta();
 
-        piece.translate(0, level - offset, 0);
+            piece.translate(0, level - offset, 0);
+        }
 
         if (size > 0)
             StructurePoolBasedGenerator.method_27230(registryManager, piece, size, pieceFactory, chunkGenerator, structureManager, pieces, random);
