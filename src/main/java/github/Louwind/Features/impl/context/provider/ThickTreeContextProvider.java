@@ -10,7 +10,6 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.block.sapling.FeaturesThickSaplingGenerator;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.JigsawPieceGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
@@ -39,21 +38,20 @@ public class ThickTreeContextProvider extends TreeContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos origin) {
-        FeatureContextBuilder builder = super.getFeatureContextBuilder(world, config, rotation, chunkGenerator, pieces, random, origin);
-
+    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         ServerWorld server = world.toServerWorld();
 
         DynamicRegistryManager registryManager = server.getRegistryManager();
         StructureManager structureManager = server.getStructureManager();
 
-        Set<BlockPos> saplings = FeaturesThickSaplingGenerator.getSaplings(world, this.sapling, origin);
-        BlockPos pos = saplings.stream().sorted().iterator().next();
+        Set<BlockPos> saplings = FeaturesThickSaplingGenerator.getSaplings(world, this.sapling, pos);
+        BlockPos blockPos = saplings.stream().sorted().iterator().next();
 
-        return builder.put(ORIGIN, origin)
-                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, random, rotation, pos))
-                .put(POS, pos)
-                .put(ROOT, saplings);
+        return this.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, blockPos)
+                .put(ORIGIN, pos)
+                .put(POS, blockPos)
+                .put(ROOT, saplings)
+                .put(WORLD, world);
     }
 
     @Override
