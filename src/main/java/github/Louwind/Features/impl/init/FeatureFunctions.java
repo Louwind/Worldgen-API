@@ -11,9 +11,9 @@ public class FeatureFunctions {
 
     public static final FeatureFunctionType MIRROR = new FeatureFunctionType(new MirrorFunction.Serializer(), builder -> builder.required(POS, RANDOM, WORLD));
 
-    public static final FeatureFunctionType OFFSET = new FeatureFunctionType(new OffsetFunction.Serializer(), builder -> builder.required(PIECES));
+    public static final FeatureFunctionType OFFSET = new FeatureFunctionType(new OffsetFunction.Serializer(), builder -> builder.required(PIECE));
 
-    public static final FeatureFunctionType PIVOT = new FeatureFunctionType(new PivotFunction.Serializer(), builder -> builder.required(PIECES, ROTATION));
+    public static final FeatureFunctionType PIVOT = new FeatureFunctionType(new PivotFunction.Serializer(), builder -> builder.required(PIECE, ROTATION));
 
     public static final FeatureFunctionType PLACE_FEATURE = new FeatureFunctionType(new PlaceFeatureFunction.Serializer(), builder -> builder.required(POS, RANDOM, WORLD));
 
