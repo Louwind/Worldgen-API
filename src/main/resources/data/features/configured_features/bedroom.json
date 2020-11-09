@@ -2,8 +2,7 @@
   "configurations": {
     "features:bedroom": {
       "type": "features:jigsaw",
-      "start_pool": "features:bedrooms",
-      "rotations": "all"
+      "start_pool": "features:bedrooms"
     }
   }
 }

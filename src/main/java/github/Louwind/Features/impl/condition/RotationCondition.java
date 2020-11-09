@@ -42,7 +42,7 @@ public class RotationCondition implements FeatureCondition {
 
         @Override
         public RotationCondition fromJson(JsonObject json, JsonDeserializationContext context) {
-            BlockRotation rotation = FeaturesJsonHelper.getEnum(json, BlockRotation.class, "rotation");
+            BlockRotation rotation = FeaturesJsonHelper.getRotation(json, "rotation");
 
             return new RotationCondition(rotation);
         }

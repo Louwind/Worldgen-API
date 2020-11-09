@@ -2,8 +2,7 @@
   "configurations": {
     "features:well": {
       "type": "features:jigsaw",
-      "start_pool": "features:wells",
-      "rotations": "all"
+      "start_pool": "features:wells"
     }
   }
 }

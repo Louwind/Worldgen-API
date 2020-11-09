@@ -38,24 +38,24 @@ public class PieceContextProvider implements FeatureContextProvider {
         this.overrides = Arrays.asList(overrides);
     }
 
-    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
+    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         ServerWorld server = world.toServerWorld();
         DynamicRegistryManager registryManager = server.getRegistryManager();
         StructureManager structureManager = server.getStructureManager();
 
-        FeatureContextBuilder builder = this.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, pos);
+        FeatureContextBuilder builder = this.getStructureContextBuilder(registryManager, structureManager, config, chunkGenerator, pieces, random, pos);
 
         return builder.put(WORLD, world);
     }
 
-    public FeatureContextBuilder getStructureContextBuilder(DynamicRegistryManager registryManager, StructureManager structureManager, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
+    public FeatureContextBuilder getStructureContextBuilder(DynamicRegistryManager registryManager, StructureManager structureManager, PoolFeatureConfig config, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         return new FeatureContextBuilder()
                 .put(BOX, BlockBox.infinite())
                 .put(CHUNK_GENERATOR, chunkGenerator)
-                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, pieces, random, rotation, pos))
+                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, pieces, random, pos))
                 .put(POS, pos)
                 .put(RANDOM, random)
-                .put(ROTATION, rotation);
+                .put(ROTATION, config.getRotation());
     }
 
     @Override

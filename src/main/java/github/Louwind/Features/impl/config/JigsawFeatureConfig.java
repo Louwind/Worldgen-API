@@ -16,8 +16,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class JigsawFeatureConfig extends PoolFeatureConfig {
@@ -26,15 +24,15 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
 
     public static final Codec<JigsawFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(JigsawFeatureConfig::getStartPool),
-            Codec.list(BLOCK_ROTATION_CODEC).fieldOf("rotations").forGetter(JigsawFeatureConfig::getRotations),
+            BLOCK_ROTATION_CODEC.fieldOf("rotations").forGetter(JigsawFeatureConfig::getRotation),
             Codec.BOOL.fieldOf("keepJigsaws").forGetter(JigsawFeatureConfig::getKeepJigsaws),
             Codec.BOOL.fieldOf("surface").forGetter(JigsawFeatureConfig::isSurface),
             Codec.intRange(Integer.MIN_VALUE, Integer.MAX_VALUE).fieldOf("y").forGetter(JigsawFeatureConfig::getStartY),
             Codec.intRange(0, Integer.MAX_VALUE).fieldOf("size").forGetter(JigsawFeatureConfig::getSize))
             .apply(instance, JigsawFeatureConfig::new));
 
-    public JigsawFeatureConfig(Supplier<StructurePool> startPool, List<BlockRotation> rotations, boolean keepJigsaws, boolean surface, int startY, int size) {
-        super(startPool, rotations, keepJigsaws, surface, startY, size);
+    public JigsawFeatureConfig(Supplier<StructurePool> startPool, BlockRotation rotation, boolean keepJigsaws, boolean surface, int startY, int size) {
+        super(startPool, rotation, keepJigsaws, surface, startY, size);
     }
 
     @Override
@@ -52,14 +50,15 @@ public class JigsawFeatureConfig extends PoolFeatureConfig {
         @Override
         public JigsawFeatureConfig fromJson(JsonObject json, JsonDeserializationContext context) {
             StructurePool pool = FeaturesJsonHelper.getStructurePool(json, "start_pool");
-            BlockRotation[] rotations = FeaturesJsonHelper.getRotations(json, "rotations");
 
             boolean keepJigsaws = JsonHelper.getBoolean(json, "keep_jigsaws", false);
             boolean surface = JsonHelper.getBoolean(json, "surface", false);
             int startY = JsonHelper.getInt(json, "y", 0);
             int size = JsonHelper.getInt(json, "size", 1);
 
-            return new JigsawFeatureConfig(Suppliers.ofInstance(pool), Arrays.asList(rotations), keepJigsaws, surface, startY, size);
+            BlockRotation rotation = FeaturesJsonHelper.getRotation(json, "rotation", BlockRotation.NONE);
+
+            return new JigsawFeatureConfig(Suppliers.ofInstance(pool), rotation, keepJigsaws, surface, startY, size);
         }
 
     }

@@ -14,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
@@ -38,7 +37,7 @@ public class ThickTreeContextProvider extends TreeContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
+    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         ServerWorld server = world.toServerWorld();
 
         DynamicRegistryManager registryManager = server.getRegistryManager();
@@ -47,7 +46,7 @@ public class ThickTreeContextProvider extends TreeContextProvider {
         Set<BlockPos> saplings = FeaturesThickSaplingGenerator.getSaplings(world, this.sapling, pos);
         BlockPos blockPos = saplings.stream().sorted().iterator().next();
 
-        return this.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, blockPos)
+        return this.getStructureContextBuilder(registryManager, structureManager, config, chunkGenerator, pieces, random, blockPos)
                 .put(ORIGIN, pos)
                 .put(POS, blockPos)
                 .put(ROOT, saplings)

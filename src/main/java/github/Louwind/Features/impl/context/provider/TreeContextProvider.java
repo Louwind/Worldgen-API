@@ -11,7 +11,6 @@ import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
@@ -30,8 +29,8 @@ public class TreeContextProvider extends PieceContextProvider {
     }
 
     @Override
-    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, BlockRotation rotation, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
-        FeatureContextBuilder builder = super.getFeatureContextBuilder(world, config, rotation, chunkGenerator, pieces, random, pos);
+    public FeatureContextBuilder getFeatureContextBuilder(StructureWorldAccess world, PoolFeatureConfig config, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
+        FeatureContextBuilder builder = super.getFeatureContextBuilder(world, config, chunkGenerator, pieces, random, pos);
 
         Set<BlockPos> root = Sets.newHashSet(pos);
 

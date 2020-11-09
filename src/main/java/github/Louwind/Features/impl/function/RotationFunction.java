@@ -11,7 +11,6 @@ import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.Direction;
 
@@ -65,8 +64,7 @@ public class RotationFunction implements FeatureFunction {
         public RotationFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
 
-            String string = JsonHelper.getString(json, "rotation");
-            BlockRotation rotation = BlockRotation.valueOf(string.toUpperCase());
+            BlockRotation rotation = FeaturesJsonHelper.getRotation(json, "rotation");
 
             return new RotationFunction(rotation, conditions);
         }

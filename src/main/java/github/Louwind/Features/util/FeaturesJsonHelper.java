@@ -312,29 +312,12 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getProcessors(object, new StructureProcessor[]{}, context, name);
     }
 
-    public static BlockRotation[] getRotations(JsonObject object, String name) {
+    public static BlockRotation getRotation(JsonObject object, String name) {
+        return FeaturesJsonHelper.getEnum(object, BlockRotation.class, name);
+    }
 
-        if(object.has(name)) {
-            JsonElement element = object.get(name);
-
-            if (element.isJsonPrimitive()) {
-                JsonPrimitive primitive = element.getAsJsonPrimitive();
-
-                if (primitive.isString()) {
-                    String string = primitive.getAsString();
-
-                    if (string.equals("all"))
-                        return BlockRotation.values();
-
-                    BlockRotation rotation = FeaturesJsonHelper.getEnum(object, BlockRotation.class, name);
-
-                    if(rotation != null)
-                        return new BlockRotation[] { rotation };
-                }
-            }
-        }
-
-        return new BlockRotation[]{};
+    public static BlockRotation getRotation(JsonObject object, String name, BlockRotation defaultValue) {
+        return object.has(name) ? FeaturesJsonHelper.getEnum(object, BlockRotation.class, name) : defaultValue;
     }
 
     public static FeatureContextOverride[] getContextOverrides(JsonObject object, FeatureContextOverride[] defaultValue, JsonDeserializationContext context, String name) {

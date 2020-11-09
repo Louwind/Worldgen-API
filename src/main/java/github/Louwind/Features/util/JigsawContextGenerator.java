@@ -10,7 +10,6 @@ import github.Louwind.Features.impl.init.FeatureContextProviders;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.StructureWorldAccess;
@@ -27,9 +26,8 @@ public class JigsawContextGenerator {
 
         if(provider instanceof PieceContextProvider) {
             PieceContextProvider contextProvider = (PieceContextProvider) provider;
-            BlockRotation rotation = config.getRotation(random);
 
-            FeatureContextBuilder builder = contextProvider.getFeatureContextBuilder(world, config, rotation, chunkGenerator, pieces, random, blockPos);
+            FeatureContextBuilder builder = contextProvider.getFeatureContextBuilder(world, config, chunkGenerator, pieces, random, blockPos);
 
             return provider.getContext(builder);
         }
@@ -45,9 +43,8 @@ public class JigsawContextGenerator {
 
         if(provider instanceof PieceContextProvider) {
             PieceContextProvider contextProvider = (PieceContextProvider) provider;
-            BlockRotation rotation = config.getRotation(random);
 
-            FeatureContextBuilder builder = contextProvider.getStructureContextBuilder(registryManager, structureManager, config, rotation, chunkGenerator, pieces, random, blockPos);
+            FeatureContextBuilder builder = contextProvider.getStructureContextBuilder(registryManager, structureManager, config, chunkGenerator, pieces, random, blockPos);
 
             return provider.getContext(builder);
         }

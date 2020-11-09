@@ -2,8 +2,7 @@
   "configurations": {
     "features:wine_storage": {
       "type": "features:jigsaw",
-      "start_pool": "features:wine_storages",
-      "rotations": "all"
+      "start_pool": "features:wine_storages"
     }
   }
 }

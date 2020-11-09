@@ -2,8 +2,7 @@
   "configurations": {
     "features:bookshelf": {
       "type": "features:jigsaw",
-      "start_pool": "features:bookshelfs",
-      "rotations": "all"
+      "start_pool": "features:bookshelfs"
     }
   }
 }

@@ -2,8 +2,7 @@
   "configurations": {
     "features:thick_stripped_spruce": {
       "type": "features:jigsaw",
-      "start_pool": "features:thick_stripped_spruces",
-      "rotations": "none"
+      "start_pool": "features:thick_stripped_spruces"
     }
   }
 }

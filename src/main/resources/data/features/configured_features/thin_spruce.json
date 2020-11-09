@@ -2,8 +2,7 @@
   "configurations": {
     "features:thin_spruce": {
       "type": "features:jigsaw",
-      "start_pool": "features:thin_spruces",
-      "rotations": "none"
+      "start_pool": "features:thin_spruces"
     }
   }
 }
