@@ -5,11 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.override.FeatureContextOverride;
 import github.Louwind.Features.context.override.FeatureContextOverrideType;
+import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.impl.init.FeatureContextOverrides;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.util.JsonSerializer;
@@ -31,7 +30,7 @@ public class ParameterContextOverride<T> implements FeatureContextOverride {
     }
 
     @Override
-    public void accept(FeatureContextProvider provider, FeatureContextBuilder builder) {
+    public void accept(FeatureContextBuilder builder) {
 
         for (FeatureContextGetter<T> from : this.from) {
 

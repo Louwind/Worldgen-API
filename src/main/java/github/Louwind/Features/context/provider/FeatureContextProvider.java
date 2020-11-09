@@ -16,7 +16,7 @@ public interface FeatureContextProvider {
     default FeatureContext getContext(FeatureContextBuilder builder) throws IllegalArgumentException {
 
         for (FeatureContextOverride overrides : this.getContextOverrides())
-            overrides.accept(this, builder);
+            overrides.accept(builder);
 
         FeatureContextProviderType type = this.getType();
 
