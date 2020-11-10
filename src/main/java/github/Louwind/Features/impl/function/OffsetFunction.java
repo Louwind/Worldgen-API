@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Arrays;
 import java.util.List;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECE;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECES;
 
 public class OffsetFunction implements FeatureFunction {
 
@@ -41,14 +41,16 @@ public class OffsetFunction implements FeatureFunction {
 
 	@Override
 	public void accept(FeatureContext context) {
-		PoolStructurePiece piece = context.get(PIECE);
+		List<PoolStructurePiece> pieces = context.get(PIECES);
 		BlockPos pos = this.pos.asPosition(context);
 
 		int x = pos.getX();
 		int y = pos.getY();
 		int z = pos.getZ();
 
-		piece.translate(x, y, z);
+		for (PoolStructurePiece piece : pieces)
+			piece.translate(x, y, z);
+
 	}
 
 	public static class Serializer implements JsonSerializer<OffsetFunction> {

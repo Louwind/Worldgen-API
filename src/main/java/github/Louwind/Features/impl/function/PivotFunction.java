@@ -20,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECE;
-import static github.Louwind.Features.impl.init.FeatureContextParameters.ROTATION;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class PivotFunction implements FeatureFunction {
 
@@ -47,7 +46,7 @@ public class PivotFunction implements FeatureFunction {
 
     @Override
     public void accept(FeatureContext context) {
-        PoolStructurePiece piece = context.get(PIECE);
+        List<PoolStructurePiece> pieces = context.get(PIECES);
         BlockRotation rotation = context.get(ROTATION);
 
         OptionalBlockPos optional = this.when.get(rotation);
@@ -60,7 +59,9 @@ public class PivotFunction implements FeatureFunction {
         int y = add.getY();
         int z = add.getZ();
 
-        piece.translate(x, y, z);
+        for (PoolStructurePiece piece : pieces)
+            piece.translate(x, y, z);
+
     }
 
     public static class Serializer implements JsonSerializer<PivotFunction> {
