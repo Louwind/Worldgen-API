@@ -10,6 +10,8 @@ public class FeaturesItems {
 
     public static final Item BOOKSHELF_DEBUG_STICK = new DebugStickItem(new Identifier("features:bookshelf"), new Item.Settings());
 
+    public static final Item CHRISTMAS_TREE_DEBUG_STICK = new DebugStickItem(new Identifier("features:christmas_tree"), new Item.Settings());
+
     public static final Item DRESS_ROOM_DEBUG_STICK = new DebugStickItem(new Identifier("features:dress_room"), new Item.Settings());
 
     public static final Item KITCHEN_DEBUG_STICK = new DebugStickItem(new Identifier("features:kitchen"), new Item.Settings());

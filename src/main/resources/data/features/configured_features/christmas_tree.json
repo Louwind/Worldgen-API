@@ -1,0 +1,9 @@
+{
+  "configurations": {
+    "features:christmas_tree": {
+      "type": "features:jigsaw",
+      "start_pool": "features:christmas_trees/big_crowns",
+      "size": 4
+    }
+  }
+}
