@@ -47,8 +47,8 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
         ServerWorld server = world.toServerWorld();
         StructureAccessor accessor = server.getStructureAccessor();
 
-        FeaturePool pool = JigsawHelper.getStartPool(featureConfig, this.pools);
-        FeatureContextProvider provider = pool.getContextProvider();
+        FeaturePool startPool = JigsawHelper.getStartPool(featureConfig, this.pools);
+        FeatureContextProvider provider = startPool.getContextProvider();
 
             try {
                 FeatureContext context = JigsawContextGenerator.getFeaturePieceContext(world, provider, featureConfig, chunkGenerator, random, blockPos);
@@ -57,6 +57,8 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
                 return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
                     FeatureContext pieceContext = JigsawContextGenerator.getPieceContext(context, piece);
                     StructurePoolElement poolElement = piece.getPoolElement();
+
+                    FeaturePool pool = JigsawHelper.getPool(poolElement, this.pools, random);
 
                     JigsawHelper.applyContext(poolElement, pieceContext);
                     JigsawHelper.applyFunctions(pool, poolElement, pieceContext, random);

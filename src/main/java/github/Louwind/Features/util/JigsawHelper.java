@@ -3,7 +3,6 @@ package github.Louwind.Features.util;
 import github.Louwind.Features.config.PoolFeatureConfig;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.function.FeatureFunction;
-import github.Louwind.Features.impl.init.FeatureContextParameters;
 import github.Louwind.Features.impl.pool.GenericFeaturePool;
 import github.Louwind.Features.impl.pool.element.ContextAwarePoolElement;
 import github.Louwind.Features.pool.FeaturePool;
@@ -14,15 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 public class JigsawHelper {
-
-    public static FeaturePool getStartPool(PoolFeatureConfig config, List<FeaturePool> pools) {
-        StructurePool structurePool = config.getStartPool().get();
-
-        return pools.stream()
-                .filter(pool -> pool.getStructurePool() == structurePool)
-                .findFirst()
-                .orElse(GenericFeaturePool.EMPTY);
-    }
 
     public static void applyFunctions(FeaturePool pool, StructurePoolElement poolElement, FeatureContext context, Random random) {
 
@@ -46,6 +36,22 @@ public class JigsawHelper {
             element.setContext(context);
         }
 
+    }
+
+    public static FeaturePool getPool(StructurePoolElement poolElement, List<FeaturePool> pools, Random random) {
+        return pools.stream()
+                .filter(pool -> pool.contains(poolElement, random))
+                .findFirst()
+                .orElse(GenericFeaturePool.EMPTY);
+    }
+
+    public static FeaturePool getStartPool(PoolFeatureConfig config, List<FeaturePool> pools) {
+        StructurePool structurePool = config.getStartPool().get();
+
+        return pools.stream()
+                .filter(pool -> pool.getStructurePool() == structurePool)
+                .findFirst()
+                .orElse(GenericFeaturePool.EMPTY);
     }
 
 }
