@@ -13,14 +13,15 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-import static github.Louwind.Features.impl.init.FeatureContextProviders.*;
+import static github.Louwind.Features.impl.init.FeatureContextProviders.METADATA;
+import static github.Louwind.Features.impl.init.FeatureContextProviders.REPEAT;
 import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_CONTEXT_PROVIDER;
 
-public class MetadataContextProvider implements FeatureContextProvider {
+public class RepeatContextProvider implements FeatureContextProvider {
 
     private final List<FeatureContextOverride> overrides;
 
-    public MetadataContextProvider(FeatureContextOverride ...overrides) {
+    public RepeatContextProvider(FeatureContextOverride ...overrides) {
         this.overrides = Arrays.asList(overrides);
     }
 
@@ -31,21 +32,21 @@ public class MetadataContextProvider implements FeatureContextProvider {
 
     @Override
     public FeatureContextProviderType getType() {
-        return FeatureContextProviders.METADATA;
+        return FeatureContextProviders.REPEAT;
     }
 
-    public static class Serializer implements JsonSerializer<MetadataContextProvider> {
+    public static class Serializer implements JsonSerializer<RepeatContextProvider> {
 
         @Override
-        public void toJson(JsonObject json, MetadataContextProvider object, JsonSerializationContext context) {
-            json.addProperty("type", FEATURE_CONTEXT_PROVIDER.getId(METADATA).toString());
+        public void toJson(JsonObject json, RepeatContextProvider object, JsonSerializationContext context) {
+            json.addProperty("type", FEATURE_CONTEXT_PROVIDER.getId(REPEAT).toString());
         }
 
         @Override
-        public MetadataContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
+        public RepeatContextProvider fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureContextOverride[] overrides = FeaturesJsonHelper.getContextOverrides(json, context, "overrides");
 
-            return new MetadataContextProvider(overrides);
+            return new RepeatContextProvider(overrides);
         }
 
     }

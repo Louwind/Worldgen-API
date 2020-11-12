@@ -42,6 +42,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:piece"), FeatureContextProviders.PIECE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
+        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:repeat"), FeatureContextProviders.REPEAT);
 
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
@@ -72,6 +73,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_generator"), FeatureContextParameters.CHUNK_GENERATOR);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:index"), FeatureContextParameters.INDEX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:mirror"), FeatureContextParameters.MIRROR);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:palette"), FeatureContextParameters.PALETTE);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
@@ -89,6 +91,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_feature"), FeatureFunctions.PLACE_FEATURE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk"), FeatureFunctions.PLACE_TRUNK);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:place_trunk_with_leaves"), FeatureFunctions.PLACE_TRUNK_WITH_LEAVES);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:repeat"), FeatureFunctions.REPEAT);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate"), FeatureFunctions.ROTATE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:rotate_entity"), FeatureFunctions.ROTATE_ENTITY);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:sequence"), FeatureFunctions.SEQUENCE);

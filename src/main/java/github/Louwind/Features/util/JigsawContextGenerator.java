@@ -18,6 +18,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import java.util.List;
 import java.util.Random;
 
+import static github.Louwind.Features.impl.init.FeatureContextParameters.INDEX;
 import static github.Louwind.Features.impl.init.FeatureContextParameters.PIECE;
 
 public class JigsawContextGenerator {
@@ -50,6 +51,10 @@ public class JigsawContextGenerator {
         }
 
         return FeatureContext.EMPTY;
+    }
+
+    public static FeatureContext getRepeatContext(FeatureContext context, int index) {
+        return new FeatureContextBuilder(context).put(INDEX, index).build(FeatureContextProviders.REPEAT);
     }
 
     public static FeatureContext getPieceContext(FeatureContext context, PoolStructurePiece piece) {
