@@ -50,7 +50,8 @@ public class PlaceFeatureFunction implements FeatureFunction {
 
     @Override
     public void accept(FeatureContext context) {
-        BlockPos pos = context.get(POS);
+        BlockPos pos = this.pos.isPresent() ? this.pos.asPosition(context) : context.get(POS);
+
         Random random = context.get(RANDOM);
         StructureWorldAccess access = context.get(WORLD);
 
