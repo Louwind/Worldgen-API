@@ -13,6 +13,9 @@ import net.minecraft.util.JsonSerializer;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+
+import static github.Louwind.Features.impl.init.FeatureContextParameters.RANDOM;
 
 public class ChooseFunction implements FeatureFunction {
 
@@ -36,13 +39,14 @@ public class ChooseFunction implements FeatureFunction {
 
     @Override
     public void accept(FeatureContext context) {
+        Random random = context.get(RANDOM);
 
-        for (FeatureFunction function : this.choices) {
+        int size = this.choices.size();
+        int index = random.nextInt(size);
 
-            if(function.test(context))
-                function.accept(context);
-        }
+        FeatureFunction function = this.choices.get(index);
 
+        function.accept(context);
     }
 
     public static class Serializer implements JsonSerializer<ChooseFunction> {
