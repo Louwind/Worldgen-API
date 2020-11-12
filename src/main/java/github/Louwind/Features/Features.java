@@ -75,6 +75,8 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:index"), FeatureContextParameters.INDEX);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:mirror"), FeatureContextParameters.MIRROR);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:offset"), FeatureContextParameters.OFFSET);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:origin"), FeatureContextParameters.ORIGIN);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:palette"), FeatureContextParameters.PALETTE);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pos"), FeatureContextParameters.POS);
@@ -82,6 +84,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:root"), FeatureContextParameters.ROOT);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:rotation"), FeatureContextParameters.ROTATION);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:trunks"), FeatureContextParameters.TRUNKS);
+        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:y"), FeatureContextParameters.Y);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:execute_command"), FeatureFunctions.EXECUTE_COMMAND);
