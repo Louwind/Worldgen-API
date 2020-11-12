@@ -10,13 +10,26 @@
         "overrides": [
           {
             "type": "features:parameter",
-            "parameter": "features:height",
+            "parameter": "features:trunks",
             "from": [
               {
                 "type": "features:ranged",
                 "range": {
-                  "min": 4,
-                  "max": 6
+                  "min": 1,
+                  "max": 2
+                }
+              }
+            ]
+          },
+          {
+            "type": "features:parameter",
+            "parameter": "features:height",
+            "from": [
+              {
+                "type": "features:multiply",
+                "base": 4,
+                "multiplier": {
+                  "parameter": "features:trunks"
                 }
               }
             ]
@@ -24,6 +37,12 @@
         ]
       },
 	  "functions": [
+        {
+          "function": "features:offset",
+          "offset": {
+            "y": 1
+          }
+        },
         {
           "function": "features:offset",
           "offset": {
@@ -35,8 +54,101 @@
           }
         },
         {
-          "function": "features:place_trunk",
-          "block": "minecraft:stripped_spruce_log"
+          "function": "features:repeat",
+          "context": {
+            "type": "features:repeat",
+            "overrides": [
+              {
+                "type": "features:parameter",
+                "parameter": "features:y",
+                "from": [
+                  {
+                    "type": "features:multiply",
+                    "base": 4,
+                    "multiplier": {
+                      "parameter": "features:index"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "features:parameter",
+                "parameter": "features:offset",
+                "from": [
+                  {
+                    "type": "features:add_position",
+                    "pos": {
+                      "parameter": "features:pos"
+                    },
+                    "addition": {
+                      "y": {
+                        "parameter": "features:y"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "repeat": [
+            {
+              "function": "features:choose",
+              "choices": [
+                {
+                  "choice": {
+                    "function": "features:place_feature",
+                    "feature": "features:christmas_tree_trunk",
+                    "pos": {
+                      "parameter": "features:offset"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "choice": {
+                    "function": "features:place_feature",
+                    "feature": "features:christmas_tree_trunk_90",
+                    "pos": {
+                      "parameter": "features:offset"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "choice": {
+                    "function": "features:place_feature",
+                    "feature": "features:christmas_tree_trunk_180",
+                    "pos": {
+                      "parameter": "features:offset"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "choice": {
+                    "function": "features:place_feature",
+                    "feature": "features:christmas_tree_trunk_270",
+                    "pos": {
+                      "parameter": "features:offset"
+                    }
+                  },
+                  "weight": 1
+                }
+              ]
+            }
+          ],
+          "until": [
+            {
+              "condition": "features:less",
+              "kind": "int",
+              "number": {
+                "parameter": "features:index"
+              },
+              "comparing": {
+                "parameter": "features:trunks"
+              }
+            }
+          ]
         }
       ]
     }

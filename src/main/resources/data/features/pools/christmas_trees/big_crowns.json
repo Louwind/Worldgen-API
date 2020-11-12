@@ -6,7 +6,7 @@
     {
       "element": {
         "type": "minecraft:single",
-        "structure": "features:christmas_tree/big_crown_01"
+        "structure": "features:christmas_tree/crowns/big_crown_01"
       },
       "weight": 1
     }

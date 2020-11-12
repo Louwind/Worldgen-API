@@ -1,0 +1,29 @@
+{
+  "type": "features:jigsaw",
+  "pools": [
+    {
+      "type": "features:pool",
+      "pool": "features:christmas_trees/trunks",
+      "functions": [
+        {
+          "function": "features:pivot",
+          "when": {
+            "all": {
+              "y": 1
+            },
+            "clockwise_90": {
+              "x": 1
+            },
+            "clockwise_180": {
+              "x": 1,
+              "z": 1
+            },
+            "counterclockwise_90": {
+              "z": 1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
