@@ -1,14 +1,12 @@
 package github.Louwind.Features.impl.context.getter;
 
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureContextGetters;
 import github.Louwind.Features.util.FeaturesJsonHelper;
@@ -41,13 +39,10 @@ public class MultiplyContextGetter implements FeatureContextGetter<Integer> {
 
     @Override
     public Integer apply(FeatureContext context) {
-        FeatureContextParameter<Integer> baseParameter = this.base.getParameter();
-        FeatureContextParameter<Integer> multiplierParameter = this.multiplier.getParameter();
+        int multiplier = this.multiplier.isPresent() ? this.multiplier.get(context) : 0;
+        int base = this.base.isPresent() ? this.base.get(context) : 0;
 
-        int base = context.get(baseParameter);
-        int multiplier = context.get(multiplierParameter);
-
-        return base * multiplier;
+        return multiplier * base;
     }
 
     public static class Serializer implements JsonSerializer<MultiplyContextGetter> {

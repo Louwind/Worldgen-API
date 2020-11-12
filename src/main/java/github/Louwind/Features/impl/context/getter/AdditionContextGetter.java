@@ -7,7 +7,6 @@ import github.Louwind.Features.condition.FeatureCondition;
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.getter.FeatureContextGetter;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
-import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureContextGetters;
 import github.Louwind.Features.util.FeaturesJsonHelper;
@@ -40,11 +39,8 @@ public class AdditionContextGetter implements FeatureContextGetter<Integer> {
 
     @Override
     public Integer apply(FeatureContext context) {
-        FeatureContextParameter<Integer> additionParameter = this.addition.getParameter();
-        FeatureContextParameter<Integer> numberParameter = this.number.getParameter();
-
-        int addition = context.get(additionParameter);
-        int number = context.get(numberParameter);
+        int addition = this.addition.isPresent() ? this.addition.get(context) : 0;
+        int number = this.number.isPresent() ? this.number.get(context) : 0;
 
         return number + addition;
     }
