@@ -53,8 +53,10 @@ public class JigsawContextGenerator {
         return FeatureContext.EMPTY;
     }
 
-    public static FeatureContext getRepeatContext(FeatureContext context, int index) {
-        return new FeatureContextBuilder(context).put(INDEX, index).build(FeatureContextProviders.REPEAT);
+    public static FeatureContext getRepeatContext(FeatureContext context, FeatureContextProvider provider, int index) {
+        FeatureContextBuilder repeatContext = new FeatureContextBuilder(context).put(INDEX, index);
+
+        return provider.getContext(repeatContext);
     }
 
     public static FeatureContext getPieceContext(FeatureContext context, PoolStructurePiece piece) {
