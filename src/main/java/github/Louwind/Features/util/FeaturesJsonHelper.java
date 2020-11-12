@@ -1,5 +1,6 @@
 package github.Louwind.Features.util;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
@@ -15,6 +16,7 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
+import jdk.vm.ci.meta.JavaKind;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -40,6 +42,7 @@ import net.minecraft.world.biome.SpawnSettings;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -64,9 +67,13 @@ public class FeaturesJsonHelper {
     }
 
     public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name) {
+        return FeaturesJsonHelper.getEnum(object, clazz, name, String::toUpperCase);
+    }
+
+    public static <T extends Enum> T getEnum(JsonObject object, Class<T>  clazz, String name, UnaryOperator<String> operator) {
         String string = JsonHelper.getString(object, name);
 
-        return (T) Enum.valueOf(clazz, string.toUpperCase());
+        return (T) Enum.valueOf(clazz, operator.apply(string));
     }
 
     public static Identifier asIdentifier(JsonElement element, String name) {
@@ -199,6 +206,10 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0f, JsonElement::getAsFloat);
     }
 
+    public static OptionalContextParameter<Number> getOptionalNumber(JsonObject object, String name) {
+        return FeaturesJsonHelper.getOptionalContextParameter(object, name, 0f, JsonElement::getAsNumber);
+    }
+
     public static OptionalContextParameter<BlockRotation> getOptionalRotation(JsonObject object, String name) {
         return FeaturesJsonHelper.getOptionalEnumContextParameter(object, name, BlockRotation.NONE, BlockRotation.class);
     }
@@ -314,6 +325,15 @@ public class FeaturesJsonHelper {
 
     public static BlockRotation getRotation(JsonObject object, String name) {
         return FeaturesJsonHelper.getEnum(object, BlockRotation.class, name);
+    }
+
+    public static JavaKind getNumberKind(JsonObject object, String name) throws JsonParseException {
+        JavaKind kind = FeaturesJsonHelper.getEnum(object, JavaKind.class, name, string -> CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string));
+
+        if(kind.isNumericInteger() || kind.isNumericFloat())
+            return kind;
+
+        throw new JsonParseException("Expected " + name + " to be a number, was " + kind);
     }
 
     public static BlockRotation getRotation(JsonObject object, String name, BlockRotation defaultValue) {

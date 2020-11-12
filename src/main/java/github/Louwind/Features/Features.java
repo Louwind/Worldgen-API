@@ -66,6 +66,7 @@ public class Features implements ModInitializer {
 
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:alternatives"), FeatureConditions.ALTERNATIVES);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:inverted"), FeatureConditions.INVERTED);
+        Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:less"), FeatureConditions.LESS);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:none"), FeatureConditions.NONE);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:rotation"), FeatureConditions.ROTATION);
 
