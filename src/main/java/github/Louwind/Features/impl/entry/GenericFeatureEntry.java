@@ -50,7 +50,7 @@ public class GenericFeatureEntry implements FeatureEntry {
 		public GenericFeatureEntry fromJson(JsonObject json, JsonDeserializationContext context) {
 			Identifier structureId = FeaturesJsonHelper.getIdentifier(json, "structure");
 
-			FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
+			FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(json, context, "functions");
 
 			return new GenericFeatureEntry(structureId, functions);
 		}

@@ -3,7 +3,7 @@ package github.Louwind.Features.impl.init;
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
 import github.Louwind.Features.impl.context.getter.*;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
+import static github.Louwind.Features.impl.init.FeatureContextParameters.RANDOM;
 
 public class FeatureContextGetters {
 

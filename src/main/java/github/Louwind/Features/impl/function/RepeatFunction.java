@@ -69,7 +69,7 @@ public class RepeatFunction implements FeatureFunction {
         public RepeatFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
 
-            FeatureFunction[] repeat = FeaturesJsonHelper.getFunction(json, context,  "repeat");
+            FeatureFunction[] repeat = FeaturesJsonHelper.getFunctions(json, context,  "repeat");
             FeatureCondition[] until = FeaturesJsonHelper.getConditions(json, context,  "until");
 
             return new RepeatFunction(repeat, until, conditions);

@@ -14,6 +14,7 @@ import github.Louwind.Features.context.provider.FeatureContextProvider;
 import github.Louwind.Features.entry.FeatureEntry;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.impl.context.provider.PieceContextProvider;
+import github.Louwind.Features.impl.function.DoNothingFunction;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
 import jdk.vm.ci.meta.JavaKind;
@@ -264,12 +265,16 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getFrom(object, new FeatureContextGetter[]{}, context, name);
     }
 
-    public static FeatureFunction[] getFunction(JsonObject object, FeatureFunction[] defaultValue, JsonDeserializationContext context, String name) {
+    public static FeatureFunction[] getFunctions(JsonObject object, FeatureFunction[] defaultValue, JsonDeserializationContext context, String name) {
         return JsonHelper.deserialize(object, name, defaultValue, context, FeatureFunction[].class);
     }
 
-    public static FeatureFunction[] getFunction(JsonObject object, JsonDeserializationContext context, String name) {
-        return FeaturesJsonHelper.getFunction(object, new FeatureFunction[]{}, context, name);
+    public static FeatureFunction[] getFunctions(JsonObject object, JsonDeserializationContext context, String name) {
+        return FeaturesJsonHelper.getFunctions(object, new FeatureFunction[]{}, context, name);
+    }
+
+    public static FeatureFunction getFunction(JsonObject object, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, DoNothingFunction.INSTANCE, context, FeatureFunction.class);
     }
 
     public static <K, V> Map<K, V> getMap(JsonObject object, Function<String, K> keyMapper, Function<JsonElement, V> valueMapper, String name) {

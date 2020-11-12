@@ -80,7 +80,7 @@ public class GenericFeaturePool implements FeaturePool {
         public GenericFeaturePool fromJson(JsonObject json, JsonDeserializationContext context) {
             StructurePool structurePool = FeaturesJsonHelper.getStructurePool(json, "pool");
 
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context, "functions");
+            FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(json, context, "functions");
             FeatureEntry[] entries = FeaturesJsonHelper.getEntries(json, context, "entries");
 
             FeatureContextProvider provider = FeaturesJsonHelper.getContextProvider(json, context, "context");

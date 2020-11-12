@@ -89,6 +89,8 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:y"), FeatureContextParameters.Y);
         Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:choose"), FeatureFunctions.CHOOSE);
+        Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:do_nothing"), FeatureFunctions.DO_NOTHING);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:execute_command"), FeatureFunctions.EXECUTE_COMMAND);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:mirror"), FeatureFunctions.MIRROR);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:offset"), FeatureFunctions.OFFSET);

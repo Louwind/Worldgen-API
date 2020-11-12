@@ -7,6 +7,10 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class FeatureFunctions {
 
+    public static final FeatureFunctionType CHOOSE = new FeatureFunctionType(new ChooseFunction.Serializer(), builder -> builder.required(RANDOM));
+
+    public static final FeatureFunctionType DO_NOTHING = new FeatureFunctionType(new DoNothingFunction.Serializer());
+
     public static final FeatureFunctionType EXECUTE_COMMAND = new FeatureFunctionType(new ExecuteCommandFunction.Serializer(), builder -> builder.required(POS, WORLD));
 
     public static final FeatureFunctionType MIRROR = new FeatureFunctionType(new MirrorFunction.Serializer(), builder -> builder.required(POS, RANDOM, WORLD));

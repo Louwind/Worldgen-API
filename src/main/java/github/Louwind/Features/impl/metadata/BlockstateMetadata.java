@@ -16,7 +16,6 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
 
 import java.util.Arrays;
@@ -75,7 +74,7 @@ public class BlockstateMetadata implements FeatureMetadata {
         @Override
         public BlockstateMetadata fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "functions");
+            FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(json, context,  "functions");
 
             BlockState state = FeaturesJsonHelper.getBlockState(json, "blockstate");
             int flag = json.has("flag") ? JsonHelper.getInt(json, "flag") : 3;

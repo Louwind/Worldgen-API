@@ -34,7 +34,7 @@ public class StructureMetadata {
             JsonObject object = json.getAsJsonObject();
 
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(object, context, "conditions");
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(object, context, "functions");
+            FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(object, context, "functions");
 
             return new StructureMetadata(functions, conditions);
         }

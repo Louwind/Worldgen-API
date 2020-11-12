@@ -101,7 +101,7 @@ public class EntityMetadata implements FeatureMetadata {
         public EntityMetadata fromJson(JsonObject json, JsonDeserializationContext context) {
             OptionalContextParameter<BlockRotation> rotation = FeaturesJsonHelper.getOptionalRotation(json, "rotation");
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunction(json, context,  "functions");
+            FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(json, context,  "functions");
 
             Identifier id = FeaturesJsonHelper.getIdentifier(json, "id");
             OptionalTag tag = FeaturesJsonHelper.getOptionalTag(json, "tag");

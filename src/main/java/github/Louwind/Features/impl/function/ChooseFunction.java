@@ -14,19 +14,19 @@ import net.minecraft.util.JsonSerializer;
 import java.util.Arrays;
 import java.util.List;
 
-public class SequenceFunction implements FeatureFunction {
+public class ChooseFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
-    private final List<FeatureFunction> functions;
+    private final List<FeatureFunction> choices;
 
-    public SequenceFunction(FeatureFunction[] functions, FeatureCondition[] conditions) {
+    public ChooseFunction(List<FeatureFunction> choices, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
-        this.functions = Arrays.asList(functions);
+        this.choices = choices;
     }
 
     @Override
     public FeatureFunctionType getType() {
-        return FeatureFunctions.SEQUENCE;
+        return FeatureFunctions.CHOOSE;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class SequenceFunction implements FeatureFunction {
     @Override
     public void accept(FeatureContext context) {
 
-        for (FeatureFunction function : this.functions) {
+        for (FeatureFunction function : this.choices) {
 
             if(function.test(context))
                 function.accept(context);
@@ -45,19 +45,20 @@ public class SequenceFunction implements FeatureFunction {
 
     }
 
-    public static class Serializer implements JsonSerializer<SequenceFunction> {
+    public static class Serializer implements JsonSerializer<ChooseFunction> {
 
         @Override
-        public void toJson(JsonObject json, SequenceFunction object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, ChooseFunction object, JsonSerializationContext context) {
 
         }
 
         @Override
-        public SequenceFunction fromJson(JsonObject json, JsonDeserializationContext context) {
+        public ChooseFunction fromJson(JsonObject json, JsonDeserializationContext context) {
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
-            FeatureFunction[] functions = FeaturesJsonHelper.getFunctions(json, context,  "functions");
 
-            return new SequenceFunction(functions, conditions);
+            List<FeatureFunction> choices = FeaturesJsonHelper.getWeightedList(json, "choices", obj -> FeaturesJsonHelper.getFunction(obj, context,  "choice"));
+
+            return new ChooseFunction(choices, conditions);
         }
 
     }
