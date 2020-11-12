@@ -1,6 +1,5 @@
 package github.Louwind.Features.util;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
@@ -17,7 +16,6 @@ import github.Louwind.Features.impl.context.provider.PieceContextProvider;
 import github.Louwind.Features.impl.function.DoNothingFunction;
 import github.Louwind.Features.pool.FeaturePool;
 import github.Louwind.Features.registry.FeaturesRegistry;
-import jdk.vm.ci.meta.JavaKind;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -332,13 +330,8 @@ public class FeaturesJsonHelper {
         return FeaturesJsonHelper.getEnum(object, BlockRotation.class, name);
     }
 
-    public static JavaKind getNumberKind(JsonObject object, String name) throws JsonParseException {
-        JavaKind kind = FeaturesJsonHelper.getEnum(object, JavaKind.class, name, string -> CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string));
-
-        if(kind.isNumericInteger() || kind.isNumericFloat())
-            return kind;
-
-        throw new JsonParseException("Expected " + name + " to be a number, was " + kind);
+    public static NumberKind getNumberKind(JsonObject object, String name) throws JsonParseException {
+        return FeaturesJsonHelper.getEnum(object, NumberKind.class, name);
     }
 
     public static BlockRotation getRotation(JsonObject object, String name, BlockRotation defaultValue) {

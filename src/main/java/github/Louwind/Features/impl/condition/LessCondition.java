@@ -9,16 +9,16 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureConditions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import jdk.vm.ci.meta.JavaKind;
+import github.Louwind.Features.util.NumberKind;
 import net.minecraft.util.JsonSerializer;
 
 public class LessCondition implements FeatureCondition {
 
     private final OptionalContextParameter<Number> comparing;
     private final OptionalContextParameter<Number> number;
-    private final JavaKind kind;
+    private final NumberKind kind;
 
-    public LessCondition(JavaKind kind, OptionalContextParameter<Number> comparing, OptionalContextParameter<Number> number) {
+    public LessCondition(NumberKind kind, OptionalContextParameter<Number> comparing, OptionalContextParameter<Number> number) {
         this.comparing = comparing;
         this.number = number;
         this.kind = kind;
@@ -35,32 +35,32 @@ public class LessCondition implements FeatureCondition {
         Number number = this.number.isPresent() ? this.number.get(context) : 0;
 
         switch (this.kind) {
-            case Byte:
+            case BYTE:
                 byte comparingByte = comparing.byteValue();
                 byte numberByte = number.byteValue();
 
                 return numberByte < comparingByte;
-            case Short:
+            case SHORT:
                 short comparingShort = comparing.shortValue();
                 short numberShort = number.shortValue();
 
                 return numberShort < comparingShort;
-            case Int:
+            case INT:
                 int comparingInt = comparing.intValue();
                 int numberInt = number.intValue();
 
                 return numberInt < comparingInt;
-            case Float:
+            case FLOAT:
                 float comparingFloat = comparing.floatValue();
                 float numberFloat = number.floatValue();
 
                 return numberFloat < comparingFloat;
-            case Long:
+            case LONG:
                 long comparingLong = comparing.longValue();
                 long numberLong = number.longValue();
 
                 return numberLong < comparingLong;
-            case Double:
+            case DOUBLE:
                 double comparingDouble = comparing.doubleValue();
                 double numberDouble = number.doubleValue();
 
@@ -83,7 +83,7 @@ public class LessCondition implements FeatureCondition {
             OptionalContextParameter<Number> comparing = FeaturesJsonHelper.getOptionalNumber(json, "comparing");
             OptionalContextParameter<Number> number = FeaturesJsonHelper.getOptionalNumber(json, "number");
 
-            JavaKind kind = FeaturesJsonHelper.getNumberKind(json, "kind");
+            NumberKind kind = FeaturesJsonHelper.getNumberKind(json, "kind");
 
             return new LessCondition(kind, comparing, number);
         }
