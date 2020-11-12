@@ -47,6 +47,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
 
+        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:add_position"), FeatureContextGetters.ADD_POSITION);
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:addition"), FeatureContextGetters.ADDITION);
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:choose_palette"), FeatureContextGetters.CHOOSE_PALETTE);
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:multiply"), FeatureContextGetters.MULTIPLY);

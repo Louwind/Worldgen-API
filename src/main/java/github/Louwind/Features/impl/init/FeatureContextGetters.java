@@ -1,14 +1,13 @@
 package github.Louwind.Features.impl.init;
 
 import github.Louwind.Features.context.getter.FeatureContextGetterType;
-import github.Louwind.Features.impl.context.getter.AdditionContextGetter;
-import github.Louwind.Features.impl.context.getter.ChoosePaletteContextGetter;
-import github.Louwind.Features.impl.context.getter.MultiplyContextGetter;
-import github.Louwind.Features.impl.context.getter.RangeContextGetter;
+import github.Louwind.Features.impl.context.getter.*;
 
 import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
 
 public class FeatureContextGetters {
+
+    public static final FeatureContextGetterType ADD_POSITION = new FeatureContextGetterType(new AddPositionContextGetter.Serializer());
 
     public static final FeatureContextGetterType ADDITION = new FeatureContextGetterType(new AdditionContextGetter.Serializer());
 
