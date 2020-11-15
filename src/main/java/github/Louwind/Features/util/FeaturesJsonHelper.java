@@ -1,5 +1,6 @@
 package github.Louwind.Features.util;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
@@ -300,30 +301,53 @@ public class FeaturesJsonHelper {
         return Maps.newHashMap();
     }
 
-    public static StructureProcessorList getProcessors(JsonObject object, StructureProcessor[] defaultValue, JsonDeserializationContext context, String name) {
+    public static StructureProcessorList asProcessorList(JsonElement element, String name) {
+        Identifier id = FeaturesJsonHelper.asIdentifier(element, name);
 
-        if(object.has(name)) {
-            JsonElement element = object.get(name);
+        return BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be a processor list, was unknown string '" + name + "'"));
+    }
 
-            if(element.isJsonPrimitive()) {
-                JsonPrimitive primitive = element.getAsJsonPrimitive();
+    public static StructureProcessorList asProcessors(JsonElement element, StructureProcessorList defaultValue, JsonDeserializationContext context, String name) {
 
-                if(primitive.isString()) {
-                    Identifier id = FeaturesJsonHelper.getIdentifier(object, name);
+        if(element.isJsonPrimitive()) {
+            JsonPrimitive primitive = element.getAsJsonPrimitive();
 
-                    return BuiltinRegistries.STRUCTURE_PROCESSOR_LIST.getOrEmpty(id).orElseThrow(() -> new JsonParseException("Expected " + id + " to be processor list, was unknown string '" + name + "'"));
-                }
-
-            }
+            if(primitive.isString())
+                return FeaturesJsonHelper.asProcessorList(element, name);
         }
 
-        StructureProcessor[] processors = JsonHelper.deserialize(object, name, defaultValue, context, StructureProcessor[].class);
+        if(element.isJsonArray()) {
+            JsonArray array = element.getAsJsonArray();
 
-        return new StructureProcessorList(Arrays.asList(processors));
+            return new StructureProcessorList(StreamSupport.stream(array.spliterator(), false)
+                    .map(elem -> {
+
+                        if(elem.isJsonObject()) {
+                            StructureProcessor processor = JsonHelper.deserialize(elem, "processor", context, StructureProcessor.class);
+
+                            return new StructureProcessorList(ImmutableList.of(processor));
+                        }
+
+                        if(elem.isJsonArray())
+                            return FeaturesJsonHelper.asProcessors(elem, defaultValue, context, name);
+
+                        return FeaturesJsonHelper.asProcessorList(elem, name);
+                    })
+                    .filter(Objects::nonNull)
+                    .map(StructureProcessorList::getList)
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList()));
+        }
+
+        return defaultValue;
+    }
+
+    public static StructureProcessorList getProcessors(JsonObject object, StructureProcessorList defaultValue, JsonDeserializationContext context, String name) {
+        return object.has(name) ? FeaturesJsonHelper.asProcessors(object.get(name), defaultValue, context, name) : new StructureProcessorList(ImmutableList.of());
     }
 
     public static StructureProcessorList getProcessors(JsonObject object, JsonDeserializationContext context, String name) {
-        return FeaturesJsonHelper.getProcessors(object, new StructureProcessor[]{}, context, name);
+        return FeaturesJsonHelper.getProcessors(object, new StructureProcessorList(ImmutableList.of()), context, name);
     }
 
     public static BlockRotation getRotation(JsonObject object, String name) {
