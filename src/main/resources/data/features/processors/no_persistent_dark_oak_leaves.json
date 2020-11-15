@@ -12,7 +12,6 @@
           "blockstate": {
             "block": "minecraft:dark_oak_leaves",
             "properties": {
-              "distance": 1,
               "persistent": false
             }
           }
