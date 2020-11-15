@@ -149,11 +149,9 @@ public class FeatureGsons {
 
     public static GsonBuilder getProcessorGsonBuilder() {
         return new GsonBuilder()
-                .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
                 .registerTypeAdapter(StructureProcessorList.class, new StructureProcessorListDeserializer())
                 .registerTypeAdapter(StructureProcessorRule.class, new StructureProcessorRuleDeserializer())
                 .registerTypeHierarchyAdapter(RuleTest.class, FeatureGsons.createRuleTestSerializer())
-                .registerTypeAdapter(FeaturesElementSupplier.class, FeatureGsons.createFeaturePoolElementSerializer())
                 .registerTypeHierarchyAdapter(StructureProcessor.class, FeatureGsons.createStructureProcessorSerializer());
     }
 
@@ -161,6 +159,12 @@ public class FeatureGsons {
         return new GsonBuilder()
                 .registerTypeAdapter(SpawnSettings.SpawnEntry.class, new SpawnEntryDeserializer())
                 .registerTypeHierarchyAdapter(StructureFeature.class, FeatureGsons.createStructureFeatureSerializer());
+    }
+
+    public static GsonBuilder getStructurePoolGsonBuilder() {
+        return FeatureGsons.getProcessorGsonBuilder()
+                .registerTypeAdapter(StructurePool.class, new StructurePoolDeserializer())
+                .registerTypeAdapter(FeaturesElementSupplier.class, FeatureGsons.createFeaturePoolElementSerializer());
     }
 
 }
