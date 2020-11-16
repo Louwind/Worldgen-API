@@ -53,7 +53,10 @@ public class PlaceTrunkFunction implements FeatureFunction {
             for (int i = 0; i < height; i++) {
                 BlockPos up = pos.up(i);
 
-                access.setBlockState(up, state, 3);
+                BlockState blockState = access.getBlockState(up);
+
+                if(!blockState.isSolidBlock(access, up))
+                    access.setBlockState(up, state, 3);
             }
         }
 
