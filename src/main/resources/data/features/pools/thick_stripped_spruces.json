@@ -7,7 +7,10 @@
       "element": {
         "type": "features:no_update_neighbors",
         "structure": "features:thick_stripped_spruces/crown_01",
-        "processors": "features:no_persistent_spruce_leaves"
+        "processors": [
+          "features:ignore_air_and_solid_blocks",
+          "features:no_persistent_spruce_leaves"
+        ]
       },
       "weight": 1
     }

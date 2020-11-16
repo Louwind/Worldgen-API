@@ -1,0 +1,13 @@
+{
+  "processors": [
+    {
+      "processor": "minecraft:block_ignore",
+      "blocks": [
+        "minecraft:air"
+      ]
+    },
+    {
+      "processor": "features:ignore_solid_blocks"
+    }
+  ]
+}

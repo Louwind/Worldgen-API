@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor": "features:ignore_solid_blocks"
+    }
+  ]
+}

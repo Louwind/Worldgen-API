@@ -118,6 +118,7 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
+        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:ignore_solid_blocks"), FeatureProcessors.IGNORE_SOLID_BLOCKS_PROCESSOR);
 
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:block_ignore"), FeatureProcessors.BLOCK_IGNORE_PROCESSOR);
         Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
@@ -147,6 +148,7 @@ public class Features implements ModInitializer {
         Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
 
         Registry.register(STRUCTURE_PROCESSOR, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
+        Registry.register(STRUCTURE_PROCESSOR, new Identifier("features:ignore_solid_blocks"), FeatureProcessors.IGNORE_SOLID_BLOCKS_PROCESSOR);
     }
 
 }
