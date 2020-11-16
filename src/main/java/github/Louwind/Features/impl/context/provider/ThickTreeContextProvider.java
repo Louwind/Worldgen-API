@@ -11,6 +11,7 @@ import github.Louwind.Features.impl.block.sapling.FeaturesThickSaplingGenerator;
 import github.Louwind.Features.impl.init.FeatureContextProviders;
 import github.Louwind.Features.util.FeaturesJsonHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
@@ -44,12 +45,14 @@ public class ThickTreeContextProvider extends TreeContextProvider {
         StructureManager structureManager = server.getStructureManager();
 
         Set<BlockPos> saplings = FeaturesThickSaplingGenerator.getSaplings(world, this.sapling, pos);
-        BlockPos blockPos = saplings.stream().sorted().iterator().next();
+        Set<BlockPos> root = saplings.size() > 1 ? saplings : FeaturesThickSaplingGenerator.getSaplings(world, Blocks.AIR, pos);
+
+        BlockPos blockPos = root.stream().sorted().iterator().next();
 
         return this.getStructureContextBuilder(registryManager, structureManager, config, chunkGenerator, pieces, random, blockPos)
                 .put(ORIGIN, pos)
                 .put(POS, blockPos)
-                .put(ROOT, saplings)
+                .put(ROOT, root)
                 .put(WORLD, world);
     }
 
