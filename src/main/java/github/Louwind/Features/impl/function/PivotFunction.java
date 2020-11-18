@@ -77,13 +77,13 @@ public class PivotFunction implements FeatureFunction {
 
             Map<BlockRotation, OptionalBlockPos> when = Maps.newEnumMap(BlockRotation.class);
 
-            when.put(BlockRotation.NONE, FeaturesJsonHelper.getOptionalBlockPos(object, "none"));
-            when.put(BlockRotation.CLOCKWISE_90, FeaturesJsonHelper.getOptionalBlockPos(object, "clockwise_90"));
-            when.put(BlockRotation.CLOCKWISE_180, FeaturesJsonHelper.getOptionalBlockPos(object, "clockwise_180"));
-            when.put(BlockRotation.COUNTERCLOCKWISE_90, FeaturesJsonHelper.getOptionalBlockPos(object, "counterclockwise_90"));
+            when.put(BlockRotation.NONE, FeaturesJsonHelper.getOptionalBlockPos(object, "0"));
+            when.put(BlockRotation.CLOCKWISE_90, FeaturesJsonHelper.getOptionalBlockPos(object, "90"));
+            when.put(BlockRotation.CLOCKWISE_180, FeaturesJsonHelper.getOptionalBlockPos(object, "180"));
+            when.put(BlockRotation.COUNTERCLOCKWISE_90, FeaturesJsonHelper.getOptionalBlockPos(object, "270"));
 
             FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context, "conditions");
-            OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(object, "all");
+            OptionalBlockPos pos = FeaturesJsonHelper.getOptionalBlockPos(object, "always");
 
             return new PivotFunction(pos, when, conditions);
         }

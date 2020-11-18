@@ -17,4 +17,6 @@ public class FeatureContextGetters {
 
     public static final FeatureContextGetterType RANGED = new FeatureContextGetterType(new RangeContextGetter.Serializer(), builder -> builder.required(RANDOM));
 
+    public static final FeatureContextGetterType ROOT = new FeatureContextGetterType(new RootContextGetter.Serializer());
+
 }
