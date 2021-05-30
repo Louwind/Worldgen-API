@@ -1,12 +1,11 @@
 {
   "name": "features:bedrooms",
-  "terminators": "empty",
-  "projection": "rigid",
+  "fallback": "minecraft:empty",
   "elements": [
     {
       "element": {
-        "type": "features:context_aware",
-        "structure": "features:bedrooms/bedroom_01",
+        "element_type": "features:context_aware",
+        "location": "features:bedrooms/bedroom_01",
         "processors": [
           {
             "processor": "features:rule",
@@ -14,7 +13,8 @@
               "parameter": "features:palette"
             }
           }
-        ]
+        ],
+        "projection": "rigid"
       },
       "weight": 1
     }

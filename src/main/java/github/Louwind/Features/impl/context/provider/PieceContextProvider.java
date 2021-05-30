@@ -14,7 +14,6 @@ import github.Louwind.Features.util.JigsawPieceGenerator;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;

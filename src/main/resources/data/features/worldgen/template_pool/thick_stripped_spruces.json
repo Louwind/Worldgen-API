@@ -1,16 +1,16 @@
 {
   "name": "features:thick_stripped_spruces",
-  "terminators": "empty",
-  "projection": "rigid",
+  "fallback": "minecraft:empty",
   "elements": [
     {
       "element": {
-        "type": "features:no_update_neighbors",
-        "structure": "features:thick_stripped_spruces/crown_01",
+        "element_type": "features:no_update_neighbors",
+        "location": "features:thick_stripped_spruces/crown_01",
         "processors": [
           "features:ignore_air_and_solid_blocks",
           "features:no_persistent_spruce_leaves"
-        ]
+        ],
+        "projection": "rigid"
       },
       "weight": 1
     }

@@ -1,0 +1,15 @@
+{
+  "name": "features:christmas_trees/medium_crowns",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single",
+        "location": "features:christmas_tree/crowns/medium_crown_01",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}

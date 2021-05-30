@@ -1,0 +1,15 @@
+{
+  "name": "features:christmas_trees/trunks",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single",
+        "location": "features:christmas_tree/trunks/trunk_01",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}
