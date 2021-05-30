@@ -1,8 +1,0 @@
-{
-  "configurations": {
-    "features:kitchen": {
-      "type": "features:jigsaw",
-      "start_pool": "features:kitchens"
-    }
-  }
-}

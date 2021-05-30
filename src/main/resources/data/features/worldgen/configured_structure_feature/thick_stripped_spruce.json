@@ -1,0 +1,7 @@
+{
+  "type": "features:thick_stripped_spruce",
+  "config": {
+    "start_pool": "features:thick_stripped_spruces",
+    "size": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "features:bedroom",
+  "config": {
+    "start_pool": "features:bedrooms",
+    "size": 1
+  }
+}

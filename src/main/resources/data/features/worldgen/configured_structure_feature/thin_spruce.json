@@ -1,0 +1,7 @@
+{
+  "type": "features:thin_spruce",
+  "config": {
+    "start_pool": "features:thin_spruces",
+    "size": 1
+  }
+}

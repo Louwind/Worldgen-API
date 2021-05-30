@@ -1,0 +1,7 @@
+{
+  "type": "features:kitchen",
+  "config": {
+    "start_pool": "features:kitchens",
+    "size": 1
+  }
+}

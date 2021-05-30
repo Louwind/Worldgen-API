@@ -1,0 +1,7 @@
+{
+  "type": "features:bookshelf",
+  "config": {
+    "start_pool": "features:bookshelfs",
+    "size": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "features:wine_storage",
+  "config": {
+    "start_pool": "features:wine_storages",
+    "size": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "features:well",
+  "config": {
+    "start_pool": "features:wells",
+    "size": 1
+  }
+}
