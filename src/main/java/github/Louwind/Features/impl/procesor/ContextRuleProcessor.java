@@ -41,7 +41,7 @@ public class ContextRuleProcessor extends ContextProcessor {
         for (StructureProcessorRule rule : rules) {
 
             if(rule.test(structureBlockInfo2.state, blockState, structureBlockInfo.pos, structureBlockInfo2.pos, blockPos, random))
-                return new Structure.StructureBlockInfo(structureBlockInfo2.pos, rule.getOutputState(), rule.getTag());
+                return new Structure.StructureBlockInfo(structureBlockInfo2.pos, rule.getOutputState(), rule.getOutputNbt());
 
         }
 

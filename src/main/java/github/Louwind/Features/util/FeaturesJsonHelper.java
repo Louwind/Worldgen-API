@@ -21,9 +21,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.nbt.Tag;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.structure.pool.StructurePool;
@@ -223,8 +223,8 @@ public class FeaturesJsonHelper {
                 JsonObject tag = element.getAsJsonObject();
 
                 if(tag.has("parameter")) {
-                    FeatureContextParameter<Tag> parameter = FeaturesJsonHelper.getContextParameter(tag, "parameter");
-                    OptionalContextParameter<Tag> optional = OptionalContextParameter.of(parameter);
+                    FeatureContextParameter<NbtElement> parameter = FeaturesJsonHelper.getContextParameter(tag, "parameter");
+                    OptionalContextParameter<NbtElement> optional = OptionalContextParameter.of(parameter);
 
                     return OptionalTag.of(optional);
                 }
@@ -236,8 +236,8 @@ public class FeaturesJsonHelper {
 
                 if(primitive.isString()) {
                     try {
-                        CompoundTag compoundTag = StringNbtReader.parse(primitive.getAsString());
-                        OptionalContextParameter<Tag> optional = OptionalContextParameter.of(compoundTag);
+                        NbtCompound compoundTag = StringNbtReader.parse(primitive.getAsString());
+                        OptionalContextParameter<NbtElement> optional = OptionalContextParameter.of(compoundTag);
 
                         return OptionalTag.of(optional);
                     } catch (CommandSyntaxException e) {

@@ -2,9 +2,8 @@ package github.Louwind.Features.util;
 
 import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 
 import java.util.NoSuchElementException;
 
@@ -12,16 +11,16 @@ public class OptionalTag {
 
     private static final OptionalTag EMPTY = new OptionalTag(OptionalContextParameter.empty());
 
-    private OptionalContextParameter<Tag> tag;
+    private OptionalContextParameter<NbtElement> tag;
 
-    private OptionalTag(OptionalContextParameter<Tag> tag) {
+    private OptionalTag(OptionalContextParameter<NbtElement> tag) {
         this.tag = tag;
     }
 
-    public CompoundTag get(FeatureContext context) {
+    public NbtCompound getCompound(FeatureContext context) {
 
         if(this.tag.isPresent())
-            return (CompoundTag) this.tag.get(context);
+            return (NbtCompound) this.tag.get(context);
 
         throw new NoSuchElementException("No parameter is present");
     }
@@ -30,16 +29,16 @@ public class OptionalTag {
         return EMPTY;
     }
 
-    public static OptionalTag of(OptionalContextParameter<Tag> tag) {
+    public static OptionalTag of(OptionalContextParameter<NbtElement> tag) {
         return new OptionalTag(tag);
     }
 
-    public static OptionalTag of(Tag tag) {
+    public static OptionalTag of(NbtElement tag) {
         return new OptionalTag(OptionalContextParameter.of(tag));
     }
 
     public static OptionalTag newCompoundTag() {
-        return OptionalTag.of(new CompoundTag());
+        return OptionalTag.of(new NbtCompound());
     }
 
 }

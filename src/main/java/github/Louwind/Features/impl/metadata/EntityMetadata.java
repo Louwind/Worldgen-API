@@ -14,7 +14,7 @@ import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalVector;
 import github.Louwind.Features.util.OptionalTag;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.BlockMirror;
@@ -68,7 +68,7 @@ public class EntityMetadata implements FeatureMetadata {
         StructureWorldAccess world = context.get(WORLD);
         BlockMirror mirror = context.get(MIRROR);
 
-        CompoundTag compoundTag = this.compoundTag.get(context);
+        NbtCompound compoundTag = this.compoundTag.getCompound(context);
         BlockRotation rotation = this.rotation.get(context);
         ServerWorld server = world.toServerWorld();
 
@@ -80,10 +80,10 @@ public class EntityMetadata implements FeatureMetadata {
 
         compoundTag.putString("id", this.id.toString());
 
-        EntityType.getEntityFromTag(compoundTag, server).ifPresent(entity -> {
-            float yaw = entity.applyMirror(mirror) + entity.yaw - entity.applyRotation(rotation);
+        EntityType.getEntityFromNbt(compoundTag, server).ifPresent(entity -> {
+            float yaw = entity.applyMirror(mirror) + entity.getYaw() - entity.applyRotation(rotation);
 
-            entity.refreshPositionAndAngles(x + 0.5, y, z + 0.5, yaw, entity.pitch);
+            entity.refreshPositionAndAngles(x + 0.5, y, z + 0.5, yaw, entity.getPitch());
 
             world.spawnEntityAndPassengers(entity);
         });

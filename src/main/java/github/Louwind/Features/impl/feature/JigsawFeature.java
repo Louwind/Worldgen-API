@@ -21,7 +21,6 @@ import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -43,45 +42,50 @@ public class JigsawFeature extends PoolFeature<JigsawFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, JigsawFeatureConfig featureConfig) {
-        ServerWorld server = world.toServerWorld();
-        StructureAccessor accessor = server.getStructureAccessor();
-
-        FeaturePool startPool = JigsawHelper.getStartPool(featureConfig, this.pools);
-        FeatureContextProvider provider = startPool.getContextProvider();
-
-            try {
-                FeatureContext context = JigsawContextGenerator.getFeaturePieceContext(world, provider, featureConfig, chunkGenerator, random, blockPos);
-                List<PoolStructurePiece> pieces = context.get(PIECES);
-
-                return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
-                    FeatureContext pieceContext = JigsawContextGenerator.getPieceContext(context, piece);
-                    StructurePoolElement poolElement = piece.getPoolElement();
-
-                    FeaturePool pool = JigsawHelper.getPool(poolElement, this.pools, random);
-
-                    JigsawHelper.applyContext(poolElement, pieceContext);
-                    JigsawHelper.applyFunctions(pool, poolElement, pieceContext, random);
-
-                    BlockBox box = pieceContext.get(BOX);
-                    BlockPos pos = pieceContext.get(POS);
-
-                    Chunk chunk = world.getChunk(pos);
-                    ChunkPos chunkPos = chunk.getPos();
-
-                    return piece.generate(world, accessor, chunkGenerator, random, box, chunkPos, pos);
-                }));
-
-            } catch (IllegalArgumentException e) {
-                LOGGER.warn(e);
-            }
-
-        return false;
+    public PoolFeatureType getType() {
+        return PoolFeatureTypes.JIGSAW;
     }
 
     @Override
-    public PoolFeatureType getType() {
-        return PoolFeatureTypes.JIGSAW;
+    public boolean generate(net.minecraft.world.gen.feature.util.FeatureContext<JigsawFeatureConfig> context) {
+        ServerWorld server = context.getWorld().toServerWorld();
+
+        StructureAccessor accessor = server.getStructureAccessor();
+        ChunkGenerator chunkGenerator = context.getGenerator();
+        JigsawFeatureConfig config = context.getConfig();
+        BlockPos origin = context.getOrigin();
+        Random random = context.getRandom();
+
+        FeaturePool startPool = JigsawHelper.getStartPool(config, this.pools);
+        FeatureContextProvider provider = startPool.getContextProvider();
+
+        try {
+            FeatureContext featurePieceContext = JigsawContextGenerator.getFeaturePieceContext(server, provider, config, chunkGenerator, random, origin);
+            List<PoolStructurePiece> pieces = featurePieceContext.get(PIECES);
+
+            return pieces.stream().allMatch(ThrowingPredicate.rethrow(piece -> {
+                FeatureContext pieceContext = JigsawContextGenerator.getPieceContext(featurePieceContext, piece);
+                StructurePoolElement poolElement = piece.getPoolElement();
+
+                FeaturePool pool = JigsawHelper.getPool(poolElement, this.pools, random);
+
+                JigsawHelper.applyContext(poolElement, pieceContext);
+                JigsawHelper.applyFunctions(pool, poolElement, pieceContext, random);
+
+                BlockBox box = pieceContext.get(BOX);
+                BlockPos pos = pieceContext.get(POS);
+
+                Chunk chunk = server.getChunk(pos);
+                ChunkPos chunkPos = chunk.getPos();
+
+                return piece.generate(server, accessor, chunkGenerator, random, box, chunkPos, pos);
+            }));
+
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e);
+        }
+
+        return false;
     }
 
     public static class Serializer implements JsonSerializer<JigsawFeature> {

@@ -1,6 +1,5 @@
 package github.Louwind.Features.impl.feature;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -20,9 +19,11 @@ import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.JsonSerializer;
-import net.minecraft.util.math.BlockBox;
+import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
@@ -39,11 +40,11 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final List<SpawnSettings.SpawnEntry> creatures;
-    private final List<SpawnSettings.SpawnEntry> monsters;
+    private final Pool<SpawnSettings.SpawnEntry> creatures;
+    private final Pool<SpawnSettings.SpawnEntry> monsters;
     private final GenerationStep.Feature step;
 
-    public JigsawStructureFeature(Codec<JigsawFeatureConfig> codec, GenerationStep.Feature step, List<SpawnSettings.SpawnEntry> creatures, List<SpawnSettings.SpawnEntry> monsters, List<FeaturePool> pools) {
+    public JigsawStructureFeature(Codec<JigsawFeatureConfig> codec, GenerationStep.Feature step, Pool<SpawnSettings.SpawnEntry> creatures, Pool<SpawnSettings.SpawnEntry> monsters, List<FeaturePool> pools) {
         super(codec, pools);
 
         this.creatures = creatures;
@@ -52,7 +53,7 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
     }
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getCreatureSpawns() {
+    public Pool<SpawnSettings.SpawnEntry> getCreatureSpawns() {
         return this.creatures;
     }
 
@@ -62,8 +63,8 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
     }
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getMonsterSpawns() {
-        return this.monsters;
+    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+        return monsters;
     }
 
     @Override
@@ -73,10 +74,10 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
     @Override
     public StructureStartFactory<JigsawFeatureConfig> getStructureStartFactory() {
-        return (feature, chunkX, chunkZ, boundingBox, references, seed) -> {
+        return (feature, chunkPos, references, seed) -> {
             JigsawStructureFeature jigsawFeature = (JigsawStructureFeature) feature;
 
-            return new JigsawStart(jigsawFeature, chunkX, chunkZ, boundingBox, references, seed);
+            return new JigsawStart(jigsawFeature, chunkPos, references, seed);
         };
     }
 
@@ -84,21 +85,21 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
         protected final JigsawStructureFeature feature;
 
-        public JigsawStart(JigsawStructureFeature feature, int chunkX, int chunkZ, BlockBox boundingBox, int references, long seed) {
-            super(feature, chunkX, chunkZ, boundingBox, references, seed);
+        public JigsawStart(JigsawStructureFeature feature, ChunkPos chunkPos, int references, long seed) {
+            super(feature, chunkPos, references, seed);
 
             this.feature = feature;
         }
 
         @Override
-        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, int i, int j, Biome biome, JigsawFeatureConfig config) {
+        public void init(DynamicRegistryManager registryManager, ChunkGenerator chunkGenerator, StructureManager manager, ChunkPos pos, Biome biome, JigsawFeatureConfig config, HeightLimitView world) {
             FeaturePool pool = JigsawHelper.getStartPool(config, this.feature.pools);
             FeatureContextProvider provider = pool.getContextProvider();
 
-            BlockPos blockPos = new BlockPos(i * 16, config.getStartY(), j * 16);
+            BlockPos blockPos = new BlockPos(pos.x * 16, config.getStartY(), pos.z * 16);
 
             try {
-                FeatureContext context = JigsawContextGenerator.getStructurePieceContext(dynamicRegistryManager, structureManager, provider, config, chunkGenerator, this.children, this.random, blockPos);
+                FeatureContext context = JigsawContextGenerator.getStructurePieceContext(registryManager, manager, provider, config, chunkGenerator, this.children, this.random, blockPos);
                 List<PoolStructurePiece> pieces = context.get(PIECES);
 
                 for (PoolStructurePiece piece : pieces) {
@@ -134,7 +135,7 @@ public class JigsawStructureFeature extends PoolStructureFeature<JigsawFeatureCo
 
             FeaturePool[] pools = FeaturesJsonHelper.getPools(json, context, "pools");
 
-            return new JigsawStructureFeature(JigsawFeatureConfig.CODEC, step, ImmutableList.copyOf(creatures), ImmutableList.copyOf(monsters), Arrays.asList(pools));
+            return new JigsawStructureFeature(JigsawFeatureConfig.CODEC, step, Pool.of(creatures), Pool.of(monsters), Arrays.asList(pools));
         }
 
     }

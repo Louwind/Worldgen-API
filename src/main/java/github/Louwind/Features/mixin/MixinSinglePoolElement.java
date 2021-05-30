@@ -4,7 +4,7 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.FeatureContextBuilder;
 import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.metadata.FeatureMetadata;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.SinglePoolElement;
@@ -41,7 +41,7 @@ public abstract class MixinSinglePoolElement {
         List<Structure.StructureBlockInfo> structureBlockInfos = this.getDataStructureBlocks(structureManager, blockPos, blockRotation, true);
 
         for (Structure.StructureBlockInfo structureBlockInfo : structureBlockInfos) {
-            CompoundTag tag = structureBlockInfo.tag;
+            NbtCompound tag = structureBlockInfo.nbt;
 
             if(tag != null) {
                 String string = tag.getString("metadata");

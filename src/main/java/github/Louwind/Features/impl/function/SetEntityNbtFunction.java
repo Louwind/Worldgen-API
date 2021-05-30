@@ -12,7 +12,7 @@ import github.Louwind.Features.util.FeaturesJsonHelper;
 import github.Louwind.Features.util.OptionalTag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.JsonSerializer;
@@ -28,12 +28,12 @@ import static github.Louwind.Features.impl.init.FeatureContextParameters.WORLD;
 public class SetEntityNbtFunction implements FeatureFunction {
 
     private final List<FeatureCondition> conditions;
-    private final OptionalTag compoundTag;
+    private final OptionalTag nbtCompound;
     private final EntityType<?> entityType;
 
     public SetEntityNbtFunction(EntityType<?> entityType, OptionalTag compoundTag, FeatureCondition[] conditions) {
         this.conditions = Arrays.asList(conditions);
-        this.compoundTag = compoundTag;
+        this.nbtCompound = compoundTag;
         this.entityType = entityType;
     }
 
@@ -53,14 +53,14 @@ public class SetEntityNbtFunction implements FeatureFunction {
         Structure.StructureBlockInfo blockInfo = context.get(BLOCK_INFO);
         StructureWorldAccess world = context.get(WORLD);
 
-        CompoundTag tag = this.compoundTag.get(context);
+        NbtCompound compound = this.nbtCompound.getCompound(context);
         ServerWorld server = world.toServerWorld();
         Box box = new Box(blockInfo.pos);
 
         for (Entity entity : server.getEntitiesByType(this.entityType, box, entity -> true)) {
-            CompoundTag compoundTag = entity.toTag(tag);
+            NbtCompound nbtCompound = entity.writeNbt(compound);
 
-            entity.fromTag(compoundTag);
+            entity.readNbt(nbtCompound);
         }
 
     }

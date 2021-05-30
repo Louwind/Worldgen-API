@@ -25,7 +25,7 @@ public class LecternLootBehavior implements LootBehavior<LecternBlockEntity> {
         ItemStack stack = loot.get(index);
         BlockState state = server.getBlockState(pos);
 
-        LecternBlock.putBookIfAbsent(server, pos, state, stack);
+        LecternBlock.putBookIfAbsent(null, server, pos, state, stack);
     }
 
 }

@@ -1,6 +1,7 @@
 package github.Louwind.Features.world.structure;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -19,8 +20,8 @@ public class JigsawStructurePiece extends PoolStructurePiece {
         this.rotation = blockRotation;
     }
 
-    public JigsawStructurePiece(StructureManager manager, CompoundTag tag) {
-        super(manager, tag);
+    public JigsawStructurePiece(ServerWorld world, NbtCompound tag) {
+        super(world, tag);
 
         this.rotation = BlockRotation.valueOf(tag.getString("rotation"));
     }
@@ -49,10 +50,10 @@ public class JigsawStructurePiece extends PoolStructurePiece {
     }
 
     @Override
-    protected void toNbt(CompoundTag tag) {
-        super.toNbt(tag);
+    protected void writeNbt(ServerWorld world, NbtCompound nbt) {
+        super.writeNbt(world, nbt);
 
-        tag.putString("rotation", this.rotation.name());
+        nbt.putString("rotation", this.rotation.name());
     }
 
     public String toString() {

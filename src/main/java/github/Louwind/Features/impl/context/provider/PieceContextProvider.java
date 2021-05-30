@@ -50,9 +50,9 @@ public class PieceContextProvider implements FeatureContextProvider {
 
     public FeatureContextBuilder getStructureContextBuilder(DynamicRegistryManager registryManager, StructureManager structureManager, PoolFeatureConfig config, ChunkGenerator chunkGenerator, List<StructurePiece> pieces, Random random, BlockPos pos) {
         return new FeatureContextBuilder()
-                .put(BOX, BlockBox.infinite())
+                .put(BOX, BlockBox.empty())
                 .put(CHUNK_GENERATOR, chunkGenerator)
-                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, pieces, random, pos))
+                .put(PIECES, JigsawPieceGenerator.addPieces(registryManager, structureManager, config, chunkGenerator, null, random, pos))
                 .put(POS, pos)
                 .put(RANDOM, random)
                 .put(ROTATION, config.getRotation());
