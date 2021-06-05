@@ -17,6 +17,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
+minecraft {
+	accessWidener = file("src/main/resources/features.accesswidener")
+}
+
 processResources {
 	inputs.property "version", project.version
 

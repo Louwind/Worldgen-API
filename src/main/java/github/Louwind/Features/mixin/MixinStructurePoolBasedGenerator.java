@@ -3,12 +3,14 @@ package github.Louwind.Features.mixin;
 import github.Louwind.Features.config.PoolFeatureConfig;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePiecesHolder;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.*;
+import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +28,7 @@ public class MixinStructurePoolBasedGenerator {
     private static StructurePoolFeatureConfig config;
 
     @Inject(method = "method_30419", at = @At("HEAD"))
-    private static void setConfig(DynamicRegistryManager dynamicRegistryManager, StructurePoolFeatureConfig structurePoolFeatureConfig, StructurePoolBasedGenerator.PieceFactory pieceFactory, ChunkGenerator chunkGenerator, StructureManager structureManager, BlockPos blockPos, List<? super PoolStructurePiece> list, Random random, boolean bl, boolean bl2, CallbackInfo ci) {
+    private static void setConfig(DynamicRegistryManager dynamicRegistryManager, StructurePoolFeatureConfig structurePoolFeatureConfig, StructurePoolBasedGenerator.PieceFactory pieceFactory, ChunkGenerator chunkGenerator, StructureManager structureManager, BlockPos blockPos, StructurePiecesHolder structurePiecesHolder, Random random, boolean bl, boolean bl2, HeightLimitView heightLimitView, CallbackInfo ci) {
         config = structurePoolFeatureConfig;
     }
 

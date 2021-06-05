@@ -13,29 +13,17 @@ import static net.minecraft.util.registry.Registry.*;
 
 public class Features implements ModInitializer {
 
-    private static final ConfiguredFeatureReloadListener CONFIGURED_FEATURE_RELOAD_LISTENER = new ConfiguredFeatureReloadListener();
-
-    private static final ConfiguredStructureFeatureReloadListener CONFIGURED_STRUCTURE_FEATURE_RELOAD_LISTENER = new ConfiguredStructureFeatureReloadListener();
-
     private static final FeatureReloadListener FEATURE_RELOAD_LISTENER = new FeatureReloadListener();
 
     private static final FeatureMetadataReloadListener FEATURE_METADATA_RELOAD_LISTENER = new FeatureMetadataReloadListener();
 
     private static final StructureFeatureReloadListener STRUCTURE_FEATURE_RELOAD_LISTENER = new StructureFeatureReloadListener();
 
-    private static final StructurePoolReloadListener STRUCTURE_POOL_RELOAD_LISTENER = new StructurePoolReloadListener();
-
-    private static final StructureProcessorReloadListener STRUCTURE_PROCESSOR_RELOAD_LISTENER = new StructureProcessorReloadListener();
-
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_RELOAD_LISTENER);
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_POOL_RELOAD_LISTENER);
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_FEATURE_RELOAD_LISTENER);
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_RELOAD_LISTENER);
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(CONFIGURED_FEATURE_RELOAD_LISTENER);
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(CONFIGURED_STRUCTURE_FEATURE_RELOAD_LISTENER);
 
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:empty"), FeatureContextProviders.EMPTY);
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:metadata"), FeatureContextProviders.METADATA);
@@ -108,21 +96,6 @@ public class Features implements ModInitializer {
 
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:entity"), FeatureMetadataTypes.ENTITY);
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:blockstate"), FeatureMetadataTypes.BLOCKSTATE);
-
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:context_aware"), FeaturePoolElements.CONTEXT_AWARE);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("features:no_update_neighbors"), FeaturePoolElements.NO_UPDATE_NEIGHBORS);
-
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:empty"), FeaturePoolElements.EMPTY);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:feature"), FeaturePoolElements.FEATURE);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:legacy_single"), FeaturePoolElements.LEGACY_SINGLE);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:list"), FeaturePoolElements.LIST);
-        Registry.register(FEATURE_POOL_ELEMENT_TYPE, new Identifier("minecraft:single"), FeaturePoolElements.SINGLE);
-
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("features:ignore_solid_blocks"), FeatureProcessors.IGNORE_SOLID_BLOCKS_PROCESSOR);
-
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:block_ignore"), FeatureProcessors.BLOCK_IGNORE_PROCESSOR);
-        Registry.register(FEATURE_PROCESSOR_TYPE, new Identifier("minecraft:rule"), FeatureProcessors.RULE_PROCESSOR);
 
         Registry.register(FEATURE_TYPE, new Identifier("features:jigsaw"), PoolFeatureTypes.JIGSAW);
 

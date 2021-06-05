@@ -10,59 +10,33 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class JigsawStructurePiece extends PoolStructurePiece {
+import static net.minecraft.util.BlockRotation.*;
 
-    private BlockRotation rotation;
+public class JigsawStructurePiece extends PoolStructurePiece {
 
     public JigsawStructurePiece(StructureManager structureManager, StructurePoolElement structurePoolElement, BlockPos blockPos, int i, BlockRotation blockRotation, BlockBox blockBox) {
         super(structureManager, structurePoolElement, blockPos, i, blockRotation, blockBox);
-
-        this.rotation = blockRotation;
     }
 
     public JigsawStructurePiece(ServerWorld world, NbtCompound tag) {
         super(world, tag);
-
-        this.rotation = BlockRotation.valueOf(tag.getString("rotation"));
     }
 
     @Override
     public void setOrientation(Direction orientation) {
 
         if (orientation == null) {
-            this.rotation = BlockRotation.NONE;
+            this.rotation = NONE;
         } else {
-            switch(orientation) {
-                case SOUTH:
-                    this.rotation = BlockRotation.CLOCKWISE_180;
-                    break;
-                case WEST:
-                    this.rotation = BlockRotation.COUNTERCLOCKWISE_90;
-                    break;
-                case EAST:
-                    this.rotation = BlockRotation.CLOCKWISE_90;
-                    break;
-                default:
-                    this.rotation = BlockRotation.NONE;
+            switch (orientation) {
+                case SOUTH -> this.rotation = CLOCKWISE_180;
+                case WEST -> this.rotation = COUNTERCLOCKWISE_90;
+                case EAST -> this.rotation = CLOCKWISE_90;
+                default -> this.rotation = NONE;
             }
+
         }
 
-    }
-
-    @Override
-    protected void writeNbt(ServerWorld world, NbtCompound nbt) {
-        super.writeNbt(world, nbt);
-
-        nbt.putString("rotation", this.rotation.name());
-    }
-
-    public String toString() {
-        return String.format("<%s | %s | %s | %s>", this.getClass().getSimpleName(), this.pos, this.rotation, this.poolElement);
-    }
-
-    @Override
-    public BlockRotation getRotation() {
-        return this.rotation;
     }
 
 }

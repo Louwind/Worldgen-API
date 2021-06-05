@@ -19,6 +19,7 @@
       "github.Louwind.Features.Features"
     ]
   },
+  "accessWidener" : "features.accesswidener",
   "mixins": [
     "features.mixins.json"
   ],
