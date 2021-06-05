@@ -9,15 +9,11 @@ import github.Louwind.Features.context.parameter.FeatureContextParameter;
 import github.Louwind.Features.context.provider.FeatureContextProviderType;
 import github.Louwind.Features.entry.FeatureEntryType;
 import github.Louwind.Features.feature.PoolFeatureType;
-import github.Louwind.Features.feature.PoolStructureFeatureType;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.loot.LootBehavior;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.pool.FeaturePoolType;
-import github.Louwind.Features.pool.element.FeaturePoolElementType;
-import github.Louwind.Features.processor.FeatureProcessorType;
-import github.Louwind.Features.processor.FeatureRuleTestType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.SimpleRegistry;
@@ -44,18 +40,10 @@ public class FeaturesRegistry {
 
     public static final SimpleRegistry<FeatureMetadataType> FEATURE_METADATA_TYPE = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier("features:metadata_type")), Lifecycle.experimental());
 
-    public static final SimpleRegistry<FeatureProcessorType> FEATURE_PROCESSOR_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:processor")), Lifecycle.experimental());
-
-    public static final SimpleRegistry<FeaturePoolElementType> FEATURE_POOL_ELEMENT_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:pool_element")), Lifecycle.experimental());
-
     public static final SimpleRegistry<FeaturePoolType> FEATURE_POOL_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:pools")), Lifecycle.experimental());
-
-    public static final SimpleRegistry<FeatureRuleTestType> FEATURE_RULE_TEST = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:rule_tests")), Lifecycle.experimental());
 
     public static final SimpleRegistry<PoolFeatureType> FEATURE_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:feature_type")), Lifecycle.experimental());
 
     public static final SimpleRegistry<LootBehavior<?>> LOOT_BEHAVIOR = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:loot_behavior")), Lifecycle.experimental());
-
-    public static final SimpleRegistry<PoolStructureFeatureType> STRUCTURE_FEATURE_TYPE = new SimpleRegistry(RegistryKey.ofRegistry(new Identifier("features:structure_feature_type")), Lifecycle.experimental());
 
 }

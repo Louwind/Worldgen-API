@@ -13,16 +13,10 @@ import static net.minecraft.util.registry.Registry.*;
 
 public class Features implements ModInitializer {
 
-    private static final FeatureReloadListener FEATURE_RELOAD_LISTENER = new FeatureReloadListener();
-
     private static final FeatureMetadataReloadListener FEATURE_METADATA_RELOAD_LISTENER = new FeatureMetadataReloadListener();
-
-    private static final StructureFeatureReloadListener STRUCTURE_FEATURE_RELOAD_LISTENER = new StructureFeatureReloadListener();
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_FEATURE_RELOAD_LISTENER);
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_RELOAD_LISTENER);
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
 
         Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:empty"), FeatureContextProviders.EMPTY);
@@ -43,13 +37,6 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:root"), FeatureContextGetters.ROOT);
 
         Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
-
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:always_true"), FeatureRuleTests.ALWAYS_TRUE);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:block_match"), FeatureRuleTests.BLOCK_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:blockstate_match"), FeatureRuleTests.BLOCKSTATE_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:random_block_match"), FeatureRuleTests.RANDOM_BLOCK_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:random_blockstate_match"), FeatureRuleTests.RANDOM_BLOCKSTATE_MATCH);
-        Registry.register(FEATURE_RULE_TEST, new Identifier("minecraft:tag_match"), FeatureRuleTests.TAG_MATCH);
 
         Registry.register(FEATURE_CONFIG_TYPE, new Identifier("features:jigsaw"), FeatureConfigTypes.JIGSAW);
 
