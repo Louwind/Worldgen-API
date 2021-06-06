@@ -1,13 +1,10 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.impl.procesor.ContextRuleProcessor;
-import github.Louwind.Features.impl.procesor.IgnoreSolidBlocksStructureProcessor;
-import github.Louwind.Features.processor.FeatureProcessorType;
+import github.Louwind.Features.impl.processor.IgnoreSolidBlocksStructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorType;
 
 public class FeatureProcessors {
 
-    public static final FeatureProcessorType<ContextRuleProcessor> CONTEXT_RULE_PROCESSOR = new FeatureProcessorType(new ContextRuleProcessor.Serializer(), ContextRuleProcessor.CODEC);
-
-    public static final FeatureProcessorType<IgnoreSolidBlocksStructureProcessor> IGNORE_SOLID_BLOCKS_PROCESSOR = new FeatureProcessorType(new IgnoreSolidBlocksStructureProcessor.Serializer(), IgnoreSolidBlocksStructureProcessor.CODEC);
+    public static final StructureProcessorType<IgnoreSolidBlocksStructureProcessor> IGNORE_SOLID_BLOCKS_PROCESSOR = () -> IgnoreSolidBlocksStructureProcessor.CODEC;
 
 }

@@ -3,7 +3,7 @@ package github.Louwind.Features.client.resource;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Lifecycle;
-import github.Louwind.Features.metadata.FeatureMetadata;
+import github.Louwind.Features.metadata.MetadataHandler;
 import github.Louwind.Features.util.FeatureGsons;
 import github.Louwind.Reload.client.resource.JsonReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -16,15 +16,15 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.OptionalInt;
 
-import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_METADATA;
+import static github.Louwind.Features.registry.FeaturesRegistry.METADATA_HANDLER;
 
-public class FeatureMetadataReloadListener extends JsonReloadListener {
+public class MetadataHandlerListReloadListener extends JsonReloadListener {
 
     private static final Gson GSON = FeatureGsons.getMetadataGsonBuilder().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public FeatureMetadataReloadListener() {
-        super(GSON, "metadata");
+    public MetadataHandlerListReloadListener() {
+        super(GSON, "worldgen/structure/metadata");
     }
 
     @Override
@@ -32,16 +32,16 @@ public class FeatureMetadataReloadListener extends JsonReloadListener {
         prepared.forEach((id, jsonElement) -> {
 
             try {
-                FeatureMetadata t = GSON.fromJson(jsonElement, FeatureMetadata.class);
+                MetadataHandler t = GSON.fromJson(jsonElement, MetadataHandler.class);
 
-                if(!FEATURE_METADATA.containsId(id))
-                    BuiltinRegistries.add(FEATURE_METADATA, id, t);
+                if(!METADATA_HANDLER.containsId(id))
+                    BuiltinRegistries.add(METADATA_HANDLER, id, t);
                 else
-                    FEATURE_METADATA.getKey(t).ifPresent(key -> {
-                        Lifecycle lifecycle = FEATURE_METADATA.getLifecycle();
-                        int rawId = FEATURE_METADATA.getRawId(t);
+                    METADATA_HANDLER.getKey(t).ifPresent(key -> {
+                        Lifecycle lifecycle = METADATA_HANDLER.getLifecycle();
+                        int rawId = METADATA_HANDLER.getRawId(t);
 
-                        FEATURE_METADATA.replace(OptionalInt.of(rawId), key, t, lifecycle);
+                        METADATA_HANDLER.replace(OptionalInt.of(rawId), key, t, lifecycle);
                     });
 
             } catch (Exception exception) {
