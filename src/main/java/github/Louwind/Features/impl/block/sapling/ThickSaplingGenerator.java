@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -15,28 +16,31 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import java.util.Random;
 import java.util.Set;
 
-public interface FeaturesThickSaplingGenerator extends FeaturesSaplingGenerator {
+public abstract class ThickSaplingGenerator extends SaplingGenerator {
 
-    ConfiguredFeature<?, ?> createThickTreeFeature(Random random, boolean sapling);
+    abstract ConfiguredFeature<?, ?> createThickTreeFeature(Random random, boolean bees);
+
+    abstract Block getSaplingBlock();
 
     @Override
-    default boolean generate(ServerWorld server, ChunkGenerator chunkGenerator, BlockPos blockPos, BlockState blockState, Random random, boolean sapling) {
+    public boolean generate(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random random) {
+        boolean bees = this.areFlowersNearby(world, pos);
         Block block = this.getSaplingBlock();
 
-        Set<BlockPos> root = FeaturesThickSaplingGenerator.getSaplings(server, block, blockPos);
-        ConfiguredFeature<?, ?> thickTree = this.createThickTreeFeature(random, sapling);
-        ConfiguredFeature<?, ?> tree = this.createTreeFeature(random, sapling);
+        ConfiguredFeature<?, ?> thickTree = this.createThickTreeFeature(random, bees);
+        ConfiguredFeature<?, ?> tree = this.createTreeFeature(random, bees);
+        Set<BlockPos> root = this.getSaplings(world, block, pos);
 
-        if (thickTree != null && this.canPlaceThickTree(server, root))
-            return thickTree.generate(server, chunkGenerator, random, blockPos);
+        if (thickTree != null && this.canPlaceThickTree(world, root))
+            return thickTree.generate(world, chunkGenerator, random, pos);
 
-        else if (tree != null && server.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 4))
-            return tree.generate(server, chunkGenerator, random, blockPos);
+        else if (tree != null && world.setBlockState(pos, Blocks.AIR.getDefaultState(), 4))
+            return tree.generate(world, chunkGenerator, random, pos);
 
         return false;
     }
 
-    default boolean canPlaceThickTree(ServerWorld worldIn, Set<BlockPos> root) {
+    public boolean canPlaceThickTree(ServerWorld worldIn, Set<BlockPos> root) {
         Block sapling = this.getSaplingBlock();
 
         if (root.size() > 1)
@@ -45,9 +49,7 @@ public interface FeaturesThickSaplingGenerator extends FeaturesSaplingGenerator 
         return false;
     }
 
-    Block getSaplingBlock();
-
-    static Set<BlockPos> getSaplings(StructureWorldAccess world, Block sapling, BlockPos pos) {
+    public Set<BlockPos> getSaplings(StructureWorldAccess world, Block sapling, BlockPos pos) {
 
         for (Direction direction : Direction.values()) {
             Direction.Axis axis = direction.getAxis();

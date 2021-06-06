@@ -15,8 +15,4 @@ public class FeatureContextProviders {
 
     public static final FeatureContextProviderType REPEAT = new FeatureContextProviderType(new RepeatContextProvider.Serializer(), builder -> builder.required(INDEX));
 
-    public static final FeatureContextProviderType THICK_TREE = new FeatureContextProviderType(new ThickTreeContextProvider.Serializer(), builder -> builder.required(BOX, CHUNK_GENERATOR, ORIGIN, PIECES, POS, RANDOM, ROOT, ROTATION, WORLD));
-
-    public static final FeatureContextProviderType TREE = new FeatureContextProviderType(new TreeContextProvider.Serializer(), builder -> builder.optional(HEIGHT).required(BOX, CHUNK_GENERATOR, PIECES, POS, RANDOM, ROOT, ROTATION, WORLD));
-
 }

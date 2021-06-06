@@ -9,7 +9,6 @@ import github.Louwind.Features.context.FeatureContext;
 import github.Louwind.Features.context.parameter.OptionalContextParameter;
 import github.Louwind.Features.impl.init.FeatureConditions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.NumberKind;
 import net.minecraft.util.JsonSerializer;
 
 public class LessCondition implements FeatureCondition {

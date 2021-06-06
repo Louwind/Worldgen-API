@@ -11,8 +11,6 @@ import github.Louwind.Features.impl.init.FeatureMetadataTypes;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import github.Louwind.Features.metadata.FeatureMetadataType;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.OptionalVector;
-import github.Louwind.Features.util.OptionalTag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;

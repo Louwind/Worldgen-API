@@ -1,14 +1,10 @@
 package github.Louwind.Features.mixin;
 
-import github.Louwind.Features.context.FeatureContext;
-import github.Louwind.Features.context.FeatureContextBuilder;
-import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.metadata.FeatureMetadata;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.SinglePoolElement;
-import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -26,9 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 import java.util.Random;
 
-import static github.Louwind.Features.impl.init.FeatureContextParameters.*;
-import static github.Louwind.Features.impl.init.FeatureContextParameters.WORLD;
-import static github.Louwind.Features.impl.init.FeatureContextProviders.METADATA;
 import static github.Louwind.Features.registry.FeaturesRegistry.FEATURE_METADATA;
 
 @Mixin(SinglePoolElement.class)
@@ -51,25 +44,8 @@ public abstract class MixinSinglePoolElement {
                     FeatureMetadata metadata = FEATURE_METADATA.get(id);
 
                     try {
-                        FeatureContext context = new FeatureContextBuilder()
-                                .put(BLOCK_INFO, structureBlockInfo)
-                                .put(MIRROR, BlockMirror.NONE)
-                                .put(POS, blockPos)
-                                .put(RANDOM, random)
-                                .put(ROTATION, blockRotation)
-                                .put(WORLD, structureWorldAccess)
-                                .build(METADATA);
-
-                        metadata.accept(context);
-
-                        List<FeatureFunction> functions = metadata.getFunctions();
-
-                        for (FeatureFunction function: functions) {
-
-                            if(function.test(context))
-                                function.accept(context);
-                        }
-
+                        // TODO apply metadata
+                        LogManager.getLogger().info("Hello!");
                     } catch (IllegalArgumentException e) {
                         LogManager.getLogger().warn(e);
                     }

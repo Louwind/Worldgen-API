@@ -1,2 +1,4 @@
 accessWidener   v1  named
+accessible method net/minecraft/block/sapling/SaplingGenerator areFlowersNearby (Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V
+extendable method net/minecraft/block/sapling/SaplingGenerator areFlowersNearby (Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V
 mutable field net/minecraft/structure/PoolStructurePiece rotation Lnet/minecraft/util/BlockRotation;

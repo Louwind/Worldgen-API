@@ -19,51 +19,13 @@ public class Features implements ModInitializer {
     public void onInitialize() {
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
 
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:empty"), FeatureContextProviders.EMPTY);
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:metadata"), FeatureContextProviders.METADATA);
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:piece"), FeatureContextProviders.PIECE);
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:thick_tree"), FeatureContextProviders.THICK_TREE);
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:tree"), FeatureContextProviders.TREE);
-        Registry.register(FEATURE_CONTEXT_PROVIDER, new Identifier("features:repeat"), FeatureContextProviders.REPEAT);
-
-        Registry.register(FEATURE_ENTRY_TYPE, new Identifier("features:entry"), FeatureEntries.ENTRY);
         Registry.register(FEATURE_POOL_TYPE, new Identifier("features:pool"), FeaturePools.POOL);
-
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:add_position"), FeatureContextGetters.ADD_POSITION);
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:addition"), FeatureContextGetters.ADDITION);
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:choose_palette"), FeatureContextGetters.CHOOSE_PALETTE);
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:multiply"), FeatureContextGetters.MULTIPLY);
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:ranged"), FeatureContextGetters.RANGED);
-        Registry.register(FEATURE_CONTEXT_GETTER_TYPE, new Identifier("features:root"), FeatureContextGetters.ROOT);
-
-        Registry.register(FEATURE_CONTEXT_OVERRIDE_TYPE, new Identifier("features:parameter"), FeatureContextOverrides.PARAMETER);
-
-        Registry.register(FEATURE_CONFIG_TYPE, new Identifier("features:jigsaw"), FeatureConfigTypes.JIGSAW);
 
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:alternatives"), FeatureConditions.ALTERNATIVES);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:inverted"), FeatureConditions.INVERTED);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:less"), FeatureConditions.LESS);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:none"), FeatureConditions.NONE);
         Registry.register(FEATURE_CONDITION_TYPE, new Identifier("features:rotation"), FeatureConditions.ROTATION);
-
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:block_info"), FeatureContextParameters.BLOCK_INFO);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:box"), FeatureContextParameters.BOX);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:chunk_generator"), FeatureContextParameters.CHUNK_GENERATOR);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:empty"), FeatureContextParameters.EMPTY);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:height"), FeatureContextParameters.HEIGHT);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:index"), FeatureContextParameters.INDEX);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:mirror"), FeatureContextParameters.MIRROR);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:offset"), FeatureContextParameters.OFFSET);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:origin"), FeatureContextParameters.ORIGIN);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:palette"), FeatureContextParameters.PALETTE);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pieces"), FeatureContextParameters.PIECES);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:pos"), FeatureContextParameters.POS);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:random"), FeatureContextParameters.RANDOM);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:root"), FeatureContextParameters.ROOT);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:rotation"), FeatureContextParameters.ROTATION);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:trunks"), FeatureContextParameters.TRUNKS);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:y"), FeatureContextParameters.Y);
-        Registry.register(FEATURE_CONTEXT_PARAMETER, new Identifier("features:world"), FeatureContextParameters.WORLD);
 
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:choose"), FeatureFunctions.CHOOSE);
         Registry.register(FEATURE_FUNCTION_TYPE, new Identifier("features:do_nothing"), FeatureFunctions.DO_NOTHING);
@@ -84,8 +46,6 @@ public class Features implements ModInitializer {
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:entity"), FeatureMetadataTypes.ENTITY);
         Registry.register(FEATURE_METADATA_TYPE, new Identifier("features:blockstate"), FeatureMetadataTypes.BLOCKSTATE);
 
-        Registry.register(FEATURE_TYPE, new Identifier("features:jigsaw"), PoolFeatureTypes.JIGSAW);
-
         Registry.register(ITEM, new Identifier("features:bedroom_debug_stick"), FeaturesItems.BEDROOM_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:bookshelf_debug_stick"), FeaturesItems.BOOKSHELF_DEBUG_STICK);
         Registry.register(ITEM, new Identifier("features:christmas_tree_debug_stick"), FeaturesItems.CHRISTMAS_TREE_DEBUG_STICK);
@@ -105,10 +65,7 @@ public class Features implements ModInitializer {
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lootable_container"), LootBehaviors.LOOTABLE_CONTAINER);
         Registry.register(LOOT_BEHAVIOR, new Identifier("minecraft:lectern"), LootBehaviors.LECTERN);
 
-        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:context_aware"), StructurePoolElementTypes.CONTEXT_AWARE);
-        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
-
-        Registry.register(STRUCTURE_PROCESSOR, new Identifier("features:rule"), FeatureProcessors.CONTEXT_RULE_PROCESSOR);
+//        Registry.register(STRUCTURE_POOL_ELEMENT, new Identifier("features:no_update_neighbors"), StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
         Registry.register(STRUCTURE_PROCESSOR, new Identifier("features:ignore_solid_blocks"), FeatureProcessors.IGNORE_SOLID_BLOCKS_PROCESSOR);
     }
 

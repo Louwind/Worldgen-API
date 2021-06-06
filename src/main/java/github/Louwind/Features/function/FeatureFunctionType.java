@@ -1,7 +1,6 @@
 package github.Louwind.Features.function;
 
 import github.Louwind.Features.context.FeatureContextProviderBuilder;
-import github.Louwind.Features.util.ContextAwareSerializableType;
 import net.minecraft.util.JsonSerializer;
 
 import java.util.function.Consumer;

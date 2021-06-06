@@ -10,7 +10,6 @@ import github.Louwind.Features.function.FeatureFunction;
 import github.Louwind.Features.function.FeatureFunctionType;
 import github.Louwind.Features.impl.init.FeatureFunctions;
 import github.Louwind.Features.util.FeaturesJsonHelper;
-import github.Louwind.Features.util.JigsawContextGenerator;
 import net.minecraft.util.JsonSerializer;
 
 import java.util.Arrays;
