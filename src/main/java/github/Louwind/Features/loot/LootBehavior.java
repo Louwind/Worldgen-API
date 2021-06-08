@@ -5,7 +5,6 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -20,17 +19,17 @@ public interface LootBehavior<T extends BlockEntity> {
                 .build(LootContextTypes.CHEST);
     }
 
-    default LootTable getLootTable(ServerWorld world, Identifier lootTable) {
-        return world.getServer().getLootManager().getTable(lootTable);
+    default void generate(ServerWorld server, T blockEntity, BlockPos pos) {
+        var seed = server.getSeed();
+        var context = this.getContext(server, pos, seed);
+
+        this.setLootTable(context, server, blockEntity, pos, seed);
     }
 
-    default void setLootTable(Identifier id, ServerWorld server, T blockEntity, BlockPos pos, long seed) {
-        LootContext context = this.getContext(server, pos, seed);
-        LootTable lootTable = this.getLootTable(server, id);
+    LootTable getLootTable(ServerWorld world);
 
-        this.setLootTable(lootTable, context, server, blockEntity, pos, seed);
-    }
+    LootBehaviorType getType();
 
-    void setLootTable(LootTable lootTable, LootContext context, ServerWorld server, T blockEntity, BlockPos pos, long seed);
+    void setLootTable(LootContext context, ServerWorld server, T blockEntity, BlockPos pos, long seed);
 
 }

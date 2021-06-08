@@ -1,7 +1,0 @@
-{
-  "type": "features:christmas_tree",
-  "config": {
-    "start_pool": "features:christmas_trees/big_crowns",
-    "size": 1
-  }
-}

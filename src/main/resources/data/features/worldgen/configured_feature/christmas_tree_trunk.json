@@ -1,7 +1,0 @@
-{
-  "type": "features:christmas_tree_trunk",
-  "config": {
-    "start_pool": "features:christmas_trees/trunks",
-    "size": 1
-  }
-}

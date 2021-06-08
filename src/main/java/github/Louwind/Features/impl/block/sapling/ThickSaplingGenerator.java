@@ -24,8 +24,7 @@ public abstract class ThickSaplingGenerator extends SaplingGenerator {
 
     @Override
     public boolean generate(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random random) {
-//        boolean bees = this.areFlowersNearby(world, pos);
-        boolean bees = false;
+        boolean bees = this.areFlowersNearby(world, pos);
         Block block = this.getSaplingBlock();
 
         ConfiguredFeature<?, ?> thickTree = this.createThickTreeFeature(random, bees);

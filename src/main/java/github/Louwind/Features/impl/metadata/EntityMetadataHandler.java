@@ -5,10 +5,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.Louwind.Features.condition.FeatureCondition;
-import github.Louwind.Features.impl.init.MetadataHandlerTypes;
 import github.Louwind.Features.metadata.MetadataHandlerType;
-import github.Louwind.Features.util.FeaturesJsonHelper;
+import github.Louwind.Features.metadata.condition.MetadataCondition;
+import github.Louwind.Features.util.json.FeaturesJsonHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -23,26 +22,28 @@ import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Random;
 
+import static github.Louwind.Features.impl.init.MetadataHandlerTypes.ENTITY;
 import static net.minecraft.entity.SpawnReason.STRUCTURE;
 
 public class EntityMetadataHandler extends ConditionalMetadataHandler {
 
     private final NbtCompound compound;
     private final boolean initialize;
-    private final Identifier id;
+    private final Identifier entityTypeId;
     private final Vec3d vec3d;
 
-    public EntityMetadataHandler(Identifier id, Vec3d pos, NbtCompound compound, boolean initialize, FeatureCondition[] conditions) {
+    public EntityMetadataHandler(Identifier entityTypeId, Vec3d pos, NbtCompound compound, boolean initialize, MetadataCondition[] conditions) {
         super(conditions);
 
         this.initialize = initialize;
         this.compound = compound;
         this.vec3d = pos;
-        this.id = id;
+        this.entityTypeId = entityTypeId;
     }
 
     public Entity getEntity(World world, NbtCompound compound, BlockRotation rotation, double x, double y, double z) {
@@ -54,25 +55,25 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
 
     @Override
     public MetadataHandlerType getType() {
-        return MetadataHandlerTypes.ENTITY;
+        return ENTITY;
     }
 
     @Override
     void process(ServerWorld world, Structure.StructureBlockInfo blockInfo, BlockPos blockPos, BlockRotation rotation, Random random) {
-        NbtCompound compound = this.compound.copy();
-        ServerWorld server = world.toServerWorld();
+        var compound = this.compound.copy();
+        var server = world.toServerWorld();
 
-        double x = blockInfo.pos.getX() + this.vec3d.getX();
-        double y = blockInfo.pos.getY() + this.vec3d.getY();
-        double z = blockInfo.pos.getZ() + this.vec3d.getZ();
+        var x = blockInfo.pos.getX() + this.vec3d.getX();
+        var y = blockInfo.pos.getY() + this.vec3d.getY();
+        var z = blockInfo.pos.getZ() + this.vec3d.getZ();
 
-        compound.putString("id", this.id.toString());
-        Entity entity = this.getEntity(world, compound, rotation, x, y, z);
+        compound.putString("id", this.entityTypeId.toString());
+        var entity = this.getEntity(world, compound, rotation, x, y, z);
 
         if (entity == null)
-            LogManager.getLogger().warn("Unknown id for Entity: " + this.id);
+            LogManager.getLogger().warn("Unknown id for Entity: " + this.entityTypeId);
         else {
-            BlockPos pos = entity.getBlockPos();
+            var pos = entity.getBlockPos();
 
             if (this.initialize && entity instanceof MobEntity)
                 ((MobEntity)entity).initialize(server, server.getLocalDifficulty(pos), STRUCTURE, null, null);
@@ -88,18 +89,24 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
         @Override
         public void toJson(JsonObject json, EntityMetadataHandler object, JsonSerializationContext context) {
 
+            if (!ArrayUtils.isEmpty(object.conditions))
+                json.add("conditions", context.serialize(object.conditions));
+
+            json.addProperty("compound", object.compound.toString());
+            json.addProperty("initialize", object.initialize);
+            json.addProperty("entity_type", object.entityTypeId.toString());
+            json.add("pos", context.serialize(object.vec3d));
         }
 
         @Override
         public EntityMetadataHandler fromJson(JsonObject json, JsonDeserializationContext context) {
 
             try {
-                FeatureCondition[] conditions = FeaturesJsonHelper.getConditions(json, context,  "conditions");
-                NbtCompound nbtCompound = StringNbtReader.parse(JsonHelper.getString(json, "tag"));
-                boolean initialize = JsonHelper.getBoolean(json, "initialize", false);
-
-                Identifier id = FeaturesJsonHelper.getIdentifier(json, "id");
-                Vec3d pos = FeaturesJsonHelper.getVector(json, "pos");
+                var conditions = FeaturesJsonHelper.getMetadataConditions(json, context,  "conditions");
+                var nbtCompound = StringNbtReader.parse(JsonHelper.getString(json, "compound"));
+                var initialize = JsonHelper.getBoolean(json, "initialize", false);
+                var id = FeaturesJsonHelper.getIdentifier(json, "entity_type");
+                var pos = FeaturesJsonHelper.getVector(json, context, "pos");
 
                 return new EntityMetadataHandler(id, pos, nbtCompound, initialize, conditions);
             } catch (CommandSyntaxException var5) {

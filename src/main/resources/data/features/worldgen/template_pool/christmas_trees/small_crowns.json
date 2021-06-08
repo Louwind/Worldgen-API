@@ -4,7 +4,7 @@
   "elements": [
     {
       "element": {
-        "element_type": "minecraft:single",
+        "element_type": "minecraft:single_pool_element",
         "location": "features:christmas_tree/crowns/small_crown_01",
         "processors": "minecraft:empty",
         "projection": "rigid"

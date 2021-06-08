@@ -4,16 +4,9 @@
   "elements": [
     {
       "element": {
-        "element_type": "features:context_aware",
+        "element_type": "minecraft:single_pool_element",
         "location": "features:bedrooms/bedroom_01",
-        "processors": [
-          {
-            "processor": "features:rule",
-            "rules": {
-              "parameter": "features:palette"
-            }
-          }
-        ],
+        "processors": "minecraft:empty",
         "projection": "rigid"
       },
       "weight": 1

@@ -1,7 +1,7 @@
 package github.Louwind.Features.impl.processor;
 
 import com.mojang.serialization.Codec;
-import github.Louwind.Features.impl.init.FeatureProcessors;
+import github.Louwind.Features.impl.init.StructureProcessorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
@@ -25,7 +25,7 @@ public class IgnoreSolidBlocksStructureProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return FeatureProcessors.IGNORE_SOLID_BLOCKS_PROCESSOR;
+        return StructureProcessorTypes.IGNORE_SOLID_BLOCKS_PROCESSOR;
     }
 
 }

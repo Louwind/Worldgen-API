@@ -1,6 +1,6 @@
 package github.Louwind.Features.mixin;
 
-import github.Louwind.Features.metadata.MetadataHandler;
+import github.Louwind.Features.util.MetadataHandlerList;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 import java.util.Random;
 
-import static github.Louwind.Features.registry.FeaturesRegistry.METADATA_HANDLER;
+import static github.Louwind.Features.registry.Registries.METADATA_HANDLER_LIST;
 
 @Mixin(SinglePoolElement.class)
 public abstract class MixinSinglePoolElement {
@@ -40,8 +40,8 @@ public abstract class MixinSinglePoolElement {
                 String string = tag.getString("metadata");
                 Identifier id = Identifier.tryParse(string);
 
-                if(id != null && METADATA_HANDLER.containsId(id)) {
-                    MetadataHandler metadata = METADATA_HANDLER.get(id);
+                if(id != null && METADATA_HANDLER_LIST.containsId(id)) {
+                    MetadataHandlerList metadata = METADATA_HANDLER_LIST.get(id);
                     ServerWorld world = structureWorldAccess.toServerWorld();
 
                     if(metadata != null)

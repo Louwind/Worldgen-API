@@ -1,7 +1,0 @@
-{
-  "type": "features:dress_room",
-  "config": {
-    "start_pool": "features:dress_rooms",
-    "size": 1
-  }
-}
