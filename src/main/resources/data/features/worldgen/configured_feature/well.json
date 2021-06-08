@@ -1,0 +1,6 @@
+{
+  "type": "features:jigsaw",
+  "config": {
+    "start_pool": "features:wells"
+  }
+}
