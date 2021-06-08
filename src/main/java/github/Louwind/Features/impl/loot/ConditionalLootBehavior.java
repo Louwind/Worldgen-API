@@ -44,8 +44,8 @@ public abstract class ConditionalLootBehavior<T extends BlockEntity> implements 
 
         @Override
         public void toJson(JsonObject json, U object, JsonSerializationContext context) {
-            LootBehaviorType type = object.getType();
-            Identifier id = LOOT_BEHAVIOR.getId(type);
+            var type = object.getType();
+            var id = LOOT_BEHAVIOR.getId(type);
 
             if(id != null)
                 json.addProperty("type", id.toString());

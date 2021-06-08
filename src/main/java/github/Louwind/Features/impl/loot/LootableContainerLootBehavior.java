@@ -41,8 +41,8 @@ public class LootableContainerLootBehavior extends ConditionalLootBehavior<Loota
 
         @Override
         public LootableContainerLootBehavior fromJson(JsonObject json, JsonDeserializationContext context) {
-            LootBehaviorConditionList conditions = FeaturesJsonHelper.getLootBehaviorConditions(json, context, "conditions");
-            Identifier lootTableId = FeaturesJsonHelper.getIdentifier(json, "loot_table");
+            var conditions = FeaturesJsonHelper.getLootBehaviorConditions(json, context, "conditions");
+            var lootTableId = FeaturesJsonHelper.getIdentifier(json, "loot_table");
 
             return new LootableContainerLootBehavior(lootTableId, conditions);
         }

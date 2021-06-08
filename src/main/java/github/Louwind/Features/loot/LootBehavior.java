@@ -1,6 +1,7 @@
 package github.Louwind.Features.loot;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
@@ -17,6 +18,16 @@ public interface LootBehavior<T extends BlockEntity> {
                 .parameter(ORIGIN, Vec3d.ofCenter(pos))
                 .random(seed)
                 .build(LootContextTypes.CHEST);
+    }
+
+    default ItemStack getRandomStack(LootContext context, ServerWorld server) {
+        var loot = this.getLootTable(server).generateLoot(context);
+        var random = context.getRandom();
+
+        var size = loot.size();
+        var index = random.nextInt(size);
+
+        return loot.get(index);
     }
 
     default void generate(ServerWorld server, T blockEntity, BlockPos pos) {

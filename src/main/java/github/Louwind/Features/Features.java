@@ -36,14 +36,11 @@ public class Features implements ModInitializer {
         Registry.register(ITEM, "features:well_debug_stick", FeaturesItems.WELL_DEBUG_STICK);
         Registry.register(ITEM, "features:wine_storage_debug_stick", FeaturesItems.WINE_STORAGE_DEBUG_STICK);
 
-        /*
         Registry.register(LOOT_BEHAVIOR, "features:abstract_furnace", LootBehaviors.ABSTRACT_FURNACE);
-        Registry.register(LOOT_BEHAVIOR, "features:armor_stand", LootBehaviors.ARMOR_STAND);
         Registry.register(LOOT_BEHAVIOR, "features:brewing_stand", LootBehaviors.BREWING_STAND);
         Registry.register(LOOT_BEHAVIOR, "features:campfire", LootBehaviors.CAMPFIRE);
-        Registry.register(LOOT_BEHAVIOR, "features:item_frame", LootBehaviors.ITEM_FRAME);
-        Registry.register(LOOT_BEHAVIOR, "features:jukebox", LootBehaviors.JUKEBOX);*/
-        Registry.register(LOOT_BEHAVIOR, "features:set_lectern_book", LootBehaviors.SET_LECTERN_BOOK);
+        Registry.register(LOOT_BEHAVIOR, "features:jukebox", LootBehaviors.JUKEBOX);
+        Registry.register(LOOT_BEHAVIOR, "features:lectern", LootBehaviors.LECTERN);
         Registry.register(LOOT_BEHAVIOR, "features:lootable_container", LootBehaviors.LOOTABLE_CONTAINER);
 
         Registry.register(STRUCTURE_POOL_ELEMENT, "features:no_update_neighbors", StructurePoolElementTypes.NO_UPDATE_NEIGHBORS);
