@@ -18,11 +18,11 @@ import net.minecraft.util.math.BlockPos;
 import java.util.List;
 import java.util.Random;
 
-import static github.Louwind.Features.impl.init.LootBehaviors.LECTERN;
+import static github.Louwind.Features.impl.init.LootBehaviors.SET_LECTERN_BOOK;
 
-public class LecternLootBehavior extends ConditionalLootBehavior<LecternBlockEntity> {
+public class SetLecternBookLootBehavior extends ConditionalLootBehavior<LecternBlockEntity> {
 
-    public LecternLootBehavior(Identifier lootTableId, LootBehaviorConditionList conditions) {
+    public SetLecternBookLootBehavior(Identifier lootTableId, LootBehaviorConditionList conditions) {
         super(lootTableId, conditions);
     }
 
@@ -41,24 +41,24 @@ public class LecternLootBehavior extends ConditionalLootBehavior<LecternBlockEnt
 
     @Override
     public LootBehaviorType getType() {
-        return LECTERN;
+        return SET_LECTERN_BOOK;
     }
 
-    public static class Serializer extends ConditionalLootBehavior.Serializer<LecternLootBehavior> {
+    public static class Serializer extends ConditionalLootBehavior.Serializer<SetLecternBookLootBehavior> {
 
         @Override
-        public void toJson(JsonObject json, LecternLootBehavior object, JsonSerializationContext context) {
+        public void toJson(JsonObject json, SetLecternBookLootBehavior object, JsonSerializationContext context) {
             super.toJson(json, object, context);
 
             json.addProperty("loot_table", object.lootTableId.toString());
         }
 
         @Override
-        public LecternLootBehavior fromJson(JsonObject json, JsonDeserializationContext context) {
+        public SetLecternBookLootBehavior fromJson(JsonObject json, JsonDeserializationContext context) {
             LootBehaviorConditionList conditions = FeaturesJsonHelper.getLootBehaviorConditions(json, context, "conditions");
             Identifier lootTableId = FeaturesJsonHelper.getIdentifier(json, "loot_table");
 
-            return new LecternLootBehavior(lootTableId, conditions);
+            return new SetLecternBookLootBehavior(lootTableId, conditions);
         }
 
     }
