@@ -18,6 +18,8 @@ public class Features implements ModInitializer {
     public void onInitialize() {
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
 
+        Registry.register(FEATURE, "features:jigsaw", FeatureRegistry.JIGSAW);
+
         Registry.register(METADATA_CONDITION_TYPE, "features:alternatives", MetadataConditions.ALTERNATIVES);
         Registry.register(METADATA_CONDITION_TYPE, "features:inverted", MetadataConditions.INVERTED);
         Registry.register(METADATA_CONDITION_TYPE, "features:rotation", MetadataConditions.ROTATION);
