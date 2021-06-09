@@ -11,8 +11,9 @@ import static net.minecraft.structure.pool.StructurePool.REGISTRY_CODEC;
 
 public class JigsawFeatureConfig extends StructurePoolFeatureConfig {
 
-    public static final Codec<JigsawFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(REGISTRY_CODEC.fieldOf("start_pool").forGetter(JigsawFeatureConfig::getStartPool),
-            Codec.intRange(0, 24).fieldOf("size").orElse(1).forGetter(JigsawFeatureConfig::getSize),
+    public static final Codec<JigsawFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+            instance.group(REGISTRY_CODEC.fieldOf("start_pool").forGetter(JigsawFeatureConfig::getStartPool),
+            Codec.intRange(0, 7).fieldOf("size").orElse(1).forGetter(JigsawFeatureConfig::getSize),
             Codec.BOOL.fieldOf("keep_jigsaw").orElse(false).forGetter(JigsawFeatureConfig::getKeepJigsaws),
             Codec.BOOL.fieldOf("is_surface").orElse(false).forGetter(JigsawFeatureConfig::isSurface)
     ).apply(instance, JigsawFeatureConfig::new));

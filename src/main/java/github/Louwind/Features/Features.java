@@ -1,8 +1,12 @@
 package github.Louwind.Features;
 
+import github.Louwind.Features.client.resource.ConfiguredFeatureReloadListener;
 import github.Louwind.Features.client.resource.MetadataHandlerListReloadListener;
+import github.Louwind.Features.client.resource.StructurePoolReloadListener;
+import github.Louwind.Features.client.resource.StructureProcessorListReloadListener;
 import github.Louwind.Features.impl.init.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.util.registry.Registry;
 
@@ -12,11 +16,17 @@ import static net.minecraft.util.registry.Registry.*;
 
 public class Features implements ModInitializer {
 
-    private static final MetadataHandlerListReloadListener FEATURE_METADATA_RELOAD_LISTENER = new MetadataHandlerListReloadListener();
+    private static final IdentifiableResourceReloadListener CONFIGURED_FEATURE_RELOAD_LISTENER = new ConfiguredFeatureReloadListener();
+    private static final IdentifiableResourceReloadListener METADATA_RELOAD_LISTENER = new MetadataHandlerListReloadListener();
+    private static final IdentifiableResourceReloadListener STRUCTURE_POOL_RELOAD_LISTENER = new StructurePoolReloadListener();
+    private static final IdentifiableResourceReloadListener STRUCTURE_PROCESSOR_LIST_RELOAD_LISTENER = new StructureProcessorListReloadListener();
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(FEATURE_METADATA_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(METADATA_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_PROCESSOR_LIST_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(STRUCTURE_POOL_RELOAD_LISTENER);
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(CONFIGURED_FEATURE_RELOAD_LISTENER);
 
         Registry.register(FEATURE, "features:jigsaw", FeatureRegistry.JIGSAW);
 
