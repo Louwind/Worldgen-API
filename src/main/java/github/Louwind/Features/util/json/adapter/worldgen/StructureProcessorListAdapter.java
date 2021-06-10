@@ -3,7 +3,7 @@ package github.Louwind.Features.util.json.adapter.worldgen;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
-import github.Louwind.Features.util.json.adapter.DynamicRegistryAdapter;
+import github.Louwind.Reload.core.util.json.DynamicRegistryAdapter;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.dynamic.RegistryOps;

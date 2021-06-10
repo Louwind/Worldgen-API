@@ -21,4 +21,8 @@ public class MetadataHandlerList {
         this.metadata.forEach(metadata -> metadata.handle(world, blockInfo, pos, rotation, random));
     }
 
+    public List<MetadataHandler> getList() {
+        return this.metadata;
+    }
+
 }
