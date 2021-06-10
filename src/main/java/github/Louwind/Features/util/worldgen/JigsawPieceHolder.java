@@ -1,5 +1,6 @@
 package github.Louwind.Features.util.worldgen;
 
+import com.google.common.collect.Lists;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructurePiecesHolder;
 import net.minecraft.util.math.BlockBox;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class JigsawPieceHolder implements StructurePiecesHolder {
 
-    protected List<StructurePiece> pieces;
+    protected List<StructurePiece> pieces = Lists.newArrayList();
 
     @Override
     public void addPiece(StructurePiece piece) {

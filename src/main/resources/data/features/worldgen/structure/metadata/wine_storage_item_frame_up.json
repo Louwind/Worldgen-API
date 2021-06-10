@@ -1,0 +1,9 @@
+{
+  "metadata": [
+    {
+      "type": "features:entity",
+      "entity_type": "minecraft:item_frame",
+      "compound": "{Facing:1}"
+    }
+  ]
+}

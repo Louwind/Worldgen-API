@@ -15,10 +15,6 @@ public class LootBehaviorList {
         this.lootBehaviors = lootBehaviors;
     }
 
-    public boolean isEmpty() {
-        return this.lootBehaviors.isEmpty();
-    }
-
     public void generate(ServerWorld server, BlockEntity blockEntity, BlockPos pos) {
         this.lootBehaviors.forEach(lootBehavior -> lootBehavior.generate(server, blockEntity, pos));
     }

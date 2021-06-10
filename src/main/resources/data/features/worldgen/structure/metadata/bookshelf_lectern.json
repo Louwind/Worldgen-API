@@ -3,16 +3,17 @@
     {
       "type": "features:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:barrel",
+        "name": "minecraft:lectern",
         "properties": {
           "facing": "north",
-          "open": "false"
+          "has_book": "false",
+          "powered": "false"
         }
       },
       "loot_behaviors": [
         {
-          "type": "features:lootable_container",
-          "loot_table": "features:structures/bookshelf/barrel"
+          "type": "features:lectern",
+          "loot_table": "features:structures/bookshelf/lectern"
         }
       ]
     }

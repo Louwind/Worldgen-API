@@ -21,6 +21,7 @@ public class BrewingStandLootBehavior extends ConditionalLootBehavior<BrewingSta
 
     public BrewingStandLootBehavior(Identifier lootTableId, int slot, LootBehaviorConditionList conditions) {
         super(lootTableId, conditions);
+
         this.slot = slot;
     }
 

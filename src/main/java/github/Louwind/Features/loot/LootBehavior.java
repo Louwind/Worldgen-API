@@ -24,14 +24,22 @@ public interface LootBehavior<T extends BlockEntity> {
         var loot = this.getLootTable(server).generateLoot(context);
         var random = context.getRandom();
 
-        var size = loot.size();
-        var index = random.nextInt(size);
+        if(!loot.isEmpty()) {
+            var size = loot.size();
+            var index = random.nextInt(size);
 
-        return loot.get(index);
+            return loot.get(index);
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    default long getSeed(ServerWorld server) {
+        return server.random.nextLong();
     }
 
     default void generate(ServerWorld server, T blockEntity, BlockPos pos) {
-        var seed = server.getSeed();
+        var seed = this.getSeed(server);
         var context = this.getContext(server, pos, seed);
 
         this.setLootTable(context, server, blockEntity, pos, seed);

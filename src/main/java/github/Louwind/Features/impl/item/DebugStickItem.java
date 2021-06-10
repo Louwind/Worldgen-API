@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import java.util.Random;
 
 /**
- * An item that generates a feature when you right-click a block
+ * An item that generates a configured feature when you right-click a block
  * */
 public class DebugStickItem extends Item {
 
@@ -32,6 +32,7 @@ public class DebugStickItem extends Item {
         World world = context.getWorld();
 
         Random random = world.getRandom();
+        BlockPos origin = pos.up(2);
 
         if(!world.isClient) {
             ServerWorld server = (ServerWorld) world;
@@ -40,7 +41,7 @@ public class DebugStickItem extends Item {
             if(BuiltinRegistries.CONFIGURED_FEATURE.containsId(this.identifier)) {
                 ConfiguredFeature<?, ?> feature = BuiltinRegistries.CONFIGURED_FEATURE.get(this.identifier);
 
-                if(feature != null && feature.generate(server, chunkGenerator, random, pos.up()))
+                if(feature != null && feature.generate(server, chunkGenerator, random, origin))
                     return ActionResult.CONSUME;
             }
 

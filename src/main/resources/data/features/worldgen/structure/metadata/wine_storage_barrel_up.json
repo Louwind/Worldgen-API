@@ -5,14 +5,14 @@
       "output_state": {
         "name": "minecraft:barrel",
         "properties": {
-          "facing": "north",
+          "facing": "up",
           "open": "false"
         }
       },
       "loot_behaviors": [
         {
           "type": "features:lootable_container",
-          "loot_table": "features:structures/bookshelf/barrel"
+          "loot_table": "features:structures/wine_storage/barrel"
         }
       ]
     }

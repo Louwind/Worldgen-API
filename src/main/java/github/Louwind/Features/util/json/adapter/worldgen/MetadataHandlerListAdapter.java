@@ -1,4 +1,4 @@
-package github.Louwind.Features.util.json.adapter;
+package github.Louwind.Features.util.json.adapter.worldgen;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

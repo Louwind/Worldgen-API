@@ -105,8 +105,8 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
                 var conditions = FeaturesJsonHelper.getMetadataConditions(json, context,  "conditions");
                 var nbtCompound = StringNbtReader.parse(JsonHelper.getString(json, "compound"));
                 var initialize = JsonHelper.getBoolean(json, "initialize", false);
+                var pos = FeaturesJsonHelper.getVector(json, Vec3d.ZERO, context, "pos");
                 var id = FeaturesJsonHelper.getIdentifier(json, "entity_type");
-                var pos = FeaturesJsonHelper.getVector(json, context, "pos");
 
                 return new EntityMetadataHandler(id, pos, nbtCompound, initialize, conditions);
             } catch (CommandSyntaxException var5) {

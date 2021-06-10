@@ -34,7 +34,7 @@ public class LootableBlockStateMetadataHandler extends BlockStateMetadataHandler
         var blockEntity = world.getBlockEntity(blockInfo.pos);
 
         if(blockEntity != null)
-            this.lootBehaviors.generate(world, blockEntity, blockPos);
+            this.lootBehaviors.generate(world, blockEntity, blockInfo.pos);
     }
 
     @Override

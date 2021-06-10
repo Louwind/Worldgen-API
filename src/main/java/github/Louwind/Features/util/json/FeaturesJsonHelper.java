@@ -9,6 +9,7 @@ import github.Louwind.Features.metadata.MetadataHandler;
 import github.Louwind.Features.metadata.condition.MetadataCondition;
 import github.Louwind.Features.util.LootBehaviorConditionList;
 import github.Louwind.Features.util.LootBehaviorList;
+import net.fabricmc.loader.util.sat4j.core.Vec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.BlockRotation;
@@ -67,8 +68,8 @@ public class FeaturesJsonHelper {
         return BlockRotation.valueOf(string.toUpperCase());
     }
 
-    public static Vec3d getVector(JsonObject object, JsonDeserializationContext context, String name) {
-        return JsonHelper.deserialize(object, name, context, Vec3d.class);
+    public static Vec3d getVector(JsonObject object, Vec3d defaultValue, JsonDeserializationContext context, String name) {
+        return JsonHelper.deserialize(object, name, defaultValue, context, Vec3d.class);
     }
 
 }

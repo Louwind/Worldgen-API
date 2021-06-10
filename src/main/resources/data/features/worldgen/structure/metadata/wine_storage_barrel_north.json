@@ -12,7 +12,7 @@
       "loot_behaviors": [
         {
           "type": "features:lootable_container",
-          "loot_table": "features:structures/bookshelf/barrel"
+          "loot_table": "features:structures/wine_storage/barrel"
         }
       ]
     }
