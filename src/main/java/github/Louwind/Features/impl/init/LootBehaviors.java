@@ -5,16 +5,16 @@ import github.Louwind.Features.loot.LootBehaviorType;
 
 public class LootBehaviors {
 
-    public static final LootBehaviorType ABSTRACT_FURNACE = new LootBehaviorType(new AbstractFurnaceLootBehavior.Serializer());
+    public static final LootBehaviorType<AbstractFurnaceLootBehavior> ABSTRACT_FURNACE = () -> AbstractFurnaceLootBehavior.CODEC;
 
-    public static final LootBehaviorType BREWING_STAND = new LootBehaviorType(new BrewingStandLootBehavior.Serializer());
+    public static final LootBehaviorType<BrewingStandLootBehavior> BREWING_STAND = () -> BrewingStandLootBehavior.CODEC;
 
-    public static final LootBehaviorType CAMPFIRE = new LootBehaviorType(new CampfireLootBehavior.Serializer());
+    public static final LootBehaviorType<CampfireLootBehavior> CAMPFIRE = () -> CampfireLootBehavior.CODEC;
 
-    public static final LootBehaviorType JUKEBOX = new LootBehaviorType(new JukeboxLootBehavior.Serializer());
+    public static final LootBehaviorType<JukeboxLootBehavior> JUKEBOX = () -> JukeboxLootBehavior.CODEC;
 
-    public static final LootBehaviorType LECTERN = new LootBehaviorType(new LecternLootBehavior.Serializer());
+    public static final LootBehaviorType<LecternLootBehavior> LECTERN = () -> LecternLootBehavior.CODEC;
 
-    public static final LootBehaviorType LOOTABLE_CONTAINER = new LootBehaviorType(new LootableContainerLootBehavior.Serializer());
+    public static final LootBehaviorType<LootableContainerLootBehavior> LOOTABLE_CONTAINER = () -> LootableContainerLootBehavior.CODEC;
 
 }

@@ -1,14 +1,14 @@
 package github.Louwind.Features.impl.init;
 
-import github.Louwind.Features.metadata.condition.MetadataConditionType;
 import github.Louwind.Features.impl.metadata.condition.*;
+import github.Louwind.Features.metadata.condition.MetadataConditionType;
 
 public class MetadataConditions {
 
-    public static final MetadataConditionType ALTERNATIVES = new MetadataConditionType(new AlternativesMetadataCondition.Serializer());
+    public static final MetadataConditionType<AlternativesMetadataCondition> ALTERNATIVES = () -> AlternativesMetadataCondition.CODEC;
 
-    public static final MetadataConditionType INVERTED = new MetadataConditionType(new InvertedMetadataCondition.Serializer());
+    public static final MetadataConditionType<InvertedMetadataCondition> INVERTED = () -> InvertedMetadataCondition.CODEC;
 
-    public static final MetadataConditionType ROTATION = new MetadataConditionType(new RotationMetadataCondition.Serializer());
+    public static final MetadataConditionType<RotationMetadataCondition> ROTATION = () -> RotationMetadataCondition.CODEC;
 
 }

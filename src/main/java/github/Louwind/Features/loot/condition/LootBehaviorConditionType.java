@@ -1,12 +1,9 @@
 package github.Louwind.Features.loot.condition;
 
-import net.minecraft.util.JsonSerializableType;
-import net.minecraft.util.JsonSerializer;
+import com.mojang.serialization.Codec;
 
-public class LootBehaviorConditionType extends JsonSerializableType<LootBehaviorCondition> {
+public interface LootBehaviorConditionType<T extends LootBehaviorCondition<?>> {
 
-    public LootBehaviorConditionType(JsonSerializer<? extends LootBehaviorCondition> jsonSerializer) {
-        super(jsonSerializer);
-    }
+    Codec<T> codec();
 
 }

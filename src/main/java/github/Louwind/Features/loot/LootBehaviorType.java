@@ -1,12 +1,11 @@
 package github.Louwind.Features.loot;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.util.JsonSerializableType;
 import net.minecraft.util.JsonSerializer;
 
-public class LootBehaviorType extends JsonSerializableType<LootBehavior> {
+public interface LootBehaviorType<T extends LootBehavior<?>> {
 
-    public LootBehaviorType(JsonSerializer<? extends LootBehavior> jsonSerializer) {
-        super(jsonSerializer);
-    }
+    Codec<T> codec();
 
 }

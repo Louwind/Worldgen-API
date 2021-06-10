@@ -3,7 +3,7 @@ package github.Louwind.Features.impl.pool_element;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import github.Louwind.Features.impl.init.StructurePoolElementTypes;
+import github.Louwind.Features.impl.init.StructurePoolElements;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.pool.SinglePoolElement;
@@ -35,7 +35,7 @@ public class NoUpdateNeighborsPoolElement extends SinglePoolElement {
 
     @Override
     public StructurePoolElementType<?> getType() {
-        return StructurePoolElementTypes.NO_UPDATE_NEIGHBORS;
+        return StructurePoolElements.NO_UPDATE_NEIGHBORS;
     }
 
 }

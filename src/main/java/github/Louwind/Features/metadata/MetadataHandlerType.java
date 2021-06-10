@@ -1,12 +1,9 @@
 package github.Louwind.Features.metadata;
 
-import net.minecraft.util.JsonSerializableType;
-import net.minecraft.util.JsonSerializer;
+import com.mojang.serialization.Codec;
 
-public class MetadataHandlerType extends JsonSerializableType<MetadataHandler> {
+public interface MetadataHandlerType<T extends MetadataHandler> {
 
-    public MetadataHandlerType(JsonSerializer<? extends MetadataHandler> jsonSerializer) {
-        super(jsonSerializer);
-    }
+    Codec<T> codec();
 
 }

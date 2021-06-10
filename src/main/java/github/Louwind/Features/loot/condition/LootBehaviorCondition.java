@@ -7,8 +7,6 @@ import net.minecraft.util.math.BlockPos;
 
 public interface LootBehaviorCondition<T extends BlockEntity> {
 
-    LootBehaviorConditionType getType();
-
     boolean test(LootContext context, ServerWorld server, T blockEntity, BlockPos pos, long seed);
 
 }

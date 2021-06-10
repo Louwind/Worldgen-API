@@ -9,8 +9,6 @@ import java.util.Random;
 
 public interface MetadataCondition {
 
-    MetadataConditionType getType();
-
     boolean test(ServerWorld world, Structure.StructureBlockInfo blockInfo, BlockPos blockPos, BlockRotation rotation, Random random);
 
 }

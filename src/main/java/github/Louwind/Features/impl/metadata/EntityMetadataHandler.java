@@ -1,33 +1,21 @@
 package github.Louwind.Features.impl.metadata;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSyntaxException;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.Louwind.Features.metadata.MetadataHandlerType;
 import github.Louwind.Features.metadata.condition.MetadataCondition;
-import github.Louwind.Features.util.json.FeaturesJsonHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Random;
 
-import static github.Louwind.Features.impl.init.MetadataHandlerTypes.ENTITY;
 import static net.minecraft.entity.SpawnReason.STRUCTURE;
 
 public class EntityMetadataHandler extends ConditionalMetadataHandler {
@@ -54,11 +42,6 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
     }
 
     @Override
-    public MetadataHandlerType getType() {
-        return ENTITY;
-    }
-
-    @Override
     void process(ServerWorld world, Structure.StructureBlockInfo blockInfo, BlockPos blockPos, BlockRotation rotation, Random random) {
         var compound = this.compound.copy();
         var server = world.toServerWorld();
@@ -80,39 +63,6 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
 
             if (!world.shouldCreateNewEntityWithPassenger(entity))
                 LogManager.getLogger().warn("Passengers have the same uuid!");
-        }
-
-    }
-
-    public static class Serializer implements JsonSerializer<EntityMetadataHandler> {
-
-        @Override
-        public void toJson(JsonObject json, EntityMetadataHandler object, JsonSerializationContext context) {
-
-            if (!ArrayUtils.isEmpty(object.conditions))
-                json.add("conditions", context.serialize(object.conditions));
-
-            json.addProperty("compound", object.compound.toString());
-            json.addProperty("initialize", object.initialize);
-            json.addProperty("entity_type", object.entityTypeId.toString());
-            json.add("pos", context.serialize(object.vec3d));
-        }
-
-        @Override
-        public EntityMetadataHandler fromJson(JsonObject json, JsonDeserializationContext context) {
-
-            try {
-                var conditions = FeaturesJsonHelper.getMetadataConditions(json, context,  "conditions");
-                var nbtCompound = StringNbtReader.parse(JsonHelper.getString(json, "compound"));
-                var initialize = JsonHelper.getBoolean(json, "initialize", false);
-                var pos = FeaturesJsonHelper.getVector(json, Vec3d.ZERO, context, "pos");
-                var id = FeaturesJsonHelper.getIdentifier(json, "entity_type");
-
-                return new EntityMetadataHandler(id, pos, nbtCompound, initialize, conditions);
-            } catch (CommandSyntaxException var5) {
-                throw new JsonSyntaxException(var5.getMessage());
-            }
-
         }
 
     }
