@@ -40,11 +40,8 @@ public class Features implements ModInitializer {
 
         Registry.register(ITEM, "features:bedroom_debug_stick", FeaturesItems.BEDROOM_DEBUG_STICK);
         Registry.register(ITEM, "features:bookshelf_debug_stick", FeaturesItems.BOOKSHELF_DEBUG_STICK);
-        Registry.register(ITEM, "features:christmas_tree_debug_stick", FeaturesItems.CHRISTMAS_TREE_DEBUG_STICK);
         Registry.register(ITEM, "features:dress_room_debug_stick", FeaturesItems.DRESS_ROOM_DEBUG_STICK);
         Registry.register(ITEM, "features:kitchen_debug_stick", FeaturesItems.KITCHEN_DEBUG_STICK);
-        Registry.register(ITEM, "features:thick_stripped_spruce_debug_stick", FeaturesItems.THICK_STRIPPED_SPRUCE_DEBUG_STICK);
-        Registry.register(ITEM, "features:thin_spruce_debug_stick", FeaturesItems.THIN_SPRUCE_DEBUG_STICK);
         Registry.register(ITEM, "features:well_debug_stick", FeaturesItems.WELL_DEBUG_STICK);
         Registry.register(ITEM, "features:wine_storage_debug_stick", FeaturesItems.WINE_STORAGE_DEBUG_STICK);
 
