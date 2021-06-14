@@ -1,6 +1,8 @@
 package github.Louwind.Features.util;
 
+import com.mojang.serialization.Codec;
 import github.Louwind.Features.loot.LootBehavior;
+import github.Louwind.Features.loot.LootBehaviorType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -8,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.List;
 
 public class LootBehaviorList {
+
+    public static final Codec<LootBehaviorList> CODEC = LootBehaviorType.CODEC.listOf().xmap(LootBehaviorList::new, LootBehaviorList::getLootBehaviors);
 
     private final List<LootBehavior<?>> lootBehaviors;
 

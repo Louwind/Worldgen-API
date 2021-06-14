@@ -1,7 +1,9 @@
 package github.Louwind.Features.util;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
 import github.Louwind.Features.loot.condition.LootBehaviorCondition;
+import github.Louwind.Features.loot.condition.LootBehaviorConditionType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
@@ -10,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.List;
 
 public class LootBehaviorConditionList {
+
+    public static final Codec<LootBehaviorConditionList> CODEC = LootBehaviorConditionType.CODEC.listOf().xmap(LootBehaviorConditionList::new, LootBehaviorConditionList::getConditions);
 
     public static final LootBehaviorConditionList EMPTY = new LootBehaviorConditionList(Lists.newArrayList());
 

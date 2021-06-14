@@ -28,6 +28,7 @@ public class JigsawFeatureConfig extends StructurePoolFeatureConfig {
     public JigsawFeatureConfig(Supplier<StructurePool> startPool, int size, BlockRotationChooser chooser, boolean keepJigsaw, boolean isSurface) {
         super(startPool, size);
 
+        this.chooser = chooser;
         this.keepJigsaw = keepJigsaw;
         this.isSurface = isSurface;
     }

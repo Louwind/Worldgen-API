@@ -3,7 +3,6 @@ package github.Louwind.Features.impl.metadata;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import github.Louwind.Features.loot.LootBehaviorType;
 import github.Louwind.Features.metadata.MetadataHandlerType;
 import github.Louwind.Features.metadata.condition.MetadataCondition;
 import github.Louwind.Features.metadata.condition.MetadataConditionType;
@@ -25,7 +24,7 @@ public class LootableBlockStateMetadataHandler extends BlockStateMetadataHandler
     public static final Codec<LootableBlockStateMetadataHandler> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             CodecHelper.BLOCK_STATE.fieldOf("output_state").forGetter(handler -> handler.state),
             Codec.INT.fieldOf("flag").orElse(3).forGetter(handler -> handler.flag),
-            LootBehaviorType.LIST_CODEC.fieldOf("loot_behaviors").forGetter(handle -> handle.lootBehaviors),
+            LootBehaviorList.CODEC.fieldOf("loot_behaviors").forGetter(handle -> handle.lootBehaviors),
             MetadataConditionType.CODEC.listOf().fieldOf("conditions").orElseGet(Lists::newArrayList).forGetter(handler -> handler.conditions)
     ).apply(instance, LootableBlockStateMetadataHandler::new));
 

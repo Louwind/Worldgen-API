@@ -16,7 +16,7 @@ import static github.Louwind.Features.impl.init.LootBehaviorConditions.INVERTED;
 
 public class InvertedLootBehaviorCondition implements LootBehaviorCondition<BlockEntity> {
 
-    public static final Codec<InvertedLootBehaviorCondition> CODEC = RecordCodecBuilder.create((instance) -> instance.group(LootBehaviorConditionType.LIST_CODEC.fieldOf("terms").forGetter(handler -> handler.terms)).apply(instance, InvertedLootBehaviorCondition::new));
+    public static final Codec<InvertedLootBehaviorCondition> CODEC = RecordCodecBuilder.create((instance) -> instance.group(LootBehaviorConditionList.CODEC.fieldOf("terms").forGetter(handler -> handler.terms)).apply(instance, InvertedLootBehaviorCondition::new));
 
     protected final LootBehaviorConditionList terms;
 

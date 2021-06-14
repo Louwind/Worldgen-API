@@ -10,7 +10,7 @@ import static github.Louwind.Features.registry.Registries.METADATA_HANDLER_LIST;
 
 public class MetadataHandlerListReloadListener extends SimpleJsonReloadListener<MetadataHandlerList> {
 
-    private static final Gson GSON = FeaturesGsons.getMetadataGsonBuilder().create();
+    private static final Gson GSON = FeaturesGsons.getMetadataHandlerListGsonBuilder().create();
 
     public MetadataHandlerListReloadListener() {
         super(GSON, MetadataHandlerList.class, METADATA_HANDLER_LIST, "worldgen/metadata");
@@ -18,7 +18,7 @@ public class MetadataHandlerListReloadListener extends SimpleJsonReloadListener<
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("features:metadata");
+        return new Identifier("minecraft:metadata");
     }
 
 }

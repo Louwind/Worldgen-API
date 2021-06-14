@@ -4,7 +4,6 @@
   "package": "github.Louwind.Features.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "RegistryInvoker",
     "SinglePoolElementMixin",
     "StructurePoolBasedGeneratorMixin"
   ],

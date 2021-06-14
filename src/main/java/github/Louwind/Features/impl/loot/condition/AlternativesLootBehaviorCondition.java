@@ -16,7 +16,7 @@ import static github.Louwind.Features.impl.init.LootBehaviorConditions.ALTERNATI
 
 public class AlternativesLootBehaviorCondition implements LootBehaviorCondition<BlockEntity> {
 
-    public static final Codec<AlternativesLootBehaviorCondition> CODEC = RecordCodecBuilder.create((instance) -> instance.group(LootBehaviorConditionType.LIST_CODEC.fieldOf("terms").forGetter(handler -> handler.terms)).apply(instance, AlternativesLootBehaviorCondition::new));
+    public static final Codec<AlternativesLootBehaviorCondition> CODEC = RecordCodecBuilder.create((instance) -> instance.group(LootBehaviorConditionList.CODEC.fieldOf("terms").forGetter(handler -> handler.terms)).apply(instance, AlternativesLootBehaviorCondition::new));
 
     protected final LootBehaviorConditionList terms;
 

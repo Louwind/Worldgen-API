@@ -1,5 +1,6 @@
 package github.Louwind.Features.util;
 
+import com.mojang.serialization.Codec;
 import github.Louwind.Features.metadata.MetadataHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class MetadataHandlerList {
+
+    public static final Codec<MetadataHandlerList> CODEC = MetadataHandler.CODEC.listOf().xmap(MetadataHandlerList::new, MetadataHandlerList::getList);
 
     private final List<MetadataHandler> metadata;
 

@@ -1,7 +1,7 @@
 package github.Louwind.Features.util.json;
 
 import com.google.gson.GsonBuilder;
-import github.Louwind.Features.metadata.MetadataHandler;
+import github.Louwind.Features.util.MetadataHandlerList;
 import github.Louwind.Features.util.json.adapter.worldgen.*;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessorList;
@@ -44,9 +44,9 @@ public class FeaturesGsons {
                 .registerTypeAdapter(ConfiguredSurfaceBuilder.class, new ConfiguredSurfaceBuilderAdapter());
     }
 
-    public static GsonBuilder getMetadataGsonBuilder() {
+    public static GsonBuilder getMetadataHandlerListGsonBuilder() {
         return new GsonBuilder()
-                .registerTypeAdapter(MetadataHandler.class, new MetadataHandlerAdapter());
+                .registerTypeAdapter(MetadataHandlerList.class, new MetadataHandlerListAdapter());
     }
 
     public static GsonBuilder getStructureProcessorListGsonBuilder() {

@@ -3,7 +3,6 @@ package github.Louwind.Features.impl.loot;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.Louwind.Features.loot.LootBehaviorType;
-import github.Louwind.Features.loot.condition.LootBehaviorConditionType;
 import github.Louwind.Features.util.LootBehaviorConditionList;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.LecternBlockEntity;
@@ -19,7 +18,7 @@ public class LecternLootBehavior extends ConditionalLootBehavior<LecternBlockEnt
 
     public static final Codec<LecternLootBehavior> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Identifier.CODEC.fieldOf("loot_table").forGetter(handler -> handler.lootTableId),
-            LootBehaviorConditionType.LIST_CODEC.fieldOf("conditions").orElse(EMPTY).forGetter(handler -> handler.conditions)
+            LootBehaviorConditionList.CODEC.fieldOf("conditions").orElse(EMPTY).forGetter(handler -> handler.conditions)
     ).apply(instance, LecternLootBehavior::new));
 
     public LecternLootBehavior(Identifier lootTableId, LootBehaviorConditionList conditions) {

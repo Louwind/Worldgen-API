@@ -15,14 +15,14 @@ public class Features implements ModInitializer {
     @Override
     public void onInitialize() {
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new BiomeReloadListener());
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ChunkGeneratorSettingsReloadListener());
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructureProcessorListReloadListener());
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new MetadataHandlerListReloadListener());
+        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructurePoolReloadListener());
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredCarverReloadListener());
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredFeatureReloadListener());
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredStructureFeatureReloadListener());
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredSurfaceBuilderReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ChunkGeneratorSettingsReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new MetadataHandlerListReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructurePoolReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructureProcessorListReloadListener());
 
         Registry.register(FEATURE, "features:jigsaw", FeatureRegistry.JIGSAW);
 
