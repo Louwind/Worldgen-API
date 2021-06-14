@@ -19,7 +19,7 @@ public class ConfiguredFeatureReloadListener extends SimpleJsonReloadListener<Co
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("minecraft:metadata");
+        return new Identifier("minecraft:configured_feature");
     }
 
 }
