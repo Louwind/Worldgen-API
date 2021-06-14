@@ -1,0 +1,20 @@
+{
+  "metadata": [
+    {
+      "type": "worldgen:lootable_blockstate",
+      "output_state": {
+        "name": "minecraft:barrel",
+        "properties": {
+          "facing": "east",
+          "open": "false"
+        }
+      },
+      "loot_behaviors": [
+        {
+          "type": "worldgen:lootable_container",
+          "loot_table": "worldgen:structures/kitchen/barrel"
+        }
+      ]
+    }
+  ]
+}

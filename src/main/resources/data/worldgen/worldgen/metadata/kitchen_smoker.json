@@ -1,0 +1,21 @@
+{
+  "metadata": [
+    {
+      "type": "worldgen:lootable_blockstate",
+      "output_state": {
+        "name": "minecraft:smoker",
+        "properties": {
+          "facing": "north",
+          "lit": "false"
+        }
+      },
+      "loot_behaviors": [
+        {
+          "type": "worldgen:abstract_furnace",
+          "loot_table": "worldgen:structures/kitchen/furnace",
+          "slot": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "metadata": [
+    {
+      "type": "worldgen:lootable_blockstate",
+      "output_state": {
+        "name": "minecraft:campfire",
+        "properties": {
+          "facing": "north",
+          "lit": "false",
+          "signal_fire": "false",
+          "waterlogged": "false"
+        }
+      },
+      "loot_behaviors": [
+        {
+          "type": "worldgen:campfire",
+          "loot_table": "worldgen:structures/kitchen/campfire",
+          "slot": 0
+        },
+        {
+          "type": "worldgen:campfire",
+          "loot_table": "worldgen:structures/kitchen/campfire",
+          "slot": 1
+        },
+        {
+          "type": "worldgen:campfire",
+          "loot_table": "worldgen:structures/kitchen/campfire",
+          "slot": 2
+        },
+        {
+          "type": "worldgen:campfire",
+          "loot_table": "worldgen:structures/kitchen/campfire",
+          "slot": 3
+        }
+      ]
+    }
+  ]
+}

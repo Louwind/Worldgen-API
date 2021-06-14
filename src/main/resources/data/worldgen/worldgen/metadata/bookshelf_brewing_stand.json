@@ -1,0 +1,32 @@
+{
+  "metadata": [
+    {
+      "type": "worldgen:lootable_blockstate",
+      "output_state": {
+        "name": "minecraft:brewing_stand",
+        "properties": {
+          "has_bottle_0": "false",
+          "has_bottle_1": "false",
+          "has_bottle_2": "false"
+        }
+      },
+      "loot_behaviors": [
+        {
+          "type": "worldgen:brewing_stand",
+          "loot_table": "worldgen:structures/bookshelf/brewing_stand",
+          "slot": 0
+        },
+        {
+          "type": "worldgen:brewing_stand",
+          "loot_table": "worldgen:structures/bookshelf/brewing_stand",
+          "slot": 1
+        },
+        {
+          "type": "worldgen:brewing_stand",
+          "loot_table": "worldgen:structures/bookshelf/brewing_stand",
+          "slot": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "metadata": [
+    {
+      "type": "worldgen:lootable_blockstate",
+      "output_state": {
+        "name": "minecraft:lectern",
+        "properties": {
+          "facing": "north",
+          "has_book": "false",
+          "powered": "false"
+        }
+      },
+      "loot_behaviors": [
+        {
+          "type": "worldgen:lectern",
+          "loot_table": "worldgen:structures/bookshelf/lectern"
+        }
+      ]
+    }
+  ]
+}

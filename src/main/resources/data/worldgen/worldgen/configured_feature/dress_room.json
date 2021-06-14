@@ -1,0 +1,6 @@
+{
+  "type": "worldgen:jigsaw",
+  "config": {
+    "start_pool": "worldgen:dress_rooms"
+  }
+}
