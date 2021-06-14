@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "RegistryInvoker",
-    "SinglePoolElementMixin"
+    "SinglePoolElementMixin",
+    "StructurePoolBasedGeneratorMixin"
   ],
   "client": [
   ],
