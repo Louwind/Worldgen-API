@@ -25,7 +25,7 @@ import java.util.Random;
 import static github.Louwind.Features.registry.Registries.METADATA_HANDLER_LIST;
 
 @Mixin(SinglePoolElement.class)
-public abstract class MixinSinglePoolElement {
+public abstract class SinglePoolElementMixin {
 
     @Shadow public abstract List<Structure.StructureBlockInfo> getDataStructureBlocks(StructureManager structureManager, BlockPos blockPos, BlockRotation blockRotation, boolean mirroredAndRotated);
 

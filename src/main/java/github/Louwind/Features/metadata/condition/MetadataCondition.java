@@ -11,4 +11,6 @@ public interface MetadataCondition {
 
     boolean test(ServerWorld world, Structure.StructureBlockInfo blockInfo, BlockPos blockPos, BlockRotation rotation, Random random);
 
+    MetadataConditionType<?> getType();
+
 }

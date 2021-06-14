@@ -13,11 +13,12 @@ import static net.minecraft.loot.context.LootContextParameters.ORIGIN;
 
 public interface LootBehavior<T extends BlockEntity> {
 
-    default void generate(ServerWorld server, T blockEntity, BlockPos pos) {
+    @SuppressWarnings("unchecked")
+    default void generate(ServerWorld server, BlockEntity blockEntity, BlockPos pos) {
         var seed = this.getSeed(server);
         var context = this.getContext(server, pos, seed);
 
-        this.setLootTable(context, server, blockEntity, pos, seed);
+        this.setLootTable(context, server, (T) blockEntity, pos, seed);
     }
 
     default LootContext getContext(ServerWorld world, BlockPos pos, long seed) {
@@ -44,6 +45,8 @@ public interface LootBehavior<T extends BlockEntity> {
     default long getSeed(ServerWorld server) {
         return server.random.nextLong();
     }
+
+    LootBehaviorType<?> getType();
 
     LootTable getLootTable(ServerWorld world);
 

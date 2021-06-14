@@ -1,6 +1,12 @@
 package github.Louwind.Features.impl.metadata;
 
+import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import github.Louwind.Features.metadata.MetadataHandlerType;
 import github.Louwind.Features.metadata.condition.MetadataCondition;
+import github.Louwind.Features.metadata.condition.MetadataConditionType;
+import github.Louwind.Features.util.codec.CodecHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -14,23 +20,33 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.List;
 import java.util.Random;
 
+import static github.Louwind.Features.impl.init.MetadataHandlers.ENTITY;
 import static net.minecraft.entity.SpawnReason.STRUCTURE;
 
 public class EntityMetadataHandler extends ConditionalMetadataHandler {
+
+    public static final Codec<EntityMetadataHandler> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            Identifier.CODEC.fieldOf("entity_type").forGetter(handler -> handler.entityTypeId),
+            NbtCompound.CODEC.fieldOf("compound").forGetter(handler -> handler.compound),
+            CodecHelper.VEC3D.fieldOf("vec3d").forGetter(handler -> handler.vec3d),
+            Codec.BOOL.fieldOf("initialize").orElse(false).forGetter(handler -> handler.initialize),
+            MetadataConditionType.CODEC.listOf().fieldOf("conditions").orElseGet(Lists::newArrayList).forGetter(handler -> handler.conditions)
+    ).apply(instance, EntityMetadataHandler::new));
 
     private final NbtCompound compound;
     private final boolean initialize;
     private final Identifier entityTypeId;
     private final Vec3d vec3d;
 
-    public EntityMetadataHandler(Identifier entityTypeId, Vec3d pos, NbtCompound compound, boolean initialize, MetadataCondition[] conditions) {
+    public EntityMetadataHandler(Identifier entityTypeId, NbtCompound compound, Vec3d vec3d, boolean initialize, List<MetadataCondition> conditions) {
         super(conditions);
 
         this.initialize = initialize;
         this.compound = compound;
-        this.vec3d = pos;
+        this.vec3d = vec3d;
         this.entityTypeId = entityTypeId;
     }
 
@@ -39,6 +55,11 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
             e.refreshPositionAndAngles(x, y, z, e.getYaw() - e.applyRotation(rotation), e.getPitch());
             return e;
         });
+    }
+
+    @Override
+    public MetadataHandlerType<?> getType() {
+        return ENTITY;
     }
 
     @Override

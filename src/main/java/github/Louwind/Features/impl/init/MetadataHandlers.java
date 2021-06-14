@@ -11,6 +11,6 @@ public class MetadataHandlers {
 
     public static final MetadataHandlerType<EntityMetadataHandler> ENTITY = () -> EntityMetadataHandler.CODEC;
 
-    public static final MetadataHandlerType<LootableBlockStateMetadataHandler> LOOTABLE_BLOCKSTATE = LootableBlockStateMetadataHandler.CODEC;
+    public static final MetadataHandlerType<LootableBlockStateMetadataHandler> LOOTABLE_BLOCKSTATE = () ->LootableBlockStateMetadataHandler.CODEC;
 
 }

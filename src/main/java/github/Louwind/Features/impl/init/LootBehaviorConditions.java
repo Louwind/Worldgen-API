@@ -13,5 +13,4 @@ public class LootBehaviorConditions {
 
     public static final LootBehaviorConditionType<RandomLootBehaviorCondition> RANDOM = () -> RandomLootBehaviorCondition.CODEC;
 
-
 }

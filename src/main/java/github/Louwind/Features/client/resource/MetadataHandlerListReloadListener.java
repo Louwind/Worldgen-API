@@ -13,7 +13,7 @@ public class MetadataHandlerListReloadListener extends SimpleJsonReloadListener<
     private static final Gson GSON = FeaturesGsons.getMetadataGsonBuilder().create();
 
     public MetadataHandlerListReloadListener() {
-        super(GSON, MetadataHandlerList.class, METADATA_HANDLER_LIST, "worldgen/structure/metadata");
+        super(GSON, MetadataHandlerList.class, METADATA_HANDLER_LIST, "worldgen/metadata");
     }
 
     @Override
