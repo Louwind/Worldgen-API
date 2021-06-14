@@ -2,14 +2,22 @@ package github.Louwind.Features.util.codec;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 
 public class CodecHelper {
+
+    public static final Codec<BlockState> BLOCK_STATE = Registry.BLOCK.dispatch("name", BlockState::getBlock, (object) -> {
+        var state = object.getDefaultState();
+
+        return state.getEntries().isEmpty() ? Codec.unit(state) : state.codec.fieldOf("properties").codec();
+    });
 
     public static final Codec<BlockRotation> ROTATION = createEnum(BlockRotation::values);
 

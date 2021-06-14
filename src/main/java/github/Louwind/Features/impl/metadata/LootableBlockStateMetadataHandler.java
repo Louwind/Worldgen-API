@@ -8,6 +8,7 @@ import github.Louwind.Features.metadata.MetadataHandlerType;
 import github.Louwind.Features.metadata.condition.MetadataCondition;
 import github.Louwind.Features.metadata.condition.MetadataConditionType;
 import github.Louwind.Features.util.LootBehaviorList;
+import github.Louwind.Features.util.codec.CodecHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
@@ -22,7 +23,7 @@ import static github.Louwind.Features.impl.init.MetadataHandlers.LOOTABLE_BLOCKS
 public class LootableBlockStateMetadataHandler extends BlockStateMetadataHandler {
 
     public static final Codec<LootableBlockStateMetadataHandler> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            BlockState.CODEC.fieldOf("output_state").forGetter(handler -> handler.state),
+            CodecHelper.BLOCK_STATE.fieldOf("output_state").forGetter(handler -> handler.state),
             Codec.INT.fieldOf("flag").orElse(3).forGetter(handler -> handler.flag),
             LootBehaviorType.LIST_CODEC.fieldOf("loot_behaviors").forGetter(handle -> handle.lootBehaviors),
             MetadataConditionType.CODEC.listOf().fieldOf("conditions").orElseGet(Lists::newArrayList).forGetter(handler -> handler.conditions)

@@ -3,7 +3,9 @@
     {
       "type": "features:entity",
       "entity_type": "minecraft:item_frame",
-      "compound": "{Facing:2}"
+      "compound": {
+        "Facing": 2
+      }
     }
   ]
 }

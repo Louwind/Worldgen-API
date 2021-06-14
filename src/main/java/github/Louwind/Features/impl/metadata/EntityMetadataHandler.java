@@ -31,7 +31,7 @@ public class EntityMetadataHandler extends ConditionalMetadataHandler {
     public static final Codec<EntityMetadataHandler> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Identifier.CODEC.fieldOf("entity_type").forGetter(handler -> handler.entityTypeId),
             NbtCompound.CODEC.fieldOf("compound").forGetter(handler -> handler.compound),
-            CodecHelper.VEC3D.fieldOf("vec3d").forGetter(handler -> handler.vec3d),
+            CodecHelper.VEC3D.fieldOf("vec3d").orElse(Vec3d.ZERO).forGetter(handler -> handler.vec3d),
             Codec.BOOL.fieldOf("initialize").orElse(false).forGetter(handler -> handler.initialize),
             MetadataConditionType.CODEC.listOf().fieldOf("conditions").orElseGet(Lists::newArrayList).forGetter(handler -> handler.conditions)
     ).apply(instance, EntityMetadataHandler::new));
