@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "features",
+  "id": "worldgen",
   "version": "${version}",
   "name": "Worldgen API",
   "description": "A Minecraft Fabric mod that allows to generate world features with JSON.",
