@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.Louwind.worldgen.metadata.MetadataHandlerType;
 import github.Louwind.worldgen.metadata.condition.MetadataCondition;
 import github.Louwind.worldgen.metadata.condition.MetadataConditionType;
-import github.Louwind.worldgen.util.codec.CodecHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
@@ -21,7 +20,7 @@ import static github.Louwind.worldgen.impl.init.MetadataHandlers.BLOCKSTATE;
 public class BlockStateMetadataHandler extends ConditionalMetadataHandler {
 
     public static final Codec<BlockStateMetadataHandler> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            CodecHelper.BLOCK_STATE.fieldOf("output_state").forGetter(handler -> handler.state),
+            BlockState.CODEC.fieldOf("output_state").forGetter(handler -> handler.state),
             Codec.INT.fieldOf("flag").orElse(3).forGetter(handler -> handler.flag),
             MetadataConditionType.CODEC.listOf().fieldOf("conditions").orElseGet(Lists::newArrayList).forGetter(handler -> handler.conditions)
     ).apply(instance, BlockStateMetadataHandler::new));

@@ -3,8 +3,8 @@
     {
       "type": "worldgen:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:barrel",
-        "properties": {
+        "Name": "minecraft:barrel",
+        "Properties": {
           "facing": "east",
           "open": "false"
         }

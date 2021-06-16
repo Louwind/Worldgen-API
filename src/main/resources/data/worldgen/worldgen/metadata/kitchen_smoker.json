@@ -3,8 +3,8 @@
     {
       "type": "worldgen:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:smoker",
-        "properties": {
+        "Name": "minecraft:smoker",
+        "Properties": {
           "facing": "north",
           "lit": "false"
         }

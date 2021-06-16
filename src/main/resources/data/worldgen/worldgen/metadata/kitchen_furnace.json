@@ -3,8 +3,8 @@
     {
       "type": "worldgen:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:furnace",
-        "properties": {
+        "Name": "minecraft:furnace",
+        "Properties": {
           "facing": "east",
           "lit": "false"
         }

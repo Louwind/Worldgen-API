@@ -3,8 +3,8 @@
     {
       "type": "worldgen:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:brewing_stand",
-        "properties": {
+        "Name": "minecraft:brewing_stand",
+        "Properties": {
           "has_bottle_0": "false",
           "has_bottle_1": "false",
           "has_bottle_2": "false"

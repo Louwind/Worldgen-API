@@ -3,8 +3,8 @@
     {
       "type": "worldgen:lootable_blockstate",
       "output_state": {
-        "name": "minecraft:campfire",
-        "properties": {
+        "Name": "minecraft:campfire",
+        "Properties": {
           "facing": "north",
           "lit": "false",
           "signal_fire": "false",
