@@ -1,6 +1,6 @@
 package github.Louwind.worldgen;
 
-import github.Louwind.worldgen.client.resource.*;
+import github.Louwind.worldgen.client.resource.MetadataHandlerListReloadListener;
 import github.Louwind.worldgen.impl.init.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -14,15 +14,7 @@ public class Worldgen implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new BiomeReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ChunkGeneratorSettingsReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructureProcessorListReloadListener());
         ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new MetadataHandlerListReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new StructurePoolReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredCarverReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredFeatureReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredStructureFeatureReloadListener());
-        ResourceManagerHelper.get(SERVER_DATA).registerReloadListener(new ConfiguredSurfaceBuilderReloadListener());
 
         Registry.register(FEATURE, "worldgen:jigsaw", Features.JIGSAW);
 
