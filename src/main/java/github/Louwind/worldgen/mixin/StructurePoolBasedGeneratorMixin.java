@@ -23,12 +23,12 @@ public class StructurePoolBasedGeneratorMixin {
 
     private static StructurePoolFeatureConfig config;
 
-    @Inject(method = "method_30419", at = @At("HEAD"))
+    @Inject(method = "generate", at = @At("HEAD"))
     private static void b(DynamicRegistryManager dynamicRegistryManager, StructurePoolFeatureConfig structurePoolFeatureConfig, StructurePoolBasedGenerator.PieceFactory pieceFactory, ChunkGenerator chunkGenerator, StructureManager structureManager, BlockPos blockPos, StructurePiecesHolder structurePiecesHolder, Random random, boolean bl, boolean bl2, HeightLimitView heightLimitView, CallbackInfo ci) {
         config = structurePoolFeatureConfig;
     }
 
-    @Redirect(method = "method_30419", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/BlockRotation;random(Ljava/util/Random;)Lnet/minecraft/util/BlockRotation;"))
+    @Redirect(method = "generate", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/BlockRotation;random(Ljava/util/Random;)Lnet/minecraft/util/BlockRotation;"))
     private static BlockRotation a(Random random) {
 
         if(config instanceof JigsawFeatureConfig) {

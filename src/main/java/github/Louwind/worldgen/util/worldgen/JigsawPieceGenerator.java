@@ -16,7 +16,7 @@ import java.util.Random;
 public class JigsawPieceGenerator {
 
     public static StructurePiecesHolder addPieces(DynamicRegistryManager registryManager, StructureManager structureManager, JigsawFeatureConfig config, StructurePoolBasedGenerator.PieceFactory pieceFactory, ChunkGenerator chunkGenerator, StructurePiecesHolder holder, Chunk chunk, BlockPos pos, Random random) {
-        StructurePoolBasedGenerator.method_30419(registryManager, config, pieceFactory, chunkGenerator, structureManager, pos, holder, random, config.getKeepJigsaws(), config.isSurface(), chunk);
+        StructurePoolBasedGenerator.generate(registryManager, config, pieceFactory, chunkGenerator, structureManager, pos, holder, random, config.getKeepJigsaws(), config.isSurface(), chunk);
 
         return holder;
     }

@@ -26,7 +26,7 @@ public class JigsawFeature extends Feature<JigsawFeatureConfig> {
         return JigsawPieceGenerator.addPieces(server, config, chunk, origin)
                 .getPieces()
                 .stream()
-                .allMatch(piece -> piece.generate(server, accessor, chunkGenerator, random, BlockBox.empty(), chunk.getPos(), origin));
+                .allMatch(piece -> piece.generate(server, accessor, chunkGenerator, random, BlockBox.infinite(), chunk.getPos(), origin));
     }
 
 }
