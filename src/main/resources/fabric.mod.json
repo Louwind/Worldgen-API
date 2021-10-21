@@ -3,7 +3,7 @@
   "id": "worldgen",
   "version": "${version}",
   "name": "Worldgen API",
-  "description": "A Minecraft Fabric mod that allows to generate world features with JSON.",
+  "description": "A worldgen utility mod.",
   "authors": [
     "Louwind"
   ],
@@ -24,9 +24,9 @@
     "worldgen.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.12.2",
     "fabric": "*",
-    "minecraft": "~1.18",
+    "minecraft": "1.18.x",
     "java": ">=16"
   },
   "suggests": {

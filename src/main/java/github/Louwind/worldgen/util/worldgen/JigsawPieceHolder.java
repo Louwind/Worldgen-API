@@ -10,7 +10,7 @@ import java.util.List;
 
 public class JigsawPieceHolder implements StructurePiecesHolder {
 
-    protected List<StructurePiece> pieces = Lists.newArrayList();
+    protected final List<StructurePiece> pieces = Lists.newArrayList();
 
     @Override
     public void addPiece(StructurePiece piece) {

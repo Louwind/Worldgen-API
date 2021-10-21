@@ -1,6 +1,0 @@
-{
-  "type": "worldgen:jigsaw",
-  "config": {
-    "start_pool": "worldgen:bedrooms"
-  }
-}

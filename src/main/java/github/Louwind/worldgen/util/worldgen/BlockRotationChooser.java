@@ -9,17 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class BlockRotationChooser {
+public record BlockRotationChooser(List<BlockRotation> rotations) {
 
     public static final Codec<BlockRotationChooser> CODEC = CodecHelper.ROTATION.listOf().xmap(BlockRotationChooser::new, BlockRotationChooser::getRotations);
 
     public static final BlockRotationChooser ALL = new BlockRotationChooser(Arrays.asList(BlockRotation.values()));
-
-    private final List<BlockRotation> rotations;
-
-    private BlockRotationChooser(List<BlockRotation> rotations) {
-        this.rotations = rotations;
-    }
 
     public List<BlockRotation> getRotations() {
         return this.rotations;

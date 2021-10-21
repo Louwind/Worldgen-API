@@ -1,8 +1,3 @@
 {
-  "item.worldgen.bedroom_debug_stick": "Bedroom Debug Stick",
-  "item.worldgen.bookshelf_debug_stick": "Bookshelf Debug Stick",
-  "item.worldgen.dress_room_debug_stick": "Dress Room Debug Stick",
-  "item.worldgen.kitchen_debug_stick": "Kitchen Debug Stick",
-  "item.worldgen.well_debug_stick": "Well Debug Stick",
-  "item.worldgen.wine_storage_debug_stick": "Wine Storage Debug Stick"
+  "item.worldgen.feature_debug_stick": "Feature Debug Stick"
 }
